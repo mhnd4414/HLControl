@@ -1,0 +1,281 @@
+﻿''' <summary>
+''' 和电脑系统相关操作的模块
+''' </summary>
+Public Module 系统
+
+
+    ''' <summary>
+    ''' 从剪贴板内获得字符串或图片
+    ''' </summary>
+    Public NotInheritable Class 剪贴板
+
+        Protected Sub New()
+        End Sub
+
+        ''' <summary>
+        ''' 清空剪贴板的内容
+        ''' </summary>
+        Public Shared Sub 清空()
+            尝试(Sub()
+                   My.Computer.Clipboard.Clear()
+               End Sub)
+        End Sub
+
+        ''' <summary>
+        ''' 获取或设置剪贴板的字符串
+        ''' </summary>
+        Public Shared Property 文本 As String
+            Get
+                Dim s As String = ""
+                尝试(Sub()
+                       If My.Computer.Clipboard.ContainsText Then s = My.Computer.Clipboard.GetText
+                   End Sub)
+                Return s
+            End Get
+            Set(内容 As String)
+                If IsNothing(内容) OrElse 内容.Length < 1 Then
+                    清空()
+                    Exit Property
+                End If
+                尝试(Sub()
+                       My.Computer.Clipboard.SetText(内容)
+                   End Sub)
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' 获取或设置剪贴板的图片
+        ''' </summary>
+        Public Shared Property 图片 As Image
+            Get
+                Dim g As Image = Nothing
+                尝试(Sub()
+                       If My.Computer.Clipboard.ContainsImage Then g = My.Computer.Clipboard.GetImage
+                   End Sub)
+                Return g
+            End Get
+            Set(内容 As Image)
+                If IsNothing(内容) Then
+                    清空()
+                    Exit Property
+                End If
+                尝试(Sub()
+                       My.Computer.Clipboard.SetImage(内容)
+                   End Sub)
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' 获取剪贴板里存储的 Windows Explorer 的复制文件列表
+        ''' </summary>
+        Public Shared ReadOnly Property 文件列表 As List(Of String)
+            Get
+                Dim g As New List(Of String)
+                尝试(Sub()
+                       If My.Computer.Clipboard.ContainsFileDropList Then
+                           For Each i As String In My.Computer.Clipboard.GetFileDropList()
+                               If i.Length > 2 AndAlso g.Contains(i) = False Then g.Add(i)
+                           Next
+                       End If
+                   End Sub)
+                Return g
+            End Get
+        End Property
+
+    End Class
+
+    ''' <summary>
+    ''' 获取电脑系统的一些信息
+    ''' </summary>
+    Public NotInheritable Class 系统信息
+
+        Protected Sub New()
+        End Sub
+
+        ''' <summary>
+        ''' 获取电脑CPU的名字字符串，如果获取失败就返回 Unknown CPU
+        ''' </summary>
+        Public Shared ReadOnly Property CPU型号 As String
+            Get
+                Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "ProcessorNameString", "Unknown CPU").ToString.Trim
+                Return s
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回电脑CPU的频率，单位为MHZ
+        ''' </summary>
+        Public Shared ReadOnly Property CPU频率 As UInteger
+            Get
+                Static s As UInteger = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "~MHz", 0)
+                Return s
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 获取电脑CPU的名字字符串，如果获取失败就返回 Unknown CPU
+        ''' </summary>
+        Public Shared ReadOnly Property 屏幕大小 As Size
+            Get
+                Static m As Size = My.Computer.Screen.Bounds.Size
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 获取电脑的显示DPI，并强制转换为0.25的倍数
+        ''' </summary>
+        Public Shared ReadOnly Property DPI As Single
+            Get
+                Static d As Single = 0
+                If d = 0 Then
+                    Dim n As Integer = Registry.GetValue("HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics", "AppliedDPI", 100)
+                    If n < 100 Then n = 100
+                    For i As Integer = 50 To 2000 Step 25
+                        If Math.Abs(i - n) < 12.5 Then
+                            n = i
+                            Exit For
+                        End If
+                    Next
+                    d = n / 100
+                End If
+                Return d
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 获取电脑的名字
+        ''' </summary>
+        Public Shared ReadOnly Property 电脑名 As String
+            Get
+                Static m As String = My.Computer.Name
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回CPU的核心数量
+        ''' </summary>
+        ''' <returns></returns>
+        Public Shared ReadOnly Property CPU核心数量 As UInteger
+            Get
+                Static m As UInteger = Registry.LocalMachine.OpenSubKey("HARDWARE\DESCRIPTION\System\CentralProcessor", False).SubKeyCount
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回当前的系统用户的用户名
+        ''' </summary>
+        Public Shared ReadOnly Property 用户名 As String
+            Get
+                Static m As String = 提取之后(My.User.Name, "\")
+                Return m
+            End Get
+        End Property
+
+    End Class
+
+    ''' <summary>
+    ''' 获取电脑网络相关的一些信息
+    ''' </summary>
+    Public NotInheritable Class 网络信息
+
+        Protected Sub New()
+        End Sub
+
+        ''' <summary>
+        ''' 是否存在任意可用本地或互联网的网络连接
+        ''' </summary>
+        ''' <returns></returns>
+        Public Shared ReadOnly Property 存在连接 As Boolean
+            Get
+                Return My.Computer.Network.IsAvailable
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 获取本地的所以网卡的IP列表，包括ipv4和ipv6
+        ''' </summary>
+        Public Shared ReadOnly Property 本地IP列表 As List(Of String)
+            Get
+                Dim m As New List(Of String), s As String
+                If 存在连接 Then
+                    For Each ip As IPAddress In Dns.GetHostEntry(Dns.GetHostName).AddressList
+                        s = ip.ToString
+                        If s.Length > 4 Then m.Add(s)
+                    Next
+                End If
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 获取本地的所以网卡的IPv4列表
+        ''' </summary>
+        Public Shared ReadOnly Property 本地IPv4列表 As List(Of String)
+            Get
+                Dim m As New List(Of String), s As String
+                If 存在连接 Then
+                    For Each ip As IPAddress In Dns.GetHostEntry(Dns.GetHostName).AddressList
+                        s = ip.ToString
+                        If s.Length > 4 AndAlso 包含(s, ":") = False Then m.Add(s)
+                    Next
+                End If
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 获取本地的所以网卡的IPv6列表
+        ''' </summary>
+        Public Shared ReadOnly Property 本地IPv6列表 As List(Of String)
+            Get
+                Dim m As New List(Of String), s As String
+                If 存在连接 Then
+                    For Each ip As IPAddress In Dns.GetHostEntry(Dns.GetHostName).AddressList
+                        s = ip.ToString
+                        If s.Length > 4 AndAlso 包含(s, ":") Then m.Add(s)
+                    Next
+                End If
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 获取本地的首选ipv4地址
+        ''' </summary>
+        Public Shared ReadOnly Property 首选IPv4地址 As String
+            Get
+                If 存在连接 Then
+                    Dim s As String = PowerShell运行脚本("ipconfig")
+                    If s.Length > 100 Then
+                        s = s.ToLower()
+                        s = 提取最之前(提取之后(s, "windows", "ipv4", ":"), vbCrLf).Trim
+                    End If
+                    Return s
+                End If
+                Return ""
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 获取本地的首选ipv4地址
+        ''' </summary>
+        Public Shared ReadOnly Property 首选IPv6地址 As String
+            Get
+                If 存在连接 Then
+                    Dim s As String = PowerShell运行脚本("ipconfig")
+                    If s.Length > 100 Then
+                        s = s.ToLower()
+                        s = 提取最之前(提取之后(s, "windows", "ipv6", ":"), vbCrLf).Trim
+                    End If
+                    Return s
+                End If
+                Return ""
+            End Get
+        End Property
+
+    End Class
+
+End Module

@@ -154,10 +154,23 @@ Public Module 程序
         Try
             内容.Invoke
         Catch ex As Exception
-            输出("出错：" + ex.Message + vbCrLf + ex.StackTrace)
+            输出("出错：" + ex.Message + " " + 替换(左(ex.StackTrace, 100), vbCrLf, " "))
             Return False
         End Try
         Return True
+    End Function
+
+    ''' <summary>
+    ''' Try 一个 sub，如果成功就返回""，失败就返回错误内容
+    ''' </summary>
+    Public Function 尝试结果(内容 As ThreadStart) As String
+        Try
+            内容.Invoke
+        Catch ex As Exception
+            输出("出错：" + ex.Message + " " + 替换(左(ex.StackTrace, 100), vbCrLf, " "))
+            Return ex.Message
+        End Try
+        Return ""
     End Function
 
     ''' <summary>

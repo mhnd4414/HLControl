@@ -41,7 +41,7 @@ Public Module HTTP
     ''' </summary>
     Public Class 发送HTTP
 
-        Private headers As WebHeaderCollection, write As List(Of Byte)
+        Private headers As WebHeaderCollection, write As List(Of Byte), err As String
 
         ''' <summary>
         ''' 新建一个HTTP请求
@@ -58,6 +58,7 @@ Public Module HTTP
             Referer = ""
             write = New List(Of Byte)
             超时 = 8
+            err = ""
         End Sub
 
         ''' <summary>
@@ -184,34 +185,43 @@ Public Module HTTP
         End Sub
 
         ''' <summary>
+        ''' 如果出错，错误的信息会显示在这里
+        ''' </summary>
+        Public ReadOnly Property 错误信息 As String
+            Get
+                Return err
+            End Get
+        End Property
+
+        ''' <summary>
         ''' 发送请求，获取回应并读取为字节数组，如果出错会返回nothing
         ''' </summary>
         Public Function 获取回应为字节数组() As Byte()
             Dim b() As Byte = Nothing
-            If 尝试(Sub()
-                      Dim h As HttpWebRequest = WebRequest.Create(链接)
-                      With h
-                          .Timeout = 超时 * 1000
-                          .Method = 方法
-                          If Accept.Length > 0 Then .Accept = Accept
-                          If Content_Type.Length > 0 Then .ContentType = Content_Type
-                          For Each i As String In headers.AllKeys
-                              .Headers.Remove(i)
-                              .Headers.Add(i, headers.Get(i))
-                          Next
-                          If Referer.Length > 0 Then .Referer = Referer
-                          If UA.Length > 0 Then .UserAgent = UA
-                          If write.Count > 0 Then
-                              Dim w() As Byte = write.ToArray
-                              .GetRequestStream.Write(w, 0, w.Length)
-                          End If
-                          Dim s As Stream = .GetResponse.GetResponseStream()
-                          b = 读至末尾(s)
-                          s.Close()
-                      End With
-                  End Sub) = False Then
-                Return Nothing
-            End If
+            Dim e As String = 尝试结果(Sub()
+                                       Dim h As HttpWebRequest = WebRequest.Create(链接)
+                                       With h
+                                           .Method = 方法
+                                           If Accept.Length > 0 Then .Accept = Accept
+                                           If Content_Type.Length > 0 Then .ContentType = Content_Type
+                                           For Each i As String In headers.AllKeys
+                                               .Headers.Remove(i)
+                                               .Headers.Add(i, headers.Get(i))
+                                           Next
+                                           If Referer.Length > 0 Then .Referer = Referer
+                                           If UA.Length > 0 Then .UserAgent = UA
+                                           .Timeout = 超时 * 1000
+                                           If write.Count > 0 Then
+                                               Dim w() As Byte = write.ToArray
+                                               .GetRequestStream.Write(w, 0, w.Length)
+                                           End If
+                                           Dim s As Stream = .GetResponse.GetResponseStream()
+                                           b = 读至末尾(s)
+                                           s.Close()
+                                       End With
+                                   End Sub)
+            err = e
+            If e <> "" Then Return Nothing
             Return b
         End Function
 
@@ -311,7 +321,7 @@ Public Module HTTP
         ''' 写入一个参数，默认不写类型，无需对写入内容进行URL编码
         ''' </summary>
         Public Sub 写入参数(名字 As String, 内容 As String, Optional 类型 As String = "")
-            If 名字.Length < 1 Then Exit Sub
+            If 名字.Length <1 Then Exit Sub
             AddHead()
             Dim s As String = "Content-Disposition: form-data; name=" + 引(URL编码(名字)) + vbCrLf
             If 类型.Length > 0 Then s += "Content-Type: " + 类型 + vbCrLf

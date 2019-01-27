@@ -191,6 +191,16 @@ Public Module 文本
     End Function
 
     ''' <summary>
+    ''' 从文本中正则去除对应的内容
+    ''' </summary>
+    Public Function 正则去除(文本 As String, ParamArray 内容() As String) As String
+        For Each i As String In 内容
+            If 文本.Length > 0 AndAlso i.Length > 0 Then 文本 = Regex.Replace(文本, i, "")
+        Next
+        Return 文本
+    End Function
+
+    ''' <summary>
     ''' 没有 BOM 标识的 UTF-8 编码
     ''' </summary>
     ''' <returns></returns>

@@ -191,16 +191,6 @@ Public Module 文本
     End Function
 
     ''' <summary>
-    ''' 从文本中正则去除对应的内容
-    ''' </summary>
-    Public Function 正则去除(文本 As String, ParamArray 内容() As String) As String
-        For Each i As String In 内容
-            If 文本.Length > 0 AndAlso i.Length > 0 Then 文本 = Regex.Replace(文本, i, "")
-        Next
-        Return 文本
-    End Function
-
-    ''' <summary>
     ''' 没有 BOM 标识的 UTF-8 编码
     ''' </summary>
     ''' <returns></returns>
@@ -384,6 +374,72 @@ Public Module 文本
         Next
         Return 文本标准化(t)
     End Function
+
+    ''' <summary>
+    ''' 把数组里的每一项.ToString拼接起来，其中中间是指定的连接符
+    ''' </summary>
+    Public Function 数组拼接文本(连接符 As String, ParamArray 数组() As Object) As String
+        Dim s As String = ""
+        For Each i As Object In 数组
+            s += i.ToString + 连接符
+        Next
+        Return 去右(s, 连接符.Length)
+    End Function
+
+    ''' <summary>
+    ''' 把数组里的每一项.ToString拼接起来
+    ''' </summary>
+    Public Function 数组拼接文本(数组() As String) As String
+        Return 数组拼接文本("", 数组)
+    End Function
+
+    ''' <summary>
+    ''' 一些比原版更好的正则处理
+    ''' </summary>
+    Public NotInheritable Class 正则
+
+        Protected Sub New()
+        End Sub
+
+        ''' <summary>
+        ''' 判断这个正则表达式是否正确，如果长度为0算false
+        ''' </summary>
+        Public Shared Function 是正确表达式(表达式 As String) As Boolean
+            If 表达式.Length < 1 Then Return False
+            Return 尝试(Sub()
+                          Dim b As Boolean = Regex.IsMatch("a", 表达式)
+                      End Sub)
+        End Function
+
+        ''' <summary>
+        ''' 正则替换内容
+        ''' </summary>
+        Public Shared Function 替换(文本 As String, ParamArray 表达式() As String) As String
+            Dim c As Integer = 表达式.Length - 1
+            If c > 0 Then
+                If 是偶数(c) Then c -= 1
+                For i As Integer = 0 To c Step 2
+                    If 是正确表达式(表达式(i)) AndAlso 文本.Length > 0 Then
+                        文本 = Regex.Replace(文本, 表达式(i), 表达式(i + 1))
+                    End If
+                    If 文本.Length < 1 Then Exit For
+                Next
+            End If
+            Return 文本
+        End Function
+
+        ''' <summary>
+        ''' 把文本中符合表达式的部分都去除
+        ''' </summary>
+        Public Shared Function 去除(文本 As String, ParamArray 表达式() As String) As String
+            For Each i As String In 表达式
+                If 文本.Length > 0 AndAlso 是正确表达式(i) Then 文本 = Regex.Replace(文本, i, "")
+            Next
+            Return 文本
+        End Function
+
+    End Class
+
 
     ''' <summary>
     ''' Base64加密解密类

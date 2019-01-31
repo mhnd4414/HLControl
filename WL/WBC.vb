@@ -80,7 +80,7 @@ Public Module WBC
         ''' <summary>
         ''' 根据名字（不分大小写）读取或保存值，返回的是字符串，如果不存在就返回""
         ''' </summary>
-        Public Property 字符串(ParamArray 名字() As String) As String
+        Private Property 字符串(ParamArray 名字() As String) As String
             Get
                 Return GetV(GenName(名字))
             End Get
@@ -93,6 +93,42 @@ Public Module WBC
                         m.Add(s, 值)
                     End If
                 End If
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' 根据名字（不分大小写）读取或保存值，返回的是 Double，如果不存在就返回0
+        ''' </summary>
+        Public Property 数字(ParamArray 名字() As String) As Double
+            Get
+                Return Val(字符串(名字))
+            End Get
+            Set(值 As Double)
+                字符串(名字) = 值.ToString
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' 根据名字（不分大小写）读取或保存值，返回的是 Boolean，如果不存在就返回False
+        ''' </summary>
+        Public Property 真假(ParamArray 名字() As String) As Boolean
+            Get
+                Return 字符串(名字).Length = 1
+            End Get
+            Set(值 As Boolean)
+                字符串(名字) = IIf(值, "t", "")
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' 根据名字（不分大小写）读取或保存值，返回的是 Date，如果不存在就返回#1970-01-01 00:00:00#
+        ''' </summary>
+        Public Property 时间(ParamArray 名字() As String) As Date
+            Get
+                Return 时间戳转出(Val(字符串(名字)))
+            End Get
+            Set(值 As Date)
+                字符串(名字) = 转时间戳(值, False)
             End Set
         End Property
 

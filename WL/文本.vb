@@ -528,7 +528,7 @@ Public Module 文本
     End Class
 
     ''' <summary>
-    ''' 把Markdown文本转为HTML，但是，这只是比较简单的替换，这并不是完美的，不支持引用和列表嵌套
+    ''' 把Markdown文本转为HTML，不支持引用和列表嵌套，不提供p只提供br
     ''' </summary>
     Public Function Markdown转HTML(MD As String) As String
         If MD.Length > 2 Then
@@ -537,17 +537,17 @@ Public Module 文本
             MD = 正则.替换(MD, "((^>.*[\n|$])+)", "<blockquote>$1</blockquote>", "<blockquote>>", "<blockquote>", "^>*", "")
             MD = 正则.替换(MD, "((^[0-9]+\. (.*)[\n|$])+)", "<ol>$1</ol>", "[0-9]+\. (.*)", "<li>$1</li>")
             MD = 正则.替换(MD, "((- .*[\n|$])+)", "<ul>$1</ul>", "- (.*)", "<li>$1</li>", "<li>\n", "<li>", "\n</li>", "</li>")
-            For i = 1 To 6
-                MD = 正则.替换(MD, "^" + 重复("#", i) + " (.+?)$", "<hB>$1</hB>".Replace("B", i.ToString))
-            Next
-            MD = 正则.替换(MD, "\*\*(.+?)\*\*", "<b>$1</b>", "\*(.+?)\*", "<i>$1</i>", "!\[(.*?)\]\((.+?)\)", "<img alt=""$1"" src=""$2"">")
             MD = 正则.替换(MD, "^```([\S|\s]*?)\n```", "<code>$1</code>", "`+(.+?)`+", "<code>$1</code>", "^(-){3,}[\n|$]", "\n<hr>")
             For Each m In 正则.检索(MD, "<code>([\S|\s]*?)</code>")
                 s = m.ToString
                 MD = 替换(MD, s, 替换(s, " ", "&nbsp;"))
             Next
+            MD = 正则.替换(MD, "^ *", "", "\*\*(.+?)\*\*", "<b>$1</b>", "\*(.+?)\*", "<i>$1</i>", "!\[(.*?)\]\((.+?)\)", "<img alt=""$1"" src=""$2"">")
             MD = 正则.替换(MD, "\[(.*?)\]\((.+?)\)", "<a href=""$2"" target=""_blank"">$1</a>")
-            MD = 正则.替换(MD, "^ *", "", "\n\n", "<br>", "  \n", "<br>", "<br>", "\n<br>\n")
+            For i = 1 To 6
+                MD = 正则.替换(MD, "^" + 重复("#", i) + " (.+?)$", "<hB>$1</hB>".Replace("B", i.ToString))
+            Next
+            MD = 正则.替换(MD, "\n\n", "<br>", "  \n", "<br>", "<br>", "\n<br>\n")
         End If
         Return MD
     End Function

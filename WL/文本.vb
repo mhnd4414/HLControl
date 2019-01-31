@@ -13,7 +13,7 @@ Public Module 文本
             If 文本.Length > 0 Then
                 If 文本.IsNormalized = False Then 文本 = 文本.Normalize
                 If 包含(文本, vbCr, vbLf) Then 文本 = 替换(文本, vbCrLf, vbLf, vbCr, vbLf, vbLf, vbCrLf)
-                If 包含(文本, vbTab) Then 文本 = 替换(文本, vbTab, "    ")
+                If 包含(文本, vbTab) Then 文本 = 替换(文本, vbTab, Space(4))
                 Dim i As Integer
                 For i = 0 To 31
                     If i <> 10 AndAlso i <> 13 Then
@@ -394,12 +394,31 @@ Public Module 文本
     End Function
 
     ''' <summary>
-    ''' 一些比原版更好的正则处理
+    ''' 把文本重复几次后返回
+    ''' </summary>
+    Public Function 重复(文本 As String, 次数 As UInteger) As String
+        If 次数 < 1 OrElse 文本.Length < 1 Then Return ""
+        Dim m As String = ""
+        For i As Integer = 1 To 次数
+            m += 文本
+        Next
+        Return m
+    End Function
+
+    ''' <summary>
+    ''' 一些比原版更好的正则处理，规则为大小写、多行模式，\r和\n都可以表示换行，无需特别注意
     ''' </summary>
     Public NotInheritable Class 正则
 
         Protected Sub New()
         End Sub
+
+        Private Shared Property rule() As RegexOptions = RegexOptions.Multiline + RegexOptions.IgnoreCase
+
+        Private Shared Function FixRN(ByRef p As String) As String
+            p = 文本.替换(p, "\r", "\n", "\n\n", "\n", "\n", "\r\n", "\r\n", vbCrLf)
+            Return p
+        End Function
 
         ''' <summary>
         ''' 判断这个正则表达式是否正确，如果长度为0算false
@@ -407,7 +426,7 @@ Public Module 文本
         Public Shared Function 是正确表达式(表达式 As String) As Boolean
             If 表达式.Length < 1 Then Return False
             Return 尝试(Sub()
-                          Dim b As Boolean = Regex.IsMatch("a", 表达式)
+                          Dim b As Boolean = Regex.IsMatch("a", 表达式, rule)
                       End Sub)
         End Function
 
@@ -420,7 +439,7 @@ Public Module 文本
                 If 是偶数(c) Then c -= 1
                 For i As Integer = 0 To c Step 2
                     If 是正确表达式(表达式(i)) AndAlso 文本.Length > 0 Then
-                        文本 = Regex.Replace(文本, 表达式(i), 表达式(i + 1))
+                        文本 = Regex.Replace(文本标准化(文本), FixRN(表达式(i)), FixRN(表达式(i + 1)), rule)
                     End If
                     If 文本.Length < 1 Then Exit For
                 Next
@@ -433,13 +452,35 @@ Public Module 文本
         ''' </summary>
         Public Shared Function 去除(文本 As String, ParamArray 表达式() As String) As String
             For Each i As String In 表达式
-                If 文本.Length > 0 AndAlso 是正确表达式(i) Then 文本 = Regex.Replace(文本, i, "")
+                If 文本.Length > 0 AndAlso 是正确表达式(i) Then 文本 = Regex.Replace(文本标准化(文本), FixRN(i), "", rule)
             Next
             Return 文本
         End Function
 
-    End Class
+        ''' <summary>
+        ''' 文本当中是否可以匹配到表达式当中的一个
+        ''' </summary>
+        Public Shared Function 包含(文本 As String, ParamArray 表达式() As String) As Boolean
+            If 文本.Length < 1 Then Return False
+            For Each i As String In 表达式
+                If 是正确表达式(i) AndAlso Regex.IsMatch(文本标准化(文本), FixRN(i), rule) Then Return True
+            Next
+            Return False
+        End Function
 
+        ''' <summary>
+        ''' 相当于 Regex.Matches
+        ''' </summary>
+        Public Shared Function 检索(文本 As String, 表达式 As String) As List(Of Match)
+            Dim g As New List(Of Match)
+            If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return g
+            For Each i As Match In Regex.Matches(文本标准化(文本), FixRN(表达式), rule)
+                g.Add(i)
+            Next
+            Return g
+        End Function
+
+    End Class
 
     ''' <summary>
     ''' Base64加密解密类
@@ -485,5 +526,30 @@ Public Module 文本
         End Function
 
     End Class
+
+    ''' <summary>
+    ''' 把Markdown文本转为HTML，但是，这只是比较简单的替换，这并不是完美的，不支持引用和列表嵌套
+    ''' </summary>
+    Public Function Markdown转HTML(MD As String) As String
+        If MD.Length > 2 Then
+            Dim i As Integer, s As String, m As Match
+            MD = 去连续重复(文本标准化(MD), vbCrLf + vbCrLf)
+            MD = 正则.替换(MD, "((^>.*[\n|$])+)", "<blockquote>$1</blockquote>", "<blockquote>>", "<blockquote>", "^>*", "")
+            MD = 正则.替换(MD, "((^[0-9]+\. (.*)[\n|$])+)", "<ol>$1</ol>", "[0-9]+\. (.*)", "<li>$1</li>")
+            MD = 正则.替换(MD, "((- .*[\n|$])+)", "<ul>$1</ul>", "- (.*)", "<li>$1</li>", "<li>\n", "<li>", "\n</li>", "</li>")
+            For i = 1 To 6
+                MD = 正则.替换(MD, "^" + 重复("#", i) + " (.+?)$", "<hB>$1</hB>".Replace("B", i.ToString))
+            Next
+            MD = 正则.替换(MD, "\*\*(.+?)\*\*", "<b>$1</b>", "\*(.+?)\*", "<i>$1</i>", "!\[(.*?)\]\((.+?)\)", "<img alt=""$1"" src=""$2"">")
+            MD = 正则.替换(MD, "^```([\S|\s]*?)\n```", "<code>$1</code>", "`+(.+?)`+", "<code>$1</code>", "^(-){3,}[\n|$]", "\n<hr>")
+            For Each m In 正则.检索(MD, "<code>([\S|\s]*?)</code>")
+                s = m.ToString
+                MD = 替换(MD, s, 替换(s, " ", "&nbsp;"))
+            Next
+            MD = 正则.替换(MD, "\[(.*?)\]\((.+?)\)", "<a href=""$2"" target=""_blank"">$1</a>")
+            MD = 正则.替换(MD, "^ *", "", "\n\n", "<br>", "  \n", "<br>", "<br>", "\n<br>\n")
+        End If
+        Return MD
+    End Function
 
 End Module

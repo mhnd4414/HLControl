@@ -1,12 +1,12 @@
 ﻿''' <summary>
 ''' Walkedby's Config 走過去的配置文件模块
 ''' </summary>
-Public Module WBC
+Public Module WBC模块
 
     ''' <summary>
     ''' WBC文件类
     ''' </summary>
-    Public Class WBC文件
+    Public Class WBC
 
         Private m As Dictionary(Of String, String)
         Private Const head As String = "这是戈登走過去的配置文件，请不要乱修改"

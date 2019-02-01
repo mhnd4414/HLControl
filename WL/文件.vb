@@ -142,7 +142,23 @@ Public Module 文件
     End Function
 
     ''' <summary>
-    ''' 尝试创建文件夹，返回创建成功是否
+    ''' 把文件复制到目的地，返回是否复制成功
+    ''' </summary>
+    Public Function 复制文件(文件 As String, 目的文件 As String) As Boolean
+        If 文件存在(文件) AndAlso 创建文件夹(路径(目的文件)) Then
+            If 文件存在(目的文件) = False OrElse 删除文件(目的文件) Then
+                If 尝试(Sub()
+                          File.Copy(文件, 目的文件, True)
+                      End Sub) Then
+                    Return 文件大小Byte(目的文件) = 文件大小Byte(文件)
+                End If
+            End If
+        End If
+        Return False
+    End Function
+
+    ''' <summary>
+    ''' 尝试创建文件夹，返回文件夹是否已经成功存在
     ''' </summary>
     Public Function 创建文件夹(路径 As String) As Boolean
         If 文件夹存在(路径) Then Return True

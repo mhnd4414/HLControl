@@ -17,6 +17,19 @@ Public Module 文件
     End Function
 
     ''' <summary>
+    ''' 判断这个文件名或者文件夹名当中是否包含不应该包含的字符
+    ''' </summary>
+    Public Function 合格文件名(名字 As String) As Boolean
+        名字 = 名字.Trim
+        Dim l As Integer = 名字.Length
+        If l < 1 OrElse l > 250 Then Return False
+        For Each i As Char In "/\:*?<>|" + 引号
+            If 名字.Contains(i) Then Return False
+        Next
+        Return True
+    End Function
+
+    ''' <summary>
     ''' 返回文本当中的小写盘符
     ''' </summary>
     Public Function 盘符(文件 As String) As String

@@ -44,7 +44,7 @@ Public Module 程序
         End Property
 
         ''' <summary>
-        ''' 获得本程序的文件名
+        ''' 获得本程序的文件名，不包含.exe
         ''' </summary>
         ''' <returns></returns>
         Public Shared ReadOnly Property 文件名() As String
@@ -151,13 +151,7 @@ Public Module 程序
     ''' Try 一个 sub，返回是否完全执行成功
     ''' </summary>
     Public Function 尝试(内容 As ThreadStart) As Boolean
-        Try
-            内容.Invoke
-        Catch ex As Exception
-            输出("出错：" + ex.Message + " " + 替换(左(ex.StackTrace, 100), vbCrLf, " "))
-            Return False
-        End Try
-        Return True
+        Return 尝试结果(内容).Length < 1
     End Function
 
     ''' <summary>
@@ -167,7 +161,7 @@ Public Module 程序
         Try
             内容.Invoke
         Catch ex As Exception
-            输出("出错：" + ex.Message + " " + 替换(左(ex.StackTrace, 100), vbCrLf, " "))
+            输出("出错：" + ex.Message + " " + ex.StackTrace)
             Return ex.Message
         End Try
         Return ""

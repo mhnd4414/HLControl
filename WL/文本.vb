@@ -480,6 +480,28 @@ Public Module 文本
             Return g
         End Function
 
+        ''' <summary>
+        ''' 把文本进行分块，不匹配表达式的一块，匹配表达式的一块，组成一个列表
+        ''' </summary>
+        Public Shared Function 分块(文本 As String, 表达式 As String) As List(Of String)
+            Dim ms As List(Of Match) = 检索(文本, 表达式), g As New List(Of String)
+            If ms.Count < 1 Then
+                g.Add(文本)
+            Else
+                Dim last As UInteger = 0, min As Integer = 0
+                For Each i As Match In ms
+                    min = i.Index - last
+                    If min <> 0 Then
+                        g.Add(文本.Substring(last, min))
+                        last += min
+                    End If
+                    g.Add(i.ToString)
+                    last += i.Length
+                Next
+            End If
+            Return g
+        End Function
+
     End Class
 
     ''' <summary>
@@ -545,7 +567,8 @@ Public Module 文本
             MD = 正则.替换(MD, "^ *", "", "\*\*(.+?)\*\*", "<b>$1</b>", "\*(.+?)\*", "<i>$1</i>", "!\[(.*?)\]\((.+?)\)", "<img alt=""$1"" src=""$2"">")
             MD = 正则.替换(MD, "\[(.*?)\]\((.+?)\)", "<a href=""$2"" target=""_blank"">$1</a>")
             For i = 1 To 6
-                MD = 正则.替换(MD, "^" + 重复("#", i) + " (.+?)$", "<hB>$1</hB>".Replace("B", i.ToString))
+                s = 重复("#", i)
+                MD = 正则.替换(MD, s + " (.+) " + s, s + " $1", "^" + s + " (.+?)[$|\n]", "<hB>$1</hB>".Replace("B", i.ToString))
             Next
             MD = 正则.替换(MD, "\n\n", "<br>", "  \n", "<br>", "<br>", "\n<br>\n")
         End If

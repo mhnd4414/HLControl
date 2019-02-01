@@ -17,9 +17,9 @@ Public Module 文件
     End Function
 
     ''' <summary>
-    ''' 判断这个文件名或者文件夹名当中是否包含不应该包含的字符
+    ''' 判断这个文件名或者文件夹名当中是否包含非法字符
     ''' </summary>
-    Public Function 合格文件名(名字 As String) As Boolean
+    Public Function 是合法文件名(名字 As String) As Boolean
         名字 = 名字.Trim
         Dim l As Integer = 名字.Length
         If l < 1 OrElse l > 250 Then Return False

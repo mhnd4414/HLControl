@@ -32,6 +32,20 @@ Public Module 时间
     End Function
 
     ''' <summary>
+    ''' 把时间格式化后输出字符串，用Y年，M月，D天，h时，m分钟，s秒，并且年强制为4位数字，其他强制为2位数字
+    ''' </summary>
+    Public Function 时间格式化(时间 As Date, Optional 格式 As String = "Y-M-D h-m-s") As String
+        With 时间
+            Return 正则.替换(替换(格式, "m", "f"), "Y+", 补左(.Year.ToString, 4, "0"),
+                         "M+", 补左(.Month.ToString, 2, "0"),
+                         "D+", 补左(.Day.ToString, 2, "0"),
+                         "h+", 补左(.Hour.ToString, 2, "0"),
+                         "f+", 补左(.Minute.ToString, 2, "0"),
+                         "s+", 补左(.Second.ToString, 2, "0"))
+        End With
+    End Function
+
+    ''' <summary>
     ''' 把秒数变成时间文字
     ''' </summary>
     Public Function 时间文字(秒数 As ULong) As String

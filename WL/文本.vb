@@ -406,6 +406,30 @@ Public Module 文本
     End Function
 
     ''' <summary>
+    ''' 如果长度不足，就用指定的字符串补充在左边直到长度达标
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function 补左(文本 As String, 长度 As UInteger, Optional 补充 As String = " ") As String
+        If 补充.Length < 1 OrElse 长度 < 1 Then Return 文本
+        Do Until 文本.Length >= 长度
+            文本 = 补充 + 文本
+        Loop
+        Return 文本
+    End Function
+
+    ''' <summary>
+    ''' 如果长度不足，就用指定的字符串补充在右边直到长度达标
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function 补右(文本 As String, 长度 As UInteger, Optional 补充 As String = " ") As String
+        If 补充.Length < 1 OrElse 长度 < 1 Then Return 文本
+        Do Until 文本.Length >= 长度
+            文本 = 文本 + 补充
+        Loop
+        Return 文本
+    End Function
+
+    ''' <summary>
     ''' 一些比原版更好的正则处理，规则为大小写、多行模式，\r和\n都可以表示换行，无需特别注意
     ''' </summary>
     Public NotInheritable Class 正则
@@ -562,9 +586,9 @@ Public Module 文本
                 If Not 正则.包含(u, "<(.+?)>([\S|\s]*?)</\1>") Then
                     u = 去连续重复(文本标准化(u), vbCrLf + vbCrLf)
                     u = 正则.替换(u, "^```([\S|\s]*?)\n```", "<pre><code>$1</code></pre>", "`+(.+?)`+", "<code>$1</code>", "^(-){3,}[\n|$]", "\n<hr>")
-                    For Each m In 正则.检索(u, "<code>([\S|\s]*?)</code>")
+                    For Each m In 正则.检索(u, "<code>([\S|\s]+?)</code>")
                         s = m.ToString
-                        u = 替换(u, s, 替换(s, " ", "&nbsp;"))
+                        u = 替换(u, s, 替换(s, " ", "&nbsp;", vbCrLf, "<br>"))
                     Next
                     u = 正则.替换(u, "^ +", "")
                     u = 正则.替换(u, "((^>.*[\n|$])+)", "<blockquote>$1</blockquote>", "<blockquote>>", "<blockquote>", "^>*", "")
@@ -576,7 +600,7 @@ Public Module 文本
                         s = 重复("#", i)
                         u = 正则.替换(u, s + " (.+) " + s, s + " $1", "^" + s + " (.+?)[$|\n]", "<hB>$1</hB>".Replace("B", i.ToString))
                     Next
-                    u = 正则.替换(u, "\n\n", "<br>", "<br>", "\n<br>\n")
+                    u = 正则.替换(u, "  \n{1,}", "<br>", "\n{2,}", "<br>", "<br>", "<br>")
                 End If
                 out += u
             Next

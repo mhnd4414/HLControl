@@ -553,7 +553,7 @@ Public Module 文本
     End Class
 
     ''' <summary>
-    ''' 把Markdown文本转为HTML，不支持引用和列表嵌套，不提供p只提供br
+    ''' 把Markdown文本转为HTML，不支持引用和列表嵌套，不提供p只提供br，不支持转换隐式链接
     ''' </summary>
     Public Function Markdown转HTML(md As String) As String
         If md.Length > 2 Then
@@ -561,21 +561,22 @@ Public Module 文本
             For Each u As String In 正则.分块(md, "<(.+?)>([\S|\s]*?)</\1>")
                 If Not 正则.包含(u, "<(.+?)>([\S|\s]*?)</\1>") Then
                     u = 去连续重复(文本标准化(u), vbCrLf + vbCrLf)
-                    u = 正则.替换(u, "((^>.*[\n|$])+)", "<blockquote>$1</blockquote>", "<blockquote>>", "<blockquote>", "^>*", "")
-                    u = 正则.替换(u, "((^[0-9]+\. (.*)[\n|$])+)", "<ol>$1</ol>", "[0-9]+\. (.*)", "<li>$1</li>")
-                    u = 正则.替换(u, "((- .*[\n|$])+)", "<ul>$1</ul>", "- (.*)", "<li>$1</li>", "<li>\n", "<li>", "\n</li>", "</li>")
-                    u = 正则.替换(u, "^```([\S|\s]*?)\n```", "<code>$1</code>", "`+(.+?)`+", "<code>$1</code>", "^(-){3,}[\n|$]", "\n<hr>")
+                    u = 正则.替换(u, "^```([\S|\s]*?)\n```", "<pre><code>$1</code></pre>", "`+(.+?)`+", "<code>$1</code>", "^(-){3,}[\n|$]", "\n<hr>")
                     For Each m In 正则.检索(u, "<code>([\S|\s]*?)</code>")
                         s = m.ToString
                         u = 替换(u, s, 替换(s, " ", "&nbsp;"))
                     Next
+                    u = 正则.替换(u, "^ +", "")
+                    u = 正则.替换(u, "((^>.*[\n|$])+)", "<blockquote>$1</blockquote>", "<blockquote>>", "<blockquote>", "^>*", "")
+                    u = 正则.替换(u, "((^[0-9]+\. (.*)[\n|$])+)", "<ol>$1</ol>", "[0-9]+\. (.*)", "<li>$1</li>")
+                    u = 正则.替换(u, "((- .*[\n|$])+)", "<ul>$1</ul>", "- (.*)", "<li>$1</li>", "<li> *\n", "<li>", "\n *</li>", "</li>")
                     u = 正则.替换(u, "^ *", "", "\*\*(.+?)\*\*", "<b>$1</b>", "\*(.+?)\*", "<i>$1</i>", "!\[(.*?)\]\((.+?)\)", "<img alt=""$1"" src=""$2"">")
                     u = 正则.替换(u, "\[(.*?)\]\((.+?)\)", "<a href=""$2"" target=""_blank"">$1</a>")
                     For i = 1 To 6
                         s = 重复("#", i)
                         u = 正则.替换(u, s + " (.+) " + s, s + " $1", "^" + s + " (.+?)[$|\n]", "<hB>$1</hB>".Replace("B", i.ToString))
                     Next
-                    u = 正则.替换(u, "\n\n", "<br>", "  \n", "<br>", "<br>", "\n<br>\n")
+                    u = 正则.替换(u, "\n\n", "<br>", "<br>", "\n<br>\n")
                 End If
                 out += u
             Next

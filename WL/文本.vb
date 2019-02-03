@@ -51,12 +51,10 @@ Public Module 文本
     ''' 一一对应替换掉文本中的相关内容
     ''' </summary>
     Public Function 替换(文本 As String, ParamArray 内容() As String) As String
-        Dim c As Integer = 内容.Length - 1
-        If c > 0 Then
-            If 是偶数(c) Then c -= 1
-            For i As Integer = 0 To c Step 2
-                If 内容(i).Length > 0 Then 文本 = 文本.Replace(内容(i), 内容(i + 1))
-                If 文本.Length < 1 Then Exit For
+        If 文本.Length > 0 Then
+            Dim d As Dictionary(Of String, String) = 两两分组(内容)
+            For Each i As String In d.Keys
+                If 文本.Length > 0 AndAlso i.Length > 0 Then 文本 = 文本.Replace(i, d.Item(i))
             Next
         End If
         Return 文本
@@ -680,7 +678,7 @@ Public Module 文本
     ''' </summary>
     Public Function 压缩CSS(css As String) As String
         css = 文本标准化(css)
-        Dim o As String = 替换(_去除依附空格(正则.去除(css, vbCrLf, "/\*.*?\*/", " {2,}"), ",>:;{}()"), ":none;", ":0;")
+        Dim o As String = _去除依附空格(正则.去除(css, vbCrLf, "/\*.*?\*/", " {2,}"), ",>:;{}()")
         Return o
     End Function
 
@@ -690,7 +688,6 @@ Public Module 文本
     Public Function 压缩JS(js As String) As String
         js = 正则.去除(文本标准化(js), "/\*([\S|\s]*?)\*/", "//.*[\n|$]", vbCrLf)
         js = 正则.高级分块(js, "([""']).*?\1",, Function(m As String)
-                                              输出(m)
                                               Return _去除依附空格(正则.替换(m, " +", " "), "=(){},;""")
                                           End Function)
         Return js

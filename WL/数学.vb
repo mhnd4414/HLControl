@@ -98,6 +98,25 @@ Public Module 数学
     End Sub
 
     ''' <summary>
+    ''' 对提供的字符串内容数组进行两两分组，""会被读入，nothing或者多出的单个不会被处理，返回一个字符串字典
+    ''' </summary>
+    Public Function 两两分组(ParamArray 内容() As String) As Dictionary(Of String, String)
+        Dim c As Integer = 内容.Length - 1, d As New Dictionary(Of String, String)
+        If c > 0 Then
+            If 是偶数(c) Then c -= 1
+            Dim i As Integer, a As String, b As String
+            For i = 0 To c Step 2
+                a = 内容(i)
+                b = 内容(i + 1)
+                If IsNothing(a) = False AndAlso IsNothing(b) = False Then
+                    d.Add(a, b)
+                End If
+            Next
+        End If
+        Return d
+    End Function
+
+    ''' <summary>
     ''' 判断这个变量是否是数字相关的类型
     ''' </summary>
     Public Function 是数字类型(变量 As Object) As Boolean

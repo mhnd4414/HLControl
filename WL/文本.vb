@@ -529,6 +529,37 @@ Public Module 文本
             Return g
         End Function
 
+        ''' <summary>
+        ''' 把匹配到的表达式进行处理后，替换回文本当中
+        ''' </summary>
+        Public Shared Function 高级替换(文本 As String, 表达式 As String, 处理 As Func(Of String, String)) As String
+            If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return 文本
+            Dim s As String
+            For Each m As Match In 正则.检索(文本, 表达式)
+                s = m.ToString
+                文本 = WL.替换(文本, s, 处理(s))
+            Next
+            Return 文本
+        End Function
+
+        ''' <summary>
+        ''' 把文本分块，然后匹配的进行一个处理，非匹配的进行另外一个处理
+        ''' </summary>
+        Public Shared Function 高级分块(文本 As String, 表达式 As String, Optional 匹配处理 As Func(Of String, String) = Nothing, Optional 非匹配处理 As Func(Of String, String) = Nothing) As String
+            If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return 文本
+            Dim o As String = "", ok As Boolean = False
+            For Each m As String In 正则.分块(文本, 表达式)
+                ok = 正则.包含(m, 表达式)
+                If ok Then
+                    If Not IsNothing(匹配处理) Then m = 匹配处理(m)
+                Else
+                    If Not IsNothing(非匹配处理) Then m = 非匹配处理(m)
+                End If
+                o += m
+            Next
+            Return o
+        End Function
+
     End Class
 
     ''' <summary>
@@ -607,6 +638,62 @@ Public Module 文本
             Return out
         End If
         Return md
+    End Function
+
+    Private Function _去除依附空格(文本 As String, 寻找 As String) As String
+        For Each i As Char In 寻找
+            Do While 包含(文本, " " + i, i + " ")
+                文本 = 替换(文本, " " + i, i, i + " ", i)
+            Loop
+        Next
+        Return 文本
+    End Function
+
+    ''' <summary>
+    ''' 对HTML进行压缩，请尽量保证提供的内容是正确的
+    ''' </summary>
+    Public Function 压缩HTML(html As String) As String
+        If html.Length < 5 Then Return html
+        html = 正则.高级替换(文本标准化(html), ">[^<]*?</.+?>", Function(m As String)
+                                                         Dim t As String = 去右(提取最之后(m, "/").ToLower, 1), o As String = 提取最之前(去左(m, 1), "<")
+                                                         Select Case t
+                                                             Case "script"
+                                                                 o = 压缩JS(o)
+                                                             Case "style"
+                                                                 o = 压缩CSS(o)
+                                                             Case Else
+                                                         End Select
+                                                         Return ">" + o + "</" + t + ">"
+                                                     End Function)
+        html = 正则.高级替换(html, "('|"")[^<|^>]+?\1", Function(m As String)
+                                                      Return 左(m, 1) + 压缩JS(去右(去左(m, 1), 1)) + 右(m, 1)
+                                                  End Function)
+        html = 正则.去除(html, "<!--([\S|\s]*?)-->", vbCrLf)
+        html = 正则.高级分块(html, "([""|']).*?\1",, Function(m As String)
+                                                   Return _去除依附空格(正则.替换(m, " +", " "), "<>")
+                                               End Function)
+        Return html
+    End Function
+
+    ''' <summary>
+    ''' 对CSS进行压缩，请尽量保证提供的内容是正确的
+    ''' </summary>
+    Public Function 压缩CSS(css As String) As String
+        css = 文本标准化(css)
+        Dim o As String = 替换(_去除依附空格(正则.去除(css, vbCrLf, "/\*.*?\*/", " {2,}"), ",>:;{}()"), ":none;", ":0;")
+        Return o
+    End Function
+
+    ''' <summary>
+    ''' 对JavaScript进行压缩，请尽量保证提供的内容是正确的
+    ''' </summary>
+    Public Function 压缩JS(js As String) As String
+        js = 正则.去除(文本标准化(js), "/\*([\S|\s]*?)\*/", "//.*[\n|$]", vbCrLf)
+        js = 正则.高级分块(js, "([""']).*?\1",, Function(m As String)
+                                              输出(m)
+                                              Return _去除依附空格(正则.替换(m, " +", " "), "=(){},;""")
+                                          End Function)
+        Return js
     End Function
 
 End Module

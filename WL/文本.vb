@@ -261,6 +261,27 @@ Public Module 文本
     End Function
 
     ''' <summary>
+    ''' 把文本内的每一行都提取出来生成一个列表，默认把空的行也算在内
+    ''' </summary>
+    Public Function 分行(文本 As String, Optional 去除空行 As Boolean = False) As List(Of String)
+        Dim g As New List(Of String)
+        If 包含(文本标准化(文本), vbCrLf) Then
+            If 文本.EndsWith(vbCrLf) = False Then 文本 += vbCrLf
+            Do Until 包含(文本, vbCrLf) = False
+                Dim s As String = 提取最之前(文本, vbCrLf)
+                Dim c As Integer = s.Length
+                If c > 0 OrElse 去除空行 = False Then
+                    g.Add(s)
+                End If
+                文本 = 去左(文本, c + 2)
+            Loop
+        Else
+            g.Add(文本)
+        End If
+        Return g
+    End Function
+
+    ''' <summary>
     ''' 提取文字中的数字
     ''' </summary>
     Public Function 仅数字(文本 As String) As String
@@ -428,6 +449,51 @@ Public Module 文本
     End Function
 
     ''' <summary>
+    ''' Base64加密解密类
+    ''' </summary>
+    Public NotInheritable Class Base64
+
+        Protected Sub New()
+        End Sub
+
+        ''' <summary>
+        ''' 对字节数组进行加密
+        ''' </summary>
+        Public Shared Function 加密字节数组(字节数组() As Byte) As String
+            If IsNothing(字节数组) OrElse 字节数组.Length < 1 Then Return ""
+            Return Convert.ToBase64String(字节数组)
+        End Function
+
+        ''' <summary>
+        ''' 对字符串进行加密
+        ''' </summary>
+        Public Shared Function 加密文本(文本 As String, Optional 编码 As Encoding = Nothing) As String
+            Return 加密字节数组(文本转字节数组(文本, 编码))
+        End Function
+
+        ''' <summary>
+        ''' 对Base64字符串进行解密，解密到字节数组
+        ''' </summary>
+        Public Shared Function 解密字节数组(B64 As String) As Byte()
+            Dim b() As Byte = Nothing
+            If B64.Length > 0 AndAlso 尝试(Sub()
+                                             b = Convert.FromBase64String(B64)
+                                         End Sub) Then
+                Return b
+            End If
+            Return Nothing
+        End Function
+
+        ''' <summary>
+        ''' 对Base64字符串进行解密，解密到字符串
+        ''' </summary>
+        Public Shared Function 解密文本(B64 As String, Optional 编码 As Encoding = Nothing) As String
+            Return 字节数组转文本(解密字节数组(B64), 编码)
+        End Function
+
+    End Class
+
+    ''' <summary>
     ''' 一些比原版更好的正则处理，规则为大小写、多行模式，\r和\n都可以表示换行，无需特别注意
     ''' </summary>
     Public NotInheritable Class 正则
@@ -533,7 +599,7 @@ Public Module 文本
         Public Shared Function 高级替换(文本 As String, 表达式 As String, 处理 As Func(Of String, String)) As String
             If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return 文本
             Dim s As String
-            For Each m As Match In 正则.检索(文本, 表达式)
+            For Each m As Match In 检索(文本, 表达式)
                 s = m.ToString
                 文本 = WL.替换(文本, s, 处理(s))
             Next
@@ -560,85 +626,117 @@ Public Module 文本
 
     End Class
 
-    ''' <summary>
-    ''' Base64加密解密类
-    ''' </summary>
-    Public NotInheritable Class Base64
-
-        Protected Sub New()
-        End Sub
-
-        ''' <summary>
-        ''' 对字节数组进行加密
-        ''' </summary>
-        Public Shared Function 加密字节数组(字节数组() As Byte) As String
-            If IsNothing(字节数组) OrElse 字节数组.Length < 1 Then Return ""
-            Return Convert.ToBase64String(字节数组)
-        End Function
-
-        ''' <summary>
-        ''' 对字符串进行加密
-        ''' </summary>
-        Public Shared Function 加密文本(文本 As String, Optional 编码 As Encoding = Nothing) As String
-            Return 加密字节数组(文本转字节数组(文本, 编码))
-        End Function
-
-        ''' <summary>
-        ''' 对Base64字符串进行解密，解密到字节数组
-        ''' </summary>
-        Public Shared Function 解密字节数组(B64 As String) As Byte()
-            Dim b() As Byte = Nothing
-            If B64.Length > 0 AndAlso 尝试(Sub()
-                                             b = Convert.FromBase64String(B64)
-                                         End Sub) Then
-                Return b
-            End If
-            Return Nothing
-        End Function
-
-        ''' <summary>
-        ''' 对Base64字符串进行解密，解密到字符串
-        ''' </summary>
-        Public Shared Function 解密文本(B64 As String, Optional 编码 As Encoding = Nothing) As String
-            Return 字节数组转文本(解密字节数组(B64), 编码)
-        End Function
-
-    End Class
+    Private Function md粗体斜体(m As String) As String
+        If m.Length > 2 Then
+            m = 去连续重复(m, " ")
+            m = 正则.替换(m, "\*\*(.+?)\*\*", "<b>$1</b>", "\*(.+?)\*", "<i>$1</i>", "!\[(.*?)\]\((.+?)\)", "<img alt='$1' src='$2'>")
+            m = 正则.替换(m, "\[(.*?)\]\((.+?)\)", "<a href='$2'>$1</a>", "`+(.+?)`+", "<code>$1</code>")
+        End If
+        Return m
+    End Function
 
     ''' <summary>
-    ''' 把Markdown文本转为HTML，不支持引用和列表嵌套，不提供p只提供br，不支持转换隐式链接
+    ''' 把Markdown文本转为HTML
     ''' </summary>
     Public Function Markdown转HTML(md As String) As String
         If md.Length > 2 Then
-            Dim i As Integer, s As String, m As Match, out As String = ""
-            For Each u As String In 正则.分块(md, "<(.+?)>([\S|\s]*?)</\1>")
-                If Not 正则.包含(u, "<(.+?)>([\S|\s]*?)</\1>") Then
-                    u = 去连续重复(文本标准化(u), vbCrLf + vbCrLf)
-                    u = 正则.替换(u, "^```([\S|\s]*?)\n```", "<pre><code>$1</code></pre>", "`+(.+?)`+", "<code>$1</code>", "^(-){3,}[\n|$]", "\n<hr>")
-                    For Each m In 正则.检索(u, "<code>([\S|\s]+?)</code>")
-                        s = m.ToString
-                        u = 替换(u, s, 替换(s, " ", "&nbsp;", vbCrLf, "<br>"))
-                    Next
-                    u = 正则.替换(u, "^ +", "")
-                    u = 正则.替换(u, "((^>.*[\n|$])+)", "<blockquote>$1</blockquote>", "<blockquote>>", "<blockquote>", "^>*", "")
-                    u = 正则.替换(u, "((^[0-9]+\. (.*)[\n|$])+)", "<ol>$1</ol>", "[0-9]+\. (.*)", "<li>$1</li>")
-                    u = 正则.替换(u, "((- .*[\n|$])+)", "<ul>$1</ul>", "- (.*)", "<li>$1</li>", "<li> *\n", "<li>", "\n *</li>", "</li>")
-                    u = 正则.替换(u, "^ *", "", "\*\*(.+?)\*\*", "<b>$1</b>", "\*(.+?)\*", "<i>$1</i>", "!\[(.*?)\]\((.+?)\)", "<img alt=""$1"" src=""$2"">")
-                    u = 正则.替换(u, "\[(.*?)\]\((.+?)\)", "<a href=""$2"" >$1</a>")
-                    For i = 1 To 6
-                        s = 重复("#", i)
-                        u = 正则.替换(u, s + " (.+) " + s, s + " $1", "^" + s + " (.+?)[$|\n]", "<hB>$1</hB>".Replace("B", i.ToString))
-                    Next
-                    u = 正则.替换(u, "  \n{1,}", "<br>", "\n{2,}", "<br>", "<br>", "<br>")
+            md = 正则.替换(md, "^ *$", "")
+            If Not md.EndsWith(vbCrLf) Then md += vbCrLf
+            md += "m"
+            md = 正则.高级分块(md, "(<(.+?) *[^>]*?>.*?</\2>)", Function(m As String)
+                                                              Return 压缩HTML(m)
+                                                          End Function,
+Function(m As String)
+    Dim o As String = "", i As Integer, s As String, 回车数量 As Integer = 0
+    Dim code As Boolean = False, ol As Boolean = False, ul As Boolean = False, qt As Boolean = False
+    For Each l As String In 分行(m)
+        If l.Trim.Length < 1 Then
+            If code Then
+                o += "<br>"
+            Else
+                回车数量 += 1
+            End If
+        Else
+            If 回车数量 >= 2 Then o += "<br>"
+            回车数量 = 1
+            If l.StartsWith(">") AndAlso qt = False Then
+                qt = True
+                o += "<blockquote>"
+            End If
+            If qt Then
+                If l.StartsWith(">") Then
+                    l = 正则.去除(l, "^>+")
+                Else
+                    qt = False
+                    o += "</blockquote>"
                 End If
-                out += u
-            Next
-            Return out
+            End If
+            If ol AndAlso 正则.包含(l.Trim, "^[0-9]+\. ") = False Then
+                ol = False
+                o += "</ol>"
+            End If
+            If ul AndAlso 正则.包含(l.Trim, "^- ") = False Then
+                ul = False
+                o += "</ul>"
+            End If
+            If 正则.包含(l, "(<(.+?) *[^>]*?>.*?</\2>)") Then
+            ElseIf 正则.包含(l, "^\#+ ") Then
+                i = 提取最之前(l, " ").Length
+                If i <= 6 Then
+                    l = 正则.去除(l, "^\#+ ", " \#+$").Trim
+                    s = "h" + i.ToString + ">"
+                    l = "<" + s + md粗体斜体(l) + "</" + s
+                End If
+            ElseIf 正则.包含(l.Trim, "^-{3,}$") Then
+                l = "<hr>"
+            ElseIf 正则.包含(l.Trim, "```.*") AndAlso code = False Then
+                s = 去左(l.Trim, 3)
+                If s.Length > 0 Then s = " class='" + s + "'"
+                l = "<pre><code" + s + ">"
+                code = True
+            ElseIf l.Trim <> "```" AndAlso code Then
+                l = 替换(l, " ", "&nbsp;") + "<br>"
+            ElseIf l.Trim = "```" AndAlso code Then
+                code = False
+                l = "</code></pre>"
+            ElseIf 正则.包含(l.trim, "^[0-9]+\. ") Then
+                If ol = False Then
+                    ol = True
+                    o += "<ol>"
+                End If
+                l = "<li>" + 提取之后(l.Trim, " ") + "</li>"
+            ElseIf 正则.包含(l.Trim, "^- ") Then
+                If ul = False Then
+                    ul = True
+                    o += "<ul>"
+                End If
+                l = "<li>" + 提取之后(l.Trim, " ") + "</li>"
+            Else
+                If l.EndsWith("  ") Then l = l.Trim + "<br>"
+                l = md粗体斜体(l)
+            End If
+            o += l
         End If
+    Next
+    o = 正则.替换(o, "(<br>)*<hr>(<br>)*", "<hr>", "<br></code></pre>", "</code></pre>")
+    Return o
+End Function)
+            md = 正则.高级替换(md, "<code.*?>(.*?)</code>", Function(m As String)
+                                                          Dim p1 As String = 提取最之前(m, ">") + ">"
+                                                          Dim p3 As String = "</code>"
+                                                          Dim p2 As String = 去右(去左(m, p1.Length), p3.Length)
+                                                          p2 = 替换(p2, "<br>", vbCrLf, "<", "&lt;", ">", "&gt;", vbCrLf, "<br>")
+                                                          Return p1 + p2 + p3
+                                                      End Function)
+        End If
+        md = 去右(md, 1)
+        Do While md.EndsWith("<br>")
+            md = 去右(md, 4)
+        Loop
         Return md
     End Function
 
-    Private Function _去除依附空格(文本 As String, 寻找 As String) As String
+    Private Function 去除依附空格(文本 As String, 寻找 As String) As String
         For Each i As Char In 寻找
             Do While 包含(文本, " " + i, i + " ")
                 文本 = 替换(文本, " " + i, i, i + " ", i)
@@ -651,7 +749,7 @@ Public Module 文本
     ''' 对HTML进行压缩，请尽量保证提供的内容是正确的
     ''' </summary>
     Public Function 压缩HTML(html As String) As String
-        If html.Length < 5 Then Return html
+        If html.Length < 4 Then Return html
         html = 正则.高级替换(文本标准化(html), ">[^<]*?</.+?>", Function(m As String)
                                                          Dim t As String = 去右(提取最之后(m, "/").ToLower, 1), o As String = 提取最之前(去左(m, 1), "<")
                                                          Select Case t
@@ -660,6 +758,7 @@ Public Module 文本
                                                              Case "style"
                                                                  o = 压缩CSS(o)
                                                              Case Else
+                                                                 o = 去连续重复(o, " ")
                                                          End Select
                                                          Return ">" + o + "</" + t + ">"
                                                      End Function)
@@ -667,8 +766,9 @@ Public Module 文本
                                                       Return 左(m, 1) + 压缩JS(去右(去左(m, 1), 1)) + 右(m, 1)
                                                   End Function)
         html = 正则.去除(html, "<!--([\S|\s]*?)-->", vbCrLf)
+        html = 去除依附空格(html, "<>")
         html = 正则.高级分块(html, "([""|']).*?\1",, Function(m As String)
-                                                   Return _去除依附空格(正则.替换(m, " +", " "), "<>")
+                                                   Return 去除依附空格(正则.替换(m, " +", " "), "<>")
                                                End Function)
         Return html
     End Function
@@ -678,7 +778,7 @@ Public Module 文本
     ''' </summary>
     Public Function 压缩CSS(css As String) As String
         css = 文本标准化(css)
-        Dim o As String = _去除依附空格(正则.去除(css, vbCrLf, "/\*.*?\*/", " {2,}"), ",>:;{}()")
+        Dim o As String = 去除依附空格(正则.去除(css, vbCrLf, "/\*.*?\*/", " {2,}"), ",>:;{}()")
         Return o
     End Function
 
@@ -688,7 +788,7 @@ Public Module 文本
     Public Function 压缩JS(js As String) As String
         js = 正则.去除(文本标准化(js), "/\*([\S|\s]*?)\*/", "//.*[\n|$]", vbCrLf)
         js = 正则.高级分块(js, "([""']).*?\1",, Function(m As String)
-                                              Return _去除依附空格(正则.替换(m, " +", " "), "=(){},;""")
+                                              Return 去除依附空格(正则.替换(m, " +", " "), "=(){},;""")
                                           End Function)
         Return js
     End Function

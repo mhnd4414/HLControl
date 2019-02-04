@@ -51,10 +51,12 @@ Public Module 文本
     ''' 一一对应替换掉文本中的相关内容
     ''' </summary>
     Public Function 替换(文本 As String, ParamArray 内容() As String) As String
-        If 文本.Length > 0 Then
-            Dim d As Dictionary(Of String, String) = 两两分组(内容)
-            For Each i As String In d.Keys
-                If 文本.Length > 0 AndAlso i.Length > 0 Then 文本 = 文本.Replace(i, d.Item(i))
+        Dim c As Integer = 内容.Length - 1
+        If c > 0 Then
+            If 是偶数(c) Then c -= 1
+            For i As Integer = 0 To c Step 2
+                If 内容(i).Length > 0 Then 文本 = 文本.Replace(内容(i), 内容(i + 1))
+                If 文本.Length < 1 Then Exit For
             Next
         End If
         Return 文本
@@ -636,7 +638,7 @@ Public Module 文本
     End Function
 
     ''' <summary>
-    ''' 把Markdown文本转为HTML
+    ''' 把Markdown文本转为HTML，不支持同一语法的多层嵌套（比如列表里面嵌套一层列表）
     ''' </summary>
     Public Function Markdown转HTML(md As String) As String
         If md.Length > 2 Then
@@ -704,13 +706,13 @@ Function(m As String)
                     ol = True
                     o += "<ol>"
                 End If
-                l = "<li>" + 提取之后(l.Trim, " ") + "</li>"
+                l = "<li>" + md粗体斜体(提取之后(l.Trim, " ")) + "</li>"
             ElseIf 正则.包含(l.Trim, "^- ") Then
                 If ul = False Then
                     ul = True
                     o += "<ul>"
                 End If
-                l = "<li>" + 提取之后(l.Trim, " ") + "</li>"
+                l = "<li>" + md粗体斜体(提取之后(l.Trim, " ")) + "</li>"
             Else
                 If l.EndsWith("  ") Then l = l.Trim + "<br>"
                 l = md粗体斜体(l)

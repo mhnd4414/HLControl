@@ -720,7 +720,7 @@ Function(m As String)
             o += l
         End If
     Next
-    o = 正则.替换(o, "(<br>)*<hr>(<br>)*", "<hr>", "<br></code></pre>", "</code></pre>")
+    o = 正则.替换(o, "(<br>)*<hr>(<br>)*", "<hr>", "<br></code></pre>", "</code></pre>", "><br><", "><")
     Return o
 End Function)
             md = 正则.高级替换(md, "<code.*?>(.*?)</code>", Function(m As String)

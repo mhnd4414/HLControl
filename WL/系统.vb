@@ -113,9 +113,9 @@ Public Module 系统
         End Property
 
         ''' <summary>
-        ''' 获取电脑CPU的名字字符串，如果获取失败就返回 Unknown CPU
+        ''' 获取电脑的显示器的分辨率，单位是像素
         ''' </summary>
-        Public Shared ReadOnly Property 屏幕大小 As Size
+        Public Shared ReadOnly Property 屏幕分辨率 As Size
             Get
                 Static m As Size = My.Computer.Screen.Bounds.Size
                 Return m
@@ -170,6 +170,47 @@ Public Module 系统
         Public Shared ReadOnly Property 用户名 As String
             Get
                 Static m As String = 提取之后(My.User.Name, "\")
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 内存的大小，只包括物理内存，单位为MB
+        ''' </summary>
+        Public Shared ReadOnly Property 内存大小 As ULong
+            Get
+                Static m As ULong = My.Computer.Info.TotalPhysicalMemory / 1024 / 1024
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回电脑的显卡的名字，如果获取失败就返回 Unknown GPU
+        ''' </summary>
+        ''' <returns></returns>
+        Public Shared ReadOnly Property 显卡型号 As String
+            Get
+                Static m As String = ""
+                If m.Length < 1 Then
+                    Dim ra As RegistryKey = Registry.LocalMachine.OpenSubKey("SYSTEM\CurrentControlSet\Control\Video\", False)
+                    Dim r As RegistryKey = Nothing
+                    If Not IsNothing(ra) Then
+                        For Each i As String In ra.GetSubKeyNames
+                            r = ra.OpenSubKey(i)
+                            If IsNothing(r) = False Then
+                                r = r.OpenSubKey("0000")
+                                If IsNothing(r) = False Then
+                                    Dim o As Object = r.GetValue("DriverDesc")
+                                    If IsNothing(o) = False Then
+                                        m = 文本标准化(o.ToString)
+                                        If m.Length > 0 Then Exit For
+                                    End If
+                                End If
+                            End If
+                        Next
+                    End If
+                End If
+                If m.Length < 1 Then m = "Unknown GPU"
                 Return m
             End Get
         End Property

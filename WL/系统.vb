@@ -87,17 +87,17 @@ Public Module 系统
     ''' <summary>
     ''' 获取电脑系统的一些信息
     ''' </summary>
-    Public NotInheritable Class 系统信息
+    Public NotInheritable Class 电脑信息
 
         Protected Sub New()
         End Sub
 
         ''' <summary>
-        ''' 获取电脑CPU的名字字符串，如果获取失败就返回 Unknown CPU
+        ''' 获取电脑CPU的名字字符串
         ''' </summary>
         Public Shared ReadOnly Property CPU型号 As String
             Get
-                Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "ProcessorNameString", "未知").ToString.Trim
+                Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "ProcessorNameString", "Unknown").ToString.Trim
                 Return s
             End Get
         End Property
@@ -107,7 +107,7 @@ Public Module 系统
         ''' </summary>
         Public Shared ReadOnly Property CPU频率 As UInteger
             Get
-                Static s As UInteger = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "~MHz", 0)
+                Static s As UInteger = Val(Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "~MHz", 0).ToString)
                 Return s
             End Get
         End Property
@@ -129,7 +129,7 @@ Public Module 系统
         ''' <returns></returns>
         Public Shared ReadOnly Property CPU类型 As String
             Get
-                Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "Identifier", "未知").ToString.Trim
+                Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "Identifier", "Unknown").ToString.Trim
                 Return s
             End Get
         End Property
@@ -195,8 +195,10 @@ Public Module 系统
             End Get
         End Property
 
+        Private Shared gpuRAM As ULong = 0
+
         ''' <summary>
-        ''' 返回电脑的显卡的型号，不包括品牌名
+        ''' 返回电脑的显卡的型号
         ''' </summary>
         Public Shared ReadOnly Property 显卡型号 As String
             Get
@@ -210,38 +212,14 @@ Public Module 系统
                             If IsNothing(r) = False Then
                                 r = r.OpenSubKey("0000")
                                 If IsNothing(r) = False Then
-                                    Dim o As Object = r.GetValue("HardwareInformation.AdapterString", Nothing)
+                                    Dim o As Object = r.GetValue("DriverDesc", Nothing)
                                     If IsNothing(o) = False AndAlso o.GetType = GetType(String) Then
                                         m = 文本标准化(o.ToString).Trim
                                     End If
-                                    If m.Length > 0 Then Exit For
-                                End If
-                            End If
-                        Next
-                    End If
-                End If
-                If m.Length < 1 Then m = "未知"
-                Return m
-            End Get
-        End Property
-
-        ''' <summary>
-        ''' 返回电脑的显卡的品牌
-        ''' </summary>
-        Public Shared ReadOnly Property 显卡品牌 As String
-            Get
-                Static m As String = ""
-                If m.Length < 1 Then
-                    Dim ra As RegistryKey = Registry.LocalMachine.OpenSubKey("SYSTEM\CurrentControlSet\Control\Video\", False)
-                    Dim r As RegistryKey = Nothing
-                    If Not IsNothing(ra) Then
-                        For Each i As String In ra.GetSubKeyNames
-                            r = ra.OpenSubKey(i)
-                            If IsNothing(r) = False Then
-                                r = r.OpenSubKey("0000")
-                                If IsNothing(r) = False Then
-                                    m = 文本标准化(r.GetValue("ProviderName", "")).Trim
-                                    If m.Length > 0 Then Exit For
+                                    If m.Length > 0 Then
+                                        gpuRAM = Math.Abs(Val(r.GetValue("HardwareInformation.MemorySize", 0).ToString)) / 1024 / 1024
+                                        Exit For
+                                    End If
                                 End If
                             End If
                         Next
@@ -257,24 +235,10 @@ Public Module 系统
         ''' </summary>
         Public Shared ReadOnly Property 显卡内存大小 As ULong
             Get
-                Static m As ULong = 0
-                If m < 1 Then
-                    Dim ra As RegistryKey = Registry.LocalMachine.OpenSubKey("SYSTEM\CurrentControlSet\Control\Video\", False)
-                    Dim r As RegistryKey = Nothing
-                    If Not IsNothing(ra) Then
-                        For Each i As String In ra.GetSubKeyNames
-                            r = ra.OpenSubKey(i)
-                            If IsNothing(r) = False Then
-                                r = r.OpenSubKey("0000")
-                                If IsNothing(r) = False Then
-                                    m = Math.Abs(Val(r.GetValue("HardwareInformation.MemorySize", 0).ToString)) / 1024 / 1024
-                                    If m > 0 Then Exit For
-                                End If
-                            End If
-                        Next
-                    End If
+                If gpuRAM < 1 Then
+                    Dim a As String = 显卡型号
                 End If
-                Return m
+                Return gpuRAM
             End Get
         End Property
 
@@ -285,7 +249,7 @@ Public Module 系统
             Get
                 Static m As String = ""
                 If m.Length < 1 Then
-                    m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardProduct", "未知").ToString.Trim
+                    m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardProduct", "Unknown").ToString.Trim
                 End If
                 Return m
             End Get
@@ -298,7 +262,7 @@ Public Module 系统
             Get
                 Static m As String = ""
                 If m.Length < 1 Then
-                    m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardManufacturer", "未知").ToString.Trim
+                    m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardManufacturer", "Unknown").ToString.Trim
                 End If
                 Return m
             End Get
@@ -311,86 +275,28 @@ Public Module 系统
             Get
                 Static m As String = ""
                 If m.Length < 1 Then
-                    m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BIOSVendor", "未知").ToString.Trim
+                    m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BIOSVendor", "Unknown").ToString.Trim
                 End If
                 Return m
             End Get
         End Property
 
-    End Class
-
-    ''' <summary>
-    ''' 获取电脑网络相关的一些信息
-    ''' </summary>
-    Public NotInheritable Class 网络信息
-
-        Protected Sub New()
-        End Sub
-
         ''' <summary>
         ''' 是否存在任意可用本地或互联网的网络连接
         ''' </summary>
         ''' <returns></returns>
-        Public Shared ReadOnly Property 存在连接 As Boolean
+        Public Shared ReadOnly Property 存在网络 As Boolean
             Get
                 Return My.Computer.Network.IsAvailable
             End Get
         End Property
 
         ''' <summary>
-        ''' 获取本地的所以网卡的IP列表，包括ipv4和ipv6
+        ''' 获取本电脑的首选ipv4地址
         ''' </summary>
-        Public Shared ReadOnly Property 本地IP列表 As List(Of String)
+        Public Shared ReadOnly Property IPv4地址 As String
             Get
-                Dim m As New List(Of String), s As String
-                If 存在连接 Then
-                    For Each ip As IPAddress In Dns.GetHostEntry(Dns.GetHostName).AddressList
-                        s = ip.ToString
-                        If s.Length > 4 Then m.Add(s)
-                    Next
-                End If
-                Return m
-            End Get
-        End Property
-
-        ''' <summary>
-        ''' 获取本地的所以网卡的IPv4列表
-        ''' </summary>
-        Public Shared ReadOnly Property 本地IPv4列表 As List(Of String)
-            Get
-                Dim m As New List(Of String), s As String
-                If 存在连接 Then
-                    For Each ip As IPAddress In Dns.GetHostEntry(Dns.GetHostName).AddressList
-                        s = ip.ToString
-                        If s.Length > 4 AndAlso 包含(s, ":") = False Then m.Add(s)
-                    Next
-                End If
-                Return m
-            End Get
-        End Property
-
-        ''' <summary>
-        ''' 获取本地的所以网卡的IPv6列表
-        ''' </summary>
-        Public Shared ReadOnly Property 本地IPv6列表 As List(Of String)
-            Get
-                Dim m As New List(Of String), s As String
-                If 存在连接 Then
-                    For Each ip As IPAddress In Dns.GetHostEntry(Dns.GetHostName).AddressList
-                        s = ip.ToString
-                        If s.Length > 4 AndAlso 包含(s, ":") Then m.Add(s)
-                    Next
-                End If
-                Return m
-            End Get
-        End Property
-
-        ''' <summary>
-        ''' 获取本地的首选ipv4地址
-        ''' </summary>
-        Public Shared ReadOnly Property 首选IPv4地址 As String
-            Get
-                If 存在连接 Then
+                If 存在网络 Then
                     Dim s As String = PowerShell运行脚本("ipconfig")
                     If s.Length > 100 Then
                         s = s.ToLower()
@@ -405,9 +311,9 @@ Public Module 系统
         ''' <summary>
         ''' 获取本地的首选ipv4地址
         ''' </summary>
-        Public Shared ReadOnly Property 首选IPv6地址 As String
+        Public Shared ReadOnly Property IPv6地址 As String
             Get
-                If 存在连接 Then
+                If 存在网络 Then
                     Dim s As String = PowerShell运行脚本("ipconfig")
                     If s.Length > 100 Then
                         s = s.ToLower()

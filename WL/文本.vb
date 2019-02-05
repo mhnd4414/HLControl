@@ -559,6 +559,16 @@ Public Module 文本
         End Function
 
         ''' <summary>
+        ''' 相当于 Regex.Match ，返回的是字符串，
+        ''' </summary>
+        Public Shared Function 检索第一个(文本 As String, 表达式 As String) As String
+            Dim g As String
+            If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return ""
+            g = Regex.Match(文本标准化(文本), FixRN(表达式), rule).ToString
+            Return g
+        End Function
+
+        ''' <summary>
         ''' 相当于 Regex.Matches
         ''' </summary>
         Public Shared Function 检索(文本 As String, 表达式 As String) As List(Of Match)
@@ -568,6 +578,15 @@ Public Module 文本
                 g.Add(i)
             Next
             Return g
+        End Function
+
+        ''' <summary>
+        ''' 检索后直接返回对应序号个的内容，序号从0开始
+        ''' </summary>
+        Public Shared Function 检索(文本 As String, 表达式 As String, 序号 As UInteger) As String
+            Dim g As List(Of Match) = 检索(文本, 表达式)
+            If 序号 >= g.Count Then Return ""
+            Return g(序号).ToString
         End Function
 
         ''' <summary>
@@ -614,8 +633,8 @@ Public Module 文本
         Public Shared Function 高级分块(文本 As String, 表达式 As String, Optional 匹配处理 As Func(Of String, String) = Nothing, Optional 非匹配处理 As Func(Of String, String) = Nothing) As String
             If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return 文本
             Dim o As String = "", ok As Boolean = False
-            For Each m As String In 正则.分块(文本, 表达式)
-                ok = 正则.包含(m, 表达式)
+            For Each m As String In 分块(文本, 表达式)
+                ok = 包含(m, 表达式)
                 If ok Then
                     If Not IsNothing(匹配处理) Then m = 匹配处理(m)
                 Else

@@ -97,7 +97,7 @@ Public Module 系统
         ''' </summary>
         Public Shared ReadOnly Property CPU型号 As String
             Get
-                Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "ProcessorNameString", "Unknown CPU").ToString.Trim
+                Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "ProcessorNameString", "未知").ToString.Trim
                 Return s
             End Get
         End Property
@@ -108,6 +108,28 @@ Public Module 系统
         Public Shared ReadOnly Property CPU频率 As UInteger
             Get
                 Static s As UInteger = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "~MHz", 0)
+                Return s
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回CPU的核心数量
+        ''' </summary>
+        ''' <returns></returns>
+        Public Shared ReadOnly Property CPU核心数量 As UInteger
+            Get
+                Static m As UInteger = Registry.LocalMachine.OpenSubKey("HARDWARE\DESCRIPTION\System\CentralProcessor", False).SubKeyCount
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回CPU的类型
+        ''' </summary>
+        ''' <returns></returns>
+        Public Shared ReadOnly Property CPU类型 As String
+            Get
+                Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "Identifier", "未知").ToString.Trim
                 Return s
             End Get
         End Property
@@ -154,17 +176,6 @@ Public Module 系统
         End Property
 
         ''' <summary>
-        ''' 返回CPU的核心数量
-        ''' </summary>
-        ''' <returns></returns>
-        Public Shared ReadOnly Property CPU核心数量 As UInteger
-            Get
-                Static m As UInteger = Registry.LocalMachine.OpenSubKey("HARDWARE\DESCRIPTION\System\CentralProcessor", False).SubKeyCount
-                Return m
-            End Get
-        End Property
-
-        ''' <summary>
         ''' 返回当前的系统用户的用户名
         ''' </summary>
         Public Shared ReadOnly Property 用户名 As String
@@ -185,9 +196,8 @@ Public Module 系统
         End Property
 
         ''' <summary>
-        ''' 返回电脑的显卡的名字，如果获取失败就返回 Unknown GPU
+        ''' 返回电脑的显卡的型号，不包括品牌名
         ''' </summary>
-        ''' <returns></returns>
         Public Shared ReadOnly Property 显卡型号 As String
             Get
                 Static m As String = ""
@@ -200,17 +210,109 @@ Public Module 系统
                             If IsNothing(r) = False Then
                                 r = r.OpenSubKey("0000")
                                 If IsNothing(r) = False Then
-                                    Dim o As Object = r.GetValue("DriverDesc")
-                                    If IsNothing(o) = False Then
-                                        m = 文本标准化(o.ToString)
-                                        If m.Length > 0 Then Exit For
+                                    Dim o As Object = r.GetValue("HardwareInformation.AdapterString", Nothing)
+                                    If IsNothing(o) = False AndAlso o.GetType = GetType(String) Then
+                                        m = 文本标准化(o.ToString).Trim
                                     End If
+                                    If m.Length > 0 Then Exit For
                                 End If
                             End If
                         Next
                     End If
                 End If
-                If m.Length < 1 Then m = "Unknown GPU"
+                If m.Length < 1 Then m = "未知"
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回电脑的显卡的品牌
+        ''' </summary>
+        Public Shared ReadOnly Property 显卡品牌 As String
+            Get
+                Static m As String = ""
+                If m.Length < 1 Then
+                    Dim ra As RegistryKey = Registry.LocalMachine.OpenSubKey("SYSTEM\CurrentControlSet\Control\Video\", False)
+                    Dim r As RegistryKey = Nothing
+                    If Not IsNothing(ra) Then
+                        For Each i As String In ra.GetSubKeyNames
+                            r = ra.OpenSubKey(i)
+                            If IsNothing(r) = False Then
+                                r = r.OpenSubKey("0000")
+                                If IsNothing(r) = False Then
+                                    m = 文本标准化(r.GetValue("ProviderName", "")).Trim
+                                    If m.Length > 0 Then Exit For
+                                End If
+                            End If
+                        Next
+                    End If
+                End If
+                If m.Length < 1 Then m = "未知"
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回电脑的显卡的内存，单位为MB
+        ''' </summary>
+        Public Shared ReadOnly Property 显卡内存大小 As ULong
+            Get
+                Static m As ULong = 0
+                If m < 1 Then
+                    Dim ra As RegistryKey = Registry.LocalMachine.OpenSubKey("SYSTEM\CurrentControlSet\Control\Video\", False)
+                    Dim r As RegistryKey = Nothing
+                    If Not IsNothing(ra) Then
+                        For Each i As String In ra.GetSubKeyNames
+                            r = ra.OpenSubKey(i)
+                            If IsNothing(r) = False Then
+                                r = r.OpenSubKey("0000")
+                                If IsNothing(r) = False Then
+                                    m = Math.Abs(Val(r.GetValue("HardwareInformation.MemorySize", 0).ToString)) / 1024 / 1024
+                                    If m > 0 Then Exit For
+                                End If
+                            End If
+                        Next
+                    End If
+                End If
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回电脑的主板的型号
+        ''' </summary>
+        Public Shared ReadOnly Property 主板型号 As String
+            Get
+                Static m As String = ""
+                If m.Length < 1 Then
+                    m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardProduct", "未知").ToString.Trim
+                End If
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回电脑的主板生产厂家的名字
+        ''' </summary>
+        Public Shared ReadOnly Property 主板品牌 As String
+            Get
+                Static m As String = ""
+                If m.Length < 1 Then
+                    m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardManufacturer", "未知").ToString.Trim
+                End If
+                Return m
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 返回电脑的主板生产厂家的名字
+        ''' </summary>
+        Public Shared ReadOnly Property BIOS类型 As String
+            Get
+                Static m As String = ""
+                If m.Length < 1 Then
+                    m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BIOSVendor", "未知").ToString.Trim
+                End If
                 Return m
             End Get
         End Property

@@ -46,24 +46,26 @@ Public Module 时间
     End Function
 
     ''' <summary>
-    ''' 把秒数变成时间文字
+    ''' 把秒数变成时间文字，默认从秒起步
     ''' </summary>
-    Public Function 时间文字(秒数 As ULong) As String
+    Public Function 时间文字(秒数 As Long, Optional 一天起步 As Boolean = False) As String
+        秒数 = Math.Abs(秒数)
+        If 一天起步 AndAlso 秒数 < 60 * 60 * 25 Then Return "1天"
         Select Case 秒数
             Case < 1
                 Return "瞬间"
-            Case < 100
+            Case < 61
                 Return 秒数 & "秒"
-            Case < 60 * 100
-                Return Math.Round(秒数 / 60) & "分钟"
-            Case < 60 * 60 * 50
-                Return Math.Round(秒数 / 60 / 60) & "小时"
+            Case < 60 * 70
+                Return Fix(秒数 / 60) & "分钟"
+            Case < 60 * 60 * 25
+                Return Fix(秒数 / 60 / 60) & "小时"
             Case < 60 * 60 * 24 * 80
-                Return Math.Round(秒数 / 60 / 60 / 24) & "天"
+                Return Fix(秒数 / 60 / 60 / 24) & "天"
             Case < 60 * 60 * 24 * 380
-                Return Math.Round(秒数 / 60 / 60 / 24 / 30) & "个月"
+                Return Fix(秒数 / 60 / 60 / 24 / 30) & "个月"
             Case Else
-                Return Math.Round(秒数 / 60 / 60 / 24 / 365) & "年"
+                Return Fix(秒数 / 60 / 60 / 24 / 365) & "年"
         End Select
     End Function
 

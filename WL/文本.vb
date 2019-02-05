@@ -643,24 +643,34 @@ Public Module 文本
     Public Function Markdown转HTML(md As String) As String
         If md.Length > 2 Then
             md = 正则.替换(md, "^ *$", "")
-            If Not md.EndsWith(vbCrLf) Then md += vbCrLf
-            md += "m"
             md = 正则.高级分块(md, "(<(.+?) *[^>]*?>.*?</\2>)", Function(m As String)
                                                               Return 压缩HTML(m)
                                                           End Function,
 Function(m As String)
-    Dim o As String = "", i As Integer, s As String, 回车数量 As Integer = 0
-    Dim code As Boolean = False, ol As Boolean = False, ul As Boolean = False, qt As Boolean = False
+    Dim o As String = "", i As Integer, s As String
+    If m.EndsWith(vbCrLf) = False Then m += vbCrLf
+    Dim code As Boolean = False, ol As Boolean = False, ul As Boolean = False, qt As Boolean = False, pa As Boolean = False
     For Each l As String In 分行(m)
         If l.Trim.Length < 1 Then
-            If code Then
-                o += "<br>"
+            If pa Then
+                pa = False
+                o += "</p>"
             Else
-                回车数量 += 1
+                o += "<br>"
+            End If
+            If ol Then
+                ol = False
+                o += "</ol>"
+            End If
+            If ul Then
+                ul = False
+                o += "</ul>"
+            End If
+            If qt Then
+                qt = False
+                o += "</blockquote>"
             End If
         Else
-            If 回车数量 >= 2 Then o += "<br>"
-            回车数量 = 1
             If l.StartsWith(">") AndAlso qt = False Then
                 qt = True
                 o += "<blockquote>"
@@ -681,8 +691,11 @@ Function(m As String)
                 ul = False
                 o += "</ul>"
             End If
-            If 正则.包含(l, "(<(.+?) *[^>]*?>.*?</\2>)") Then
-            ElseIf 正则.包含(l, "^\#+ ") Then
+            If 正则.包含(l, "^\#+ ") Then
+                If pa Then
+                    pa = False
+                    o += "</p>"
+                End If
                 i = 提取最之前(l, " ").Length
                 If i <= 6 Then
                     l = 正则.去除(l, "^\#+ ", " \#+$").Trim
@@ -690,8 +703,16 @@ Function(m As String)
                     l = "<" + s + md粗体斜体(l) + "</" + s
                 End If
             ElseIf 正则.包含(l.Trim, "^-{3,}$") Then
+                If pa Then
+                    pa = False
+                    o += "</p>"
+                End If
                 l = "<hr>"
             ElseIf 正则.包含(l.Trim, "```.*") AndAlso code = False Then
+                If pa Then
+                    pa = False
+                    o += "</p>"
+                End If
                 s = 去左(l.Trim, 3)
                 If s.Length > 0 Then s = " class='" + s + "'"
                 l = "<pre><code" + s + ">"
@@ -701,26 +722,39 @@ Function(m As String)
             ElseIf l.Trim = "```" AndAlso code Then
                 code = False
                 l = "</code></pre>"
-            ElseIf 正则.包含(l.trim, "^[0-9]+\. ") Then
+            ElseIf 正则.包含(l.Trim, "^[0-9]+\. ") Then
+                If pa Then
+                    pa = False
+                    o += "</p>"
+                End If
                 If ol = False Then
                     ol = True
                     o += "<ol>"
                 End If
                 l = "<li>" + md粗体斜体(提取之后(l.Trim, " ")) + "</li>"
             ElseIf 正则.包含(l.Trim, "^- ") Then
+                If pa Then
+                    pa = False
+                    o += "</p>"
+                End If
                 If ul = False Then
                     ul = True
                     o += "<ul>"
                 End If
                 l = "<li>" + md粗体斜体(提取之后(l.Trim, " ")) + "</li>"
             Else
+                If Not pa Then
+                    o += "<p>"
+                    pa = True
+                End If
                 If l.EndsWith("  ") Then l = l.Trim + "<br>"
                 l = md粗体斜体(l)
             End If
             o += l
         End If
     Next
-    o = 正则.替换(o, "(<br>)*<hr>(<br>)*", "<hr>", "<br></code></pre>", "</code></pre>", "><br><", "><")
+    o = 正则.替换(o, "(<br>)*<hr>(<br>)*", "<hr>", "<br></code></pre>", "</code></pre>", "><br></", "></", "<br></", "</")
+    If 提取最之后(o, "<p>").Contains("</p>") = False Then o += "</p>"
     Return o
 End Function)
             md = 正则.高级替换(md, "<code.*?>(.*?)</code>", Function(m As String)
@@ -731,10 +765,6 @@ End Function)
                                                           Return p1 + p2 + p3
                                                       End Function)
         End If
-        md = 去右(md, 1)
-        Do While md.EndsWith("<br>")
-            md = 去右(md, 4)
-        Loop
         Return md
     End Function
 

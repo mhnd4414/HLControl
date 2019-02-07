@@ -98,6 +98,7 @@
     <Compile Include="时间.vb" />
     <Compile Include="流.vb" />
     <Compile Include="程序.vb" />
+    <Compile Include="类型.vb" />
     <Compile Include="系统.vb" />
   </ItemGroup>
   <ItemGroup>

@@ -140,7 +140,7 @@ Public Module 文件
     ''' </summary>
     Public Function 读文件为文本(文件 As String, Optional 编码 As Encoding = Nothing) As String
         Dim b() As Byte = 读文件为字节数组(文件)
-        If IsNothing(b) Then Return ""
+        If 为空(b) Then Return ""
         Return 字节数组转文本(b, 编码)
     End Function
 

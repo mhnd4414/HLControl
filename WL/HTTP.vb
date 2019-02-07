@@ -155,7 +155,7 @@ Public Module HTTP
         ''' 向请求内写入字节数组
         ''' </summary>
         Public Sub 写入字节数组(字节数组 As Byte())
-            If IsNothing(字节数组) OrElse 字节数组.Length > 0 Then write.AddRange(字节数组)
+            If 非空(字节数组) Then write.AddRange(字节数组)
         End Sub
 
         ''' <summary>
@@ -229,7 +229,7 @@ Public Module HTTP
         ''' </summary>
         Public Function 获取回应为字符串(Optional 编码 As Encoding = Nothing, Optional 反转义 As Boolean = True, Optional 去除引号 As Boolean = False) As String
             Dim b() As Byte = 获取回应为字节数组()
-            If IsNothing(b) Then Return err
+            If 为空(b) Then Return err
             Dim s As String = 字节数组转文本(b, 编码)
             If 去除引号 Then s = 去除(s, 引号)
             If 反转义 Then s = 文本.反转义(s)
@@ -295,7 +295,7 @@ Public Module HTTP
             Else
                 分隔符 = "---------------" + 随机.当中字符(小写英文字母, 10)
             End If
-            If IsNothing(自定义编码) Then
+            If 为空(自定义编码) Then
                 ec = 无BOM的UTF8编码()
             Else
                 ec = 自定义编码
@@ -319,7 +319,7 @@ Public Module HTTP
         ''' 写入一个参数，默认不写类型，无需对写入内容进行URL编码
         ''' </summary>
         Public Sub 写入参数(名字 As String, 内容 As String, Optional 类型 As String = "")
-            If 名字.Length <1 Then Exit Sub
+            If 名字.Length < 1 Then Exit Sub
             AddHead()
             Dim s As String = "Content-Disposition: form-data; name=" + 引(URL编码(名字)) + vbCrLf
             If 类型.Length > 0 Then s += "Content-Type: " + 类型 + vbCrLf
@@ -346,7 +346,7 @@ Public Module HTTP
         ''' </summary>
         Public Sub 写入文件(名字 As String, 类型 As String, 文件 As String)
             Dim b() As Byte = 读文件为字节数组(文件)
-            If Not IsNothing(b) Then 写入字节数组(名字, 文件名(文件), 类型, b)
+            If 非空(b) Then 写入字节数组(名字, 文件名(文件), 类型, b)
         End Sub
 
         ''' <summary>
@@ -497,7 +497,7 @@ netsh http add urlacl url=http://*:端口/ user=Everyone"
         ''' 结束监听，如果尚未开始的话不会做任何操作
         ''' </summary>
         Public Sub 结束监听()
-            If IsNothing(h) OrElse 监听中 = False Then Exit Sub
+            If 为空(h) OrElse 监听中 = False Then Exit Sub
             中断线程(th)
             h.Stop()
             h = Nothing
@@ -513,12 +513,12 @@ netsh http add urlacl url=http://*:端口/ user=Everyone"
 
         Private Function GetRequest() As Boolean
             If 监听中 = False Then Return False
-            If IsNothing(ct) Then
+            If 为空(ct) Then
                 ct = h.GetContext
                 rq = ct.Request
                 rs = ct.Response
             End If
-            Return Not (IsNothing(ct) AndAlso IsNothing(rq) AndAlso IsNothing(rs))
+            Return 非空全部(ct, rq, rs)
         End Function
 
         ''' <summary>

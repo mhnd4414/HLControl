@@ -203,8 +203,8 @@ Public Module 文本
     ''' 把文本转为字节数组
     ''' </summary>
     Public Function 文本转字节数组(文本 As String, Optional 编码 As Encoding = Nothing) As Byte()
-        If 文本.Length < 1 Then Return Nothing
-        If IsNothing(编码) Then 编码 = 无BOM的UTF8编码()
+        If 为空(文本) Then Return Nothing
+        If 为空(编码) Then 编码 = 无BOM的UTF8编码()
         Return 编码.GetBytes(文本)
     End Function
 
@@ -212,8 +212,8 @@ Public Module 文本
     ''' 把字节数组转为文本，并且会进行标准化处理
     ''' </summary>
     Public Function 字节数组转文本(字节数组 As Byte(), Optional 编码 As Encoding = Nothing) As String
-        If IsNothing(字节数组) OrElse 字节数组.Length < 1 Then Return ""
-        If IsNothing(编码) Then 编码 = 无BOM的UTF8编码()
+        If 为空(字节数组) Then Return ""
+        If 为空(编码) Then 编码 = 无BOM的UTF8编码()
         Dim g As Integer
         For i As Integer = 0 To 字节数组.Length - 1
             g = 字节数组(i)
@@ -345,7 +345,7 @@ Public Module 文本
         Dim s As String = ""
         If 字典.Count > 0 Then
             For Each i As Object In 字典.Keys
-                If IsNothing(i) = False AndAlso IsNothing(字典.Item(i)) = False Then
+                If 非空(i) = False AndAlso 非空(字典.Item(i)) Then
                     s += i.ToString + 连接符 + 字典.Item(i).ToString + vbCrLf
                 End If
             Next
@@ -360,7 +360,7 @@ Public Module 文本
         Dim s As String = ""
         If 列表.Count > 0 Then
             For Each i As Object In 列表
-                If IsNothing(i) = False Then s += i.ToString + vbCrLf
+                If 非空(i) Then s += i.ToString + vbCrLf
             Next
         End If
         Return 去右(s, 2)
@@ -462,7 +462,7 @@ Public Module 文本
         ''' 对字节数组进行加密
         ''' </summary>
         Public Shared Function 加密字节数组(字节数组() As Byte) As String
-            If IsNothing(字节数组) OrElse 字节数组.Length < 1 Then Return ""
+            If 为空(字节数组) Then Return ""
             Return Convert.ToBase64String(字节数组)
         End Function
 
@@ -642,9 +642,9 @@ Public Module 文本
             For Each m As String In 分块(文本, 表达式)
                 ok = 包含(m, 表达式)
                 If ok Then
-                    If Not IsNothing(匹配处理) Then m = 匹配处理(m)
+                    If 非空(匹配处理) Then m = 匹配处理(m)
                 Else
-                    If Not IsNothing(非匹配处理) Then m = 非匹配处理(m)
+                    If 非空(非匹配处理) Then m = 非匹配处理(m)
                 End If
                 o += m
             Next

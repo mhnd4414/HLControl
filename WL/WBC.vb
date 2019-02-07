@@ -80,7 +80,7 @@ Public Module WBC模块
         ''' <summary>
         ''' 根据名字（不分大小写）读取或保存值，返回的是字符串，如果不存在就返回""
         ''' </summary>
-        Private Property 字符串(ParamArray 名字() As String) As String
+        Public Property 字符串(ParamArray 名字() As String) As String
             Get
                 Return GetV(GenName(名字))
             End Get

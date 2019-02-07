@@ -1,8 +1,7 @@
 ﻿''' <summary>
-''' 和电脑系统相关操作的模块
+''' 和Windows系统相关操作的模块
 ''' </summary>
 Public Module 系统
-
 
     ''' <summary>
     ''' 从剪贴板内获得字符串或图片
@@ -99,9 +98,9 @@ Public Module 系统
     End Class
 
     ''' <summary>
-    ''' 获取电脑系统的一些信息
+    ''' 获取Windows系统的一些软硬件信息
     ''' </summary>
-    Public NotInheritable Class 电脑信息
+    Public NotInheritable Class 系统信息
 
         Protected Sub New()
         End Sub

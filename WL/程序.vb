@@ -185,6 +185,16 @@ Public Module 程序
     End Sub
 
     ''' <summary>
+    ''' 输出一条计时，包括距离上次计时的间距
+    ''' </summary>
+    Public Sub 计时()
+        Static m As Double = Microsoft.VisualBasic.Timer
+        Dim n As Double = Microsoft.VisualBasic.Timer
+        输出(Math.Round(n - m, 3), 时间格式化(Now, "h:m:s"))
+        m = n
+    End Sub
+
+    ''' <summary>
     ''' 运行Powershell脚本，并返回运行结果，只能是全自动脚本，不然会卡住
     ''' </summary>
     Public Function PowerShell运行脚本(脚本 As String) As String

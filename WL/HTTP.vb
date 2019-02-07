@@ -381,10 +381,9 @@ Public Module HTTP
         ''' <summary>
         ''' 新建一个HTTP监听器，但不会启动，默认监听来自局域网的请求
         ''' </summary>
-        Public Sub New(端口 As UInteger, 工作内容 As ThreadStart, Optional 监听局域网 As Boolean = True)
+        Public Sub New(端口 As UInteger, Optional 监听局域网 As Boolean = True)
             Me.端口 = 端口
             Me.监听局域网 = 监听局域网
-            Me.工作内容 = 工作内容
             listening = False
         End Sub
 
@@ -451,7 +450,7 @@ netsh http add urlacl url=http://*:端口/ user=Everyone"
         ''' <summary>
         ''' 接到请求后的工作内容，必须返回请求一点东西，否则会卡住
         ''' </summary>
-        Public ReadOnly Property 工作内容 As ThreadStart
+        Public Property 工作内容 As ThreadStart
 
         ''' <summary>
         ''' 开启监听线程，如果已经开始的话不会做任何操作

@@ -52,18 +52,20 @@ Public Module 数学
         If IsNothing(A) OrElse IsNothing(B) Then
             Return IsNothing(A) AndAlso IsNothing(B)
         End If
+        Dim ok As Boolean = False
         Try
             Select Case 方法
                 Case 比较方法.等于
-                    Return A = B
+                    输出(A, B)
+                    ok = A = B
                 Case 比较方法.Tostring
-                    Return A.ToString = B.ToString
+                    ok = A.ToString = B.ToString
                 Case 比较方法.Is
-                    Return A Is B
+                    ok = A Is B
                 Case 比较方法.Type
-                    Return A.GetType = B.GetType
+                    ok = A.GetType = B.GetType
                 Case 比较方法.HashCode
-                    Return A.GetHashCode = B.GetHashCode
+                    ok = A.GetHashCode = B.GetHashCode
                 Case 比较方法.BaseType
                     If A.GetType.BaseType <> GetType(Object) AndAlso A.GetType.BaseType = B.GetType Then Return True
                     If B.GetType.BaseType <> GetType(Object) AndAlso B.GetType.BaseType = A.GetType Then Return True
@@ -72,8 +74,9 @@ Public Module 数学
                             If i = i2 Then Return True
                         Next
                     Next
-                    Return False
+                    ok = False
             End Select
+            Return ok
         Catch ex As Exception
             出错(ex)
         End Try
@@ -115,9 +118,12 @@ Public Module 数学
     Public Function 是数字类型(变量 As Object) As Boolean
         If IsNothing(变量) Then Return False
         Dim t As Type = 变量.GetType
-        Return 是当中一个(变量.GetType, GetType(Byte), GetType(Integer), GetType(UInteger),
+        For Each i As Type In {GetType(Byte), GetType(Integer), GetType(UInteger),
                      GetType(Long), GetType(ULong), GetType(Single),
-                     GetType(Double), GetType(Short), GetType(UShort), GetType(Decimal))
+                     GetType(Double), GetType(Short), GetType(UShort), GetType(Decimal)}
+            If i = t Then Return True
+        Next
+        Return False
     End Function
 
     ''' <summary>
@@ -125,7 +131,7 @@ Public Module 数学
     ''' </summary>
     Public Function 是整数(数字 As Object) As Boolean
         If Not 是数字类型(数字) Then Return False
-        Return 数字 = Math.Round(数字)
+        Return 数字 = Fix(数字)
     End Function
 
     ''' <summary>

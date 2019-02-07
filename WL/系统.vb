@@ -128,7 +128,6 @@ Public Module 系统
         ''' <summary>
         ''' 返回CPU的核心数量
         ''' </summary>
-        ''' <returns></returns>
         Public Shared ReadOnly Property CPU核心数量 As UInteger
             Get
                 Static m As UInteger = Registry.LocalMachine.OpenSubKey("HARDWARE\DESCRIPTION\System\CentralProcessor", False).SubKeyCount
@@ -139,7 +138,6 @@ Public Module 系统
         ''' <summary>
         ''' 返回CPU的类型
         ''' </summary>
-        ''' <returns></returns>
         Public Shared ReadOnly Property CPU类型 As String
             Get
                 Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "Identifier", "Unknown").ToString.Trim
@@ -297,7 +295,6 @@ Public Module 系统
         ''' <summary>
         ''' 是否存在任意可用本地或互联网的网络连接
         ''' </summary>
-        ''' <returns></returns>
         Public Shared ReadOnly Property 存在网络 As Boolean
             Get
                 Return My.Computer.Network.IsAvailable

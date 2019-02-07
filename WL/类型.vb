@@ -103,9 +103,10 @@ Public Module 类型
     Public Function 为空(对象 As Object) As Boolean
         If IsNothing(对象) Then Return True
         Dim t As Type = 对象.GetType
+        If 是数字(t) Then Return 对象 = 0
         If 有Count(t) Then Return 对象.Count = 0
         If 有Length(t) Then Return 对象.Length = 0
-        Return True
+        Return False
     End Function
 
     ''' <summary>

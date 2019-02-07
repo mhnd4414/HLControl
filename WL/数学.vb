@@ -7,7 +7,7 @@ Public Module 数学
     ''' 判断这个数字是否为整数
     ''' </summary>
     Public Function 是整数(数字 As Object) As Boolean
-        If Not 是数字(数字) Then Return False
+        If Not 是数字(数字.GetType) Then Return False
         Return 数字 = Fix(数字)
     End Function
 

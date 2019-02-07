@@ -214,4 +214,11 @@ Public Module 文件
         Return 写字节数组到文件(文件, 文本转字节数组(文本, 编码))
     End Function
 
+    ''' <summary>
+    ''' 把路径拆分开来
+    ''' </summary>
+    Public Function 路径拆分(路径 As String) As List(Of String)
+        Return 分割(路径标准化(路径), "\")
+    End Function
+
 End Module

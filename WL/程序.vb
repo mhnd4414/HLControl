@@ -110,11 +110,16 @@ Public Module 程序
     ''' 打开一个程序，超时选项只有在等到运行结束为True的时候才会工作
     ''' </summary>
     Public Sub 打开程序(文件 As String, Optional 参数 As String = "", Optional 窗口样式 As ProcessWindowStyle = ProcessWindowStyle.Normal, Optional 管理员权限运行 As Boolean = False, Optional 等到运行结束 As Boolean = False, Optional 超时 As UInteger = 0)
-        If 文件.Length < 4 Then Exit Sub
+        If 文件.Length < 4 Then
+            出错("打开程序，文件名不对", 文件)
+            Exit Sub
+        End If
         If 头(文件.ToLower, "https://", "http://") Then
-            尝试(Sub()
-                   Process.Start(文件)
-               End Sub)
+            Try
+                Process.Start(文件)
+            Catch ex As Exception
+                出错(ex)
+            End Try
         Else
             If 文件存在(文件) Then
                 Dim pi As New ProcessStartInfo
@@ -124,17 +129,21 @@ Public Module 程序
                     .WindowStyle = 窗口样式
                     If 管理员权限运行 Then .Verb = "runas"
                 End With
-                尝试(Sub()
-                       Dim p As Process = Process.Start(pi)
-                       If 等到运行结束 Then
-                           Dim n As Single = 0
-                           Do Until p.HasExited
-                               Thread.Sleep(100)
-                               n += 0.1
-                               If 超时 > 0 AndAlso n > 超时 Then p.Kill()
-                           Loop
-                       End If
-                   End Sub)
+                Try
+                    Dim p As Process = Process.Start(pi)
+                    If 等到运行结束 Then
+                        Dim n As Single = 0
+                        Do Until p.HasExited
+                            Thread.Sleep(100)
+                            n += 0.1
+                            If 超时 > 0 AndAlso n > 超时 Then p.Kill()
+                        Loop
+                    End If
+                Catch ex As Exception
+                    出错(ex)
+                End Try
+            Else
+                出错("打开程序，文件不存在", 文件)
             End If
         End If
     End Sub
@@ -145,6 +154,58 @@ Public Module 程序
     Public Function 程序运行中(程序名 As String) As Boolean
         If 程序名.Length < 1 Then Return False
         Return Process.GetProcessesByName(程序名).Length > 0
+    End Function
+
+    ''' <summary>
+    ''' 出错的时候会呼叫这个event
+    ''' </summary>
+    Public Event WL出错(内容 As String)
+
+    ''' <summary>
+    ''' 出错的时候会call这个sub
+    ''' </summary>
+    Public Sub 出错(ParamArray 内容() As Object)
+        Dim s As String = "WL出错："
+        For Each i As Object In 内容
+            Dim m As String
+            If i.GetType.ToString.ToLower.Contains("exception") Then
+                Dim e As Exception = i
+                m = e.TargetSite.Name + vbCrLf + e.Message + vbCrLf + e.StackTrace
+            Else
+                If IsNothing(i) Then i = "<nothing>"
+                m = 替换(i.ToString, vbCr, "[CR]", vbLf, "[LF]")
+                Dim m2 As String = 文本标准化(m)
+                If m2 <> m Then m = "标准化后：" + m2
+                s += m
+            End If
+            If m.Length < 1 Then m = "<empty string>"
+            s += m + vbCrLf
+        Next
+        RaiseEvent WL出错(s)
+        输出(s)
+    End Sub
+
+    ''' <summary>
+    ''' 运行Powershell脚本，并返回运行结果，只能是全自动脚本，不然会卡住
+    ''' </summary>
+    Public Function PowerShell运行脚本(脚本 As String) As String
+        Dim s As String = ""
+        If 脚本.Length > 0 Then
+            Try
+                Dim p As PowerShell = PowerShell.Create()
+                p.AddScript(脚本)
+                Dim c As Collection(Of PSObject) = p.Invoke
+                For Each i As PSObject In c
+                    If Not IsNothing(i) Then
+                        s += i.ToString + vbCrLf
+                    End If
+                Next
+                p.Dispose()
+            Catch ex As Exception
+                出错(ex)
+            End Try
+        End If
+        Return 文本标准化(s)
     End Function
 
     ''' <summary>
@@ -166,26 +227,4 @@ Public Module 程序
         End Try
         Return ""
     End Function
-
-    ''' <summary>
-    ''' 运行Powershell脚本，并返回运行结果，只能是全自动脚本，不然会卡住
-    ''' </summary>
-    Public Function PowerShell运行脚本(脚本 As String) As String
-        Dim s As String = ""
-        If 脚本.Length > 0 AndAlso 尝试(Sub()
-                                        Dim p As PowerShell = PowerShell.Create()
-                                        p.AddScript(脚本)
-                                        Dim c As Collection(Of PSObject) = p.Invoke
-                                        For Each i As PSObject In c
-                                            If Not IsNothing(i) Then
-                                                s += i.ToString + vbCrLf
-                                            End If
-                                        Next
-                                        p.Dispose()
-                                    End Sub) Then
-            Return 文本标准化(s)
-        End If
-        Return ""
-    End Function
-
 End Module

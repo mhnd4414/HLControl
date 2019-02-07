@@ -98,55 +98,29 @@ Public Module 数学
     End Sub
 
     ''' <summary>
-    ''' 对提供的字符串内容数组进行两两分组，""会被读入，nothing或者多出的单个不会被处理，返回一个字符串字典
-    ''' </summary>
-    Public Function 两两分组(ParamArray 内容() As String) As Dictionary(Of String, String)
-        Dim c As Integer = 内容.Length - 1, d As New Dictionary(Of String, String)
-        If c > 0 Then
-            If 是偶数(c) Then c -= 1
-            Dim i As Integer, a As String, b As String
-            For i = 0 To c Step 2
-                a = 内容(i)
-                b = 内容(i + 1)
-                If IsNothing(a) = False AndAlso IsNothing(b) = False Then
-                    d.Add(a, b)
-                End If
-            Next
-        End If
-        Return d
-    End Function
-
-    ''' <summary>
-    ''' 判断这个变量是否是数字相关的类型
+    ''' 判断这个变量是否是 Byte Integer UInteger Long ULong Single Double Short UShort Decimal 当中的一个
     ''' </summary>
     Public Function 是数字类型(变量 As Object) As Boolean
         If IsNothing(变量) Then Return False
-        Dim m As New List(Of Type) From {
-            GetType(Byte),
-            GetType(Integer),
-            GetType(UInteger),
-            GetType(Long),
-            GetType(ULong),
-            GetType(Single),
-            GetType(Double),
-            GetType(Short),
-            GetType(UShort),
-            GetType(Decimal)
-        }
-        Return m.Contains(变量.GetType)
+        Dim t As Type = 变量.GetType
+        Return 是当中一个(变量.GetType, GetType(Byte), GetType(Integer), GetType(UInteger),
+                     GetType(Long), GetType(ULong), GetType(Single),
+                     GetType(Double), GetType(Short), GetType(UShort), GetType(Decimal))
     End Function
 
     ''' <summary>
     ''' 判断这个数字是否为整数
     ''' </summary>
     Public Function 是整数(数字 As Object) As Boolean
-        Return 数字 = CLng(数字)
+        If Not 是数字类型(数字) Then Return False
+        Return 数字 = Math.Round(数字)
     End Function
 
     ''' <summary>
     ''' 判断这个数字是否为小数
     ''' </summary>
     Public Function 是小数(数字 As Object) As Boolean
+        If Not 是数字类型(数字) Then Return False
         Return Not 是整数(数字)
     End Function
 
@@ -154,6 +128,7 @@ Public Module 数学
     ''' 判断这个数字是否为偶整数
     ''' </summary>
     Public Function 是偶数(数字 As Object) As Boolean
+        If Not 是数字类型(数字) Then Return False
         Return 是整数(数字 / 2)
     End Function
 
@@ -161,11 +136,12 @@ Public Module 数学
     ''' 判断这个数字是否为奇整数
     ''' </summary>
     Public Function 是奇数(数字 As Object) As Boolean
+        If Not 是数字类型(数字) Then Return False
         Return 是小数(数字 / 2)
     End Function
 
     ''' <summary>
-    ''' 判断寻找的对象是否是内容当中的一个
+    ''' 判断寻找的对象是否=内容当中的一个
     ''' </summary>
     Public Function 是当中一个(寻找 As Object, ParamArray 内容() As Object) As Boolean
         If IsNothing(寻找) Then Return False
@@ -246,5 +222,62 @@ Public Module 数学
         End Function
 
     End Class
+
+    ''' <summary>
+    ''' 尝试获得一个对象的属性或者函数返回值，如果获取不到就返回nothing
+    ''' </summary>
+    Public Function 获得属性(对象 As Object, 属性名 As String, ParamArray 参数() As Object) As Object
+        If IsNothing(对象) OrElse IsNothing(属性名) OrElse 属性名.Length < 1 Then Return Nothing
+        Try
+            Dim o As Object = CallByName(对象, 属性名, CallType.Get, 参数)
+            Return o
+        Catch ex As Exception
+        End Try
+        Return Nothing
+    End Function
+
+    ''' <summary>
+    ''' 判断这个对象是否不是nothing
+    ''' 如果是数字类型就会判断是否不等于0
+    ''' 如果是字符串会判断是否有字符在内
+    ''' 如果是数组列表字典会判断是否包含任意物品在内
+    ''' </summary>
+    Public Function 非空(对象 As Object) As Boolean
+        Dim o As Object = 对象
+        If IsNothing(o) OrElse IsDBNull(o) Then Return False
+        If 是数字类型(o) Then Return o <> 0
+        Select Case o.GetType
+            Case GetType(Double)
+                Return Double.IsNaN(o)
+            Case GetType(Single)
+                Return Single.IsNaN(o)
+            Case Else
+                If Not IsNothing(获得属性(o, "Length")) Then
+                    Return o.Length > 0
+                End If
+                If Not IsNothing(获得属性(o, "Count")) Then
+                    Return o.Count > 0
+                End If
+        End Select
+        Return True
+    End Function
+
+    ''' <summary>
+    ''' 判断这个对象是否是nothing
+    ''' 如果是数字类型就会判断是否等于0
+    ''' 如果是字符串会判断是否为""
+    ''' 如果是数组列表字典会判断是否不包含任意物品在内
+    ''' </summary>
+    Public Function 为空(对象 As Object) As Boolean
+        Return Not 非空(对象)
+    End Function
+
+    ''' <summary>
+    ''' 类似iif，如果表达式为True就返回A，不然就返回B
+    ''' </summary>
+    Public Function IFF(表达式 As Boolean, A As Object, B As Object) As Object
+        If 表达式 Then Return A
+        Return B
+    End Function
 
 End Module

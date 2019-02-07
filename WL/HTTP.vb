@@ -155,7 +155,7 @@ Public Module HTTP
         ''' 向请求内写入字节数组
         ''' </summary>
         Public Sub 写入字节数组(字节数组 As Byte())
-            If 字节数组.Length > 0 Then write.AddRange(字节数组)
+            If IsNothing(字节数组) OrElse 字节数组.Length > 0 Then write.AddRange(字节数组)
         End Sub
 
         ''' <summary>
@@ -185,53 +185,51 @@ Public Module HTTP
         End Sub
 
         ''' <summary>
-        ''' 如果出错，错误的信息会显示在这里
-        ''' </summary>
-        Public ReadOnly Property 错误信息 As String
-            Get
-                Return err
-            End Get
-        End Property
-
-        ''' <summary>
         ''' 发送请求，获取回应并读取为字节数组，如果出错会返回nothing
         ''' </summary>
         Public Function 获取回应为字节数组() As Byte()
-            Dim b() As Byte = Nothing
-            Dim e As String = 尝试结果(Sub()
-                                       Dim h As HttpWebRequest = WebRequest.Create(链接)
-                                       With h
-                                           .Method = 方法
-                                           If Accept.Length > 0 Then .Accept = Accept
-                                           If Content_Type.Length > 0 Then .ContentType = Content_Type
-                                           For Each i As String In headers.AllKeys
-                                               .Headers.Remove(i)
-                                               .Headers.Add(i, headers.Get(i))
-                                           Next
-                                           If Referer.Length > 0 Then .Referer = Referer
-                                           If UA.Length > 0 Then .UserAgent = UA
-                                           .Timeout = 超时 * 1000
-                                           If write.Count > 0 Then
-                                               Dim w() As Byte = write.ToArray
-                                               .GetRequestStream.Write(w, 0, w.Length)
-                                           End If
-                                           Dim s As Stream = .GetResponse.GetResponseStream()
-                                           b = 读至末尾(s)
-                                           s.Close()
-                                       End With
-                                   End Sub)
-            err = e
-            If e <> "" Then Return Nothing
+            Dim b() As Byte = Nothing, e As String = ""
+            Try
+                Dim h As HttpWebRequest = WebRequest.Create(链接)
+                With h
+                    .Timeout = 超时 * 1000
+                    .ReadWriteTimeout = .Timeout
+                    .ContinueTimeout = .Timeout
+                    .Method = 方法
+                    If Accept.Length > 0 Then .Accept = Accept
+                    If Content_Type.Length > 0 Then .ContentType = Content_Type
+                    For Each i As String In headers.AllKeys
+                        .Headers.Remove(i)
+                        .Headers.Add(i, headers.Get(i))
+                    Next
+                    If Referer.Length > 0 Then .Referer = Referer
+                    If UA.Length > 0 Then .UserAgent = UA
+                    If write.Count > 0 Then
+                        Dim w() As Byte = write.ToArray
+                        .GetRequestStream.Write(w, 0, w.Length)
+                        .ContentLength = w.Length
+                    Else
+                        .ContentLength = 0
+                    End If
+                    Dim s As Stream = .GetResponse.GetResponseStream()
+                    b = 读至末尾(s)
+                    s.Close()
+                End With
+            Catch ex As Exception
+                出错(ex)
+                err = ex.Message
+                Return Nothing
+            End Try
             Return b
         End Function
 
         ''' <summary>
-        ''' 发送请求，获取回应并读取为字符串，如果出错会返回空字符串
+        ''' 发送请求，获取回应并读取为字符串，如果出错会返回错误信息的字符串
         ''' 默认不去除引号，但默认反转义
         ''' </summary>
         Public Function 获取回应为字符串(Optional 编码 As Encoding = Nothing, Optional 反转义 As Boolean = True, Optional 去除引号 As Boolean = False) As String
             Dim b() As Byte = 获取回应为字节数组()
-            If IsNothing(b) Then Return ""
+            If IsNothing(b) Then Return err
             Dim s As String = 字节数组转文本(b, 编码)
             If 去除引号 Then s = 去除(s, 引号)
             If 反转义 Then s = 文本.反转义(s)

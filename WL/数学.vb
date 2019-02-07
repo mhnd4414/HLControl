@@ -34,6 +34,11 @@ Public Module 数学
         Type
 
         ''' <summary>
+        ''' 比较两个对象是否有相同的基础类或接口
+        ''' </summary>
+        BaseType
+
+        ''' <summary>
         ''' 使用 Is 关键字来比较，判断两个对象是否引用自同一对象
         ''' </summary>
         [Is]
@@ -47,25 +52,32 @@ Public Module 数学
         If IsNothing(A) OrElse IsNothing(B) Then
             Return IsNothing(A) AndAlso IsNothing(B)
         End If
-        Dim ok As Boolean
-        If 尝试(Sub()
-                  Select Case 方法
-                      Case 比较方法.等于
-                          ok = A = B
-                      Case 比较方法.Tostring
-                          ok = A.ToString = B.ToString
-                      Case 比较方法.Is
-                          ok = A Is B
-                      Case 比较方法.Type
-                          ok = A.GetType = B.GetType
-                      Case 比较方法.HashCode
-                          ok = A.GetHashCode = B.GetHashCode
-                  End Select
-              End Sub) Then
-            Return ok
-        Else
-            Return A.Equals(B)
-        End If
+        Try
+            Select Case 方法
+                Case 比较方法.等于
+                    Return A = B
+                Case 比较方法.Tostring
+                    Return A.ToString = B.ToString
+                Case 比较方法.Is
+                    Return A Is B
+                Case 比较方法.Type
+                    Return A.GetType = B.GetType
+                Case 比较方法.HashCode
+                    Return A.GetHashCode = B.GetHashCode
+                Case 比较方法.BaseType
+                    If A.GetType.BaseType <> GetType(Object) AndAlso A.GetType.BaseType = B.GetType Then Return True
+                    If B.GetType.BaseType <> GetType(Object) AndAlso B.GetType.BaseType = A.GetType Then Return True
+                    For Each i As Type In A.GetType.GetInterfaces
+                        For Each i2 As Type In B.GetType.GetInterfaces
+                            If i = i2 Then Return True
+                        Next
+                    Next
+                    Return False
+            End Select
+        Catch ex As Exception
+            出错(ex)
+        End Try
+        Return A.Equals(B)
     End Function
 
     ''' <summary>
@@ -252,11 +264,11 @@ Public Module 数学
             Case GetType(Single)
                 Return Single.IsNaN(o)
             Case Else
-                If Not IsNothing(获得属性(o, "Length")) Then
-                    Return o.Length > 0
-                End If
                 If Not IsNothing(获得属性(o, "Count")) Then
                     Return o.Count > 0
+                End If
+                If Not IsNothing(获得属性(o, "Length")) Then
+                    Return o.Length > 0
                 End If
         End Select
         Return True

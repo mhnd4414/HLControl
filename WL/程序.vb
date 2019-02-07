@@ -176,7 +176,6 @@ Public Module 程序
                 m = 替换(i.ToString, vbCr, "[CR]", vbLf, "[LF]")
                 Dim m2 As String = 文本标准化(m)
                 If m2 <> m Then m = "标准化后：" + m2
-                s += m
             End If
             If m.Length < 1 Then m = "<empty string>"
             s += m + vbCrLf
@@ -208,23 +207,4 @@ Public Module 程序
         Return 文本标准化(s)
     End Function
 
-    ''' <summary>
-    ''' Try 一个 sub，返回是否完全执行成功
-    ''' </summary>
-    Public Function 尝试(内容 As ThreadStart) As Boolean
-        Return 尝试结果(内容).Length < 1
-    End Function
-
-    ''' <summary>
-    ''' Try 一个 sub，如果成功就返回""，失败就返回错误内容
-    ''' </summary>
-    Public Function 尝试结果(内容 As ThreadStart) As String
-        Try
-            内容.Invoke
-        Catch ex As Exception
-            输出("出错：" + ex.Message + " " + ex.StackTrace)
-            Return ex.Message
-        End Try
-        Return ""
-    End Function
 End Module

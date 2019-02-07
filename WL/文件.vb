@@ -120,16 +120,17 @@ Public Module 文件
     Public Function 读文件为字节数组(文件 As String) As Byte()
         If 文件存在(文件) Then
             Dim b() As Byte = Nothing
-            If 尝试(Sub()
-                      Dim s As Stream = File.OpenRead(文件), c As Integer = s.Length - 1
-                      ReDim b(c)
-                      For i As Integer = 0 To c
-                          b(i) = s.ReadByte
-                      Next
-                      s.Close()
-                  End Sub) Then
+            Try
+                Dim s As Stream = File.OpenRead(文件), c As Integer = s.Length - 1
+                ReDim b(c)
+                For i As Integer = 0 To c
+                    b(i) = s.ReadByte
+                Next
+                s.Close()
                 Return b
-            End If
+            Catch ex As Exception
+                出错(ex)
+            End Try
         End If
         Return Nothing
     End Function
@@ -147,10 +148,12 @@ Public Module 文件
     ''' 删除文件或文件夹，返回删除是否成功，如果不存在也算删除成功
     ''' </summary>
     Public Function 删除文件(文件 As String) As Boolean
-        尝试(Sub()
-               If 文件存在(文件) Then File.Delete(文件)
-               If 文件夹存在(文件) Then Directory.Delete(文件, True)
-           End Sub)
+        Try
+            If 文件存在(文件) Then File.Delete(文件)
+            If 文件夹存在(文件) Then Directory.Delete(文件, True)
+        Catch ex As Exception
+            出错(ex)
+        End Try
         Return 文件存在(文件) = False AndAlso 文件夹存在(文件) = False
     End Function
 
@@ -160,11 +163,12 @@ Public Module 文件
     Public Function 复制文件(文件 As String, 目的文件 As String) As Boolean
         If 文件存在(文件) AndAlso 创建文件夹(路径(目的文件)) Then
             If 文件存在(目的文件) = False OrElse 删除文件(目的文件) Then
-                If 尝试(Sub()
-                          File.Copy(文件, 目的文件, True)
-                      End Sub) Then
+                Try
+                    File.Copy(文件, 目的文件, True)
                     Return 文件大小Byte(目的文件) = 文件大小Byte(文件)
-                End If
+                Catch ex As Exception
+                    出错(ex)
+                End Try
             End If
         End If
         Return False
@@ -176,13 +180,12 @@ Public Module 文件
     Public Function 创建文件夹(路径 As String) As Boolean
         If 文件夹存在(路径) Then Return True
         Dim ok As Boolean = False
-        If Not 尝试(Sub()
-                      Directory.CreateDirectory(路径)
-                  End Sub) Then
-            Return False
-        Else
-            Return 文件夹存在(路径)
-        End If
+        Try
+            Directory.CreateDirectory(路径)
+        Catch ex As Exception
+            出错(ex)
+        End Try
+        Return 文件夹存在(路径)
     End Function
 
     ''' <summary>
@@ -191,15 +194,15 @@ Public Module 文件
     Public Function 写字节数组到文件(文件 As String, 字节数组() As Byte) As Boolean
         If 删除文件(文件) AndAlso 创建文件夹(路径(文件)) Then
             Dim ok As Boolean = False
-            If 尝试(Sub()
-                      Dim s As Stream = File.OpenWrite(文件)
-                      Dim c As Integer = 字节数组.Length
-                      s.Write(字节数组, 0, c)
-                      s.Close()
-                      ok = 文件大小Byte(文件) = c
-                  End Sub) Then
-                Return ok
-            End If
+            Try
+                Dim s As Stream = File.OpenWrite(文件)
+                Dim c As Integer = 字节数组.Length
+                s.Write(字节数组, 0, c)
+                s.Close()
+                Return 文件大小Byte(文件) = c
+            Catch ex As Exception
+                出错(ex)
+            End Try
         End If
         Return False
     End Function

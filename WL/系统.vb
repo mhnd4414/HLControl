@@ -16,9 +16,11 @@ Public Module 系统
         ''' 清空剪贴板的内容
         ''' </summary>
         Public Shared Sub 清空()
-            尝试(Sub()
-                   My.Computer.Clipboard.Clear()
-               End Sub)
+            Try
+                My.Computer.Clipboard.Clear()
+            Catch ex As Exception
+                出错(ex)
+            End Try
         End Sub
 
         ''' <summary>
@@ -27,19 +29,24 @@ Public Module 系统
         Public Shared Property 文本 As String
             Get
                 Dim s As String = ""
-                尝试(Sub()
-                       If My.Computer.Clipboard.ContainsText Then s = My.Computer.Clipboard.GetText
-                   End Sub)
-                Return s
+                Try
+                    If My.Computer.Clipboard.ContainsText Then s = My.Computer.Clipboard.GetText
+                    Return s
+                Catch ex As Exception
+                    Return ""
+                    出错(ex)
+                End Try
             End Get
             Set(内容 As String)
-                If IsNothing(内容) OrElse 内容.Length < 1 Then
+                If 为空(内容) Then
                     清空()
-                    Exit Property
+                Else
+                    Try
+                        My.Computer.Clipboard.SetText(内容)
+                    Catch ex As Exception
+                        出错(ex)
+                    End Try
                 End If
-                尝试(Sub()
-                       My.Computer.Clipboard.SetText(内容)
-                   End Sub)
             End Set
         End Property
 
@@ -49,19 +56,24 @@ Public Module 系统
         Public Shared Property 图片 As Image
             Get
                 Dim g As Image = Nothing
-                尝试(Sub()
-                       If My.Computer.Clipboard.ContainsImage Then g = My.Computer.Clipboard.GetImage
-                   End Sub)
-                Return g
+                Try
+                    If My.Computer.Clipboard.ContainsImage Then g = My.Computer.Clipboard.GetImage
+                    Return g
+                Catch ex As Exception
+                    出错(ex)
+                    Return Nothing
+                End Try
             End Get
             Set(内容 As Image)
-                If IsNothing(内容) Then
+                If 为空(内容) Then
                     清空()
-                    Exit Property
+                Else
+                    Try
+                        My.Computer.Clipboard.SetImage(内容)
+                    Catch ex As Exception
+                        出错(ex)
+                    End Try
                 End If
-                尝试(Sub()
-                       My.Computer.Clipboard.SetImage(内容)
-                   End Sub)
             End Set
         End Property
 
@@ -71,13 +83,15 @@ Public Module 系统
         Public Shared ReadOnly Property 文件列表 As List(Of String)
             Get
                 Dim g As New List(Of String)
-                尝试(Sub()
-                       If My.Computer.Clipboard.ContainsFileDropList Then
-                           For Each i As String In My.Computer.Clipboard.GetFileDropList()
-                               If i.Length > 2 AndAlso g.Contains(i) = False Then g.Add(i)
-                           Next
-                       End If
-                   End Sub)
+                Try
+                    If My.Computer.Clipboard.ContainsFileDropList Then
+                        For Each i As String In My.Computer.Clipboard.GetFileDropList()
+                            If i.Length > 2 AndAlso g.Contains(i) = False Then g.Add(i)
+                        Next
+                    End If
+                Catch ex As Exception
+                    出错(ex)
+                End Try
                 Return g
             End Get
         End Property

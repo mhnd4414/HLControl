@@ -478,10 +478,13 @@ Public Module 文本
         ''' </summary>
         Public Shared Function 解密字节数组(B64 As String) As Byte()
             Dim b() As Byte = Nothing
-            If B64.Length > 0 AndAlso 尝试(Sub()
-                                             b = Convert.FromBase64String(B64)
-                                         End Sub) Then
-                Return b
+            If B64.Length > 0 Then
+                Try
+                    b = Convert.FromBase64String(B64)
+                    Return b
+                Catch ex As Exception
+                    出错(ex)
+                End Try
             End If
             Return Nothing
         End Function
@@ -515,9 +518,12 @@ Public Module 文本
         ''' </summary>
         Public Shared Function 是正确表达式(表达式 As String) As Boolean
             If 表达式.Length < 1 Then Return False
-            Return 尝试(Sub()
-                          Dim b As Boolean = Regex.IsMatch("a", 表达式, rule)
-                      End Sub)
+            Try
+                Dim b As Boolean = Regex.IsMatch("a", 表达式, rule)
+                Return True
+            Catch ex As Exception
+            End Try
+            Return False
         End Function
 
         ''' <summary>

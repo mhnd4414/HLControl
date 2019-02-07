@@ -534,7 +534,7 @@ Public Module 文本
             If c > 0 Then
                 If 是偶数(c) Then c -= 1
                 For i As Integer = 0 To c Step 2
-                    If 是正确表达式(表达式(i)) AndAlso 文本.Length > 0 AndAlso 包含(文本, 表达式(i)) Then
+                    If 包含(文本, 表达式(i)) Then
                         文本 = Regex.Replace(文本标准化(文本), FixRN(表达式(i)), FixRN(表达式(i + 1)), rule)
                     End If
                     If 文本.Length < 1 Then Exit For
@@ -783,7 +783,6 @@ Function(m As String)
 
     Return o
 End Function)
-            计时()
             md = 正则.高级替换(md, "<code.*?>(.*?)</code>", Function(m As String)
                                                           Dim p1 As String = 提取最之前(m, ">") + ">"
                                                           Dim p3 As String = "</code>"
@@ -792,7 +791,6 @@ End Function)
                                                           Return p1 + p2 + p3
                                                       End Function)
         End If
-        计时()
         Return md
     End Function
 

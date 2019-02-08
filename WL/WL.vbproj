@@ -82,6 +82,7 @@
     <Import Include="System.Threading" />
     <Import Include="System.Threading.Tasks" />
     <Import Include="System.Web" />
+    <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="基础\HTTP.vb" />
@@ -100,9 +101,15 @@
     <Compile Include="基础\程序.vb" />
     <Compile Include="基础\类型.vb" />
     <Compile Include="基础\系统.vb" />
+    <Compile Include="控件\按钮.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="控件\控件.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="控件\控件辅助信息.vb" />
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -113,6 +120,9 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -35,28 +35,17 @@
         End If
     End Sub
 
-    Private Sub _MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+    Private Sub _MouseUp() Handles Me.MouseUp
         按住 = False
         Invalidate()
     End Sub
 
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        DoubleBuffered = True
         Height = 10 * DPI + Font.GetHeight
         MyBase.OnPaint(e)
         With e.Graphics
-            Dim c As Rectangle = ClientRectangle
-            .FillRectangle(基础绿笔刷, c)
-            Dim s1 As Pen = IFF(按住, 暗色笔, 边缘白笔)
-            Dim s2 As Pen = IFF(按住 = False, 暗色笔, 边缘白笔)
-            .DrawLine(s1, 左上角(c), 左下角(c))
-            .DrawLine(s1, 左上角(c), 右上角(c))
-            .DrawLine(s2, 右上角(c), 右下角(c))
-            .DrawLine(s2, 左下角(c), 右下角(c))
-            If 激活 Then
-                .DrawRectangle(黑边框, c)
-                Dim d As Single = DPI * 4
-                .DrawRectangle(黑虚线边框, d, d, Width - d * 2, Height - d * 2)
-            End If
+            绘制基础矩形(e.Graphics, ClientRectangle, 按住, 激活)
             .DrawString(Text, Font, IFF(Enabled, 白色笔刷, 暗色笔刷), New PointF(6 * DPI, 4 * DPI))
         End With
     End Sub

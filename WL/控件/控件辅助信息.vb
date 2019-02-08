@@ -7,6 +7,9 @@
     Public ReadOnly 基础绿 As Color = Color.FromArgb(76, 88, 68)
     Public ReadOnly 基础绿笔刷 As New SolidBrush(基础绿)
 
+    Public ReadOnly 深入绿 As Color = Color.FromArgb(62, 70, 55)
+    Public ReadOnly 深入绿笔刷 As New SolidBrush(深入绿)
+
     Public ReadOnly 白色 As Color = Color.FromArgb(255, 255, 255)
     Public ReadOnly 白色笔刷 As New SolidBrush(白色)
 
@@ -19,7 +22,10 @@
     Public ReadOnly 边缘白笔刷 As New SolidBrush(边缘白)
 
     Public ReadOnly 黑边框 As New Pen(Color.Black, DPI * 2)
-    Public ReadOnly 黑虚线边框 As New Pen(Color.Black, DPI * 2) With {.DashStyle = Drawing2D.DashStyle.Dot}
+    Public ReadOnly 黑虚线边框 As New Pen(Color.Black, DPI * 1) With {.DashStyle = Drawing2D.DashStyle.Dot}
+
+    Public ReadOnly 内容黄 As Color = Color.FromArgb(196, 181, 80)
+    Public ReadOnly 内容黄笔刷 As New SolidBrush(内容黄)
 
     Public Function 点(x As Integer, y As Integer) As Point
         Return New Point(x, y)
@@ -52,5 +58,22 @@
     Public Function 右下角(c As Rectangle, Optional 差 As Integer = 0) As Point
         Return 点(c.Width - 差, c.Height - 差)
     End Function
+
+    Public Sub 绘制基础矩形(g As Graphics, c As Rectangle, Optional 按下 As Boolean = False, Optional 黑框 As Boolean = False, Optional 内容框 As Boolean = False)
+        With g
+            .FillRectangle(IFF(内容框, 深入绿笔刷, 基础绿笔刷), c)
+            Dim s1 As Pen = IFF(按下, 暗色笔, 边缘白笔)
+            Dim s2 As Pen = IFF(按下, 边缘白笔, 暗色笔)
+            .DrawLine(s1, 左上角(c), 左下角(c))
+            .DrawLine(s1, 左上角(c), 右上角(c))
+            .DrawLine(s2, 右上角(c), 右下角(c))
+            .DrawLine(s2, 左下角(c), 右下角(c))
+            If 黑框 Then
+                .DrawRectangle(黑边框, c)
+                Dim d As Single = DPI * 4
+                .DrawRectangle(黑虚线边框, d, d, c.Width - d * 2, c.Height - d * 2)
+            End If
+        End With
+    End Sub
 
 End Module

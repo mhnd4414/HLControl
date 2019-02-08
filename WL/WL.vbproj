@@ -70,6 +70,7 @@
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
     <Import Include="System.Collections.ObjectModel" />
+    <Import Include="System.ComponentModel" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
     <Import Include="System.IO" />
@@ -104,7 +105,7 @@
     <Compile Include="控件\按钮.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="控件\控件.vb">
+    <Compile Include="控件\进度条.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="控件\控件辅助信息.vb" />

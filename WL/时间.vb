@@ -1,5 +1,6 @@
-﻿''' <summary>
-''' 和时间有关的模块
+﻿
+''' <summary>
+''' 和时间日期有关的模块
 ''' </summary>
 Public Module 时间
 

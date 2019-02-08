@@ -7,8 +7,8 @@
     Public ReadOnly 基础绿 As Color = Color.FromArgb(76, 88, 68)
     Public ReadOnly 基础绿笔刷 As New SolidBrush(基础绿)
 
-    Public ReadOnly 深入绿 As Color = Color.FromArgb(62, 70, 55)
-    Public ReadOnly 深入绿笔刷 As New SolidBrush(深入绿)
+    Public ReadOnly 内容绿 As Color = Color.FromArgb(62, 70, 55)
+    Public ReadOnly 内容绿笔刷 As New SolidBrush(内容绿)
 
     Public ReadOnly 白色 As Color = Color.FromArgb(255, 255, 255)
     Public ReadOnly 白色笔刷 As New SolidBrush(白色)
@@ -26,6 +26,8 @@
 
     Public ReadOnly 内容黄 As Color = Color.FromArgb(196, 181, 80)
     Public ReadOnly 内容黄笔刷 As New SolidBrush(内容黄)
+
+    Public ReadOnly 内容白 As Color = Color.FromArgb(216, 222, 211)
 
     Public Function 点(x As Integer, y As Integer) As Point
         Return New Point(x, y)
@@ -61,7 +63,7 @@
 
     Public Sub 绘制基础矩形(g As Graphics, c As Rectangle, Optional 按下 As Boolean = False, Optional 黑框 As Boolean = False, Optional 内容框 As Boolean = False)
         With g
-            .FillRectangle(IFF(内容框, 深入绿笔刷, 基础绿笔刷), c)
+            .FillRectangle(IFF(内容框, 内容绿笔刷, 基础绿笔刷), c)
             Dim s1 As Pen = IFF(按下, 暗色笔, 边缘白笔)
             Dim s2 As Pen = IFF(按下, 边缘白笔, 暗色笔)
             .DrawLine(s1, 左上角(c), 左下角(c))

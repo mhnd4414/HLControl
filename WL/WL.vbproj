@@ -84,22 +84,22 @@
     <Import Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HTTP.vb" />
+    <Compile Include="基础\HTTP.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="WBC.vb" />
-    <Compile Include="字符串常量.vb" />
-    <Compile Include="数学.vb" />
-    <Compile Include="文件.vb" />
-    <Compile Include="文本.vb" />
-    <Compile Include="时间.vb" />
-    <Compile Include="流.vb" />
-    <Compile Include="程序.vb" />
-    <Compile Include="类型.vb" />
-    <Compile Include="系统.vb" />
+    <Compile Include="基础\WBC.vb" />
+    <Compile Include="基础\字符串常量.vb" />
+    <Compile Include="基础\数学.vb" />
+    <Compile Include="基础\文件.vb" />
+    <Compile Include="基础\文本.vb" />
+    <Compile Include="基础\时间.vb" />
+    <Compile Include="基础\流.vb" />
+    <Compile Include="基础\程序.vb" />
+    <Compile Include="基础\类型.vb" />
+    <Compile Include="基础\系统.vb" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

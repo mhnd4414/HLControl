@@ -31,7 +31,7 @@
                 If 行数 >= l - se Then
                     g = .TextLength
                 Else
-                    If .TextLength < 2000 Then
+                    If .TextLength < 500 Then
                         .Select(.TextLength, 0)
                         .ScrollToCaret()
                     End If

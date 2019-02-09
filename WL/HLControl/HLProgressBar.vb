@@ -18,6 +18,7 @@
         End Sub
 
         Private Sub FixValue()
+            If 过频(GetHashCode, 0.04) Then Exit Sub
             If _max = _min Then
                 _max += 1
             ElseIf _max < _min Then

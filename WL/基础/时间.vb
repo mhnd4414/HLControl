@@ -79,18 +79,18 @@
         End Function
 
         ''' <summary>
-        ''' 如果同一个ID访问这个函数的时间间隔过小，就返回false
+        ''' 如果同一个ID访问这个函数的时间间隔过小，就返回true
         ''' </summary>
-        Public Function 防止过频(id As Integer, 时间 As Double) As Boolean
+        Public Function 过频(id As Integer, 时间 As Double) As Boolean
             Static d As New Dictionary(Of Integer, Double)
             If d.ContainsKey(id) = False Then
                 d.Add(id, 当日时间戳)
             Else
                 Dim m As Double = d.Item(id), n As Double = 当日时间戳()
-                If n - m < 时间 Then Return False
+                If n - m < 时间 Then Return True
                 d.Item(id) = n
             End If
-            Return True
+            Return False
         End Function
 
     End Module

@@ -1,4 +1,4 @@
-﻿Namespace 控件
+﻿Namespace HLControl
 
     Public Module 控件辅助信息
 

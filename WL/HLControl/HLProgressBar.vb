@@ -1,7 +1,7 @@
-﻿Namespace 控件
+﻿Namespace HLControl
 
-    <DefaultEvent("值改变后")>
-    Public Class 进度条
+    <DefaultEvent("ValueChanged")>
+    Public Class HLProgressBar
         Inherits Control
 
         Public Sub New()
@@ -19,7 +19,7 @@
         Private _value As Single
 
         <DefaultValue(0)>
-        Public Property 值 As Single
+        Public Property Value As Single
             Get
                 Return _value
             End Get
@@ -31,20 +31,20 @@
                 End If
                 If v = _value Then Exit Property
                 _value = v
-                RaiseEvent 值改变后()
+                RaiseEvent ValueChanged()
                 If _value > 0.9999 Then
-                    RaiseEvent 满载后()
-                    If 自动复位 Then _value = 0
+                    RaiseEvent Overflowed()
+                    If AutoReset Then _value = 0
                 End If
                 Invalidate()
             End Set
         End Property
 
         <DefaultValue(False)>
-        Public Property 自动复位 As Boolean
+        Public Property AutoReset As Boolean
 
-        Public Event 值改变后()
-        Public Event 满载后()
+        Public Event ValueChanged()
+        Public Event Overflowed()
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
@@ -58,7 +58,7 @@
                 h = Height - 12 * DPI
                 w = 8 * DPI
                 Dim all As Integer = Int((Width) / (w + 4 * DPI) + 0.5)
-                Dim n As Integer = Int(值 * all - 0.5)
+                Dim n As Integer = Int(Value * all - 0.5)
                 x = 4 * DPI
                 If n > 0 Then
                     For i As Integer = 1 To n
@@ -68,10 +68,6 @@
                 End If
             End With
         End Sub
-
-        Public Overrides Function ToString() As String
-            Return [GetType].ToString & "(" & 值 & "," & IFF(自动复位, "已", "未") & "开启自动复位)"
-        End Function
 
     End Class
 

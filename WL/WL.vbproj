@@ -86,6 +86,8 @@
     <Import Include="System.Threading.Tasks" />
     <Import Include="System.Web" />
     <Import Include="System.Windows.Forms" />
+    <Import Include="WL.HLControl" />
+    <Import Include="WL.基础" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="基础\HTTP.vb" />
@@ -104,20 +106,19 @@
     <Compile Include="基础\程序.vb" />
     <Compile Include="基础\类型.vb" />
     <Compile Include="基础\系统.vb" />
-    <Compile Include="控件\文本框.vb">
+    <Compile Include="HLControl\HLTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="控件\按钮.vb">
+    <Compile Include="HLControl\HLButton.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="控件\标签.vb">
+    <Compile Include="HLControl\HLLabel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="控件\计时器.vb" />
-    <Compile Include="控件\进度条.vb">
+    <Compile Include="HLControl\HLProgressBar.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="控件\控件辅助信息.vb" />
+    <Compile Include="HLControl\控件辅助信息.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">

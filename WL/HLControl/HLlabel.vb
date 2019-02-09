@@ -1,6 +1,6 @@
-﻿Namespace 控件
+﻿Namespace HLControl
 
-    Public Class 标签
+    Public Class HLLabel
         Inherits Control
 
         Private lb As Label, br As Boolean, dark As Boolean
@@ -47,7 +47,7 @@
         End Property
 
         <DefaultValue(False)>
-        Public Property 高亮 As Boolean
+        Public Property HighLight As Boolean
             Get
                 Return br
             End Get
@@ -56,7 +56,7 @@
                 If dark = False AndAlso 非空(Parent) Then
                     For Each i As Control In Parent.Controls
                         If i.GetType = [GetType]() AndAlso i.Name <> Name Then
-                            Dim c As 标签 = i
+                            Dim c As HLLabel = i
                             c.br = False
                             c.Invalidate()
                         End If
@@ -67,7 +67,7 @@
         End Property
 
         <DefaultValue(False)>
-        Public Property 黯淡 As Boolean
+        Public Property LowLight As Boolean
             Get
                 Return dark
             End Get
@@ -83,9 +83,9 @@
             Size = lb.Size
             With e.Graphics
                 Dim c As Color = 内容白
-                If 黯淡 Then
+                If LowLight Then
                     c = 淡色
-                ElseIf 高亮 Then
+                ElseIf HighLight Then
                     c = 内容黄
                 End If
                 lb.ForeColor = c

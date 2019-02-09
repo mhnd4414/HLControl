@@ -1,6 +1,6 @@
-﻿Namespace 控件
+﻿Namespace HLControl
 
-    Public Class 按钮
+    Public Class HLbutton
         Inherits Control
 
         Private 激活 As Boolean, 按住 As Boolean

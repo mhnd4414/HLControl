@@ -1,13 +1,13 @@
-﻿Namespace 控件
+﻿Namespace HLControl
 
-    Public Class 文本框
+    Public Class HLTextBox
         Inherits Control
 
         Private tb As TextBox
 
         Public Sub New()
             DoubleBuffered = True
-            同步高亮标签 = Nothing
+            LabelinHighLight = Nothing
             tb = New TextBox
             With tb
                 .BackColor = 内容绿
@@ -32,10 +32,10 @@
                                        End If
                                    End Sub
             AddHandler tb.GotFocus, Sub()
-                                        If 非空(同步高亮标签) Then 同步高亮标签.高亮 = True
+                                        If 非空(LabelinHighLight) Then LabelinHighLight.HighLight = True
                                     End Sub
             AddHandler tb.LostFocus, Sub()
-                                         If 非空(同步高亮标签) Then 同步高亮标签.高亮 = False
+                                         If 非空(LabelinHighLight) Then LabelinHighLight.HighLight = False
                                      End Sub
         End Sub
 
@@ -55,7 +55,7 @@
             Invalidate()
         End Sub
 
-        Public Property 同步高亮标签 As 标签
+        Public Property LabelinHighLight As HLLabel
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             If Not Multiline Then Height = tb.Height + 6 * DPI

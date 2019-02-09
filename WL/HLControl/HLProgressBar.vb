@@ -29,7 +29,6 @@
                 _value = _max
             End If
             If _value = _max Then
-                RaiseEvent Full()
                 If AutoReset Then _value = 0
             End If
             Invalidate()
@@ -79,7 +78,6 @@
         Public Property AutoReset As Boolean
 
         Public Event ValueChanged()
-        Public Event Full()
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)

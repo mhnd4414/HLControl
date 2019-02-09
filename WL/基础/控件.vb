@@ -25,20 +25,21 @@
         Public Sub 滚动文本框(T As Object, 行数 As UInteger)
             If 为空(T) OrElse 包含(T.Text, vbCr, vbLf) = False Then Exit Sub
             With T
-                Dim st As Integer = .SelectionStart, sl As Integer = .SelectionLength, g As Integer = 0
                 Dim l As Integer = .Lines.Length, se As Integer = 文本框可见行数(T)
-                If l > se Then
-                    If 行数 < se Then
-                        g = 0
-                    ElseIf 行数 >= l - se Then
-                        g = .TextLength
-                    Else
-                        For i As Integer = 0 To 行数 - 2
-                            g += .Lines(i).Length + 2
-                        Next
+                If l < se Then Exit Sub
+                Dim st As Integer = .SelectionStart, sl As Integer = .SelectionLength, g As Integer = 0
+                If 行数 >= l - se Then
+                    g = .TextLength
+                Else
+                    If .TextLength < 2000 Then
+                        .Select(.TextLength, 0)
+                        .ScrollToCaret()
                     End If
-                    .Select(g, 0)
+                    For i As Integer = 0 To 行数 - 2
+                        g += .Lines(i).Length + 2
+                    Next
                 End If
+                .Select(g, 0)
                 .ScrollToCaret()
                 .Select(st, sl)
             End With

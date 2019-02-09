@@ -6,6 +6,7 @@
         Private lb As Label, br As Boolean, dark As Boolean
 
         Public Sub New()
+            DoubleBuffered = True
             lb = New Label
             br = False
             dark = False

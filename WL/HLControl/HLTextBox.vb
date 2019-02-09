@@ -1,5 +1,5 @@
 ﻿Namespace HLControl
-
+    <DefaultEvent("TextChanged")>
     Public Class HLTextBox
         Inherits Control
 
@@ -7,7 +7,7 @@
 
         Public Sub New()
             DoubleBuffered = True
-            LabelinHighLight = Nothing
+            HighLightLabel = Nothing
             tb = New TextBox
             With tb
                 .BackColor = 内容绿
@@ -17,6 +17,9 @@
                 .BorderStyle = BorderStyle.None
             End With
             Controls.Add(tb)
+            AddHandler tb.TextChanged, Sub()
+                                           MyBase.OnTextChanged(Nothing)
+                                       End Sub
             AddHandler tb.KeyDown, Sub(sender As Object, e As KeyEventArgs)
                                        If e.Control Then
                                            Select Case e.KeyCode
@@ -32,10 +35,10 @@
                                        End If
                                    End Sub
             AddHandler tb.GotFocus, Sub()
-                                        If 非空(LabelinHighLight) Then LabelinHighLight.HighLight = True
+                                        If 非空(HighLightLabel) Then HighLightLabel.HighLight = True
                                     End Sub
             AddHandler tb.LostFocus, Sub()
-                                         If 非空(LabelinHighLight) Then LabelinHighLight.HighLight = False
+                                         If 非空(HighLightLabel) Then HighLightLabel.HighLight = False
                                      End Sub
         End Sub
 
@@ -55,7 +58,7 @@
             Invalidate()
         End Sub
 
-        Public Property LabelinHighLight As HLLabel
+        Public Property HighLightLabel As HLLabel
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             If Not Multiline Then Height = tb.Height + 6 * DPI

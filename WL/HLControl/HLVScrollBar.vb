@@ -1,9 +1,9 @@
 ﻿Namespace HLControl
-
+    <DefaultEvent("ValueChanged")>
     Public Class HLVScrollBar
         Inherits Control
 
-        Private 按住上 As Boolean, 按住 As Boolean, 按住下 As Boolean, _value As Single
+        Private 按住上 As Boolean, 按住 As Boolean, 按住下 As Boolean, _value As Single, _small As Single
 
         Public Sub New()
             DoubleBuffered = True
@@ -11,6 +11,7 @@
             按住下 = False
             按住 = False
             _value = 0
+            _small = 0.02
         End Sub
 
         <DefaultValue(0)>
@@ -23,19 +24,34 @@
                 If v < 0.01 Then v = 0
                 If v <> _value Then
                     _value = v
+                    RaiseEvent ValueChanged()
                     Invalidate()
                 End If
             End Set
         End Property
 
+        <DefaultValue(0.02)>
+        Public Property SmallChange As Single
+            Get
+                Return _small
+            End Get
+            Set(v As Single)
+                If v > 0.99 Then v = 0.99
+                If v < 0.01 Then v = 0.01
+                _small = v
+            End Set
+        End Property
+
+        Public Event ValueChanged()
+
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
             Dim y As Integer = e.Y, h As Integer = Width
             If y <= h Then
                 按住上 = True
-                Value -= 0.03
+                Value -= _small
             ElseIf y >= Height - h Then
                 按住下 = True
-                Value += 0.03
+                Value += _small
             End If
         End Sub
 
@@ -59,6 +75,9 @@
         End Sub
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            If Height < 50 Then
+                Height = 50
+            End If
             If Width < 10 Then
                 Width = 10
             ElseIf Width > Height / 5 Then

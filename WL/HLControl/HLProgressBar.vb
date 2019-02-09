@@ -83,9 +83,6 @@
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
             Dim h As Integer = 30 * DPI, w As Integer = 12 * DPI, x As Integer = 6 * DPI
-            If (Width - x) Mod w <> 0 Then
-                Width = w * Int(Width / w) + x
-            End If
             If Height < h Then Height = h
             With e.Graphics
                 绘制基础矩形(e.Graphics, ClientRectangle, True, False, True)

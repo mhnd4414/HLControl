@@ -4,7 +4,7 @@
 
         Public ReadOnly DPI As Single = 系统信息.DPI
 
-        Public ReadOnly 线宽 As Single = DPI * 4
+        Public ReadOnly 线宽 As Single = DPI * 3
 
         Public ReadOnly 基础绿 As Color = Color.FromArgb(76, 88, 68)
         Public ReadOnly 基础绿笔刷 As New SolidBrush(基础绿)
@@ -16,6 +16,7 @@
         Public ReadOnly 白色笔刷 As New SolidBrush(白色)
 
         Public ReadOnly 淡色 As Color = Color.FromArgb(160, 170, 149)
+        Public ReadOnly 淡色笔刷 As New SolidBrush(淡色)
 
         Public ReadOnly 暗色 As Color = Color.FromArgb(40, 46, 34)
         Public ReadOnly 暗色笔 As New Pen(暗色, 线宽)
@@ -34,6 +35,9 @@
         Public ReadOnly 内容白 As Color = Color.FromArgb(216, 222, 211)
         Public ReadOnly 内容白笔 As New Pen(内容白, 线宽)
         Public ReadOnly 内容白笔刷 As New SolidBrush(内容白)
+
+        Public ReadOnly 块黄 As Color = Color.FromArgb(149, 136, 49)
+        Public ReadOnly 块黄笔刷 As New SolidBrush(块黄)
 
         Public ReadOnly 滚动绿 As Color = Color.FromArgb(90, 106, 80)
         Public ReadOnly 滚动绿笔刷 As New SolidBrush(滚动绿)

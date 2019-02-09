@@ -358,7 +358,7 @@
         ''' <summary>
         ''' 把列表的每一项的tostring都转成一行，然后拼在一起
         ''' </summary>
-        Public Function 列表转文本(列表 As IList) As String
+        Public Function 列表转文本(列表 As Object) As String
             Dim s As String = ""
             If 列表.Count > 0 Then
                 For Each i As Object In 列表

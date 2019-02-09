@@ -3,7 +3,7 @@
     Public Class HLHScrollBar
         Inherits Control
 
-        Private 按住上 As Boolean, 按住 As Boolean, 按住下 As Boolean, _value As Single, _small As Single
+        Private 按住上 As Boolean, 按住 As Boolean, 按住下 As Boolean, _value As Integer, _small As Integer, _max As Integer, _min As Integer
 
         Public Sub New()
             DoubleBuffered = True
@@ -11,35 +11,77 @@
             按住下 = False
             按住 = False
             _value = 0
-            _small = 0.02
+            _small = 1
+            _max = 100
+            _min = 0
         End Sub
 
-        <DefaultValue(0)>
-        Public Property Value As Single
+        Private Sub FixValue()
+            If _max = _min Then
+                _max += 1
+            ElseIf _max < _min Then
+                互换(_max, _min)
+            End If
+            If _value < _min Then
+                _value = _min
+            ElseIf _value > _max Then
+                _value = _max
+            End If
+            If _small >= _max Then _small = _max - 1
+            If _small <= _min Then _small = _min + 1
+            Invalidate()
+        End Sub
+
+        <DefaultValue(100)>
+        Public Property Maximum As Integer
             Get
-                Return _value
+                Return _max
             End Get
-            Set(v As Single)
-                If 过频(GetHashCode, 0.04) Then Exit Property
-                If v > 0.99 Then v = 1
-                If v < 0.01 Then v = 0
-                If v <> _value Then
-                    _value = v
-                    RaiseEvent ValueChanged()
-                    Invalidate()
+            Set(v As Integer)
+                If v <> _max Then
+                    _max = v
+                    FixValue()
                 End If
             End Set
         End Property
 
-        <DefaultValue(0.02)>
-        Public Property SmallChange As Single
+        <DefaultValue(0)>
+        Public Property Minimum As Integer
+            Get
+                Return _min
+            End Get
+            Set(v As Integer)
+                If v <> _min Then
+                    _min = v
+                    FixValue()
+                End If
+            End Set
+        End Property
+
+        <DefaultValue(0)>
+        Public Property Value As Integer
+            Get
+                Return _value
+            End Get
+            Set(v As Integer)
+                If v <> _value AndAlso v <= _max AndAlso v >= _min Then
+                    _value = v
+                    RaiseEvent ValueChanged()
+                    FixValue()
+                End If
+            End Set
+        End Property
+
+        <DefaultValue(1)>
+        Public Property SmallChange As Integer
             Get
                 Return _small
             End Get
-            Set(v As Single)
-                If v > 0.99 Then v = 0.99
-                If v < 0.01 Then v = 0.01
-                _small = v
+            Set(v As Integer)
+                If v <> _small Then
+                    _small = v
+                    FixValue()
+                End If
             End Set
         End Property
 
@@ -70,7 +112,7 @@
                 If 按住 = False AndAlso y > h AndAlso y < Width - h Then
                     按住 = True
                 End If
-                If 按住 Then Value = (y - h) / (Width - 2 * h)
+                If 按住 Then Value = (y - h) / (Width - 2 * h) * (Maximum - Minimum) + Minimum
             End If
         End Sub
 
@@ -102,7 +144,8 @@
                 .DrawString("▶", New Font("Segoe UI", 0.4 * Height), 内容白笔刷, 点F(Width - w1 + w2, w2))
                 .FillRectangle(滚动绿笔刷, New Rectangle(w1, 0, h, w1))
                 If Enabled Then
-                    h = _value * (h - h2 - 3 * DPI) + w1 + 3 * DPI
+                    Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
+                    h = v * (h - h2 - 4 * DPI) + w1 + 1 * DPI
                     绘制基础矩形(g, New Rectangle(h, 0, h2, w1))
                 End If
             End With

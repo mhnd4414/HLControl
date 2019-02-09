@@ -29,7 +29,7 @@ Public Module 文本
     ''' 检查文本内是否包含要寻找的内容的当中一项
     ''' </summary>
     Public Function 包含(文本 As String, ParamArray 内容() As String) As Boolean
-        If 文本.Length < 1 Then Return False
+        If 为空(文本) Then Return False
         For Each i As String In 内容
             If i.Length > 0 AndAlso 文本.Contains(i) Then Return True
         Next

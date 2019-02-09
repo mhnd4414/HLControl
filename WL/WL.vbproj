@@ -102,9 +102,13 @@
     <Compile Include="基础\程序.vb" />
     <Compile Include="基础\类型.vb" />
     <Compile Include="基础\系统.vb" />
+    <Compile Include="控件\文本框.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="控件\按钮.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="控件\计时器.vb" />
     <Compile Include="控件\进度条.vb">
       <SubType>Component</SubType>
     </Compile>

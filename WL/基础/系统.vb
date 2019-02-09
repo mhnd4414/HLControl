@@ -23,6 +23,48 @@ Public Module 系统
         End Sub
 
         ''' <summary>
+        ''' 检查剪贴板内是否是文本
+        ''' </summary>
+        Public Shared ReadOnly Property 有文本 As Boolean
+            Get
+                Try
+                    Return My.Computer.Clipboard.ContainsText
+                Catch ex As Exception
+                    出错(ex)
+                    Return False
+                End Try
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 检查剪贴板内是否是图片
+        ''' </summary>
+        Public Shared ReadOnly Property 有图片 As Boolean
+            Get
+                Try
+                    Return My.Computer.Clipboard.ContainsImage
+                Catch ex As Exception
+                    出错(ex)
+                    Return False
+                End Try
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' 检查剪贴板内是否是文件列表
+        ''' </summary>
+        Public Shared ReadOnly Property 有文件列表 As Boolean
+            Get
+                Try
+                    Return My.Computer.Clipboard.ContainsFileDropList
+                Catch ex As Exception
+                    出错(ex)
+                    Return False
+                End Try
+            End Get
+        End Property
+
+        ''' <summary>
         ''' 获取或设置剪贴板的字符串
         ''' </summary>
         Public Shared Property 文本 As String

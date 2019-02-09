@@ -90,6 +90,9 @@
     <Import Include="WL.基础" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HLControl\HLVScrollBar.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="基础\HTTP.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

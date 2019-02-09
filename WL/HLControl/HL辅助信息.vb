@@ -35,6 +35,9 @@
         Public ReadOnly 内容白笔 As New Pen(内容白, 线宽)
         Public ReadOnly 内容白笔刷 As New SolidBrush(内容白)
 
+        Public ReadOnly 滚动绿 As Color = Color.FromArgb(90, 106, 80)
+        Public ReadOnly 滚动绿笔刷 As New SolidBrush(滚动绿)
+
         Public Function 点(x As Integer, y As Integer) As Point
             Return New Point(x, y)
         End Function
@@ -52,19 +55,19 @@
         End Function
 
         Public Function 左上角(c As Rectangle, Optional 差 As Integer = 0) As Point
-            Return 点(0 - 差, 0 - 差)
+            Return 点(c.Left - 差, c.Top - 差)
         End Function
 
         Public Function 左下角(c As Rectangle, Optional 差 As Integer = 0) As Point
-            Return 点(0 - 差, c.Height - 差)
+            Return 点(c.Left - 差, c.Bottom - 差)
         End Function
 
         Public Function 右上角(c As Rectangle, Optional 差 As Integer = 0) As Point
-            Return 点(c.Width - 差, 0)
+            Return 点(c.Right - 差, c.Top - 差)
         End Function
 
         Public Function 右下角(c As Rectangle, Optional 差 As Integer = 0) As Point
-            Return 点(c.Width - 差, c.Height - 差)
+            Return 点(c.Right - 差, c.Bottom - 差)
         End Function
 
         Public Sub 绘制基础矩形(g As Graphics, c As Rectangle, Optional 按下 As Boolean = False, Optional 黑框 As Boolean = False, Optional 内容框 As Boolean = False)

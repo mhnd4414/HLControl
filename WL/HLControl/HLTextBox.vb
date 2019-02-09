@@ -113,6 +113,12 @@
             End Set
         End Property
 
+        Public Overloads ReadOnly Property Handle As IntPtr
+            Get
+                Return tb.Handle
+            End Get
+        End Property
+
         <DefaultValue(32767)>
         Public Overridable Property MaxLength As Integer
             Get

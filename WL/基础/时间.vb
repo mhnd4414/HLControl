@@ -18,6 +18,13 @@
         End Function
 
         ''' <summary>
+        ''' 返回 Microsoft.VisualBasic.Timer 自午夜以来经过的值，该值表示的秒数。
+        ''' </summary>
+        Public Function 当日时间戳() As Double
+            Return Microsoft.VisualBasic.Timer
+        End Function
+
+        ''' <summary>
         ''' 把当前时间转换为 UNIX 时间，精确到秒
         ''' </summary>
         Public Function 当前时间戳(Optional 包括毫秒 As Boolean = False) As ULong

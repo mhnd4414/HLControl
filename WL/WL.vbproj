@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="基础\WBC.vb" />
     <Compile Include="基础\字符串常量.vb" />
+    <Compile Include="基础\控件.vb" />
     <Compile Include="基础\数学.vb" />
     <Compile Include="基础\文件.vb" />
     <Compile Include="基础\文本.vb" />

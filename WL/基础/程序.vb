@@ -281,12 +281,6 @@
 
         End Class
 
-        Private Declare Function SendMessage Lib "user32.dll" Alias "SendMessageW" (hwnd As IntPtr, wMsg As Integer, wParam As Integer, lParam As Object) As Integer
-
-        Public Sub 发送Message()
-
-        End Sub
-
     End Module
 
 End Namespace

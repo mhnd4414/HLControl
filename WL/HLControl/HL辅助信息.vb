@@ -1,6 +1,6 @@
 ﻿Namespace HLControl
 
-    Public Module 控件辅助信息
+    Public Module HL辅助信息
 
         Public ReadOnly DPI As Single = 系统信息.DPI
 

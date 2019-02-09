@@ -4,39 +4,74 @@
     Public Class HLProgressBar
         Inherits Control
 
+        Private _value As Integer, _max As Integer, _min As Integer
+
         Public Sub New()
             DoubleBuffered = True
-        End Sub
-
-        Private Sub _TextChanged() Handles Me.TextChanged
-            If 包含(Text, vbCr, vbLf) Then Text = 替换(Text, vbCrLf, " ", vbLf, " ", vbCr, " ")
+            _max = 100
+            _min = 0
+            _value = 0
         End Sub
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
             Invalidate()
         End Sub
 
-        Private _value As Single
+        Private Sub FixValue()
+            If _max = _min Then
+                _max += 1
+            ElseIf _max < _min Then
+                互换(_max, _min)
+            End If
+            If _value < _min Then
+                _value = _min
+            ElseIf _value > _max Then
+                _value = _max
+            End If
+            If _value = _max Then
+                RaiseEvent Full()
+                If AutoReset Then _value = 0
+            End If
+            Invalidate()
+        End Sub
+
+        <DefaultValue(100)>
+        Public Property Maximum As Integer
+            Get
+                Return _max
+            End Get
+            Set(v As Integer)
+                If v <> _max Then
+                    _max = v
+                    FixValue()
+                End If
+            End Set
+        End Property
 
         <DefaultValue(0)>
-        Public Property Value As Single
+        Public Property Minimum As Integer
+            Get
+                Return _min
+            End Get
+            Set(v As Integer)
+                If v <> _min Then
+                    _min = v
+                    FixValue()
+                End If
+            End Set
+        End Property
+
+        <DefaultValue(0)>
+        Public Property Value As Integer
             Get
                 Return _value
             End Get
-            Set(v As Single)
-                If v > 1 Then
-                    v = 1
-                ElseIf v < 0 Then
-                    v = 0
+            Set(v As Integer)
+                If v <> _value AndAlso v <= _max AndAlso v >= _min Then
+                    _value = v
+                    RaiseEvent ValueChanged()
+                    FixValue()
                 End If
-                If v = _value Then Exit Property
-                _value = v
-                RaiseEvent ValueChanged()
-                If _value > 0.9999 Then
-                    RaiseEvent Overflowed()
-                    If AutoReset Then _value = 0
-                End If
-                Invalidate()
             End Set
         End Property
 
@@ -44,7 +79,7 @@
         Public Property AutoReset As Boolean
 
         Public Event ValueChanged()
-        Public Event Overflowed()
+        Public Event Full()
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
@@ -55,10 +90,12 @@
             If Height < h Then Height = h
             With e.Graphics
                 绘制基础矩形(e.Graphics, ClientRectangle, True, False, True)
+                If Value = Minimum Then Exit Sub
                 h = Height - 12 * DPI
                 w = 8 * DPI
                 Dim all As Integer = Int((Width) / (w + 4 * DPI) + 0.5)
-                Dim n As Integer = Int(Value * all - 0.5)
+                Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
+                Dim n As Integer = Int(v * all - 0.5)
                 x = 4 * DPI
                 If n > 0 Then
                     For i As Integer = 1 To n

@@ -118,7 +118,7 @@
     <Compile Include="HLControl\HLProgressBar.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="HLControl\控件辅助信息.vb" />
+    <Compile Include="HLControl\HL辅助信息.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">

@@ -73,11 +73,13 @@
     <Import Include="System.ComponentModel" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
+    <Import Include="System.Drawing.Design" />
     <Import Include="System.IO" />
     <Import Include="System.Management.Automation" />
     <Import Include="System.Net" />
     <Import Include="System.Net.Http" />
     <Import Include="System.Net.NetworkInformation" />
+    <Import Include="System.Runtime.InteropServices" />
     <Import Include="System.Text" />
     <Import Include="System.Text.RegularExpressions" />
     <Import Include="System.Threading" />
@@ -106,6 +108,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="控件\按钮.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="控件\标签.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="控件\计时器.vb" />

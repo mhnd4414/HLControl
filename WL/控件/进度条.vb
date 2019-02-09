@@ -62,7 +62,7 @@
                 x = 4 * DPI
                 If n > 0 Then
                     For i As Integer = 1 To n
-                        .FillRectangle(内容黄笔刷, x, 6 * DPI, w, h)
+                        .FillRectangle(内容黄笔刷, x, 5 * DPI, w, h)
                         x += w + 4 * DPI
                     Next
                 End If

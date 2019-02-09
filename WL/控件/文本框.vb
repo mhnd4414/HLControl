@@ -1,6 +1,4 @@
-﻿Imports System.Drawing.Design
-
-Namespace 控件
+﻿Namespace 控件
 
     Public Class 文本框
         Inherits Control
@@ -9,6 +7,7 @@ Namespace 控件
 
         Public Sub New()
             DoubleBuffered = True
+            同步高亮标签 = Nothing
             tb = New TextBox
             With tb
                 .BackColor = 内容绿
@@ -32,6 +31,12 @@ Namespace 控件
                                            End Select
                                        End If
                                    End Sub
+            AddHandler tb.GotFocus, Sub()
+                                        If 非空(同步高亮标签) Then 同步高亮标签.高亮 = True
+                                    End Sub
+            AddHandler tb.LostFocus, Sub()
+                                         If 非空(同步高亮标签) Then 同步高亮标签.高亮 = False
+                                     End Sub
         End Sub
 
         Private Sub FixSize()
@@ -46,15 +51,11 @@ Namespace 控件
             End With
         End Sub
 
-        Public ReadOnly Property TextLength As Integer
-            Get
-                Return tb.TextLength
-            End Get
-        End Property
-
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.FontChanged, Me.EnabledChanged, MyBase.TextChanged
             Invalidate()
         End Sub
+
+        Public Property 同步高亮标签 As 标签
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             If Not Multiline Then Height = tb.Height + 6 * DPI
@@ -75,6 +76,12 @@ Namespace 控件
             Set(value As String)
                 tb.Text = value
             End Set
+        End Property
+
+        Public ReadOnly Property TextLength As Integer
+            Get
+                Return tb.TextLength
+            End Get
         End Property
 
         <DefaultValue(False)>

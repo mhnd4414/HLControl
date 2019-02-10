@@ -1,6 +1,6 @@
 ﻿Namespace HLControl
 
-    Public Module HL辅助信息
+    Friend Module HL辅助信息
 
         Public ReadOnly DPI As Single = 系统信息.DPI
 
@@ -41,6 +41,9 @@
 
         Public ReadOnly 滚动绿 As Color = Color.FromArgb(90, 106, 80)
         Public ReadOnly 滚动绿笔刷 As New SolidBrush(滚动绿)
+
+        Public ReadOnly 禁用底色 As Color = Color.FromArgb(117, 128, 111)
+        Public ReadOnly 禁用底色笔刷 As New SolidBrush(禁用底色)
 
         Public Function 点(x As Integer, y As Integer) As Point
             Return New Point(x, y)
@@ -99,6 +102,59 @@
             If s < 0 Then s = 0
             Return s
         End Function
+
+        Public Sub 修正Dock(c As Control, Optional 允许横向 As Boolean = True, Optional 允许竖向 As Boolean = False)
+            Dim d As DockStyle = c.Dock, ok As Boolean = True
+            Select Case d
+                Case DockStyle.None
+                    Exit Sub
+                Case DockStyle.Top
+                    ok = 允许横向
+                Case DockStyle.Bottom
+                    ok = 允许横向
+                Case DockStyle.Left
+                    ok = 允许竖向
+                Case DockStyle.Right
+                    ok = 允许竖向
+                Case DockStyle.Fill
+                    ok = 允许竖向 AndAlso 允许横向
+            End Select
+            If Not ok Then c.Dock = DockStyle.None
+        End Sub
+
+        Public Enum HL文本状态
+            正常白
+            黄色高亮
+            副文本黯淡
+            禁用
+        End Enum
+
+        Public Function 获取文本状态(启用 As Boolean, Optional 高光 As Boolean = False, Optional 黯淡 As Boolean = False) As HL文本状态
+            If Not 启用 Then Return HL文本状态.禁用
+            If 高光 Then Return HL文本状态.黄色高亮
+            If 黯淡 Then Return HL文本状态.副文本黯淡
+            Return HL文本状态.正常白
+        End Function
+
+        ''' <summary>
+        ''' 状态： 0正常白 1黄色高亮 2副文本黯淡 3禁用
+        ''' </summary>
+        Public Sub 绘制文本(g As Graphics, t As String, f As Font, x As Single, y As Single, Optional 状态 As HL文本状态 = 0)
+            If 为空(g, t, f) Then Exit Sub
+            With g
+                Dim c As Color = 内容白
+                Select Case 状态
+                    Case HL文本状态.黄色高亮
+                        c = 内容黄
+                    Case HL文本状态.副文本黯淡
+                        c = 淡色
+                    Case HL文本状态.禁用
+                        c = 暗色
+                        .DrawString(t, f, 禁用底色笔刷, 点F(x + DPI, y + DPI))
+                End Select
+                .DrawString(t, f, New SolidBrush(c), 点F(x, y))
+            End With
+        End Sub
 
     End Module
 

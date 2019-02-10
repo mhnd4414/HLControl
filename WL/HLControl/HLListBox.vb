@@ -32,8 +32,6 @@
             Invalidate()
         End Sub
 
-        Public Property HighLightLabel As HLLabel
-
         <Browsable(False)>
         Public ReadOnly Property Items As List(Of String)
             Get

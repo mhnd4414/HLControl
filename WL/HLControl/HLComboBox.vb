@@ -117,6 +117,7 @@
         End Sub
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            修正Dock(Me, True, False)
             MyBase.OnPaint(e)
             If Not li.Visible Then
                 Height = Font.GetHeight + 6 * DPI
@@ -131,7 +132,7 @@
                 Dim m As Single = oheight * 0.15
                 .DrawString("▼", New Font("Segoe UI", 0.4 * oheight), 内容白笔刷, 点F(Width - oheight + m, m))
                 m = 3 * DPI
-                .DrawString(li.SelectedItem, Font, 白色笔刷, 点F(m, m))
+                绘制文本(g, li.SelectedItem, Font, m, m, 获取文本状态(Enabled))
             End With
         End Sub
 

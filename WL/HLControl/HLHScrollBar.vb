@@ -126,6 +126,7 @@
         End Sub
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            修正Dock(Me, True, False)
             If Width < 50 Then
                 Width = 50
             End If
@@ -140,8 +141,9 @@
             With g
                 绘制基础矩形(g, New Rectangle(0, 0, w1, w1), 按住上, False, False)
                 绘制基础矩形(g, New Rectangle(Width - w1, 0, w1, w1), 按住下, False, False)
-                .DrawString("◀", New Font("Segoe UI", 0.4 * Height), 内容白笔刷, 点F(w2, w2))
-                .DrawString("▶", New Font("Segoe UI", 0.4 * Height), 内容白笔刷, 点F(Width - w1 + w2, w2))
+                Dim f As New Font("Segoe UI", 0.4 * Height)
+                绘制文本(g, "◀", f, w2, w2, 获取文本状态(Enabled))
+                绘制文本(g, "▶", f, Width - w1 + w2, w2, 获取文本状态(Enabled))
                 .FillRectangle(滚动绿笔刷, New Rectangle(w1, 0, h, w1))
                 If Enabled Then
                     Dim v As Single = (Value - Minimum) / (Maximum - Minimum)

@@ -293,6 +293,13 @@
         End Sub
 
         ''' <summary>
+        ''' 反转A
+        ''' </summary>
+        Public Sub 反转(ByRef A As Boolean)
+            A = Not A
+        End Sub
+
+        ''' <summary>
         ''' 类似iif，如果表达式为True就返回A，不然就返回B
         ''' </summary>
         Public Function IFF(表达式 As Boolean, A As Object, B As Object) As Object

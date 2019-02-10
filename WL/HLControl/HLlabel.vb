@@ -31,7 +31,8 @@
             End Get
             Set(v As Boolean)
                 br = v
-                If dark = False AndAlso 非空(Parent) Then
+                dark = False
+                If 非空(Parent) Then
                     For Each i As Control In Parent.Controls
                         If i.GetType = [GetType]() AndAlso i.Name <> Name Then
                             Dim c As HLLabel = i
@@ -57,6 +58,7 @@
         End Property
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            修正Dock(Me, False, False)
             Dim g As Graphics = e.Graphics
             With g
                 If txt.Length < 1 Then
@@ -66,13 +68,7 @@
                     Exit Sub
                 End If
                 Size = .MeasureString(txt, Font).ToSize
-                Dim c As Color = 内容白
-                If LowLight Then
-                    c = 淡色
-                ElseIf HighLight Then
-                    c = 内容黄
-                End If
-                .DrawString(txt, Font, New SolidBrush(c), 点F(0, 0))
+                绘制文本(g, txt, Font, 0, 0, 获取文本状态(Enabled, HighLight, LowLight))
             End With
             MyBase.OnPaint(e)
         End Sub

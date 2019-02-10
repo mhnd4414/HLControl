@@ -50,11 +50,13 @@
         End Sub
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            修正Dock(Me, True, False)
             Height = 10 * DPI + Font.GetHeight
             MyBase.OnPaint(e)
-            With e.Graphics
-                绘制基础矩形(e.Graphics, ClientRectangle, 按住, 激活)
-                .DrawString(Text, Font, IFF(Enabled, 白色笔刷, 暗色笔刷), New PointF(6 * DPI, 4 * DPI))
+            Dim g As Graphics = e.Graphics
+            With g
+                绘制基础矩形(g, ClientRectangle, 按住, 激活)
+                绘制文本(g, Text, Font, 6 * DPI, 4 * DPI, 获取文本状态(Enabled))
             End With
         End Sub
 

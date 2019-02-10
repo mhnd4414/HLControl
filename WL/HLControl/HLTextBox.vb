@@ -61,6 +61,7 @@
         Public Property HighLightLabel As HLLabel
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            修正Dock(Me, True, Multiline)
             If Not Multiline Then Height = tb.Height + 6 * DPI
             FixSize()
             MyBase.OnPaint(e)

@@ -90,6 +90,9 @@
     <Import Include="WL.基础" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HLControl\HLComboBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="HLControl\HLListBox.vb">
       <SubType>Component</SubType>
     </Compile>

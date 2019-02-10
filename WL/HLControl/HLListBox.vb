@@ -1,12 +1,15 @@
 ﻿Namespace HLControl
 
+    <DefaultEvent("SelectedIndexChanged")>
     Public Class HLListBox
         Inherits Control
 
         Private sr As HLVScrollBar, it As List(Of String), tp As Integer, fh As Integer, fc As Integer
+        Private pd As Single
 
         Public Sub New()
             DoubleBuffered = True
+            pd = 4 * DPI
             it = New List(Of String)
             sr = New HLVScrollBar
             tp = 0
@@ -29,6 +32,8 @@
             Invalidate()
         End Sub
 
+        Public Property HighLightLabel As HLLabel
+
         <Browsable(False)>
         Public ReadOnly Property Items As List(Of String)
             Get
@@ -39,14 +44,15 @@
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
             If ShowScrollBar = False OrElse e.X < sr.Left Then
-                Dim h As Integer = e.Y - 4 * DPI
+                Dim h As Integer = e.Y - pd
                 h = Int(h / fh) + tp
                 fc = IFF(h < it.Count, h, -1)
+                RaiseEvent SelectedIndexChanged()
                 Invalidate()
             End If
         End Sub
 
-        Private Sub _MouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
+        Public Sub PerformMouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
             sr.PerformMouseWheel(sender, e)
         End Sub
 
@@ -54,8 +60,10 @@
             Select Case e.KeyCode
                 Case Keys.Up
                     SelectedIndex -= 1
+                    e.IsInputKey = True
                 Case Keys.Down
                     SelectedIndex += 1
+                    e.IsInputKey = True
             End Select
         End Sub
 
@@ -73,6 +81,7 @@
                     fc = v
                     sr.Value = v
                     Invalidate()
+                    RaiseEvent SelectedIndexChanged()
                 End If
             End Set
         End Property
@@ -93,6 +102,8 @@
             End Set
         End Property
 
+        Public Event SelectedIndexChanged()
+
         <DefaultValue(True)>
         Public Property ShowScrollBar As Boolean
             Get
@@ -106,11 +117,15 @@
             End Set
         End Property
 
+        Public Function FullHeight() As Integer
+            Return fh * it.Count + pd
+        End Function
+
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
             If Width < 30 Then Width = 30
             If Height < 50 Then Height = 50
-            Dim shown As Integer = Int((Height - 4 * DPI) / fh - 0.5)
+            Dim shown As Integer = Int((Height - pd) / fh - 0.5)
             Dim f As Integer = it.Count - shown, y As Integer
             With sr
                 .Left = Width - .Width
@@ -122,13 +137,13 @@
                 绘制基础矩形(g, c)
                 If f < 1 Then f = 1
                 sr.Maximum = f
-                y = 4 * DPI
+                y = pd
                 For i As Integer = tp To tp + shown
                     If it.Count <= i Then Exit For
                     If fc = i Then
                         .FillRectangle(块黄笔刷, New Rectangle(0, y, Width, fh))
                     End If
-                    .DrawString(it(i), Font, IFF(fc = i, 白色笔刷, 淡色笔刷), 点F(4 * DPI, y))
+                    .DrawString(it(i), Font, IFF(fc = i, 白色笔刷, 淡色笔刷), 点F(pd, y))
                     y += fh
                 Next
             End With

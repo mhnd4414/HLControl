@@ -56,17 +56,6 @@
             sr.PerformMouseWheel(sender, e)
         End Sub
 
-        Private Sub _PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles Me.PreviewKeyDown
-            Select Case e.KeyCode
-                Case Keys.Up
-                    SelectedIndex -= 1
-                    e.IsInputKey = True
-                Case Keys.Down
-                    SelectedIndex += 1
-                    e.IsInputKey = True
-            End Select
-        End Sub
-
         <Browsable(False)>
         Public Property SelectedIndex As Integer
             Get

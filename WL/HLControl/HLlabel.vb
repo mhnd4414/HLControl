@@ -3,47 +3,24 @@
     Public Class HLLabel
         Inherits Control
 
-        Private lb As Label, br As Boolean, dark As Boolean
+        Private br As Boolean, dark As Boolean, txt As String
 
         Public Sub New()
             DoubleBuffered = True
-            lb = New Label
             br = False
             dark = False
-            Controls.Add(lb)
-            With lb
-                .Left = 0
-                .Top = 0
-                .Height = 1
-                .Width = 1
-                .Text = Text
-                AddHandler lb.AutoSizeChanged, Sub()
-                                                   Size = .Size
-                                               End Sub
-                AddHandler lb.Click, Sub()
-                                         MyBase.OnClick(Nothing)
-                                     End Sub
-                .AutoSize = True
-            End With
-        End Sub
-
-        Private Sub FixText() Handles Me.FontChanged
-            With lb
-                .Text = Text
-                .Font = Font
-            End With
-            Invalidate()
         End Sub
 
         <Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))> <Localizable(True)>
         Public Overrides Property Text As String
             Get
-                Return lb.Text
+                Return txt
             End Get
-            Set(value As String)
-                lb.Text = value
-                FixText()
-                MyBase.OnTextChanged(Nothing)
+            Set(v As String)
+                If v <> txt Then
+                    txt = v
+                    Invalidate()
+                End If
             End Set
         End Property
 
@@ -80,17 +57,24 @@
         End Property
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
-            MyBase.OnPaint(e)
-            Size = lb.Size
-            With e.Graphics
+            Dim g As Graphics = e.Graphics
+            With g
+                If txt.Length < 1 Then
+                    .Clear(Color.Red)
+                    Height = 5
+                    Width = 5
+                    Exit Sub
+                End If
+                Size = .MeasureString(txt, Font).ToSize
                 Dim c As Color = 内容白
                 If LowLight Then
                     c = 淡色
                 ElseIf HighLight Then
                     c = 内容黄
                 End If
-                lb.ForeColor = c
+                .DrawString(txt, Font, New SolidBrush(c), 点F(0, 0))
             End With
+            MyBase.OnPaint(e)
         End Sub
 
     End Class

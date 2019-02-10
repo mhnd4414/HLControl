@@ -25,16 +25,7 @@
             End With
         End Sub
 
-        Private Sub _PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles Me.PreviewKeyDown
-            Select Case e.KeyCode
-                Case Keys.Up
-                    SelectedIndex -= 1
-                    e.IsInputKey = True
-                Case Keys.Down
-                    SelectedIndex += 1
-                    e.IsInputKey = True
-            End Select
-        End Sub
+        Public Property HighLightLabel As HLLabel
 
         Private Sub _MouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
             If Enabled AndAlso e.Y < oheight Then
@@ -58,6 +49,10 @@
                 .Height = c
                 .Visible = True
                 Height += .Height
+                If 非空(HighLightLabel) Then
+                    HighLightLabel.HighLight = True
+                End If
+                BringToFront()
             End With
             Invalidate()
         End Sub
@@ -67,6 +62,9 @@
                 If .Visible = False Then Exit Sub
                 .Visible = False
                 Height -= .Height
+                If 非空(HighLightLabel) Then
+                    HighLightLabel.HighLight = False
+                End If
             End With
             Invalidate()
         End Sub
@@ -123,6 +121,9 @@
             If Not li.Visible Then
                 Height = Font.GetHeight + 6 * DPI
                 oheight = Height
+            End If
+            If 非空(HighLightLabel) Then
+                HighLightLabel.HighLight = li.Visible
             End If
             Dim g As Graphics = e.Graphics, c As Rectangle = ClientRectangle
             With g

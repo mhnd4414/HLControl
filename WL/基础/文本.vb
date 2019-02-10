@@ -193,6 +193,13 @@
         End Function
 
         ''' <summary>
+        ''' 去掉文本中的 CR LF 或者替换成指定内容
+        ''' </summary>
+        Public Function 去回车(文本 As String, Optional 替换掉 As String = "") As String
+            Return 替换(文本, vbCrLf, 替换掉, vbCr, 替换掉, vbLf, 替换掉)
+        End Function
+
+        ''' <summary>
         ''' 没有 BOM 标识的 UTF-8 编码
         ''' </summary>
         ''' <returns></returns>

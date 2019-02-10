@@ -84,6 +84,41 @@
                 Return s
             End Function
 
+            ''' <summary>
+            ''' 返回指定个数阿拉伯数字组成的字符串
+            ''' </summary>
+            Public Shared Function 阿拉伯数字(Optional 个数 As UInteger = 1) As String
+                Return 当中字符(字符串常量.阿拉伯数字, 个数)
+            End Function
+
+            ''' <summary>
+            ''' 返回指定个数阿拉伯数字、小写英文字母、大写英文字母组成的字符串
+            ''' </summary>
+            Public Shared Function 西文(Optional 个数 As UInteger = 1) As String
+                Return 当中字符(字符串常量.阿拉伯数字 + 字符串常量.小写英文字母 + 字符串常量.大写英文字母, 个数)
+            End Function
+
+            ''' <summary>
+            ''' 返回指定个数小写英文字母、大写英文字母组成的字符串
+            ''' </summary>
+            Public Shared Function 英文字母(Optional 个数 As UInteger = 1) As String
+                Return 当中字符(字符串常量.小写英文字母 + 字符串常量.大写英文字母, 个数)
+            End Function
+
+            ''' <summary>
+            ''' 返回指定个数小写英文字母组成的字符串
+            ''' </summary>
+            Public Shared Function 小写英文字母(Optional 个数 As UInteger = 1) As String
+                Return 当中字符(字符串常量.小写英文字母, 个数)
+            End Function
+
+            ''' <summary>
+            ''' 返回指定个数大写英文字母组成的字符串
+            ''' </summary>
+            Public Shared Function 大写英文字母(Optional 个数 As UInteger = 1) As String
+                Return 当中字符(字符串常量.大写英文字母, 个数)
+            End Function
+
         End Class
 
     End Module

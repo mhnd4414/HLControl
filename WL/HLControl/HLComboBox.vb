@@ -4,13 +4,13 @@
     Public Class HLComboBox
         Inherits Control
 
-        Private li As HLListBox, oheight As Integer
+        Private 列表 As HLListBox, 原高度 As Integer
 
         Public Sub New()
             DoubleBuffered = True
-            li = New HLListBox
-            Controls.Add(li)
-            With li
+            列表 = New HLListBox
+            Controls.Add(列表)
+            With 列表
                 .Visible = False
                 .Top = 0
                 .Width = 1
@@ -23,19 +23,20 @@
                                                       RaiseEvent SelectedIndexChanged()
                                                   End Sub
             End With
+            原高度 = Height
         End Sub
 
         Public Property HighLightLabel As HLLabel
 
         Private Sub _MouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
-            If Enabled AndAlso e.Y < oheight Then
+            If Enabled AndAlso e.Y < 原高度 Then
                 SelectedIndex += IFF(e.Delta < 0, 1, -1)
             End If
         End Sub
 
         Private Sub ShowListbox()
-            If 为空(Parent) OrElse Visible = False OrElse li.Visible OrElse li.Items.Count < 1 Then Exit Sub
-            With li
+            If 为空(Parent) OrElse Visible = False OrElse 列表.Visible OrElse 列表.Items.Count < 1 Then Exit Sub
+            With 列表
                 Dim c As Integer = .Items.Count
                 If c < 1 Then Exit Sub
                 .Width = Width
@@ -43,12 +44,12 @@
                 .Left = 0
                 c = .FullHeight
                 Dim h As Integer = Parent.Height - Bottom - 50 * DPI
-                If c > h Then c = h
-                h = 350 * DPI
-                If c > h Then c = h
+                设最大值(c, h)
+                设最大值(c, 350 * DPI)
                 .Height = c
                 .Visible = True
                 Height += .Height
+                输出(.Height, .FullHeight)
                 If 非空(HighLightLabel) Then
                     HighLightLabel.HighLight = True
                 End If
@@ -58,7 +59,7 @@
         End Sub
 
         Private Sub HideListBox()
-            With li
+            With 列表
                 If .Visible = False Then Exit Sub
                 .Visible = False
                 Height -= .Height
@@ -70,7 +71,7 @@
         End Sub
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
-            If li.Visible = False Then
+            If 列表.Visible = False Then
                 ShowListbox()
             Else
                 HideListBox()
@@ -80,18 +81,18 @@
         <Browsable(False)>
         Public ReadOnly Property Items As List(Of String)
             Get
-                Return li.Items
+                Return 列表.Items
             End Get
         End Property
 
         <Browsable(False)>
         Public Property SelectedIndex As Integer
             Get
-                Return li.SelectedIndex
+                Return 列表.SelectedIndex
             End Get
             Set(v As Integer)
-                If li.SelectedIndex <> v Then
-                    li.SelectedIndex = v
+                If 列表.SelectedIndex <> v Then
+                    列表.SelectedIndex = v
                     Invalidate()
                 End If
             End Set
@@ -100,11 +101,11 @@
         <Browsable(False)>
         Public Property SelectedItem As String
             Get
-                Return li.SelectedItem
+                Return 列表.SelectedItem
             End Get
             Set(v As String)
-                If li.SelectedItem <> v Then
-                    li.SelectedItem = v
+                If 列表.SelectedItem <> v Then
+                    列表.SelectedItem = v
                     Invalidate()
                 End If
             End Set
@@ -119,20 +120,23 @@
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             修正Dock(Me, True, False)
             MyBase.OnPaint(e)
-            If Not li.Visible Then
+            If Not 列表.Visible Then
                 Height = Font.GetHeight + 6 * DPI
-                oheight = Height
+                原高度 = Height
+            End If
+            If Not Enabled Then
+                列表.Visible = False
             End If
             If 非空(HighLightLabel) Then
-                HighLightLabel.HighLight = li.Visible
+                HighLightLabel.HighLight = 列表.Visible
             End If
             Dim g As Graphics = e.Graphics, c As Rectangle = ClientRectangle
             With g
                 绘制基础矩形(g, c, True)
-                Dim m As Single = oheight * 0.15
-                .DrawString("▼", New Font("Segoe UI", 0.4 * oheight), 内容白笔刷, 点F(Width - oheight + m, m))
+                Dim m As Single = 原高度 * 0.15
+                .DrawString("▼", New Font("Segoe UI", 0.4 * 原高度), 内容白笔刷, 点F(Width - 原高度 + m, m))
                 m = 3 * DPI
-                绘制文本(g, li.SelectedItem, Font, m, m, 获取文本状态(Enabled))
+                绘制文本(g, 列表.SelectedItem, Font, m, m, 获取文本状态(Enabled))
             End With
         End Sub
 

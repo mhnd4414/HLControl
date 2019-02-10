@@ -99,6 +99,9 @@
     <Compile Include="HLControl\HLHScrollBar.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="HLControl\HLListView.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="HLControl\HLVScrollBar.vb">
       <SubType>Component</SubType>
     </Compile>

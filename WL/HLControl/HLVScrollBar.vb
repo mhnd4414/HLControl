@@ -3,43 +3,43 @@
     Public Class HLVScrollBar
         Inherits Control
 
-        Private 按住上 As Boolean, 按住 As Boolean, 按住下 As Boolean, _value As Integer, _small As Integer, _max As Integer, _min As Integer
+        Private 按住上 As Boolean, 按住 As Boolean, 按住下 As Boolean, 值 As Integer, 滚动一次 As Integer, 最大 As Integer, 最小 As Integer
 
         Public Sub New()
             DoubleBuffered = True
             按住上 = False
             按住下 = False
             按住 = False
-            _value = 0
-            _small = 1
-            _max = 100
-            _min = 0
+            值 = 0
+            滚动一次 = 1
+            最大 = 100
+            最小 = 0
         End Sub
 
         Private Sub FixValue()
-            If _max = _min Then
-                _max += 1
-            ElseIf _max < _min Then
-                互换(_max, _min)
+            If 最大 = 最小 Then
+                最大 += 1
+            ElseIf 最大 < 最小 Then
+                互换(最大, 最小)
             End If
-            If _value < _min Then
-                _value = _min
-            ElseIf _value > _max Then
-                _value = _max
+            If 值 < 最小 Then
+                值 = 最小
+            ElseIf 值 > 最大 Then
+                值 = 最大
             End If
-            If _small >= _max Then _small = _max - 1
-            If _small <= _min Then _small = _min + 1
+            If 滚动一次 >= 最大 Then 滚动一次 = 最大 - 1
+            If 滚动一次 <= 最小 Then 滚动一次 = 最小 + 1
             Invalidate()
         End Sub
 
         <DefaultValue(100)>
         Public Property Maximum As Integer
             Get
-                Return _max
+                Return 最大
             End Get
             Set(v As Integer)
-                If v <> _max Then
-                    _max = v
+                If v <> 最大 Then
+                    最大 = v
                     FixValue()
                 End If
             End Set
@@ -48,11 +48,11 @@
         <DefaultValue(0)>
         Public Property Minimum As Integer
             Get
-                Return _min
+                Return 最小
             End Get
             Set(v As Integer)
-                If v <> _min Then
-                    _min = v
+                If v <> 最小 Then
+                    最小 = v
                     FixValue()
                 End If
             End Set
@@ -61,11 +61,11 @@
         <DefaultValue(0)>
         Public Property Value As Integer
             Get
-                Return _value
+                Return 值
             End Get
             Set(v As Integer)
-                If v <> _value AndAlso v <= _max AndAlso v >= _min Then
-                    _value = v
+                If v <> 值 AndAlso v <= 最大 AndAlso v >= 最小 Then
+                    值 = v
                     RaiseEvent ValueChanged()
                     FixValue()
                 End If
@@ -75,11 +75,11 @@
         <DefaultValue(1)>
         Public Property SmallChange As Integer
             Get
-                Return _small
+                Return 滚动一次
             End Get
             Set(v As Integer)
-                If v <> _small Then
-                    _small = v
+                If v <> 滚动一次 Then
+                    滚动一次 = v
                     FixValue()
                 End If
             End Set
@@ -91,18 +91,18 @@
             Dim y As Integer = e.Y, h As Integer = Width
             If y <= h Then
                 按住上 = True
-                Value -= _small
+                Value -= 滚动一次
             ElseIf y >= Height - h Then
                 按住下 = True
-                Value += _small
+                Value += 滚动一次
             End If
         End Sub
 
         Private Sub _MouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
             If e.Delta > 0 Then
-                Value -= _small
+                Value -= 滚动一次
             Else
-                Value += _small
+                Value += 滚动一次
             End If
         End Sub
 
@@ -131,14 +131,9 @@
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             修正Dock(Me, False, True)
-            If Height < 50 Then
-                Height = 50
-            End If
-            If Width < 10 Then
-                Width = 10
-            ElseIf Width > Height / 5 Then
-                Width = Height / 5
-            End If
+            设最小值(Height, 50 * DPI)
+            设最小值(Width, 10 * DPI)
+            设最大值(Width, Height / 5)
             MyBase.OnPaint(e)
             Dim g As Graphics = e.Graphics, w1 As Integer = Width, w2 As Integer = Width * 0.15
             Dim h As Integer = Height - 2 * w1, h2 As Integer = 2.2 * w1

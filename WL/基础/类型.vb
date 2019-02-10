@@ -295,9 +295,26 @@
         ''' <summary>
         ''' 反转A
         ''' </summary>
-        Public Sub 反转(ByRef A As Boolean)
+        Public Function 反转(ByRef A As Boolean) As Boolean
             A = Not A
-        End Sub
+            Return A
+        End Function
+
+        ''' <summary>
+        '''  If A 小于 最小值 那么 A = 最小值
+        ''' </summary>
+        Public Function 设最小值(ByRef A As Object, 最小值 As Object) As Object
+            If A < 最小值 Then A = 最小值
+            Return A
+        End Function
+
+        ''' <summary>
+        '''  If A 大于 最小值 那么 A = 最小值
+        ''' </summary>
+        Public Function 设最大值(ByRef A As Object, 最大值 As Object) As Object
+            If A > 最大值 Then A = 最大值
+            Return A
+        End Function
 
         ''' <summary>
         ''' 类似iif，如果表达式为True就返回A，不然就返回B

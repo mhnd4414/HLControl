@@ -4,31 +4,31 @@
     Public Class HLListBox
         Inherits Control
 
-        Private sr As HLVScrollBar, it As List(Of String), tp As Integer, fh As Integer, fc As Integer
-        Private pd As Single
+        Private 滚动条 As HLVScrollBar, 物品 As List(Of String), 最高栏 As Integer, 行高 As Integer, 选中 As Integer
+        Private 边缘 As Single
 
         Public Sub New()
             DoubleBuffered = True
-            pd = 4 * DPI
-            it = New List(Of String)
-            sr = New HLVScrollBar
-            tp = 0
-            fc = -1
-            With sr
+            边缘 = 4 * DPI
+            物品 = New List(Of String)
+            滚动条 = New HLVScrollBar
+            最高栏 = 0
+            选中 = -1
+            With 滚动条
                 .Width = 25 * DPI
                 .Height = Height
                 .Top = 0
                 .Left = 0
             End With
-            Controls.Add(sr)
-            AddHandler sr.ValueChanged, Sub()
-                                            tp = sr.Value
-                                            Invalidate()
-                                        End Sub
+            Controls.Add(滚动条)
+            AddHandler 滚动条.ValueChanged, Sub()
+                                             最高栏 = 滚动条.Value
+                                             Invalidate()
+                                         End Sub
+            行高 = Font.GetHeight + 3 * DPI
         End Sub
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.FontChanged, Me.EnabledChanged
-            fh = Font.GetHeight + 3 * DPI
             Invalidate()
         End Sub
 
@@ -36,37 +36,37 @@
         Public ReadOnly Property Items As List(Of String)
             Get
                 Invalidate()
-                Return it
+                Return 物品
             End Get
         End Property
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
-            If ShowScrollBar = False OrElse e.X < sr.Left Then
-                Dim h As Integer = e.Y - pd
-                h = Int(h / fh) + tp
-                fc = IFF(h < it.Count, h, -1)
+            If ShowScrollBar = False OrElse e.X < 滚动条.Left Then
+                Dim h As Integer = e.Y - 边缘
+                h = Int(h / 行高) + 最高栏
+                选中 = IFF(h < 物品.Count, h, -1)
                 RaiseEvent SelectedIndexChanged()
                 Invalidate()
             End If
         End Sub
 
         Public Sub PerformMouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
-            sr.PerformMouseWheel(sender, e)
+            滚动条.PerformMouseWheel(sender, e)
         End Sub
 
         <Browsable(False)>
         Public Property SelectedIndex As Integer
             Get
-                Return fc
+                Return 选中
             End Get
             Set(v As Integer)
                 If v < 0 Then v = -1
-                If v >= it.Count Then
+                If v >= 物品.Count Then
                     v = -1
                 End If
-                If fc <> v Then
-                    fc = v
-                    sr.Value = v
+                If 选中 <> v Then
+                    选中 = v
+                    滚动条.Value = v
                     Invalidate()
                     RaiseEvent SelectedIndexChanged()
                 End If
@@ -76,14 +76,14 @@
         <Browsable(False)>
         Public Property SelectedItem As String
             Get
-                If fc > -1 Then
-                    Return it.Item(fc)
+                If 选中 > -1 Then
+                    Return 物品.Item(选中)
                 End If
                 Return ""
             End Get
             Set(v As String)
-                If fc > -1 AndAlso it.Item(fc) <> v Then
-                    it.Item(fc) = v
+                If 选中 > -1 AndAlso 物品.Item(选中) <> v Then
+                    物品.Item(选中) = v
                     Invalidate()
                 End If
             End Set
@@ -94,27 +94,29 @@
         <DefaultValue(True)>
         Public Property ShowScrollBar As Boolean
             Get
-                Return sr.Visible
+                Return 滚动条.Visible
             End Get
             Set(v As Boolean)
-                If sr.Visible <> v Then
-                    sr.Visible = v
+                If 滚动条.Visible <> v Then
+                    滚动条.Visible = v
                     Invalidate()
                 End If
             End Set
         End Property
 
         Public Function FullHeight() As Integer
-            Return fh * it.Count + pd
+            行高 = Font.GetHeight + 3 * DPI
+            Return 行高 * 物品.Count + 边缘
         End Function
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
-            If Width < 30 Then Width = 30
-            If Height < 50 Then Height = 50
-            Dim shown As Integer = Int((Height - pd) / fh - 0.5)
-            Dim f As Integer = it.Count - shown, y As Integer
-            With sr
+            行高 = Font.GetHeight + 3 * DPI
+            设最小值(Width, 30 * DPI)
+            设最小值(Height, 50 * DPI)
+            Dim shown As Integer = Int((Height - 边缘) / 行高 - 0.5)
+            Dim f As Integer = 物品.Count - shown, y As Integer
+            With 滚动条
                 .Left = Width - .Width
                 .Height = Height
                 .Enabled = f > 0
@@ -123,15 +125,15 @@
             With g
                 绘制基础矩形(g, c)
                 If f < 1 Then f = 1
-                sr.Maximum = f
-                y = pd
-                For i As Integer = tp To tp + shown
-                    If it.Count <= i Then Exit For
-                    If fc = i Then
-                        .FillRectangle(块黄笔刷, New Rectangle(0, y, Width, fh))
+                滚动条.Maximum = f
+                y = 边缘
+                For i As Integer = 最高栏 To 最高栏 + shown
+                    If 物品.Count <= i Then Exit For
+                    If 选中 = i Then
+                        .FillRectangle(块黄笔刷, New Rectangle(0, y, Width, 行高))
                     End If
-                    .DrawString(it(i), Font, IFF(fc = i, 白色笔刷, 淡色笔刷), 点F(pd, y))
-                    y += fh
+                    绘制文本(g, 物品(i), Font, 边缘, y, 获取文本状态(Enabled))
+                    y += 行高
                 Next
             End With
         End Sub

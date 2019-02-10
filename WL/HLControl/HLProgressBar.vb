@@ -4,13 +4,13 @@
     Public Class HLProgressBar
         Inherits Control
 
-        Private _value As Integer, _max As Integer, _min As Integer
+        Private 值 As Integer, 最大 As Integer, 最小 As Integer
 
         Public Sub New()
             DoubleBuffered = True
-            _max = 100
-            _min = 0
-            _value = 0
+            最大 = 100
+            最小 = 0
+            值 = 0
         End Sub
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
@@ -19,18 +19,18 @@
 
         Private Sub FixValue()
             If 过频(GetHashCode, 0.04) Then Exit Sub
-            If _max = _min Then
-                _max += 1
-            ElseIf _max < _min Then
-                互换(_max, _min)
+            If 最大 = 最小 Then
+                最大 += 1
+            ElseIf 最大 < 最小 Then
+                互换(最大, 最小)
             End If
-            If _value < _min Then
-                _value = _min
-            ElseIf _value > _max Then
-                _value = _max
+            If 值 < 最小 Then
+                值 = 最小
+            ElseIf 值 > 最大 Then
+                值 = 最大
             End If
-            If _value = _max Then
-                If AutoReset Then _value = 0
+            If 值 = 最大 Then
+                If AutoReset Then 值 = 0
             End If
             Invalidate()
         End Sub
@@ -38,11 +38,11 @@
         <DefaultValue(100)>
         Public Property Maximum As Integer
             Get
-                Return _max
+                Return 最大
             End Get
             Set(v As Integer)
-                If v <> _max Then
-                    _max = v
+                If v <> 最大 Then
+                    最大 = v
                     FixValue()
                 End If
             End Set
@@ -51,11 +51,11 @@
         <DefaultValue(0)>
         Public Property Minimum As Integer
             Get
-                Return _min
+                Return 最小
             End Get
             Set(v As Integer)
-                If v <> _min Then
-                    _min = v
+                If v <> 最小 Then
+                    最小 = v
                     FixValue()
                 End If
             End Set
@@ -64,11 +64,11 @@
         <DefaultValue(0)>
         Public Property Value As Integer
             Get
-                Return _value
+                Return 值
             End Get
             Set(v As Integer)
-                If v <> _value AndAlso v <= _max AndAlso v >= _min Then
-                    _value = v
+                If v <> 值 AndAlso v <= 最大 AndAlso v >= 最小 Then
+                    值 = v
                     RaiseEvent ValueChanged()
                     FixValue()
                 End If
@@ -83,7 +83,7 @@
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
             Dim h As Integer = 30 * DPI, w As Integer = 12 * DPI, x As Integer = 6 * DPI
-            If Height < h Then Height = h
+            设最小值(Height, h)
             With e.Graphics
                 绘制基础矩形(e.Graphics, ClientRectangle, True, False, True)
                 If Value = Minimum Then Exit Sub

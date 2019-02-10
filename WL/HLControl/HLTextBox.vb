@@ -81,6 +81,7 @@
             End Set
         End Property
 
+        <Browsable(False)>
         Public ReadOnly Property TextLength As Integer
             Get
                 Return tb.TextLength

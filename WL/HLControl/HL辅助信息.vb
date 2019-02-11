@@ -13,6 +13,7 @@
         Public ReadOnly 内容绿笔刷 As New SolidBrush(内容绿)
 
         Public ReadOnly 白色 As Color = Color.FromArgb(255, 255, 255)
+        Public ReadOnly 白色笔 As New Pen(白色, 线宽)
         Public ReadOnly 白色笔刷 As New SolidBrush(白色)
 
         Public ReadOnly 淡色 As Color = Color.FromArgb(160, 170, 149)
@@ -26,8 +27,8 @@
         Public ReadOnly 边缘白笔 As New Pen(边缘白, 线宽)
         Public ReadOnly 边缘白笔刷 As New SolidBrush(边缘白)
 
-        Public ReadOnly 黑边框 As New Pen(Color.Black, DPI * 2)
-        Public ReadOnly 黑虚线边框 As New Pen(Color.Black, DPI * 2) With {.DashStyle = Drawing2D.DashStyle.Dot}
+        Public ReadOnly 黑边框 As New Pen(Color.Black, DPI * 1)
+        Public ReadOnly 黑虚线边框 As New Pen(Color.Black, DPI * 1) With {.DashStyle = Drawing2D.DashStyle.Dot}
 
         Public ReadOnly 内容黄 As Color = Color.FromArgb(196, 181, 80)
         Public ReadOnly 内容黄笔刷 As New SolidBrush(内容黄)
@@ -44,6 +45,10 @@
 
         Public ReadOnly 禁用底色 As Color = Color.FromArgb(117, 128, 111)
         Public ReadOnly 禁用底色笔刷 As New SolidBrush(禁用底色)
+
+        Public ReadOnly 边缘灰 As Color = Color.FromArgb(162, 156, 154)
+        Public ReadOnly 边缘灰笔 As New Pen(边缘灰, DPI * 2)
+        Public ReadOnly 边缘灰笔刷 As New SolidBrush(边缘灰)
 
         Public Function 点(x As Integer, y As Integer) As Point
             Return New Point(x, y)

@@ -15,15 +15,13 @@
         End Sub
 
         <Browsable(False)>
-        Public Overrides Property BackColor As Color
-
-        <Browsable(False)>
         Public Overrides Property AutoScroll As Boolean
 
         <Browsable(False)>
         Public Overrides Property AutoSize As Boolean
 
         Private Sub _SetDefault()
+            BackColor = 基础绿
             MinimumSize = New Size(200, 80)
             AutoScaleMode = AutoScaleMode.None
             FormBorderStyle = FormBorderStyle.None
@@ -105,8 +103,14 @@
                 y = 12 * DPI
                 输出(Font.Name)
                 绘制文本(g, Text, New Font(Font.Name, 10 * DPI), 31 * DPI, y, 获取文本状态(Enabled))
-                If ShowSteamIcon Then
-                    .DrawIcon(My.Resources.SteamLogo, y, y + 2 * DPI)
+                If ShowIcon Then
+                    Dim c As Icon
+                    If ShowSteamIcon Then
+                        c = My.Resources.SteamLogo
+                    Else
+                        c = New Icon(Icon, 16, 16)
+                    End If
+                    .DrawIcon(c, y, y + 2 * DPI)
                 End If
                 y = 7 * DPI
                 .DrawLine(白色笔, 左上角(r, y), 右下角(r, y))

@@ -1,7 +1,7 @@
 ﻿Namespace HLControl
 
     <DefaultEvent("CheckedChanged")>
-    Public Class HLRadioButton
+    Public Class HLCheckBox
         Inherits Control
 
         Private 值 As Boolean, 行高 As Integer
@@ -16,7 +16,7 @@
         End Sub
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
-            Checked = True
+            反转(Checked)
         End Sub
 
         <DefaultValue(False)>
@@ -26,14 +26,6 @@
             End Get
             Set(v As Boolean)
                 If v <> 值 Then
-                    If 非空(Parent) Then
-                        For Each i As Control In Parent.Controls
-                            If i.GetType = [GetType]() AndAlso i.GetHashCode <> GetHashCode() Then
-                                Dim r As HLRadioButton = i
-                                r.Checked = False
-                            End If
-                        Next
-                    End If
                     值 = v
                     RaiseEvent CheckedChanged()
                     Invalidate()
@@ -46,20 +38,41 @@
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             修正Dock(Me, True, False)
             行高 = Font.GetHeight
-            Height = 行高
+            Height = 行高 + 2 * DPI
             MyBase.OnPaint(e)
             Dim g As Graphics = e.Graphics, c As Rectangle = ClientRectangle
             With g
                 Width = .MeasureString(Text, Font).Width + Height
-                Dim h As Single = 行高 * 0.6
-                Dim p As Single = (行高 - h) / 2
-                .DrawEllipse(边缘灰笔, New RectangleF(p, p, h, h))
+                Dim h As Single = 行高 * 0.8, p As Single
+                p = (行高 - h) / 2 + 2 * DPI
+                If Enabled AndAlso Checked Then
+                    h -= 4 * DPI
+                    Dim pe As New Pen(白色, 3 * DPI), pt As Point = 点(p + h * 0.4, p + h)
+                    .DrawLine(pe, 点(p + 2 * DPI, p + h * 0.5), pt)
+                    .DrawLine(pe, pt, 点(p + h, p + h * 0.2))
+                    h += 4 * DPI
+                End If
+                .DrawPath(边缘灰笔, GetRoundedRectPath(New Rectangle(p, p, h, h), 5 * DPI))
                 h *= 0.6
                 p = (行高 - h) / 2
-                If Checked AndAlso Enabled Then .FillEllipse(白色笔刷, New RectangleF(p, p, h, h))
                 绘制文本(g, Text, Font, 行高, 0, 获取文本状态(Enabled, Checked))
             End With
         End Sub
+
+        Private Function GetRoundedRectPath(ByVal rect As Rectangle, ByVal radius As Integer) As Drawing2D.GraphicsPath
+            rect.Offset(-1, -1)
+            Dim RoundRect As New Rectangle(rect.Location, New Size(radius - 1, radius - 1))
+            Dim path As New Drawing2D.GraphicsPath
+            path.AddArc(RoundRect, 180, 90)
+            RoundRect.X = rect.Right - radius
+            path.AddArc(RoundRect, 270, 90)
+            RoundRect.Y = rect.Bottom - radius
+            path.AddArc(RoundRect, 0, 90)
+            RoundRect.X = rect.Left
+            path.AddArc(RoundRect, 90, 90)
+            path.CloseFigure()
+            Return path
+        End Function
 
     End Class
 

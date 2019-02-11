@@ -161,6 +161,21 @@
             End With
         End Sub
 
+        Public Sub 绘制圆角矩形(g As Graphics, p As Pen, 矩形 As Rectangle, 半径 As Integer)
+            矩形.Offset(-1, -1)
+            Dim RoundRect As New Rectangle(矩形.Location, New Size(半径 - 1, 半径 - 1))
+            Dim path As New Drawing2D.GraphicsPath
+            path.AddArc(RoundRect, 180, 90)
+            RoundRect.X = 矩形.Right - 半径
+            path.AddArc(RoundRect, 270, 90)
+            RoundRect.Y = 矩形.Bottom - 半径
+            path.AddArc(RoundRect, 0, 90)
+            RoundRect.X = 矩形.Left
+            path.AddArc(RoundRect, 90, 90)
+            path.CloseFigure()
+            g.DrawPath(p, path)
+        End Sub
+
     End Module
 
 End Namespace

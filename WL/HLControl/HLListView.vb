@@ -168,7 +168,7 @@
                     绘制基础矩形(g, r, 选中列 = y)
                     绘制文本(g, i.Name, Font, x + p, p, 获取文本状态(Enabled))
                     y += 1
-                    x += i.Width * DPI
+                    x += i.Width
                     If x >= 滚动条.Left Then Exit For
                 Next
                 y = 边缘
@@ -232,8 +232,8 @@
                 Return w
             End Get
             Set(v As UInteger)
-                设最小值(v, 20)
-                w = v
+                设最小值(v, 20 * DPI)
+                w = v * DPI
             End Set
         End Property
 

@@ -52,27 +52,12 @@
                     .DrawLine(pe, pt, 点(p + h, p + h * 0.2))
                     h += 4 * DPI
                 End If
-                .DrawPath(边缘灰笔, GetRoundedRectPath(New Rectangle(p, p, h, h), 5 * DPI))
+                绘制圆角矩形(g, 边缘灰笔, New Rectangle(p, p, h, h), 5 * DPI)
                 h *= 0.6
                 p = (行高 - h) / 2
                 绘制文本(g, Text, Font, 行高, 0, 获取文本状态(Enabled, Checked))
             End With
         End Sub
-
-        Private Function GetRoundedRectPath(ByVal rect As Rectangle, ByVal radius As Integer) As Drawing2D.GraphicsPath
-            rect.Offset(-1, -1)
-            Dim RoundRect As New Rectangle(rect.Location, New Size(radius - 1, radius - 1))
-            Dim path As New Drawing2D.GraphicsPath
-            path.AddArc(RoundRect, 180, 90)
-            RoundRect.X = rect.Right - radius
-            path.AddArc(RoundRect, 270, 90)
-            RoundRect.Y = rect.Bottom - radius
-            path.AddArc(RoundRect, 0, 90)
-            RoundRect.X = rect.Left
-            path.AddArc(RoundRect, 90, 90)
-            path.CloseFigure()
-            Return path
-        End Function
 
     End Class
 

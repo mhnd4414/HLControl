@@ -11,6 +11,7 @@
             DoubleBuffered = True
             _SetDefault()
             Font = New Font("Microsoft Yahei", 12)
+            ShowSteamIcon = True
         End Sub
 
         <Browsable(False)>
@@ -23,12 +24,19 @@
         Public Overrides Property AutoSize As Boolean
 
         Private Sub _SetDefault()
-            MinimumSize = New Size(80, 80)
+            MinimumSize = New Size(200, 80)
             AutoScaleMode = AutoScaleMode.None
             FormBorderStyle = FormBorderStyle.None
             StartPosition = FormStartPosition.CenterScreen
             MaximizeBox = False
         End Sub
+
+        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.FontChanged, Me.EnabledChanged
+            Invalidate()
+        End Sub
+
+        <DefaultValue(True)>
+        Public Property ShowSteamIcon As Boolean
 
         Private Sub _Load(sender As Object, e As EventArgs) Handles Me.Load
             _SetDefault()
@@ -78,7 +86,9 @@
         Protected Overrides ReadOnly Property CreateParams As CreateParams
             Get
                 Dim cp As CreateParams = MyBase.CreateParams
-                cp.Style = &H20000
+                If 本程序.真的运行中 Then
+                    cp.Style = &H20000
+                End If
                 Return cp
             End Get
         End Property
@@ -88,10 +98,16 @@
             Dim g As Graphics = e.Graphics
             With g
                 绘制基础矩形(g, ClientRectangle)
-                Dim w As Integer = 25 * DPI, p As Integer = 8 * DPI, y As Integer
+                Dim w As Integer = 24 * DPI, p As Integer = 8 * DPI, y As Integer
                 Dim r As New Rectangle(Width - p - w, p * 1.5, w, w)
                 关闭按钮区域 = r
                 绘制基础矩形(g, r)
+                y = 12 * DPI
+                输出(Font.Name)
+                绘制文本(g, Text, New Font(Font.Name, 10 * DPI), 31 * DPI, y, 获取文本状态(Enabled))
+                If ShowSteamIcon Then
+                    .DrawIcon(My.Resources.SteamLogo, y, y + 2 * DPI)
+                End If
                 y = 7 * DPI
                 .DrawLine(白色笔, 左上角(r, y), 右下角(r, y))
                 .DrawLine(白色笔, 左下角(r, y), 右上角(r, y))
@@ -100,7 +116,6 @@
                 绘制基础矩形(g, r)
                 y = r.Y + w * 0.5
                 .DrawLine(白色笔, 点(r.X + w * 0.3, y), 点(r.X + w * 0.7, y))
-                绘制文本(g, Text, Font, 27 * DPI, 12 * DPI, 获取文本状态(Enabled))
             End With
         End Sub
 

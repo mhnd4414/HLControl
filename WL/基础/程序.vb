@@ -232,7 +232,7 @@
         Public Class 计时器
             Implements IDisposable
 
-            Private tm As System.Windows.Forms.Timer
+            Private tm As System.Windows.Forms.Timer, ts As UInteger, worktimes As UInteger
 
             ''' <summary>
             ''' 新建一个用窗体线程的 Timer，不会自动启动
@@ -242,6 +242,8 @@
                 tm.Enabled = False
                 Me.间隔 = 间隔
                 新增事件(事件)
+                ts = 0
+                worktimes = 0
             End Sub
 
             ''' <summary>
@@ -283,8 +285,31 @@
             ''' 新增一个计时器时间到的时候会进行的事件，无法删除老事件，只能删除本计时器后重新做一个
             ''' </summary>
             Public Sub 新增事件(事件 As EventHandler)
-                If 非空(事件) Then AddHandler tm.Tick, 事件
+                If 非空(事件) Then AddHandler tm.Tick, Sub()
+                                                       事件.Invoke(Nothing, Nothing)
+                                                       If 工作次数 > 0 Then
+                                                           ts += 1
+                                                           If ts >= 工作次数 Then
+                                                               启用 = False
+                                                               ts = 0
+                                                           End If
+                                                       End If
+                                                   End Sub
             End Sub
+
+            ''' <summary>
+            ''' 工作几次后会自动停止
+            ''' </summary>
+            Public Property 工作次数 As UInteger
+                Get
+                    Return worktimes
+                End Get
+                Set(v As UInteger)
+                    If worktimes = v Then Exit Property
+                    worktimes = v
+                    ts = 0
+                End Set
+            End Property
 
         End Class
 

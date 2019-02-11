@@ -3,7 +3,7 @@
     Public Class HLTabsHeader
         Inherits Control
 
-        Private 开始 As Boolean, 边缘 As Integer, 标签宽 As UShort, tabs As TabControl
+        Private 开始 As Boolean, 边缘 As Integer, 标签宽 As UShort, tabs As TabControl, 计时器 As 计时器
 
         Public Sub New()
             DoubleBuffered = True
@@ -11,6 +11,9 @@
             标签宽 = 100 * DPI
             边缘 = 3 * DPI
             tabs = Nothing
+            计时器 = New 计时器(10, AddressOf FixTabs)
+            计时器.启用 = False
+            计时器.工作次数 = 2
         End Sub
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
@@ -40,8 +43,6 @@
                     tabs = v
                     With tabs
                         AddHandler .SelectedIndexChanged, AddressOf _NeedRePaint
-                        Dim g As New 计时器(200, AddressOf FixTabs)
-                        g.启用 = True
                     End With
                 End If
             End Set
@@ -72,6 +73,7 @@
                     绘制基础矩形(g, r)
                     If 非空(.SelectedTab) Then .SelectedTab.BackColor = 基础绿
                 End With
+                计时()
             End If
         End Sub
 
@@ -97,7 +99,9 @@
                 End With
                 BringToFront()
             End If
-            If 开始 Then FixTabs()
+            If 开始 Then
+                计时器.启用 = True
+            End If
             Dim g As Graphics = e.Graphics, x As Integer = 0, s As Integer = tabs.SelectedIndex
             Dim tb As TabPage
             With g

@@ -88,7 +88,7 @@
         Public Sub 绘制基础矩形(g As Graphics, c As Rectangle, Optional 按下 As Boolean = False, Optional 黑框 As Boolean = False, Optional 内容颜色 As Color = Nothing)
             If 为空(内容颜色) Then 内容颜色 = 基础绿
             With g
-                Call .FillRectangle(New SolidBrush(内容颜色), c)
+                .FillRectangle(New SolidBrush(内容颜色), c)
                 Dim s1 As Pen = IIf(按下, 暗色笔, 边缘白笔)
                 Dim s2 As Pen = IIf(按下, 边缘白笔, 暗色笔)
                 .DrawLine(s1, 左上角(c), 左下角(c))

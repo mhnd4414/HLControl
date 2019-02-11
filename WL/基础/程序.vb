@@ -77,6 +77,13 @@
             ''' <returns></returns>
             Public Shared Property 控制台输出 As Boolean = False
 
+            ''' <summary>
+            ''' 检查本程序是否真的在运行中
+            ''' </summary>
+            Public Shared Function 真的运行中() As Boolean
+                Return 非空(进程) AndAlso 进程.ProcessName <> "devenv" AndAlso 进程.HasExited = False
+            End Function
+
         End Class
 
         ''' <summary>

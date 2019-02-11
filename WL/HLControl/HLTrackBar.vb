@@ -1,5 +1,6 @@
 ﻿Namespace HLControl
 
+    <DefaultEvent("ValueChanged")>
     Public Class HLTrackBar
         Inherits Control
 

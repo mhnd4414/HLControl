@@ -8,7 +8,11 @@
         Public Sub New()
             DoubleBuffered = True
             边缘 = 线宽
+            Border = True
         End Sub
+
+        <DefaultValue(True)>
+        Public Property Border As Boolean
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
             Invalidate()
@@ -33,7 +37,7 @@
             With g
                 c.Height -= 边缘
                 c.Width -= 边缘
-                绘制基础矩形(g, c,,, 基础绿)
+                If Border Then 绘制基础矩形(g, c,,, 基础绿)
             End With
         End Sub
 

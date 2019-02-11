@@ -1,0 +1,127 @@
+﻿Namespace HLControl
+
+    Public Class HLTabsHeader
+        Inherits Control
+
+        Private 开始 As Boolean, 边缘 As Integer, 标签宽 As UShort, tabs As TabControl
+
+        Public Sub New()
+            DoubleBuffered = True
+            开始 = False
+            标签宽 = 100 * DPI
+            边缘 = 3 * DPI
+            tabs = Nothing
+        End Sub
+
+        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
+            Invalidate()
+        End Sub
+
+        Public Property TabHeaderWidth As UShort
+            Get
+                Return 标签宽
+            End Get
+            Set(v As UShort)
+                设最小值(v, 30 * DPI)
+                设最大值(v, Width / 3)
+                If v <> 标签宽 Then
+                    标签宽 = v
+                    Invalidate()
+                End If
+            End Set
+        End Property
+
+        Public Property RealTabControl As TabControl
+            Get
+                Return tabs
+            End Get
+            Set(v As TabControl)
+                If 非空(v) AndAlso Not 开始 Then
+                    tabs = v
+                    With tabs
+                        AddHandler .SelectedIndexChanged, AddressOf _NeedRePaint
+                        Dim g As New 计时器(200, AddressOf FixTabs)
+                        g.启用 = True
+                    End With
+                End If
+            End Set
+        End Property
+
+        <Browsable(False)>
+        Public ReadOnly Property TabPages As TabControl.TabPageCollection
+            Get
+                If 为空(tabs) Then Return Nothing
+                Return tabs.TabPages
+            End Get
+        End Property
+
+        Private Sub _MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+            If 为空(tabs) Then Exit Sub
+            Dim x As Integer = Int(e.X / TabHeaderWidth)
+            If x < tabs.TabCount Then
+                tabs.SelectedIndex = x
+            End If
+        End Sub
+
+        Private Sub FixTabs()
+            If 开始 AndAlso 非空(tabs) AndAlso tabs.Visible AndAlso FindForm.WindowState <> FormWindowState.Minimized Then
+                With tabs
+                    Dim g As Graphics = .CreateGraphics()
+                    Dim r As Rectangle = .ClientRectangle
+                    g.Clear(基础绿)
+                    绘制基础矩形(g, r)
+                    If 非空(.SelectedTab) Then .SelectedTab.BackColor = 基础绿
+                End With
+            End If
+        End Sub
+
+        Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            MyBase.OnPaint(e)
+            If 为空(FindForm) Then Exit Sub
+            设最小值(Width, 90 * DPI)
+            Dim h As Integer = Font.GetHeight + 12 * DPI
+            设最小值(h, 30 * DPI)
+            Height = h
+            If 为空(tabs) OrElse tabs.TabPages.Count < 1 Then
+                绘制基础矩形(e.Graphics, ClientRectangle,,, Color.Red)
+                Exit Sub
+            End If
+            If 开始 = False AndAlso 本程序.真的运行中 Then
+                开始 = True
+                With tabs
+                    .Visible = Visible
+                    .DrawMode = TabDrawMode.OwnerDrawFixed
+                    .Top = Bottom - 30 * DPI
+                    .Left = Left
+                    .Width = Width
+                End With
+                BringToFront()
+            End If
+            If 开始 Then FixTabs()
+            Dim g As Graphics = e.Graphics, x As Integer = 0, s As Integer = tabs.SelectedIndex
+            Dim tb As TabPage
+            With g
+                Dim r As Rectangle
+                For i As Integer = 0 To RealTabControl.TabPages.Count - 1
+                    tb = RealTabControl.TabPages.Item(i)
+                    tb.BackColor = 基础绿
+                    r = New Rectangle(x, IIf(i = s, 0, 边缘 * 1.5), TabHeaderWidth, Height)
+                    .FillRectangle(基础绿笔刷, r)
+                    .DrawLine(边缘白笔, 左上角(r), 左下角(r))
+                    .DrawLine(边缘白笔, 左上角(r), 右上角(r))
+                    .DrawLine(暗色笔, 右上角(r), 右下角(r))
+                    绘制文本(g, tb.Text, Font, x + 边缘, Height * 0.2, 获取文本状态(Enabled, i = s))
+                    x += TabHeaderWidth + 线宽
+                    If x > Width Then Exit For
+                Next
+                r = ClientRectangle
+                .DrawLine(暗色笔, 点((s + 1) * TabHeaderWidth + 1, Height), 右下角(r))
+                If s > 0 Then
+                    .DrawLine(暗色笔, 左下角(r), 点(s * TabHeaderWidth + 1, Height))
+                End If
+            End With
+        End Sub
+
+    End Class
+
+End Namespace

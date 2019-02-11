@@ -111,6 +111,9 @@
     <Compile Include="HLControl\HLRadioButton.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="HLControl\HLTabsHeader.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="HLControl\HLVScrollBar.vb">
       <SubType>Component</SubType>
     </Compile>

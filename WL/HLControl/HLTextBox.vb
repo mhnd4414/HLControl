@@ -34,11 +34,8 @@
                                             End Select
                                         End If
                                     End Sub
-            AddHandler 文本框.GotFocus, Sub()
-                                         If 非空(HighLightLabel) Then HighLightLabel.HighLight = True
-                                     End Sub
-            AddHandler 文本框.LostFocus, Sub()
-                                          If 非空(HighLightLabel) Then HighLightLabel.HighLight = False
+            AddHandler 文本框.MouseDown, Sub()
+                                          If 非空(HighLightLabel) Then HighLightLabel.HighLight = True
                                       End Sub
         End Sub
 
@@ -66,7 +63,7 @@
             FixSize()
             MyBase.OnPaint(e)
             With e.Graphics
-                绘制基础矩形(e.Graphics, ClientRectangle, True, False, True)
+                绘制基础矩形(e.Graphics, ClientRectangle, True, False, 内容绿)
             End With
         End Sub
 

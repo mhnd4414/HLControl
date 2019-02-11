@@ -1,16 +1,19 @@
 ﻿Namespace HLControl
 
-    <DefaultEvent("ValueChanged")>
-    Public Class HLProgressBar
+    Public Class HLTrackBar
         Inherits Control
 
-        Private 值 As Integer, 最大 As Integer, 最小 As Integer
+        Private 值 As Integer, 最大 As Integer, 最小 As Integer, 可触 As Integer, 按住 As Boolean
+        Private 边缘 As Single
 
         Public Sub New()
             DoubleBuffered = True
             最大 = 100
             最小 = 0
             值 = 0
+            可触 = 0
+            按住 = False
+            边缘 = 6 * DPI
         End Sub
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
@@ -28,9 +31,6 @@
                 值 = 最小
             ElseIf 值 > 最大 Then
                 值 = 最大
-            End If
-            If 值 = 最大 Then
-                If AutoReset Then 值 = 0
             End If
             Invalidate()
         End Sub
@@ -69,38 +69,58 @@
             Set(v As Integer)
                 If v <> 值 AndAlso v <= 最大 AndAlso v >= 最小 Then
                     值 = v
+                    If 非空(HighLightLabel) Then HighLightLabel.HighLight = True
                     FixValue()
                     RaiseEvent ValueChanged()
                 End If
             End Set
         End Property
 
-        <DefaultValue(False)>
-        Public Property AutoReset As Boolean
-
         Public Event ValueChanged()
 
+        Public Property HighLightLabel As HLLabel
+
+        Private Sub _MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
+            If e.Button <> MouseButtons.None Then
+                If 按住 = False AndAlso e.Y <= Height * 0.6 AndAlso e.X - 可触 < 边缘 * 2.5 Then
+                    按住 = True
+                End If
+                If 按住 Then
+                    Dim x As Integer = e.X
+                    设最小值(x, 0)
+                    设最大值(x, Width - 边缘)
+                    Value = (x / (Width - 边缘)) * (Maximum - Minimum)
+                End If
+            End If
+        End Sub
+
+        Private Sub _MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+            If 按住 Then
+                按住 = False
+                Invalidate()
+            End If
+        End Sub
+
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            修正Dock(Me, True, False)
             MyBase.OnPaint(e)
-            Dim h As Integer = 30 * DPI, w As Integer = 12 * DPI, x As Integer = 6 * DPI
-            设最小值(Height, h)
-            设最小值(Width, h)
+            Height = 30 * DPI
+            设最小值(Width, Height)
             Dim g As Graphics = e.Graphics
             With g
-                绘制基础矩形(g, ClientRectangle, True, False, 内容绿)
-                If Value = Minimum Then Exit Sub
-                h = Height - 12 * DPI
-                w = 8 * DPI
-                Dim all As Integer = Int((Width) / (w + 4 * DPI) + 0.5)
+                Dim h As Integer = 20 * DPI, h2 As Integer = 边缘, y As Integer = (h - h2) * 0.5
+                Dim r As New Rectangle(0, y, Width, h2)
+                y += h2 * 2
+                绘制基础矩形(g, r, True,, Color.Black)
+                Dim x As Integer = 4 * DPI
+                Do While x < Width
+                    .DrawLine(细线灰笔, 点(x, y), 点(x, y + h2))
+                    x += 15 * DPI
+                Loop
                 Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
-                Dim n As Integer = Int(v * all - 0.5)
-                x = 4 * DPI
-                If n > 0 Then
-                    For i As Integer = 1 To n
-                        .FillRectangle(内容黄笔刷, x, 5 * DPI, w, h)
-                        x += w + 4 * DPI
-                    Next
-                End If
+                r = New Rectangle(v * (Width - 边缘 * 1.7), 0, h2 * 1.5, h)
+                可触 = r.Left
+                绘制基础矩形(g, r,,, 基础绿)
             End With
         End Sub
 

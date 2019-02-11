@@ -50,6 +50,9 @@
         Public ReadOnly 边缘灰笔 As New Pen(边缘灰, DPI * 2)
         Public ReadOnly 边缘灰笔刷 As New SolidBrush(边缘灰)
 
+        Public ReadOnly 细线灰 As Color = Color.FromArgb(127, 140, 127)
+        Public ReadOnly 细线灰笔 As New Pen(细线灰, DPI * 1.5)
+
         Public Function 点(x As Integer, y As Integer) As Point
             Return New Point(x, y)
         End Function
@@ -82,9 +85,10 @@
             Return 点(c.Right - 差, c.Bottom - 差)
         End Function
 
-        Public Sub 绘制基础矩形(g As Graphics, c As Rectangle, Optional 按下 As Boolean = False, Optional 黑框 As Boolean = False, Optional 内容框 As Boolean = False)
+        Public Sub 绘制基础矩形(g As Graphics, c As Rectangle, Optional 按下 As Boolean = False, Optional 黑框 As Boolean = False, Optional 内容颜色 As Color = Nothing)
+            If 为空(内容颜色) Then 内容颜色 = 基础绿
             With g
-                Call .FillRectangle(IIf(内容框, 内容绿笔刷, 基础绿笔刷), c)
+                Call .FillRectangle(New SolidBrush(内容颜色), c)
                 Dim s1 As Pen = IIf(按下, 暗色笔, 边缘白笔)
                 Dim s2 As Pen = IIf(按下, 边缘白笔, 暗色笔)
                 .DrawLine(s1, 左上角(c), 左下角(c))

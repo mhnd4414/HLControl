@@ -66,8 +66,8 @@
             Set(v As Integer)
                 If v <> 值 AndAlso v <= 最大 AndAlso v >= 最小 Then
                     值 = v
-                    RaiseEvent ValueChanged()
                     FixValue()
+                    RaiseEvent ValueChanged()
                 End If
             End Set
         End Property
@@ -134,8 +134,8 @@
             Dim g As Graphics = e.Graphics, w1 As Integer = Height, w2 As Integer = Height * 0.15
             Dim h As Integer = Width - 2 * w1, h2 As Integer = 2.2 * w1
             With g
-                绘制基础矩形(g, New Rectangle(0, 0, w1, w1), 按住上, False, False)
-                绘制基础矩形(g, New Rectangle(Width - w1, 0, w1, w1), 按住下, False, False)
+                绘制基础矩形(g, New Rectangle(0, 0, w1, w1), 按住上, False)
+                绘制基础矩形(g, New Rectangle(Width - w1, 0, w1, w1), 按住下, False)
                 Dim f As New Font("Segoe UI", 0.4 * Height)
                 绘制文本(g, "◀", f, w2, w2, 获取文本状态(Enabled))
                 绘制文本(g, "▶", f, Width - w1 + w2, w2, 获取文本状态(Enabled))

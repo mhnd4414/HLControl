@@ -70,15 +70,15 @@
         End Function
 
         Public Function 左上角(c As Rectangle, Optional 差 As Integer = 0) As Point
-            Return 点(c.Left - 差, c.Top - 差)
+            Return 点(c.Left + 差, c.Top + 差)
         End Function
 
         Public Function 左下角(c As Rectangle, Optional 差 As Integer = 0) As Point
-            Return 点(c.Left - 差, c.Bottom - 差)
+            Return 点(c.Left + 差, c.Bottom - 差)
         End Function
 
         Public Function 右上角(c As Rectangle, Optional 差 As Integer = 0) As Point
-            Return 点(c.Right - 差, c.Top - 差)
+            Return 点(c.Right - 差, c.Top + 差)
         End Function
 
         Public Function 右下角(c As Rectangle, Optional 差 As Integer = 0) As Point
@@ -179,6 +179,10 @@
             path.CloseFigure()
             g.DrawPath(p, path)
         End Sub
+
+        Public Function 是HL控件(c As Control) As Boolean
+            Return 非空(c) AndAlso c.GetType.Namespace = "WL.HLControl"
+        End Function
 
     End Module
 

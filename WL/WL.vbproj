@@ -93,6 +93,9 @@
     <Compile Include="HLControl\HLComboBox.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="HLControl\HLForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="HLControl\HLListBox.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -128,6 +131,7 @@
     </Compile>
     <Compile Include="基础\WBC.vb" />
     <Compile Include="基础\字符串常量.vb" />
+    <Compile Include="基础\引用.vb" />
     <Compile Include="基础\控件.vb" />
     <Compile Include="基础\数学.vb" />
     <Compile Include="基础\文件.vb" />

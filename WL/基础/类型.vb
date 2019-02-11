@@ -108,6 +108,7 @@
             If 是数字(t) Then Return 对象 = 0
             If 有Count(t) Then Return 对象.Count = 0
             If 有Length(t) Then Return 对象.Length = 0
+            If t = GetType(Color) Then Return 对象 = Color.Empty
             Return False
         End Function
 

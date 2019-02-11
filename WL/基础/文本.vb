@@ -293,6 +293,18 @@
         End Function
 
         ''' <summary>
+        ''' 筛选文本中的字符，如果不是规定的字符，那就去除
+        ''' </summary>
+        Public Function 筛选字符(文本 As String, 字符 As String) As String
+            If 文本.Length < 1 Then Return ""
+            Dim s As String = ""
+            For Each i As Char In 文本
+                If 字符.Contains(i) Then s += i
+            Next
+            Return s
+        End Function
+
+        ''' <summary>
         ''' 提取文字中的数字
         ''' </summary>
         Public Function 仅数字(文本 As String) As String

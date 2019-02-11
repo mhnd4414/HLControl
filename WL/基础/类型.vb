@@ -316,14 +316,6 @@
             Return A
         End Function
 
-        ''' <summary>
-        ''' 类似iif，如果表达式为True就返回A，不然就返回B
-        ''' </summary>
-        Public Function IFF(表达式 As Boolean, A As Object, B As Object) As Object
-            If 表达式 Then Return A
-            Return B
-        End Function
-
     End Module
 
 End Namespace

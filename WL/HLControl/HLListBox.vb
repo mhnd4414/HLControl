@@ -44,7 +44,7 @@
             If ShowScrollBar = False OrElse e.X < 滚动条.Left Then
                 Dim h As Integer = e.Y - 边缘
                 h = Int(h / 行高) + 最高栏
-                选中 = IFF(h < 物品.Count, h, -1)
+                选中 = IIf(h < 物品.Count, h, -1)
                 RaiseEvent SelectedIndexChanged()
                 Invalidate()
             End If

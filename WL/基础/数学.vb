@@ -121,6 +121,33 @@
 
         End Class
 
+        ''' <summary>
+        ''' 把十进制数转为其他进制的字符串，最大36进制
+        ''' </summary>
+        Public Function 十进制转(数字 As UInteger, 进制 As UShort) As String
+            If 进制 < 1 Then Return ""
+            If 进制 = 1 Then Return 重复("0", 数字)
+            Dim m As String = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", s As String = ""
+            Do While 数字 > 0
+                s = m.Chars(数字 Mod 进制) & s
+                数字 \= 进制
+            Loop
+            Return s
+        End Function
+
+        ''' <summary>
+        ''' 把其他进制的数字字符串变成十进制的Ulong
+        ''' </summary>
+        Public Function 转十进制(数字 As String, 进制 As UShort) As ULong
+            If 为空(数字, 进制) Then Return 0
+            Dim m As String = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", s As ULong = 0
+            数字 = 筛选字符(数字.ToUpper, 左(m, 进制))
+            For i As Integer = 1 To 数字.Length
+                s += m.IndexOf(GetChar(数字, 数字.Length - i + 1)) * (进制 ^ (i - 1))
+            Next
+            Return s
+        End Function
+
     End Module
 
 End Namespace

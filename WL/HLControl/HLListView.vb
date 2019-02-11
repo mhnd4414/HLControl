@@ -1,10 +1,11 @@
 ﻿Namespace HLControl
 
+    <DefaultEvent("SelectedIndexChanged")>
     Public Class HLListView
         Inherits Control
 
         Private 列 As List(Of HLListViewColumn), 物品 As List(Of HLListViewItem), 最高栏 As Integer, 行高 As Integer, 选中 As Integer
-        Private 滚动条 As HLVScrollBar, 边缘 As Integer, 选中列 As Integer
+        Private 滚动条 As HLVScrollBar, 边缘 As Integer, 选中列 As Integer, 拖动 As Boolean
 
         Public Sub New()
             DoubleBuffered = True
@@ -21,6 +22,7 @@
             End With
             最高栏 = 0
             选中 = -1
+            拖动 = False
             选中列 = -1
             AddHandler 滚动条.ValueChanged, Sub()
                                              最高栏 = 滚动条.Value
@@ -34,6 +36,7 @@
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
             选中列 = -1
+            选中 = -1
             Dim ok As Boolean = False
             If e.X < 滚动条.Left Then
                 Dim y As Integer = e.Y, x As Integer = 0, m As Integer = 0
@@ -50,7 +53,7 @@
                 Else
                     Dim h As Integer = y - 边缘
                     h = Int(h / 行高) + 最高栏
-                    选中 = IFF(h < 物品.Count, h, -1)
+                    选中 = IIf(h < 物品.Count, h, -1)
                     ok = True
                 End If
             End If
@@ -62,17 +65,34 @@
                     End If
                     物品.Sort(New HLListViewItemSort(选中列, 反转(d.Item(选中列))))
                 End If
+                RaiseEvent SelectedIndexChanged()
                 Invalidate()
             End If
         End Sub
 
         Private Sub _MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
             选中列 = -1
+            拖动 = False
             Invalidate()
         End Sub
 
         Private Sub _MouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
             滚动条.PerformMouseWheel(sender, e)
+        End Sub
+
+        Private Sub _MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
+            If e.Button <> MouseButtons.None AndAlso e.Y <= 边缘 Then
+                Dim x As Integer = 0
+                For Each i As HLListViewColumn In 列
+                    If Math.Abs(e.X - (x + i.Width)) <= 10 * DPI Then
+                        拖动 = True
+                        i.Width = 设最大值(e.X - x, Width - 边缘 - 30 * DPI - x)
+                        Invalidate()
+                        Exit For
+                    End If
+                    x += i.Width
+                Next
+            End If
         End Sub
 
         <Browsable(False)>
@@ -91,12 +111,50 @@
             End Get
         End Property
 
+        <Browsable(False)>
+        Public Property SelectedItem As HLListViewItem
+            Get
+                If 选中 >= 物品.Count Then 选中 = -1
+                If 选中 < 0 Then Return Nothing
+                Return 物品.Item(选中)
+            End Get
+            Set(v As HLListViewItem)
+                If 选中 >= 物品.Count Then 选中 = -1
+                If 选中 >= 0 Then
+                    物品.Item(选中) = v
+                    Invalidate()
+                End If
+            End Set
+        End Property
+
+        <Browsable(False)>
+        Public Property SelectedIndex As Integer
+            Get
+                Return 选中
+            End Get
+            Set(v As Integer)
+                If v < 0 Then v = -1
+                If v >= 物品.Count Then
+                    v = -1
+                End If
+                If 选中 <> v Then
+                    选中 = v
+                    滚动条.Value = v
+                    Invalidate()
+                    RaiseEvent SelectedIndexChanged()
+                End If
+            End Set
+        End Property
+
+        Public Event SelectedIndexChanged()
+
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
             行高 = Font.GetHeight + 3 * DPI
             边缘 = 行高 + 3 * DPI
             设最小值(Width, 30 * DPI)
             设最小值(Height, 50 * DPI)
+            If 选中 >= 物品.Count Then 选中 = -1
             Dim g As Graphics = e.Graphics, c As Rectangle = ClientRectangle
             Dim x As Integer = 0, y As Integer = 0, r As Rectangle, b As Boolean
             Dim shown As Integer = Int((Height - 边缘) / 行高 - 0.5), p As Integer = 2 * DPI
@@ -106,7 +164,7 @@
                 绘制基础矩形(g, c)
                 For Each i As HLListViewColumn In 列
                     b = y = 列.Count - 1
-                    r = New Rectangle(x, 0, IFF(b, Width - x, i.Width), 边缘 - p)
+                    r = New Rectangle(x, 0, IIf(b, Width - x, i.Width), 边缘 - p)
                     绘制基础矩形(g, r, 选中列 = y)
                     绘制文本(g, i.Name, Font, x + p, p, 获取文本状态(Enabled))
                     y += 1
@@ -122,8 +180,14 @@
                         .FillRectangle(块黄笔刷, New Rectangle(0, y, Width, 行高))
                     End If
                     For Each i2 As HLListViewColumn In 列
-                        If Not firstC Then .FillRectangle(IFF(选中 = i, 块黄笔刷, 基础绿笔刷), New Rectangle(x - 2 * p, y, Width, 行高))
-                        绘制文本(g, IFF(firstC, t.Title, t.Items.Item(it)), Font, x + p, y, 获取文本状态(Enabled))
+                        If Not firstC Then Call .FillRectangle(IIf(选中 = i, 块黄笔刷, 基础绿笔刷), New Rectangle(x - 2 * p, y, Width, 行高))
+                        Dim st As String = ""
+                        If firstC Then
+                            st = t.Title
+                        Else
+                            st = t.Items.Item(it)
+                        End If
+                        绘制文本(g, st, Font, x + p, y, 获取文本状态(Enabled))
                         If Not firstC Then it += 1
                         If it >= t.Items.Count Then Exit For
                         firstC = False
@@ -168,7 +232,7 @@
                 Return w
             End Get
             Set(v As UInteger)
-                设最小值(v, 10)
+                设最小值(v, 20)
                 w = v
             End Set
         End Property
@@ -209,9 +273,13 @@
             Return s.Title
         End Operator
 
+        Public Overrides Function ToString() As String
+            Return Title
+        End Function
+
     End Class
 
-    Public Class HLListViewItemSort
+    Friend Class HLListViewItemSort
         Implements IComparer(Of HLListViewItem)
 
         Private L As UInteger, op As Boolean
@@ -236,7 +304,9 @@
                 End If
                 L += 1
             End If
-            Dim g1 As Integer = AscW(s1), g2 As Integer = AscW(s2)
+            Dim g1 As Integer = 0, g2 As Integer = 0
+            If 非空(s1) Then g1 = AscW(s1)
+            If 非空(s2) Then g2 = AscW(s2)
             Dim g As Integer = 0
             If g1 > g2 Then g = 1
             If g1 < g2 Then g = -1

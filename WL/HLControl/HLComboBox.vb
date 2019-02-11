@@ -30,7 +30,7 @@
 
         Private Sub _MouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
             If Enabled AndAlso e.Y < 原高度 Then
-                SelectedIndex += IFF(e.Delta < 0, 1, -1)
+                SelectedIndex += IIf(e.Delta < 0, 1, -1)
             End If
         End Sub
 

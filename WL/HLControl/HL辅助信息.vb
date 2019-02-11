@@ -79,9 +79,9 @@
 
         Public Sub 绘制基础矩形(g As Graphics, c As Rectangle, Optional 按下 As Boolean = False, Optional 黑框 As Boolean = False, Optional 内容框 As Boolean = False)
             With g
-                .FillRectangle(IFF(内容框, 内容绿笔刷, 基础绿笔刷), c)
-                Dim s1 As Pen = IFF(按下, 暗色笔, 边缘白笔)
-                Dim s2 As Pen = IFF(按下, 边缘白笔, 暗色笔)
+                Call .FillRectangle(IIf(内容框, 内容绿笔刷, 基础绿笔刷), c)
+                Dim s1 As Pen = IIf(按下, 暗色笔, 边缘白笔)
+                Dim s2 As Pen = IIf(按下, 边缘白笔, 暗色笔)
                 .DrawLine(s1, 左上角(c), 左下角(c))
                 .DrawLine(s1, 左上角(c), 右上角(c))
                 .DrawLine(s2, 右上角(c), 右下角(c))

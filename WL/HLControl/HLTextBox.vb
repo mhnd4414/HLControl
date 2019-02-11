@@ -44,7 +44,7 @@
 
         Private Sub FixSize()
             With 文本框
-                .ForeColor = IFF([ReadOnly], 淡色, 内容白)
+                .ForeColor = IIf([ReadOnly], 淡色, 内容白)
                 .Font = Font
                 Dim i As Single = 3 * DPI
                 .Left = i
@@ -263,7 +263,7 @@
             End Get
             Set(v As Boolean)
                 文本框.UseSystemPasswordChar = v
-                文本框.PasswordChar = IFF(v, "*", "")
+                文本框.PasswordChar = IIf(v, "*", "")
             End Set
         End Property
 

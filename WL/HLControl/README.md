@@ -3,7 +3,7 @@
 Well, you can use this just follow [GPL-3.0](https://github.com/gordonwalkedby/Walkedbys_Library/blob/master/LICENSE). But if you use it for commercial purposes, contact me first.  
 非商业用途请遵守 [GPL-3.0](https://github.com/gordonwalkedby/Walkedbys_Library/blob/master/LICENSE)，商业用途请先联系我。  
 
-This will need .NET Framework 4.5+ to work and only works in WinForm.
+This will need .NET Framework 4.5+ to work and only works in WinForm.  
 需要 .NET 4.5 以上，而且只能在 WinForm 里使用。
 
 Controls:   
@@ -25,19 +25,23 @@ Controls:
 14. TrackBar
 15. VScrollBar
 
-尽管他们的名字、属性都是英文的，但是代码里面很多地方还是中文写的。所以编辑起来可能会很麻烦，但请不要让我用全英文写代码，我现在还是挺享受写中文的。  
 Though their names and properties were written in English, a lot of things in code are still in Chinese. So if you want to edit it, it might still be a difficult thing. Please don't ask me to write them in English all, I do love writing code in Chinese for now.
+尽管他们的名字、属性都是英文的，但是代码里面很多地方还是中文写的。所以编辑起来可能会很麻烦，但请不要让我用全英文写代码，我现在还是挺享受写中文的。  
 
 The controls' code files are [here](https://github.com/gordonwalkedby/Walkedbys_Library/tree/master/WL/HLControl).  
 控件部分的代码文件在[这里](https://github.com/gordonwalkedby/Walkedbys_Library/tree/master/WL/HLControl)。  
 
-## Usage 用法：
+## Get DLL 获得DLL：
 
-You can get the DLL file first, i name it as `WL.dll`.  
+You can get the DLL file first, I named it as `WL.dll`.  
 你可以从以下途径获得最新的DLL，DLL文件叫 `WL.dll`。
 
+- [GitHub Release](https://github.com/gordonwalkedby/Walkedbys_Library/releases)
+- [NuGet](https://www.nuget.org/packages/WL/1.0.0#)
 
-Then add my dll into your project's reference.  
+## Usage 用法：
+
+Add my dll into your project's reference.  
 把我的 DLL 加入到你的项目引用当中。  
 ![](https://s2.ax1x.com/2019/02/12/kwhsEj.png)  
 

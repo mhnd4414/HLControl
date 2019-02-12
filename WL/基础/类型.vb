@@ -76,6 +76,27 @@
         End Function
 
         ''' <summary>
+        ''' 判断t类型是否继承自parent类型
+        ''' </summary>
+        Public Function 是同一继承类(t As Type, parent As Type) As Boolean
+            If IsNothing(t) OrElse IsNothing(parent) Then Return False
+            If t = parent Then Return True
+            Do While True
+                If IsNothing(t.BaseType) Then Exit Do
+                t = t.BaseType
+                If t = parent Then Return True
+            Loop
+            Return False
+        End Function
+
+        ''' <summary>
+        ''' 判断t类型是否是控件
+        ''' </summary>
+        Public Function 是控件(t As Type) As Boolean
+            Return 是同一继承类(t, GetType(Control))
+        End Function
+
+        ''' <summary>
         ''' 判断这个类型是否有Length属性
         ''' </summary>
         Public Function 有Length(t As Type) As Boolean
@@ -101,6 +122,10 @@
 
         ''' <summary>
         ''' 判断这个对象是否为空
+        ''' 数字判断是否为0
+        ''' 有Length或者Count就判断是否为0
+        ''' 是颜色判断是否为 Color.Empty
+        ''' 是控件就判断 IsHandleCreated = False
         ''' </summary>
         Public Function 为空(对象 As Object) As Boolean
             If IsNothing(对象) Then Return True
@@ -109,6 +134,10 @@
             If 有Count(t) Then Return 对象.Count = 0
             If 有Length(t) Then Return 对象.Length = 0
             If t = GetType(Color) Then Return 对象 = Color.Empty
+            If 是控件(t) Then
+                Dim c As Control = 对象
+                Return c.IsHandleCreated = False
+            End If
             Return False
         End Function
 

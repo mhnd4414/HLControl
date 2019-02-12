@@ -68,6 +68,14 @@
             End If
         End Sub
 
+        <Browsable(False)>
+        Public ReadOnly Property TabPages As TabControl.TabPageCollection
+            Get
+                If 为空(tabs) Then Return Nothing
+                Return tabs.TabPages
+            End Get
+        End Property
+
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
             If 为空(FindForm) Then Exit Sub
@@ -97,8 +105,8 @@
             Dim tb As TabPage
             With g
                 Dim r As Rectangle, th As Single = TabHeaderWidth * DPI
-                For i As Integer = 0 To RealTabControl.TabPages.Count - 1
-                    tb = RealTabControl.TabPages.Item(i)
+                For i As Integer = 0 To tabs.TabPages.Count - 1
+                    tb = tabs.TabPages.Item(i)
                     tb.BackColor = 基础绿
                     r = New Rectangle(x, IIf(i = s, 0, 边缘 * 1.5), th, Height)
                     .FillRectangle(基础绿笔刷, r)

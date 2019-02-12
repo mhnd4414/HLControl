@@ -28,10 +28,8 @@ Public Class Form1
         For Each i As Control In HlButton2.Parent.Controls
             If i.Name <> HlButton2.Name Then
                 反转(i.Enabled)
-
             End If
         Next
-
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick

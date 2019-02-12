@@ -5,7 +5,7 @@
         Inherits Control
 
         Private 值 As Integer, 最大 As Integer, 最小 As Integer, 可触 As Integer, 按住 As Boolean
-        Private 边缘 As Single, 上一个值 As Single
+        Private 边缘 As Single, 上一个值 As Integer
 
         Public Sub New()
             DoubleBuffered = True
@@ -15,7 +15,7 @@
             可触 = 0
             按住 = False
             边缘 = 6 * DPI
-            上一个值 = -1
+            上一个值 = 0
         End Sub
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
@@ -77,7 +77,7 @@
             End Set
         End Property
 
-        Public Event ValueChanged()
+        Public Event ValueChanged(LastValue As Integer, NewValue As Integer)
 
         Public Property HighLightLabel As HLLabel
 
@@ -125,11 +125,11 @@
                     .DrawLine(细线灰笔, 点(x, y), 点(x, y + h2))
                     x += 15 * DPI
                 Loop
-                Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
-                If 上一个值 <> v Then
-                    上一个值 = v
-                    RaiseEvent ValueChanged()
+                If 上一个值 <> Value Then
+                    RaiseEvent ValueChanged(上一个值, Value)
+                    上一个值 = Value
                 End If
+                Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
                 r = New Rectangle(v * (Width - 边缘 * 1.7), 0, h2 * 1.5, h)
                 可触 = r.Left
                 绘制基础矩形(g, r,,, 基础绿)

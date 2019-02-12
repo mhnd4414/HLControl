@@ -4,7 +4,7 @@
         Inherits Control
 
         Private 按住上 As Boolean, 按住 As Boolean, 按住下 As Boolean, 值 As Integer, 滚动一次 As Integer, 最大 As Integer, 最小 As Integer
-        Private 上一个值 As Single
+        Private 上一个值 As Integer
 
         Public Sub New()
             DoubleBuffered = True
@@ -15,7 +15,7 @@
             滚动一次 = 1
             最大 = 100
             最小 = 0
-            上一个值 = -1
+            上一个值 = 0
         End Sub
 
         Private Sub FixValue()
@@ -86,7 +86,7 @@
             End Set
         End Property
 
-        Public Event ValueChanged()
+        Public Event ValueChanged(LastValue As Integer, NewValue As Integer)
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
             Dim y As Integer = e.Y, h As Integer = Width
@@ -96,6 +96,8 @@
             ElseIf y >= Height - h Then
                 按住下 = True
                 Value += 滚动一次
+            Else
+                _MouseMove(sender, e)
             End If
         End Sub
 
@@ -149,11 +151,11 @@
                 绘制文本(g, "▼", f, sw, Height - w1 + sh, 获取文本状态(Enabled))
                 .FillRectangle(滚动绿笔刷, New Rectangle(0, w1, w1, h))
                 If Enabled Then
-                    Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
-                    If 上一个值 <> v Then
-                        上一个值 = v
-                        RaiseEvent ValueChanged()
+                    If 上一个值 <> Value Then
+                        RaiseEvent ValueChanged(上一个值, Value)
+                        上一个值 = Value
                     End If
+                    Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
                     h = v * (h - h2 - 4 * DPI) + w1 + 1 * DPI
                     绘制基础矩形(g, New Rectangle(0, h, w1, h2))
                 End If

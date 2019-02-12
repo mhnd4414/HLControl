@@ -283,7 +283,7 @@ Partial Class Form1
         'HlRadioButton5
         '
         Me.HlRadioButton5.Checked = True
-        Me.HlRadioButton5.Location = New System.Drawing.Point(10, 130)
+        Me.HlRadioButton5.Location = New System.Drawing.Point(10, 155)
         Me.HlRadioButton5.Name = "HlRadioButton5"
         Me.HlRadioButton5.Size = New System.Drawing.Size(135, 21)
         Me.HlRadioButton5.TabIndex = 12
@@ -291,7 +291,7 @@ Partial Class Form1
         '
         'HlRadioButton4
         '
-        Me.HlRadioButton4.Location = New System.Drawing.Point(10, 103)
+        Me.HlRadioButton4.Location = New System.Drawing.Point(10, 128)
         Me.HlRadioButton4.Name = "HlRadioButton4"
         Me.HlRadioButton4.Size = New System.Drawing.Size(135, 21)
         Me.HlRadioButton4.TabIndex = 11
@@ -299,7 +299,7 @@ Partial Class Form1
         '
         'HlRadioButton3
         '
-        Me.HlRadioButton3.Location = New System.Drawing.Point(10, 76)
+        Me.HlRadioButton3.Location = New System.Drawing.Point(10, 101)
         Me.HlRadioButton3.Name = "HlRadioButton3"
         Me.HlRadioButton3.Size = New System.Drawing.Size(135, 21)
         Me.HlRadioButton3.TabIndex = 10
@@ -360,7 +360,7 @@ Partial Class Form1
         '
         'HlLabel2
         '
-        Me.HlLabel2.Location = New System.Drawing.Point(26, 40)
+        Me.HlLabel2.Location = New System.Drawing.Point(16, 40)
         Me.HlLabel2.Name = "HlLabel2"
         Me.HlLabel2.Size = New System.Drawing.Size(89, 23)
         Me.HlLabel2.TabIndex = 2
@@ -564,7 +564,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Tabs)
         Me.Controls.Add(Me.HlTabsHeader1)
         Me.Name = "Form1"
-        Me.Text = "Gordon Walkedby's Old Half Life Control Demo"
+        Me.Text = "Gordon Walkedby's Half Life Control Demo"
         Me.Tabs.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.HlPanel1.ResumeLayout(False)

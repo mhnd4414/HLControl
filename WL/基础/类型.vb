@@ -134,10 +134,6 @@
             If 有Count(t) Then Return 对象.Count = 0
             If 有Length(t) Then Return 对象.Length = 0
             If t = GetType(Color) Then Return 对象 = Color.Empty
-            If 是控件(t) Then
-                Dim c As Control = 对象
-                Return c.IsHandleCreated = False
-            End If
             Return False
         End Function
 

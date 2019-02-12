@@ -148,7 +148,7 @@
             With g
                 绘制基础矩形(g, New Rectangle(0, 0, w1, w1), 按住上, False)
                 绘制基础矩形(g, New Rectangle(0, Height - w1, w1, w1), 按住下, False)
-                Dim f As New Font("Segoe UI", 0.4 * Width)
+                Dim f As New Font("Segoe UI", 设最大值(0.4 * Width, 20))
                 Dim sz As SizeF = .MeasureString("▲", f)
                 Dim sw As Integer = (Width - sz.Width) * 0.5
                 Dim sh As Integer = (Width - sz.Height) * 0.5

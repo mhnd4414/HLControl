@@ -101,8 +101,9 @@
                 Dim r As New Rectangle(Width - p - w, p * 1.5, w, w)
                 关闭按钮区域 = r
                 绘制基础矩形(g, r)
-                y = 12 * DPI
-                绘制文本(g, Text, New Font(Font.Name, 10 * DPI), 31 * DPI, y, 获取文本状态(Enabled))
+                y = 9 * DPI
+                Dim ft As New Font(Font.Name, 设最大值(10 * DPI, 15))
+                绘制文本(g, Text, ft, 31 * DPI, y, 获取文本状态(Enabled))
                 If ShowIcon Then
                     Dim c As Icon
                     If ShowSteamIcon Then
@@ -110,7 +111,8 @@
                     Else
                         c = Icon
                     End If
-                    .DrawIcon(c, New Rectangle(y, y + 2 * DPI, 16 * DPI, 16 * DPI))
+                    Dim ih As Integer = 设最大值(ft.GetHeight, 34)
+                    .DrawIcon(c, New Rectangle(y, y + 2 * DPI, ih, ih))
                 End If
                 y = 7 * DPI
                 Dim pe As Pen = 按钮灰笔

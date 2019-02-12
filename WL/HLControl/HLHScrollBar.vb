@@ -141,12 +141,12 @@
             设最小值(Height, 10 * DPI)
             设最大值(Height, Width / 5)
             MyBase.OnPaint(e)
-            Dim g As Graphics = e.Graphics, w1 As Integer = Height ', w2 As Integer = Height * 0.15
+            Dim g As Graphics = e.Graphics, w1 As Integer = Height
             Dim h As Integer = Width - 2 * w1, h2 As Integer = 2.2 * w1
             With g
                 绘制基础矩形(g, New Rectangle(0, 0, w1, w1), 按住上, False)
                 绘制基础矩形(g, New Rectangle(Width - w1, 0, w1, w1), 按住下, False)
-                Dim f As New Font("Segoe UI", 0.4 * Height)
+                Dim f As New Font("Segoe UI", 设最大值(0.4 * Height, 20))
                 Dim sz As SizeF = .MeasureString("◀", f)
                 Dim sw As Integer = (Height - sz.Width) * 0.5
                 Dim sh As Integer = (Height - sz.Height) * 0.5

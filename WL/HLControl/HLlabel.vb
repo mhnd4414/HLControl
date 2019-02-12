@@ -31,7 +31,8 @@
             End Get
             Set(v As Boolean)
                 高亮 = v
-                黯淡 = False
+                Invalidate()
+                If v Then 黯淡 = False
                 If v = True AndAlso 非空(Parent) Then
                     For Each i As Control In Parent.Controls
                         If i.GetType = [GetType]() AndAlso i.Name <> Name Then
@@ -40,7 +41,6 @@
                         End If
                     Next
                 End If
-                Invalidate()
             End Set
         End Property
 
@@ -50,8 +50,7 @@
                 Return 黯淡
             End Get
             Set(v As Boolean)
-                If 黯淡 = v Then Exit Property
-                高亮 = False
+                If v Then 高亮 = False
                 黯淡 = v
                 Invalidate()
             End Set

@@ -74,7 +74,7 @@
             End If
         End Sub
 
-        <Browsable(False)>
+        <DesignerSerializationVisibility(DesignerSerializationVisibility.Content)> <Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
         Public ReadOnly Property Items As List(Of String)
             Get
                 Return 列表.Items

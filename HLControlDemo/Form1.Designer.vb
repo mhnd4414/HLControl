@@ -82,7 +82,7 @@ Partial Class Form1
         Me.HlTabsHeader1.Location = New System.Drawing.Point(12, 46)
         Me.HlTabsHeader1.Name = "HlTabsHeader1"
         Me.HlTabsHeader1.RealTabControl = Me.Tabs
-        Me.HlTabsHeader1.Size = New System.Drawing.Size(926, 33)
+        Me.HlTabsHeader1.Size = New System.Drawing.Size(926, 34)
         Me.HlTabsHeader1.TabHeaderWidth = CType(100US, UShort)
         Me.HlTabsHeader1.TabIndex = 0
         Me.HlTabsHeader1.Text = "HlTabsHeader1"
@@ -115,10 +115,10 @@ Partial Class Form1
         Me.TabPage1.Controls.Add(Me.HlLabel2)
         Me.TabPage1.Controls.Add(Me.HlTextBox1)
         Me.TabPage1.Controls.Add(Me.HlLabel1)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 31)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(918, 361)
+        Me.TabPage1.Size = New System.Drawing.Size(918, 360)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
         '
@@ -127,7 +127,7 @@ Partial Class Form1
         Me.HlCheckBox7.Checked = True
         Me.HlCheckBox7.Location = New System.Drawing.Point(134, 323)
         Me.HlCheckBox7.Name = "HlCheckBox7"
-        Me.HlCheckBox7.Size = New System.Drawing.Size(115, 23)
+        Me.HlCheckBox7.Size = New System.Drawing.Size(113, 24)
         Me.HlCheckBox7.TabIndex = 16
         Me.HlCheckBox7.Text = "Auto Reset"
         '
@@ -153,7 +153,7 @@ Partial Class Form1
         '
         Me.HlLabel5.Location = New System.Drawing.Point(372, 6)
         Me.HlLabel5.Name = "HlLabel5"
-        Me.HlLabel5.Size = New System.Drawing.Size(104, 23)
+        Me.HlLabel5.Size = New System.Drawing.Size(102, 23)
         Me.HlLabel5.TabIndex = 11
         Me.HlLabel5.Text = "Your Height:"
         '
@@ -164,7 +164,7 @@ Partial Class Form1
         Me.HlComboBox1.Name = "HlComboBox1"
         Me.HlComboBox1.SelectedIndex = -1
         Me.HlComboBox1.SelectedItem = ""
-        Me.HlComboBox1.Size = New System.Drawing.Size(165, 27)
+        Me.HlComboBox1.Size = New System.Drawing.Size(165, 28)
         Me.HlComboBox1.TabIndex = 10
         Me.HlComboBox1.Text = "HlComboBox1"
         '
@@ -172,7 +172,7 @@ Partial Class Form1
         '
         Me.HlButton1.Location = New System.Drawing.Point(16, 231)
         Me.HlButton1.Name = "HlButton1"
-        Me.HlButton1.Size = New System.Drawing.Size(334, 31)
+        Me.HlButton1.Size = New System.Drawing.Size(334, 32)
         Me.HlButton1.TabIndex = 9
         Me.HlButton1.Text = "Show Hide TextBox's Scrollbars"
         '
@@ -200,6 +200,8 @@ Partial Class Form1
         '
         'HlListBox1
         '
+        Me.HlListBox1.Items.Add("dsa")
+        Me.HlListBox1.Items.Add("fadfda")
         Me.HlListBox1.Location = New System.Drawing.Point(304, 61)
         Me.HlListBox1.Name = "HlListBox1"
         Me.HlListBox1.SelectedIndex = -1
@@ -213,7 +215,7 @@ Partial Class Form1
         '
         Me.HlCheckBox6.Location = New System.Drawing.Point(151, 215)
         Me.HlCheckBox6.Name = "HlCheckBox6"
-        Me.HlCheckBox6.Size = New System.Drawing.Size(132, 23)
+        Me.HlCheckBox6.Size = New System.Drawing.Size(131, 24)
         Me.HlCheckBox6.TabIndex = 20
         Me.HlCheckBox6.Text = "HlCheckBox6"
         '
@@ -222,7 +224,7 @@ Partial Class Form1
         Me.HlCheckBox5.Checked = True
         Me.HlCheckBox5.Location = New System.Drawing.Point(151, 186)
         Me.HlCheckBox5.Name = "HlCheckBox5"
-        Me.HlCheckBox5.Size = New System.Drawing.Size(132, 23)
+        Me.HlCheckBox5.Size = New System.Drawing.Size(131, 24)
         Me.HlCheckBox5.TabIndex = 19
         Me.HlCheckBox5.Text = "HlCheckBox5"
         '
@@ -230,7 +232,7 @@ Partial Class Form1
         '
         Me.HlCheckBox4.Location = New System.Drawing.Point(151, 157)
         Me.HlCheckBox4.Name = "HlCheckBox4"
-        Me.HlCheckBox4.Size = New System.Drawing.Size(132, 23)
+        Me.HlCheckBox4.Size = New System.Drawing.Size(131, 24)
         Me.HlCheckBox4.TabIndex = 18
         Me.HlCheckBox4.Text = "HlCheckBox4"
         '
@@ -239,7 +241,7 @@ Partial Class Form1
         Me.HlCheckBox3.Checked = True
         Me.HlCheckBox3.Location = New System.Drawing.Point(151, 128)
         Me.HlCheckBox3.Name = "HlCheckBox3"
-        Me.HlCheckBox3.Size = New System.Drawing.Size(132, 23)
+        Me.HlCheckBox3.Size = New System.Drawing.Size(131, 24)
         Me.HlCheckBox3.TabIndex = 17
         Me.HlCheckBox3.Text = "HlCheckBox3"
         '
@@ -247,7 +249,7 @@ Partial Class Form1
         '
         Me.HlCheckBox2.Location = New System.Drawing.Point(151, 101)
         Me.HlCheckBox2.Name = "HlCheckBox2"
-        Me.HlCheckBox2.Size = New System.Drawing.Size(132, 23)
+        Me.HlCheckBox2.Size = New System.Drawing.Size(131, 24)
         Me.HlCheckBox2.TabIndex = 16
         Me.HlCheckBox2.Text = "HlCheckBox2"
         '
@@ -255,7 +257,7 @@ Partial Class Form1
         '
         Me.HlCheckBox1.Location = New System.Drawing.Point(151, 76)
         Me.HlCheckBox1.Name = "HlCheckBox1"
-        Me.HlCheckBox1.Size = New System.Drawing.Size(132, 23)
+        Me.HlCheckBox1.Size = New System.Drawing.Size(131, 24)
         Me.HlCheckBox1.TabIndex = 15
         Me.HlCheckBox1.Text = "HlCheckBox1"
         '
@@ -280,7 +282,7 @@ Partial Class Form1
         Me.HlRadioButton5.Checked = True
         Me.HlRadioButton5.Location = New System.Drawing.Point(10, 130)
         Me.HlRadioButton5.Name = "HlRadioButton5"
-        Me.HlRadioButton5.Size = New System.Drawing.Size(135, 21)
+        Me.HlRadioButton5.Size = New System.Drawing.Size(134, 22)
         Me.HlRadioButton5.TabIndex = 12
         Me.HlRadioButton5.Text = "RaidoButton3"
         '
@@ -288,7 +290,7 @@ Partial Class Form1
         '
         Me.HlRadioButton4.Location = New System.Drawing.Point(10, 103)
         Me.HlRadioButton4.Name = "HlRadioButton4"
-        Me.HlRadioButton4.Size = New System.Drawing.Size(135, 21)
+        Me.HlRadioButton4.Size = New System.Drawing.Size(134, 22)
         Me.HlRadioButton4.TabIndex = 11
         Me.HlRadioButton4.Text = "RaidoButton2"
         '
@@ -296,7 +298,7 @@ Partial Class Form1
         '
         Me.HlRadioButton3.Location = New System.Drawing.Point(10, 76)
         Me.HlRadioButton3.Name = "HlRadioButton3"
-        Me.HlRadioButton3.Size = New System.Drawing.Size(135, 21)
+        Me.HlRadioButton3.Size = New System.Drawing.Size(134, 22)
         Me.HlRadioButton3.TabIndex = 10
         Me.HlRadioButton3.Text = "RaidoButton1"
         '
@@ -305,7 +307,7 @@ Partial Class Form1
         Me.HlLabel4.Location = New System.Drawing.Point(10, 6)
         Me.HlLabel4.LowLight = True
         Me.HlLabel4.Name = "HlLabel4"
-        Me.HlLabel4.Size = New System.Drawing.Size(464, 44)
+        Me.HlLabel4.Size = New System.Drawing.Size(457, 45)
         Me.HlLabel4.TabIndex = 9
         Me.HlLabel4.Text = "This is a panel" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "And I have to say that ,these scroll bars are sort of useless."
         '
@@ -314,7 +316,7 @@ Partial Class Form1
         Me.HlRadioButton2.Checked = True
         Me.HlRadioButton2.Location = New System.Drawing.Point(121, 42)
         Me.HlRadioButton2.Name = "HlRadioButton2"
-        Me.HlRadioButton2.Size = New System.Drawing.Size(83, 21)
+        Me.HlRadioButton2.Size = New System.Drawing.Size(83, 22)
         Me.HlRadioButton2.TabIndex = 7
         Me.HlRadioButton2.Text = "Female"
         '
@@ -322,7 +324,7 @@ Partial Class Form1
         '
         Me.HlRadioButton1.Location = New System.Drawing.Point(236, 42)
         Me.HlRadioButton1.Name = "HlRadioButton1"
-        Me.HlRadioButton1.Size = New System.Drawing.Size(65, 21)
+        Me.HlRadioButton1.Size = New System.Drawing.Size(65, 22)
         Me.HlRadioButton1.TabIndex = 6
         Me.HlRadioButton1.Text = "Male"
         '
@@ -331,7 +333,7 @@ Partial Class Form1
         Me.HlTextBox2.AcceptsReturn = True
         Me.HlTextBox2.HideSelection = False
         Me.HlTextBox2.HighLightLabel = Me.HlLabel3
-        Me.HlTextBox2.Lines = New String() {"Multiline", "iPhone 4", "iPhone 5", "iPhone 6", "iPhone 8", "iPhone X", "iPhone What?"}
+        Me.HlTextBox2.Lines = New String() {"Multiline", "i admit that these scrollbars are bad for textbox", "iPhone 4", "iPhone 5", "iPhone 6", "iPhone 8", "iPhone X", "iPhone What?"}
         Me.HlTextBox2.Location = New System.Drawing.Point(121, 79)
         Me.HlTextBox2.Modified = False
         Me.HlTextBox2.Multiline = True
@@ -342,14 +344,14 @@ Partial Class Form1
         Me.HlTextBox2.SelectionStart = 0
         Me.HlTextBox2.Size = New System.Drawing.Size(229, 146)
         Me.HlTextBox2.TabIndex = 5
-        Me.HlTextBox2.Text = "Multiline" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 6" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 8" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone X" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone What?"
+        Me.HlTextBox2.Text = "Multiline" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "i admit that these scrollbars are bad for textbox" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 6" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 8" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone X" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone What?"
         Me.HlTextBox2.WordWrap = False
         '
         'HlLabel3
         '
         Me.HlLabel3.Location = New System.Drawing.Point(6, 79)
         Me.HlLabel3.Name = "HlLabel3"
-        Me.HlLabel3.Size = New System.Drawing.Size(95, 23)
+        Me.HlLabel3.Size = New System.Drawing.Size(96, 23)
         Me.HlLabel3.TabIndex = 4
         Me.HlLabel3.Text = "Player Idea:"
         '
@@ -381,7 +383,7 @@ Partial Class Form1
         '
         Me.HlLabel1.Location = New System.Drawing.Point(6, 6)
         Me.HlLabel1.Name = "HlLabel1"
-        Me.HlLabel1.Size = New System.Drawing.Size(109, 23)
+        Me.HlLabel1.Size = New System.Drawing.Size(108, 23)
         Me.HlLabel1.TabIndex = 0
         Me.HlLabel1.Text = "Player Name:"
         '
@@ -389,10 +391,10 @@ Partial Class Form1
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(68, Byte), Integer))
         Me.TabPage2.Controls.Add(Me.HlListView1)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 31)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(918, 361)
+        Me.TabPage2.Size = New System.Drawing.Size(918, 360)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         '
@@ -403,7 +405,7 @@ Partial Class Form1
         Me.HlListView1.Name = "HlListView1"
         Me.HlListView1.SelectedIndex = -1
         Me.HlListView1.SelectedItem = Nothing
-        Me.HlListView1.Size = New System.Drawing.Size(912, 355)
+        Me.HlListView1.Size = New System.Drawing.Size(912, 354)
         Me.HlListView1.TabIndex = 0
         Me.HlListView1.Text = "HlListView1"
         '
@@ -420,10 +422,10 @@ Partial Class Form1
         Me.TabPage3.Controls.Add(Me.HlTrackBar2)
         Me.TabPage3.Controls.Add(Me.HlLabel6)
         Me.TabPage3.Controls.Add(Me.HlTrackBar1)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 31)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(918, 361)
+        Me.TabPage3.Size = New System.Drawing.Size(918, 360)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
         '
@@ -449,7 +451,7 @@ Partial Class Form1
         Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Label1.Location = New System.Drawing.Point(161, 336)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(255, 21)
+        Me.Label1.Size = New System.Drawing.Size(253, 22)
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "this is WinForm Original Control"
         '
@@ -491,7 +493,7 @@ Partial Class Form1
         '
         Me.HlLabel7.Location = New System.Drawing.Point(36, 71)
         Me.HlLabel7.Name = "HlLabel7"
-        Me.HlLabel7.Size = New System.Drawing.Size(73, 23)
+        Me.HlLabel7.Size = New System.Drawing.Size(72, 23)
         Me.HlLabel7.TabIndex = 3
         Me.HlLabel7.Text = "HlLabel7"
         '
@@ -511,7 +513,7 @@ Partial Class Form1
         Me.HlLabel6.HighLight = True
         Me.HlLabel6.Location = New System.Drawing.Point(36, 23)
         Me.HlLabel6.Name = "HlLabel6"
-        Me.HlLabel6.Size = New System.Drawing.Size(73, 23)
+        Me.HlLabel6.Size = New System.Drawing.Size(72, 23)
         Me.HlLabel6.TabIndex = 1
         Me.HlLabel6.Text = "HlLabel6"
         '
@@ -529,7 +531,7 @@ Partial Class Form1
         '
         Me.HlButton2.Location = New System.Drawing.Point(20, 486)
         Me.HlButton2.Name = "HlButton2"
-        Me.HlButton2.Size = New System.Drawing.Size(137, 31)
+        Me.HlButton2.Size = New System.Drawing.Size(137, 32)
         Me.HlButton2.TabIndex = 10
         Me.HlButton2.Text = "Enabled or not"
         '
@@ -543,7 +545,7 @@ Partial Class Form1
         Me.HlLabel8.Location = New System.Drawing.Point(163, 486)
         Me.HlLabel8.LowLight = True
         Me.HlLabel8.Name = "HlLabel8"
-        Me.HlLabel8.Size = New System.Drawing.Size(78, 23)
+        Me.HlLabel8.Size = New System.Drawing.Size(77, 23)
         Me.HlLabel8.TabIndex = 12
         Me.HlLabel8.Text = "Your DPI: "
         '
@@ -552,20 +554,20 @@ Partial Class Form1
         Me.HlCheckBox8.Checked = True
         Me.HlCheckBox8.Location = New System.Drawing.Point(353, 486)
         Me.HlCheckBox8.Name = "HlCheckBox8"
-        Me.HlCheckBox8.Size = New System.Drawing.Size(165, 23)
+        Me.HlCheckBox8.Size = New System.Drawing.Size(163, 24)
         Me.HlCheckBox8.TabIndex = 17
         Me.HlCheckBox8.Text = "Show Steam Icon"
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(950, 535)
         Me.Controls.Add(Me.HlCheckBox8)
         Me.Controls.Add(Me.HlLabel8)
         Me.Controls.Add(Me.HlButton2)
         Me.Controls.Add(Me.Tabs)
         Me.Controls.Add(Me.HlTabsHeader1)
+        Me.Font = New System.Drawing.Font("Noto Sans", 12.0!)
         Me.Name = "Form1"
         Me.Text = "Gordon Walkedby's Old Half Life Control Demo"
         Me.Tabs.ResumeLayout(False)

@@ -39,7 +39,7 @@
                 Return tabs
             End Get
             Set(v As TabControl)
-                If 非空(v) AndAlso Not 开始 Then
+                If Not IsNothing(v) AndAlso Not 开始 Then
                     tabs = v
                     With tabs
                         AddHandler .SelectedIndexChanged, AddressOf _NeedRePaint

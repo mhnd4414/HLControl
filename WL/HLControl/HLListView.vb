@@ -116,6 +116,16 @@
             End Get
         End Property
 
+        <DefaultValue(1)>
+        Public Property SmallChange As Integer
+            Get
+                Return 滚动条.SmallChange
+            End Get
+            Set(v As Integer)
+                滚动条.SmallChange = v
+            End Set
+        End Property
+
         Public Sub AddColumn(name As String)
             Columns.Add(New HLListViewColumn(name))
         End Sub

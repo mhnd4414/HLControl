@@ -412,6 +412,7 @@ Partial Class Form1
         Me.HlListView1.SelectedIndex = -1
         Me.HlListView1.SelectedItem = Nothing
         Me.HlListView1.Size = New System.Drawing.Size(912, 355)
+        Me.HlListView1.SmallChange = 5
         Me.HlListView1.TabIndex = 0
         Me.HlListView1.Text = "HlListView1"
         '

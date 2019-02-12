@@ -73,7 +73,7 @@
                 .Visible = Multiline AndAlso 滚动条
                 If .Visible Then
                     x2 = 滚动条大小
-                    .Maximum = 文本框.Lines.Length
+                    .Maximum = 文本框.Lines.Length - 1
                 End If
             End With
             With 文本框

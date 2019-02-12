@@ -29,8 +29,6 @@
             ElseIf 值 > 最大 Then
                 值 = 最大
             End If
-            If 滚动一次 >= 最大 Then 滚动一次 = 最大 - 1
-            If 滚动一次 <= 最小 Then 滚动一次 = 最小 + 1
             Invalidate()
             If 上一个值 <> 值 Then
                 RaiseEvent ValueChanged(上一个值, 值)

@@ -89,6 +89,16 @@
             End Set
         End Property
 
+        <DefaultValue(1)>
+        Public Property SmallChange As Integer
+            Get
+                Return 滚动条.SmallChange
+            End Get
+            Set(v As Integer)
+                滚动条.SmallChange = v
+            End Set
+        End Property
+
         Public Event SelectedIndexChanged()
 
         <DefaultValue(True)>

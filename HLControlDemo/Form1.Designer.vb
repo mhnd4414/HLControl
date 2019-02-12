@@ -535,7 +535,7 @@ Partial Class Form1
         '
         Me.HlLabel11.Enabled = False
         Me.HlLabel11.Font = New System.Drawing.Font("微软雅黑", 40.0!)
-        Me.HlLabel11.Location = New System.Drawing.Point(23, 254)
+        Me.HlLabel11.Location = New System.Drawing.Point(483, 88)
         Me.HlLabel11.Name = "HlLabel11"
         Me.HlLabel11.Size = New System.Drawing.Size(404, 77)
         Me.HlLabel11.TabIndex = 6
@@ -563,7 +563,7 @@ Partial Class Form1
         'HlLab2
         '
         Me.HlLab2.Font = New System.Drawing.Font("微软雅黑", 40.0!)
-        Me.HlLab2.Location = New System.Drawing.Point(23, 171)
+        Me.HlLab2.Location = New System.Drawing.Point(473, 19)
         Me.HlLab2.LowLight = True
         Me.HlLab2.Name = "HlLab2"
         Me.HlLab2.Size = New System.Drawing.Size(414, 77)

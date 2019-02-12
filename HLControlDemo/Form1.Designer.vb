@@ -56,20 +56,16 @@ Partial Class Form1
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.HlListView1 = New WL.HLControl.HLListView()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.HlPanel2 = New WL.HLControl.HLPanel()
+        Me.HlLabel10 = New WL.HLControl.HLLabel()
+        Me.HlLabel11 = New WL.HLControl.HLLabel()
+        Me.HlLab2 = New WL.HLControl.HLLabel()
+        Me.HlLabel9 = New WL.HLControl.HLLabel()
         Me.HlProgressBar2 = New WL.HLControl.HLProgressBar()
         Me.HlLabel7 = New WL.HLControl.HLLabel()
         Me.HlTrackBar2 = New WL.HLControl.HLTrackBar()
         Me.HlLabel6 = New WL.HLControl.HLLabel()
         Me.HlTrackBar1 = New WL.HLControl.HLTrackBar()
-        Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.HlLabel11 = New WL.HLControl.HLLabel()
-        Me.HlLabel10 = New WL.HLControl.HLLabel()
-        Me.HlLabel9 = New WL.HLControl.HLLabel()
-        Me.HlLab2 = New WL.HLControl.HLLabel()
         Me.HlButton2 = New WL.HLControl.HLButton()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.HlLabel8 = New WL.HLControl.HLLabel()
@@ -79,7 +75,7 @@ Partial Class Form1
         Me.HlPanel1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        Me.TabPage4.SuspendLayout()
+        Me.HlPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'HlTabsHeader1
@@ -97,7 +93,6 @@ Partial Class Form1
         Me.Tabs.Controls.Add(Me.TabPage1)
         Me.Tabs.Controls.Add(Me.TabPage2)
         Me.Tabs.Controls.Add(Me.TabPage3)
-        Me.Tabs.Controls.Add(Me.TabPage4)
         Me.Tabs.Location = New System.Drawing.Point(12, 85)
         Me.Tabs.Name = "Tabs"
         Me.Tabs.SelectedIndex = 0
@@ -171,6 +166,7 @@ Partial Class Form1
         Me.HlComboBox1.SelectedIndex = -1
         Me.HlComboBox1.SelectedItem = ""
         Me.HlComboBox1.Size = New System.Drawing.Size(165, 27)
+        Me.HlComboBox1.SmallChange = 5
         Me.HlComboBox1.TabIndex = 10
         Me.HlComboBox1.Text = "HlComboBox1"
         '
@@ -214,6 +210,7 @@ Partial Class Form1
         Me.HlListBox1.SelectedItem = ""
         Me.HlListBox1.ShowScrollBar = False
         Me.HlListBox1.Size = New System.Drawing.Size(157, 176)
+        Me.HlListBox1.SmallChange = 5
         Me.HlListBox1.TabIndex = 21
         Me.HlListBox1.Text = "HlListBox1"
         '
@@ -419,10 +416,7 @@ Partial Class Form1
         'TabPage3
         '
         Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(68, Byte), Integer))
-        Me.TabPage3.Controls.Add(Me.Label1)
-        Me.TabPage3.Controls.Add(Me.ProgressBar1)
-        Me.TabPage3.Controls.Add(Me.Button2)
-        Me.TabPage3.Controls.Add(Me.Button1)
+        Me.TabPage3.Controls.Add(Me.HlPanel2)
         Me.TabPage3.Controls.Add(Me.HlProgressBar2)
         Me.TabPage3.Controls.Add(Me.HlLabel7)
         Me.TabPage3.Controls.Add(Me.HlTrackBar2)
@@ -435,42 +429,53 @@ Partial Class Form1
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
         '
-        'Label1
+        'HlPanel2
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label1.Location = New System.Drawing.Point(161, 336)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(255, 21)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "this is WinForm Original Control"
+        Me.HlPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(68, Byte), Integer))
+        Me.HlPanel2.Controls.Add(Me.HlLabel10)
+        Me.HlPanel2.Controls.Add(Me.HlLabel11)
+        Me.HlPanel2.Controls.Add(Me.HlLab2)
+        Me.HlPanel2.Controls.Add(Me.HlLabel9)
+        Me.HlPanel2.Location = New System.Drawing.Point(21, 163)
+        Me.HlPanel2.Name = "HlPanel2"
+        Me.HlPanel2.Padding = New System.Windows.Forms.Padding(3)
+        Me.HlPanel2.Size = New System.Drawing.Size(234, 168)
+        Me.HlPanel2.TabIndex = 11
         '
-        'ProgressBar1
+        'HlLabel10
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(558, 329)
-        Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(354, 28)
-        Me.ProgressBar1.TabIndex = 7
-        Me.ProgressBar1.Value = 50
+        Me.HlLabel10.Location = New System.Drawing.Point(23, 34)
+        Me.HlLabel10.Name = "HlLabel10"
+        Me.HlLabel10.Size = New System.Drawing.Size(111, 23)
+        Me.HlLabel10.TabIndex = 9
+        Me.HlLabel10.Text = "Valve Normal"
         '
-        'Button2
+        'HlLabel11
         '
-        Me.Button2.Location = New System.Drawing.Point(422, 296)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(131, 61)
-        Me.Button2.TabIndex = 6
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.HlLabel11.Enabled = False
+        Me.HlLabel11.Location = New System.Drawing.Point(26, 121)
+        Me.HlLabel11.Name = "HlLabel11"
+        Me.HlLabel11.Size = New System.Drawing.Size(121, 23)
+        Me.HlLabel11.TabIndex = 10
+        Me.HlLabel11.Text = "Valve Disabled"
         '
-        'Button1
+        'HlLab2
         '
-        Me.Button1.Location = New System.Drawing.Point(4, 296)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(151, 62)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.HlLab2.Location = New System.Drawing.Point(23, 63)
+        Me.HlLab2.LowLight = True
+        Me.HlLab2.Name = "HlLab2"
+        Me.HlLab2.Size = New System.Drawing.Size(124, 23)
+        Me.HlLab2.TabIndex = 7
+        Me.HlLab2.Text = "Valve LowLight"
+        '
+        'HlLabel9
+        '
+        Me.HlLabel9.HighLight = True
+        Me.HlLabel9.Location = New System.Drawing.Point(23, 92)
+        Me.HlLabel9.Name = "HlLabel9"
+        Me.HlLabel9.Size = New System.Drawing.Size(130, 23)
+        Me.HlLabel9.TabIndex = 8
+        Me.HlLabel9.Text = "Valve HighLight"
         '
         'HlProgressBar2
         '
@@ -517,59 +522,6 @@ Partial Class Form1
         Me.HlTrackBar1.TabIndex = 0
         Me.HlTrackBar1.Text = "HlTrackBar1"
         Me.HlTrackBar1.Value = 100
-        '
-        'TabPage4
-        '
-        Me.TabPage4.BackColor = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(68, Byte), Integer))
-        Me.TabPage4.Controls.Add(Me.HlLabel11)
-        Me.TabPage4.Controls.Add(Me.HlLabel10)
-        Me.TabPage4.Controls.Add(Me.HlLabel9)
-        Me.TabPage4.Controls.Add(Me.HlLab2)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 30)
-        Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(918, 361)
-        Me.TabPage4.TabIndex = 3
-        Me.TabPage4.Text = "TabPage4"
-        '
-        'HlLabel11
-        '
-        Me.HlLabel11.Enabled = False
-        Me.HlLabel11.Font = New System.Drawing.Font("微软雅黑", 40.0!)
-        Me.HlLabel11.Location = New System.Drawing.Point(483, 88)
-        Me.HlLabel11.Name = "HlLabel11"
-        Me.HlLabel11.Size = New System.Drawing.Size(404, 77)
-        Me.HlLabel11.TabIndex = 6
-        Me.HlLabel11.Text = "Valve Disabled"
-        '
-        'HlLabel10
-        '
-        Me.HlLabel10.Font = New System.Drawing.Font("微软雅黑", 40.0!)
-        Me.HlLabel10.Location = New System.Drawing.Point(23, 19)
-        Me.HlLabel10.Name = "HlLabel10"
-        Me.HlLabel10.Size = New System.Drawing.Size(373, 77)
-        Me.HlLabel10.TabIndex = 5
-        Me.HlLabel10.Text = "Valve Normal"
-        '
-        'HlLabel9
-        '
-        Me.HlLabel9.Font = New System.Drawing.Font("微软雅黑", 40.0!)
-        Me.HlLabel9.HighLight = True
-        Me.HlLabel9.Location = New System.Drawing.Point(23, 88)
-        Me.HlLabel9.Name = "HlLabel9"
-        Me.HlLabel9.Size = New System.Drawing.Size(434, 77)
-        Me.HlLabel9.TabIndex = 4
-        Me.HlLabel9.Text = "Valve HighLight"
-        '
-        'HlLab2
-        '
-        Me.HlLab2.Font = New System.Drawing.Font("微软雅黑", 40.0!)
-        Me.HlLab2.Location = New System.Drawing.Point(473, 19)
-        Me.HlLab2.LowLight = True
-        Me.HlLab2.Name = "HlLab2"
-        Me.HlLab2.Size = New System.Drawing.Size(414, 77)
-        Me.HlLab2.TabIndex = 1
-        Me.HlLab2.Text = "Valve LowLight"
         '
         'HlButton2
         '
@@ -618,8 +570,7 @@ Partial Class Form1
         Me.HlPanel1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
-        Me.TabPage3.PerformLayout()
-        Me.TabPage4.ResumeLayout(False)
+        Me.HlPanel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -665,14 +616,10 @@ Partial Class Form1
     Friend WithEvents HlProgressBar2 As HLProgressBar
     Friend WithEvents HlCheckBox7 As HLCheckBox
     Friend WithEvents HlLabel8 As HLLabel
-    Friend WithEvents ProgressBar1 As ProgressBar
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Label1 As Label
     Friend WithEvents HlCheckBox8 As HLCheckBox
-    Friend WithEvents TabPage4 As TabPage
-    Friend WithEvents HlLab2 As HLLabel
+    Friend WithEvents HlLabel11 As HLLabel
     Friend WithEvents HlLabel10 As HLLabel
     Friend WithEvents HlLabel9 As HLLabel
-    Friend WithEvents HlLabel11 As HLLabel
+    Friend WithEvents HlLab2 As HLLabel
+    Friend WithEvents HlPanel2 As HLPanel
 End Class

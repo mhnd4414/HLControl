@@ -28,6 +28,16 @@
 
         Public Property HighLightLabel As HLLabel
 
+        <DefaultValue(1)>
+        Public Property SmallChange As Integer
+            Get
+                Return 列表.SmallChange
+            End Get
+            Set(v As Integer)
+                列表.SmallChange = v
+            End Set
+        End Property
+
         Private Sub _MouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
             If Enabled AndAlso e.Y < 原高度 Then
                 SelectedIndex += IIf(e.Delta < 0, 1, -1)

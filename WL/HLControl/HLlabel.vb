@@ -32,12 +32,11 @@
             Set(v As Boolean)
                 高亮 = v
                 黯淡 = False
-                If 非空(Parent) Then
+                If v = True AndAlso 非空(Parent) Then
                     For Each i As Control In Parent.Controls
                         If i.GetType = [GetType]() AndAlso i.Name <> Name Then
                             Dim c As HLLabel = i
-                            c.高亮 = False
-                            c.Invalidate()
+                            c.HighLight = False
                         End If
                     Next
                 End If
@@ -51,6 +50,7 @@
                 Return 黯淡
             End Get
             Set(v As Boolean)
+                If 黯淡 = v Then Exit Property
                 高亮 = False
                 黯淡 = v
                 Invalidate()

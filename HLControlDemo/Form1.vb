@@ -57,12 +57,9 @@ Public Class Form1
         HlProgressBar1.AutoReset = HlCheckBox7.Checked
     End Sub
 
-    Private Sub HlButton4_Click(sender As Object, e As EventArgs) Handles HlButton4.Click
-        Dim g As Integer = 12
-        If Font.Size < 13 Then
-            g = 20
-        End If
-        Font = New Font(Font.Name, g)
+    Private Sub HlCheckBox8_CheckedChanged() Handles HlCheckBox8.CheckedChanged
+        ShowSteamIcon = HlCheckBox8.Checked
+        Refresh()
     End Sub
 
 End Class

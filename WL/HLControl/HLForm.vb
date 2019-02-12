@@ -108,9 +108,9 @@
                     If ShowSteamIcon Then
                         c = My.Resources.SteamLogo
                     Else
-                        c = New Icon(Icon, 16, 16)
+                        c = Icon
                     End If
-                    .DrawIcon(c, y, y + 2 * DPI)
+                    .DrawIcon(c, New Rectangle(y, y + 2 * DPI, 16 * DPI, 16 * DPI))
                 End If
                 y = 7 * DPI
                 Dim pe As Pen = 按钮灰笔

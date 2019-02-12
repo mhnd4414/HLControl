@@ -95,6 +95,13 @@
             End If
         End Sub
 
+        Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+            Dim x As Integer = e.X
+            If x > 0 AndAlso x <= Width - 边缘 Then
+                Value = (x / (Width - 边缘)) * (Maximum - Minimum)
+            End If
+        End Sub
+
         Private Sub _MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
             If 按住 Then
                 按住 = False

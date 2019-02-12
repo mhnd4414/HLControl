@@ -44,7 +44,7 @@
                 If y <= 边缘 Then
                     For Each i As HLListViewColumn In 列
                         x += i.Width
-                        If m = 列.Count - 1 OrElse e.X <= x Then
+                        If (m = 列.Count - 1 AndAlso e.X >= x - i.Width) OrElse (e.X <= x - 边缘 AndAlso e.X >= x - i.Width + 边缘) Then
                             选中列 = m
                             ok = True
                             Exit For
@@ -74,6 +74,7 @@
         Private Sub _MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
             选中列 = -1
             拖动 = False
+            Cursor = Cursors.Default
             Invalidate()
         End Sub
 
@@ -82,18 +83,21 @@
         End Sub
 
         Private Sub _MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
-            If e.Button <> MouseButtons.None AndAlso e.Y <= 边缘 Then
-                Dim x As Integer = 0
-                For Each i As HLListViewColumn In 列
-                    If Math.Abs(e.X - (x + i.Width)) <= 10 * DPI Then
+            If e.Y > 边缘 Then Exit Sub
+            Dim x As Integer = 0, dg As Boolean = False
+            For Each i As HLListViewColumn In 列
+                If Math.Abs(e.X - (x + i.Width)) <= 10 * DPI Then
+                    dg = True
+                    If e.Button <> MouseButtons.None Then
                         拖动 = True
                         i.Width = 设最大值(e.X - x, Width - 边缘 - 30 * DPI - x)
                         Invalidate()
-                        Exit For
                     End If
-                    x += i.Width
-                Next
-            End If
+                    Exit For
+                End If
+                x += i.Width
+            Next
+            Cursor = IIf(dg, Cursors.SizeWE, Cursors.Default)
         End Sub
 
         <Browsable(False)>

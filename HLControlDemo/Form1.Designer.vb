@@ -56,6 +56,10 @@ Partial Class Form1
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.HlListView1 = New WL.HLControl.HLListView()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.HlProgressBar2 = New WL.HLControl.HLProgressBar()
         Me.HlLabel7 = New WL.HLControl.HLLabel()
         Me.HlTrackBar2 = New WL.HLControl.HLTrackBar()
@@ -63,12 +67,8 @@ Partial Class Form1
         Me.HlTrackBar1 = New WL.HLControl.HLTrackBar()
         Me.HlButton2 = New WL.HLControl.HLButton()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.HlButton4 = New WL.HLControl.HLButton()
         Me.HlLabel8 = New WL.HLControl.HLLabel()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.HlCheckBox8 = New WL.HLControl.HLCheckBox()
         Me.Tabs.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.HlPanel1.SuspendLayout()
@@ -94,7 +94,7 @@ Partial Class Form1
         Me.Tabs.Location = New System.Drawing.Point(12, 85)
         Me.Tabs.Name = "Tabs"
         Me.Tabs.SelectedIndex = 0
-        Me.Tabs.Size = New System.Drawing.Size(926, 420)
+        Me.Tabs.Size = New System.Drawing.Size(926, 395)
         Me.Tabs.TabIndex = 1
         '
         'TabPage1
@@ -117,7 +117,7 @@ Partial Class Form1
         Me.TabPage1.Location = New System.Drawing.Point(4, 30)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(918, 386)
+        Me.TabPage1.Size = New System.Drawing.Size(918, 361)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
         '
@@ -302,6 +302,7 @@ Partial Class Form1
         'HlLabel4
         '
         Me.HlLabel4.Location = New System.Drawing.Point(10, 6)
+        Me.HlLabel4.LowLight = True
         Me.HlLabel4.Name = "HlLabel4"
         Me.HlLabel4.Size = New System.Drawing.Size(464, 44)
         Me.HlLabel4.TabIndex = 9
@@ -334,12 +335,14 @@ Partial Class Form1
         Me.HlTextBox2.Modified = False
         Me.HlTextBox2.Multiline = True
         Me.HlTextBox2.Name = "HlTextBox2"
+        Me.HlTextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.HlTextBox2.SelectedText = ""
         Me.HlTextBox2.SelectionLength = 0
         Me.HlTextBox2.SelectionStart = 0
         Me.HlTextBox2.Size = New System.Drawing.Size(229, 146)
         Me.HlTextBox2.TabIndex = 5
         Me.HlTextBox2.Text = "Multiline" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 6" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone 8" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone X" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "iPhone What?"
+        Me.HlTextBox2.WordWrap = False
         '
         'HlLabel3
         '
@@ -388,7 +391,7 @@ Partial Class Form1
         Me.TabPage2.Location = New System.Drawing.Point(4, 30)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(918, 386)
+        Me.TabPage2.Size = New System.Drawing.Size(918, 361)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         '
@@ -399,7 +402,7 @@ Partial Class Form1
         Me.HlListView1.Name = "HlListView1"
         Me.HlListView1.SelectedIndex = -1
         Me.HlListView1.SelectedItem = Nothing
-        Me.HlListView1.Size = New System.Drawing.Size(912, 380)
+        Me.HlListView1.Size = New System.Drawing.Size(912, 355)
         Me.HlListView1.TabIndex = 0
         Me.HlListView1.Text = "HlListView1"
         '
@@ -418,9 +421,46 @@ Partial Class Form1
         Me.TabPage3.Location = New System.Drawing.Point(4, 30)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(918, 386)
+        Me.TabPage3.Size = New System.Drawing.Size(918, 361)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Label1.Location = New System.Drawing.Point(160, 280)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(255, 21)
+        Me.Label1.TabIndex = 8
+        Me.Label1.Text = "this is WinForm Original Control"
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.Location = New System.Drawing.Point(558, 277)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(354, 28)
+        Me.ProgressBar1.TabIndex = 7
+        Me.ProgressBar1.Value = 50
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(421, 260)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(131, 61)
+        Me.Button2.TabIndex = 6
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(3, 260)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(151, 62)
+        Me.Button1.TabIndex = 5
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'HlProgressBar2
         '
@@ -470,7 +510,7 @@ Partial Class Form1
         '
         'HlButton2
         '
-        Me.HlButton2.Location = New System.Drawing.Point(16, 511)
+        Me.HlButton2.Location = New System.Drawing.Point(20, 486)
         Me.HlButton2.Name = "HlButton2"
         Me.HlButton2.Size = New System.Drawing.Size(137, 31)
         Me.HlButton2.TabIndex = 10
@@ -481,66 +521,31 @@ Partial Class Form1
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 30
         '
-        'HlButton4
-        '
-        Me.HlButton4.Location = New System.Drawing.Point(159, 511)
-        Me.HlButton4.Name = "HlButton4"
-        Me.HlButton4.Size = New System.Drawing.Size(145, 31)
-        Me.HlButton4.TabIndex = 11
-        Me.HlButton4.Text = "Big Font or not"
-        '
         'HlLabel8
         '
-        Me.HlLabel8.Location = New System.Drawing.Point(310, 511)
+        Me.HlLabel8.Location = New System.Drawing.Point(163, 486)
+        Me.HlLabel8.LowLight = True
         Me.HlLabel8.Name = "HlLabel8"
         Me.HlLabel8.Size = New System.Drawing.Size(78, 23)
         Me.HlLabel8.TabIndex = 12
         Me.HlLabel8.Text = "Your DPI: "
         '
-        'Button1
+        'HlCheckBox8
         '
-        Me.Button1.Location = New System.Drawing.Point(3, 260)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(151, 62)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(421, 260)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(131, 61)
-        Me.Button2.TabIndex = 6
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'ProgressBar1
-        '
-        Me.ProgressBar1.Location = New System.Drawing.Point(558, 277)
-        Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(354, 28)
-        Me.ProgressBar1.TabIndex = 7
-        Me.ProgressBar1.Value = 50
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label1.Location = New System.Drawing.Point(160, 280)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(255, 21)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "this is WinForm Original Control"
+        Me.HlCheckBox8.Checked = True
+        Me.HlCheckBox8.Location = New System.Drawing.Point(353, 486)
+        Me.HlCheckBox8.Name = "HlCheckBox8"
+        Me.HlCheckBox8.Size = New System.Drawing.Size(165, 23)
+        Me.HlCheckBox8.TabIndex = 17
+        Me.HlCheckBox8.Text = "Show Steam Icon"
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(950, 557)
+        Me.ClientSize = New System.Drawing.Size(950, 535)
+        Me.Controls.Add(Me.HlCheckBox8)
         Me.Controls.Add(Me.HlLabel8)
-        Me.Controls.Add(Me.HlButton4)
         Me.Controls.Add(Me.HlButton2)
         Me.Controls.Add(Me.Tabs)
         Me.Controls.Add(Me.HlTabsHeader1)
@@ -596,10 +601,10 @@ Partial Class Form1
     Friend WithEvents HlTrackBar2 As HLTrackBar
     Friend WithEvents HlProgressBar2 As HLProgressBar
     Friend WithEvents HlCheckBox7 As HLCheckBox
-    Friend WithEvents HlButton4 As HLButton
     Friend WithEvents HlLabel8 As HLLabel
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents Label1 As Label
+    Friend WithEvents HlCheckBox8 As HLCheckBox
 End Class

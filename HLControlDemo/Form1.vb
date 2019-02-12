@@ -15,16 +15,13 @@ Public Class Form1
             HlListBox1.Items.Add(随机.西文(5))
             HlListView1.Items.Add(New HLListViewItem(i.ToString + "  " + 随机.西文(随机.整数(0, 6)), 随机.当中一个("de_dust", "cs_" + 随机.西文(随机.整数(2, 16)), "cs_office"), 随机.整数(1, 32) & "/32", 随机.整数(29, 232).ToString))
         Next
-        For i = 0 To 2355
-            HlListBox2.Items.Add(i.ToString)
-        Next
         HlListBox1.SelectedIndex = 0
         HlComboBox1.SelectedIndex = 0
         HlLabel8.Text += (系统信息.DPI * 100) & "%"
     End Sub
 
     Private Sub HlButton1_Click(sender As Object, e As EventArgs) Handles HlButton1.Click
-        反转(HlTextBox2.ScrollBars, ScrollBars.Both, ScrollBars.None)
+        反转(HlTextBox2.ScrollBar)
     End Sub
 
     Private Sub HlButton2_Click(sender As Object, e As EventArgs) Handles HlButton2.Click
@@ -65,9 +62,8 @@ Public Class Form1
         End With
     End Sub
 
-    Private Sub HlButton5_Click(sender As Object, e As EventArgs) Handles HlButton5.Click, HlButton4.Click
-        反转(HlButton5.Enabled)
-        反转(HlButton4.Enabled)
+    Private Sub HlButton4_Click(sender As Object, e As EventArgs)
+        HlvScrollBar1.ChangeValueWithoutRaiseEvent(15)
     End Sub
 
 End Class

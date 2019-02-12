@@ -69,27 +69,17 @@ Partial Class Form1
         Me.HlLabel11 = New WL.HLControl.HLLabel()
         Me.HlLabel10 = New WL.HLControl.HLLabel()
         Me.HlLabel9 = New WL.HLControl.HLLabel()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.TabPage5 = New System.Windows.Forms.TabPage()
-        Me.HlListBox2 = New WL.HLControl.HLListBox()
-        Me.TabPage6 = New System.Windows.Forms.TabPage()
-        Me.HlTabsHeader2 = New WL.HLControl.HLTabsHeader()
         Me.HlLab2 = New WL.HLControl.HLLabel()
         Me.HlButton2 = New WL.HLControl.HLButton()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.HlLabel8 = New WL.HLControl.HLLabel()
         Me.HlCheckBox8 = New WL.HLControl.HLCheckBox()
-        Me.HlButton4 = New WL.HLControl.HLButton()
-        Me.HlButton5 = New WL.HLControl.HLButton()
         Me.Tabs.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.HlPanel1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.TabPage4.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
-        Me.TabPage5.SuspendLayout()
-        Me.TabPage6.SuspendLayout()
         Me.SuspendLayout()
         '
         'HlTabsHeader1
@@ -190,7 +180,7 @@ Partial Class Form1
         Me.HlButton1.Name = "HlButton1"
         Me.HlButton1.Size = New System.Drawing.Size(334, 31)
         Me.HlButton1.TabIndex = 9
-        Me.HlButton1.Text = "Show Hide TextBox's Scrollbars"
+        Me.HlButton1.Text = "Show Hide TextBox's Scrollbar"
         '
         'HlPanel1
         '
@@ -354,7 +344,7 @@ Partial Class Form1
         Me.HlTextBox2.Modified = False
         Me.HlTextBox2.Multiline = True
         Me.HlTextBox2.Name = "HlTextBox2"
-        Me.HlTextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.HlTextBox2.ScrollBar = True
         Me.HlTextBox2.SelectedText = ""
         Me.HlTextBox2.SelectionLength = 0
         Me.HlTextBox2.SelectionStart = 0
@@ -533,8 +523,6 @@ Partial Class Form1
         Me.TabPage4.Controls.Add(Me.HlLabel11)
         Me.TabPage4.Controls.Add(Me.HlLabel10)
         Me.TabPage4.Controls.Add(Me.HlLabel9)
-        Me.TabPage4.Controls.Add(Me.TabControl1)
-        Me.TabPage4.Controls.Add(Me.HlTabsHeader2)
         Me.TabPage4.Controls.Add(Me.HlLab2)
         Me.TabPage4.Location = New System.Drawing.Point(4, 30)
         Me.TabPage4.Name = "TabPage4"
@@ -571,60 +559,6 @@ Partial Class Form1
         Me.HlLabel9.Size = New System.Drawing.Size(434, 77)
         Me.HlLabel9.TabIndex = 4
         Me.HlLabel9.Text = "Valve HighLight"
-        '
-        'TabControl1
-        '
-        Me.TabControl1.Controls.Add(Me.TabPage5)
-        Me.TabControl1.Controls.Add(Me.TabPage6)
-        Me.TabControl1.Location = New System.Drawing.Point(546, 58)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(355, 259)
-        Me.TabControl1.TabIndex = 3
-        '
-        'TabPage5
-        '
-        Me.TabPage5.BackColor = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(68, Byte), Integer))
-        Me.TabPage5.Controls.Add(Me.HlListBox2)
-        Me.TabPage5.Location = New System.Drawing.Point(4, 30)
-        Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(347, 225)
-        Me.TabPage5.TabIndex = 0
-        Me.TabPage5.Text = "TabPage5"
-        '
-        'HlListBox2
-        '
-        Me.HlListBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.HlListBox2.Location = New System.Drawing.Point(3, 3)
-        Me.HlListBox2.Name = "HlListBox2"
-        Me.HlListBox2.SelectedIndex = -1
-        Me.HlListBox2.SelectedItem = ""
-        Me.HlListBox2.Size = New System.Drawing.Size(341, 219)
-        Me.HlListBox2.TabIndex = 0
-        Me.HlListBox2.Text = "HlListBox2"
-        '
-        'TabPage6
-        '
-        Me.TabPage6.BackColor = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(68, Byte), Integer))
-        Me.TabPage6.Controls.Add(Me.HlButton5)
-        Me.TabPage6.Controls.Add(Me.HlButton4)
-        Me.TabPage6.Location = New System.Drawing.Point(4, 30)
-        Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage6.Size = New System.Drawing.Size(347, 225)
-        Me.TabPage6.TabIndex = 1
-        Me.TabPage6.Text = "TabPage6"
-        '
-        'HlTabsHeader2
-        '
-        Me.HlTabsHeader2.Location = New System.Drawing.Point(546, 19)
-        Me.HlTabsHeader2.Name = "HlTabsHeader2"
-        Me.HlTabsHeader2.RealTabControl = Me.TabControl1
-        Me.HlTabsHeader2.Size = New System.Drawing.Size(357, 33)
-        Me.HlTabsHeader2.TabHeaderWidth = CType(100US, UShort)
-        Me.HlTabsHeader2.TabIndex = 2
-        Me.HlTabsHeader2.Text = "HlTabsHeader2"
         '
         'HlLab2
         '
@@ -667,23 +601,6 @@ Partial Class Form1
         Me.HlCheckBox8.TabIndex = 17
         Me.HlCheckBox8.Text = "Show Steam Icon"
         '
-        'HlButton4
-        '
-        Me.HlButton4.Location = New System.Drawing.Point(6, 16)
-        Me.HlButton4.Name = "HlButton4"
-        Me.HlButton4.Size = New System.Drawing.Size(335, 31)
-        Me.HlButton4.TabIndex = 0
-        Me.HlButton4.Text = "HlButton4"
-        '
-        'HlButton5
-        '
-        Me.HlButton5.Enabled = False
-        Me.HlButton5.Location = New System.Drawing.Point(6, 53)
-        Me.HlButton5.Name = "HlButton5"
-        Me.HlButton5.Size = New System.Drawing.Size(335, 31)
-        Me.HlButton5.TabIndex = 1
-        Me.HlButton5.Text = "HlButton5"
-        '
         'Form1
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -702,9 +619,6 @@ Partial Class Form1
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
         Me.TabPage4.ResumeLayout(False)
-        Me.TabControl1.ResumeLayout(False)
-        Me.TabPage5.ResumeLayout(False)
-        Me.TabPage6.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -757,14 +671,7 @@ Partial Class Form1
     Friend WithEvents HlCheckBox8 As HLCheckBox
     Friend WithEvents TabPage4 As TabPage
     Friend WithEvents HlLab2 As HLLabel
-    Friend WithEvents HlTabsHeader2 As HLTabsHeader
-    Friend WithEvents TabControl1 As TabControl
-    Friend WithEvents TabPage5 As TabPage
-    Friend WithEvents TabPage6 As TabPage
-    Friend WithEvents HlListBox2 As HLListBox
     Friend WithEvents HlLabel10 As HLLabel
     Friend WithEvents HlLabel9 As HLLabel
     Friend WithEvents HlLabel11 As HLLabel
-    Friend WithEvents HlButton5 As HLButton
-    Friend WithEvents HlButton4 As HLButton
 End Class

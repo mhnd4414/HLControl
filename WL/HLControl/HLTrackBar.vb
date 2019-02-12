@@ -74,6 +74,15 @@
             End Set
         End Property
 
+        Public Sub ChangeValueWithoutRaiseEvent(v As Integer)
+            设最大值(v, 最大)
+            设最小值(v, 最小)
+            If v <> 值 Then
+                值 = v
+                Invalidate()
+            End If
+        End Sub
+
         Public Event ValueChanged(LastValue As Integer, NewValue As Integer)
 
         Public Property HighLightLabel As HLLabel

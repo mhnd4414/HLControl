@@ -3,30 +3,19 @@
     Public Class HLTextBox
         Inherits Control
 
-        Private 文本框 As TextBox, 滚动条 As ScrollBars, 横条 As HLHScrollBar, 竖条 As HLVScrollBar
+        Private 文本框 As TextBox, 滚动条 As Boolean, 竖条 As HLVScrollBar
         Private 边缘 As Single, 滚动条大小 As Integer
 
         Public Sub New()
             DoubleBuffered = True
             HighLightLabel = Nothing
             边缘 = 3 * DPI
+            滚动条 = False
             滚动条大小 = 25 * DPI
-            横条 = New HLHScrollBar
             竖条 = New HLVScrollBar
             文本框 = New TextBox
-            Controls.Add(横条)
             Controls.Add(竖条)
             Controls.Add(文本框)
-            With 横条
-                .Visible = False
-                .Top = 0
-                .Left = 0
-                .Height = 滚动条大小
-                .Width = Width
-                AddHandler .ValueChanged, Sub(last As Integer, n As Integer)
-                                              滚动(文本框, False, n - last)
-                                          End Sub
-            End With
             With 竖条
                 .Visible = False
                 .Top = 0
@@ -53,41 +42,35 @@
                                                      .SelectAll()
                                              End Select
                                          End If
+                                         FixScrollPos()
                                      End Sub
                 AddHandler .MouseDown, Sub()
                                            If 非空(HighLightLabel) Then HighLightLabel.HighLight = True
+                                           FixScrollPos()
                                        End Sub
                 AddHandler .MouseWheel, Sub(sender As Object, e As MouseEventArgs)
                                             If 竖条.Visible Then
                                                 竖条.PerformMouseWheel(sender, e)
                                             End If
                                         End Sub
+
             End With
+        End Sub
+
+        Private Sub FixScrollPos()
+            Dim m As Integer = 文本框.SelectionStart
+            Dim s As String = 左(文本框.Text, m)
+            竖条.ChangeValueWithoutRaiseEvent(正则.检索(s, vbCrLf).Count)
         End Sub
 
         Private Sub FixSize()
             Dim h As Integer = 边缘 * 2, x1 As Integer = 0, x2 As Integer = 0
-            With 横条
-                .Left = 边缘
-                .Height = 滚动条大小
-                .Top = Height - 边缘 - .Height
-                .Width = Width - h
-                .Visible = Multiline AndAlso WordWrap = False AndAlso (滚动条 = ScrollBars.Both OrElse 滚动条 = ScrollBars.Horizontal)
-                If .Visible Then
-                    x1 = 滚动条大小
-                    Dim m As Integer = 0
-                    For Each i As String In 文本框.Lines
-                        m = Math.Max(m, i.Length)
-                    Next
-                    .Maximum = m
-                End If
-            End With
             With 竖条
                 .Top = 边缘
                 .Width = 滚动条大小
                 .Left = Width - 边缘 - .Width
                 .Height = Height - h
-                .Visible = Multiline AndAlso (滚动条 = ScrollBars.Both OrElse 滚动条 = ScrollBars.Vertical)
+                .Visible = Multiline AndAlso 滚动条
                 If .Visible Then
                     x2 = 滚动条大小
                     .Maximum = 文本框.Lines.Length
@@ -111,12 +94,12 @@
 
         Public Property HighLightLabel As HLLabel
 
-        <DefaultValue(ScrollBars.None)>
-        Public Property ScrollBars As ScrollBars
+        <DefaultValue(False)>
+        Public Property ScrollBar As Boolean
             Get
                 Return 滚动条
             End Get
-            Set(v As ScrollBars)
+            Set(v As Boolean)
                 If 滚动条 <> v Then
                     滚动条 = v
                     Invalidate()

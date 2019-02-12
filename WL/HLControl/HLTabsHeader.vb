@@ -126,10 +126,11 @@ Namespace HLControl
                     x += th + 线宽
                     If x > Width Then Exit For
                 Next
+                th += 线宽
                 r = ClientRectangle
-                .DrawLine(暗色笔, 点((s + 1) * th + 1, Height), 右下角(r))
+                .DrawLine(暗色笔, 点((s + 1) * th, Height), 右下角(r))
                 If s > 0 Then
-                    .DrawLine(暗色笔, 左下角(r), 点(s * th + 1, Height))
+                    .DrawLine(暗色笔, 左下角(r), 点(s * th, Height))
                 End If
             End With
         End Sub

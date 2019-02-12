@@ -127,7 +127,12 @@
             With g
                 绘制基础矩形(g, c, True)
                 Dim m As Single = 原高度 * 0.15
-                .DrawString("▼", New Font("Segoe UI", 0.4 * 原高度), 内容白笔刷, 点F(Width - 原高度 + m, m))
+                Dim f As New Font("Segoe UI", 0.4 * 原高度)
+                Dim sz As SizeF = .MeasureString("▼", f)
+                Dim sw As Integer = (原高度 - sz.Width) * 0.5
+                Dim sh As Integer = (原高度 - sz.Height) * 0.5
+                '  .DrawString("▼", f, 内容白笔刷, 点F(Width - 原高度 + m, m))
+                绘制文本(g, "▼", f, Width - 原高度 + sw, sh, 获取文本状态(Enabled))
                 m = 3 * DPI
                 绘制文本(g, 列表.SelectedItem, Font, m, m, 获取文本状态(Enabled))
             End With

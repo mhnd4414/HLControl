@@ -13,7 +13,7 @@ Public Class Form1
         For i = 100 To 200
             HlComboBox1.Items.Add(i.ToString + "cm")
             HlListBox1.Items.Add(随机.西文(5))
-            HlListView1.Items.Add(New HLListViewItem(i.ToString + "  " + 随机.西文(随机.整数(0, 6)), 随机.当中一个("de_dust", "cs_" + 随机.西文(5), "cs_office"), 随机.整数(1, 32) & "/32", 随机.整数(29, 232).ToString))
+            HlListView1.Items.Add(New HLListViewItem(i.ToString + "  " + 随机.西文(随机.整数(0, 6)), 随机.当中一个("de_dust", "cs_" + 随机.西文(随机.整数(2, 16)), "cs_office"), 随机.整数(1, 32) & "/32", 随机.整数(29, 232).ToString))
         Next
         HlListBox1.SelectedIndex = 0
         HlComboBox1.SelectedIndex = 0
@@ -28,8 +28,10 @@ Public Class Form1
         For Each i As Control In HlButton2.Parent.Controls
             If i.Name <> HlButton2.Name Then
                 反转(i.Enabled)
+
             End If
         Next
+
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick

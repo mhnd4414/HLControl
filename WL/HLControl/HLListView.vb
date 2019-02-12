@@ -43,8 +43,8 @@
                 Dim y As Integer = e.Y, x As Integer = 0, m As Integer = 0
                 If y <= 边缘 Then
                     For Each i As HLListViewColumn In 列
-                        x += i.Width
-                        If (m = 列.Count - 1 AndAlso e.X >= x - i.Width) OrElse (e.X <= x - 边缘 AndAlso e.X >= x - i.Width + 边缘) Then
+                        x += i.Rwidth
+                        If (m = 列.Count - 1 AndAlso e.X >= x - i.Rwidth) OrElse (e.X <= x - 边缘 AndAlso e.X >= x - i.Rwidth + 边缘) Then
                             选中列 = m
                             ok = True
                             Exit For
@@ -86,16 +86,16 @@
             If e.Y > 边缘 Then Exit Sub
             Dim x As Integer = 0, dg As Boolean = False
             For Each i As HLListViewColumn In 列
-                If Math.Abs(e.X - (x + i.Width)) <= 10 * DPI Then
+                If Math.Abs(e.X - (x + i.Rwidth)) <= 10 * DPI Then
                     dg = True
                     If e.Button <> MouseButtons.None Then
                         拖动 = True
-                        i.Width = 设最大值(e.X - x, Width - 边缘 - 30 * DPI - x)
+                        i.Width = 设最大值((e.X - x) / DPI, Width - 边缘 - 30 * DPI - x)
                         Invalidate()
                     End If
                     Exit For
                 End If
-                x += i.Width
+                x += i.Rwidth
             Next
             Cursor = IIf(dg, Cursors.SizeWE, Cursors.Default)
         End Sub
@@ -115,6 +115,18 @@
                 Return 物品
             End Get
         End Property
+
+        Public Sub AddColumn(name As String)
+            Columns.Add(New HLListViewColumn(name))
+        End Sub
+
+        Public Sub AddColumn(name As String, width As UInteger)
+            Columns.Add(New HLListViewColumn(name, width))
+        End Sub
+
+        Public Sub AddItem(title As String, ParamArray str() As String)
+            Items.Add(New HLListViewItem(title, str))
+        End Sub
 
         <Browsable(False)>
         Public Property SelectedItem As HLListViewItem
@@ -172,7 +184,7 @@
                 绘制基础矩形(g, c,,, 内容绿)
                 For Each i As HLListViewColumn In 列
                     b = y = 列.Count - 1
-                    r = New Rectangle(x, 0, IIf(b, Width - x, i.Width * DPI), 边缘 - p)
+                    r = New Rectangle(x, 0, IIf(b, Width - x, i.Rwidth), 边缘 - p)
                     绘制基础矩形(g, r, 选中列 = y)
                     Dim st As String = i.Name.Trim
                     If y = 0 AndAlso ShowCount Then
@@ -180,7 +192,7 @@
                     End If
                     绘制文本(g, st, Font, x + p, p, 获取文本状态(Enabled))
                     y += 1
-                    x += i.Width * DPI
+                    x += i.Rwidth
                     If x >= 滚动条.Left Then Exit For
                 Next
                 y = 边缘
@@ -246,6 +258,12 @@
             Set(v As UInteger)
                 w = 设最小值(v, 20)
             End Set
+        End Property
+
+        Public ReadOnly Property Rwidth As UInteger
+            Get
+                Return w * DPI
+            End Get
         End Property
 
         Public Overrides Function ToString() As String

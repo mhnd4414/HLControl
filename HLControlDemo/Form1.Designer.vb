@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits WL.HLControl.HLForm
 
     'Form 重写 Dispose，以清理组件列表。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     '注意: 以下过程是 Windows 窗体设计器所必需的
     '可以使用 Windows 窗体设计器修改它。  
     '不要使用代码编辑器修改它。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.HlTabsHeader1 = New WL.HLControl.HLTabsHeader()
@@ -56,6 +56,7 @@ Partial Class Form1
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.HlListView1 = New WL.HLControl.HLListView()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.HlTextBox3 = New WL.HLControl.HLTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -409,6 +410,7 @@ Partial Class Form1
         'TabPage3
         '
         Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(68, Byte), Integer))
+        Me.TabPage3.Controls.Add(Me.HlTextBox3)
         Me.TabPage3.Controls.Add(Me.Label1)
         Me.TabPage3.Controls.Add(Me.ProgressBar1)
         Me.TabPage3.Controls.Add(Me.Button2)
@@ -425,12 +427,27 @@ Partial Class Form1
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
         '
+        'HlTextBox3
+        '
+        Me.HlTextBox3.HideSelection = False
+        Me.HlTextBox3.HighLightLabel = Nothing
+        Me.HlTextBox3.Lines = New String() {"HlTextBox3"}
+        Me.HlTextBox3.Location = New System.Drawing.Point(178, 188)
+        Me.HlTextBox3.Modified = False
+        Me.HlTextBox3.Name = "HlTextBox3"
+        Me.HlTextBox3.SelectedText = ""
+        Me.HlTextBox3.SelectionLength = 0
+        Me.HlTextBox3.SelectionStart = 0
+        Me.HlTextBox3.Size = New System.Drawing.Size(380, 28)
+        Me.HlTextBox3.TabIndex = 9
+        Me.HlTextBox3.Text = "HlTextBox3"
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label1.Location = New System.Drawing.Point(160, 280)
+        Me.Label1.Location = New System.Drawing.Point(161, 336)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(255, 21)
         Me.Label1.TabIndex = 8
@@ -438,7 +455,7 @@ Partial Class Form1
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(558, 277)
+        Me.ProgressBar1.Location = New System.Drawing.Point(558, 329)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(354, 28)
         Me.ProgressBar1.TabIndex = 7
@@ -446,7 +463,7 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(421, 260)
+        Me.Button2.Location = New System.Drawing.Point(422, 296)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(131, 61)
         Me.Button2.TabIndex = 6
@@ -455,7 +472,7 @@ Partial Class Form1
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(3, 260)
+        Me.Button1.Location = New System.Drawing.Point(4, 296)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(151, 62)
         Me.Button1.TabIndex = 5
@@ -607,4 +624,5 @@ Partial Class Form1
     Friend WithEvents Button1 As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents HlCheckBox8 As HLCheckBox
+    Friend WithEvents HlTextBox3 As HLTextBox
 End Class

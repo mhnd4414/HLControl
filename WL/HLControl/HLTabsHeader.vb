@@ -13,7 +13,7 @@
             tabs = Nothing
             计时器 = New 计时器(10, AddressOf FixTabs)
             计时器.启用 = False
-            计时器.工作次数 = 2
+            计时器.工作次数 = 4
         End Sub
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
@@ -46,14 +46,6 @@
                     End With
                 End If
             End Set
-        End Property
-
-        <Browsable(False)>
-        Public ReadOnly Property TabPages As TabControl.TabPageCollection
-            Get
-                If 为空(tabs) Then Return Nothing
-                Return tabs.TabPages
-            End Get
         End Property
 
         Private Sub _MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp

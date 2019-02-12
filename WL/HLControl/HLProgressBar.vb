@@ -1,17 +1,15 @@
 ﻿Namespace HLControl
 
-    <DefaultEvent("ValueChanged")>
     Public Class HLProgressBar
         Inherits Control
 
-        Private 值 As Integer, 最大 As Integer, 最小 As Integer, 上一个值 As Single
+        Private 值 As Integer, 最大 As Integer, 最小 As Integer
 
         Public Sub New()
             DoubleBuffered = True
             最大 = 100
             最小 = 0
             值 = 0
-            上一个值 = -1
         End Sub
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
@@ -19,7 +17,6 @@
         End Sub
 
         Private Sub FixValue()
-            If 过频(GetHashCode, 0.04) Then Exit Sub
             If 最大 = 最小 Then
                 最大 += 1
             ElseIf 最大 < 最小 Then
@@ -78,8 +75,6 @@
         <DefaultValue(False)>
         Public Property AutoReset As Boolean
 
-        Public Event ValueChanged()
-
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             修正Dock(Me, False, False)
             MyBase.OnPaint(e)
@@ -97,10 +92,6 @@
                 w = 8 * DPI
                 Dim all As Integer = Int((Width) / (w + 4 * DPI) + 0.5)
                 Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
-                If v <> 上一个值 Then
-                    上一个值 = v
-                    RaiseEvent ValueChanged()
-                End If
                 Dim n As Integer = Int(v * all - 0.5)
                 x = 4 * DPI
                 If n > 0 Then

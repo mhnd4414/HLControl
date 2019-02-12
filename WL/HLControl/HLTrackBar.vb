@@ -23,7 +23,6 @@
         End Sub
 
         Private Sub FixValue()
-            If 过频(GetHashCode, 0.04) Then Exit Sub
             If 最大 = 最小 Then
                 最大 += 1
             ElseIf 最大 < 最小 Then
@@ -35,6 +34,10 @@
                 值 = 最大
             End If
             Invalidate()
+            If 上一个值 <> 值 Then
+                RaiseEvent ValueChanged(上一个值, 值)
+                上一个值 = 值
+            End If
         End Sub
 
         <DefaultValue(100)>
@@ -43,10 +46,8 @@
                 Return 最大
             End Get
             Set(v As Integer)
-                If v <> 最大 Then
-                    最大 = v
-                    FixValue()
-                End If
+                最大 = v
+                FixValue()
             End Set
         End Property
 
@@ -56,10 +57,8 @@
                 Return 最小
             End Get
             Set(v As Integer)
-                If v <> 最小 Then
-                    最小 = v
-                    FixValue()
-                End If
+                最小 = v
+                FixValue()
             End Set
         End Property
 
@@ -69,11 +68,9 @@
                 Return 值
             End Get
             Set(v As Integer)
-                If v <> 值 Then
-                    值 = v
-                    If 非空(HighLightLabel) Then HighLightLabel.HighLight = True
-                    FixValue()
-                End If
+                值 = v
+                If 非空(HighLightLabel) Then HighLightLabel.HighLight = True
+                FixValue()
             End Set
         End Property
 
@@ -125,10 +122,6 @@
                     .DrawLine(细线灰笔, 点(x, y), 点(x, y + h2))
                     x += 15 * DPI
                 Loop
-                If 上一个值 <> Value Then
-                    RaiseEvent ValueChanged(上一个值, Value)
-                    上一个值 = Value
-                End If
                 Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
                 r = New Rectangle(v * (Width - 边缘 * 1.7), 0, h2 * 1.5, h)
                 可触 = r.Left

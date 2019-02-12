@@ -81,21 +81,7 @@
             ''' 检查本程序是否真的在运行中
             ''' </summary>
             Public Shared Function 真的运行中() As Boolean
-                Static ok As Boolean = False
-                If Not ok Then
-                    If 非空(进程) AndAlso 进程.ProcessName <> "devenv" Then
-                        Try
-                            Dim o As Integer = 9
-                            Dim c As Integer = 3
-                            c -= 3
-                            Error 15
-                            ok = False
-                        Catch ex As Exception
-                            ok = True
-                        End Try
-                    End If
-                End If
-                Return ok
+                Return 非空(进程) AndAlso 进程.ProcessName <> "devenv"
             End Function
 
         End Class

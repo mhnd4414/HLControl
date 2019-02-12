@@ -1,4 +1,7 @@
-﻿Namespace HLControl
+﻿Imports Microsoft.VisualBasic.ApplicationServices
+
+
+Namespace HLControl
 
     Public Class HLTabsHeader
         Inherits Control
@@ -39,11 +42,13 @@
                 Return tabs
             End Get
             Set(v As TabControl)
-                If Not IsNothing(v) AndAlso Not 开始 Then
+                If Not 开始 Then
                     tabs = v
-                    With tabs
-                        AddHandler .SelectedIndexChanged, AddressOf _NeedRePaint
-                    End With
+                    If Not IsNothing(v) Then
+                        With tabs
+                            AddHandler .SelectedIndexChanged, AddressOf _NeedRePaint
+                        End With
+                    End If
                 End If
             End Set
         End Property
@@ -84,6 +89,7 @@
             设最小值(h, 30 * DPI)
             Height = h
             If 为空(tabs) OrElse tabs.TabPages.Count < 1 Then
+                Dim n As Single = 当日时间戳()
                 绘制基础矩形(e.Graphics, ClientRectangle,,, Color.Red)
                 Exit Sub
             End If
@@ -107,7 +113,10 @@
                 Dim r As Rectangle, th As Single = TabHeaderWidth * DPI
                 For i As Integer = 0 To tabs.TabPages.Count - 1
                     tb = tabs.TabPages.Item(i)
-                    tb.BackColor = 基础绿
+                    Try
+                        tb.BackColor = 基础绿
+                    Catch ex As Exception
+                    End Try
                     r = New Rectangle(x, IIf(i = s, 0, 边缘 * 1.5), th, Height)
                     .FillRectangle(基础绿笔刷, r)
                     .DrawLine(边缘白笔, 左上角(r), 左下角(r))
@@ -128,3 +137,4 @@
     End Class
 
 End Namespace
+

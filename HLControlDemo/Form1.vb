@@ -15,6 +15,9 @@ Public Class Form1
             HlListBox1.Items.Add(随机.西文(5))
             HlListView1.Items.Add(New HLListViewItem(i.ToString + "  " + 随机.西文(随机.整数(0, 6)), 随机.当中一个("de_dust", "cs_" + 随机.西文(随机.整数(2, 16)), "cs_office"), 随机.整数(1, 32) & "/32", 随机.整数(29, 232).ToString))
         Next
+        For i = 0 To 2355
+            HlListBox2.Items.Add(i.ToString)
+        Next
         HlListBox1.SelectedIndex = 0
         HlComboBox1.SelectedIndex = 0
         HlLabel8.Text += (系统信息.DPI * 100) & "%"
@@ -44,7 +47,16 @@ Public Class Form1
         HlLabel6.Text = HlTrackBar1.Value.ToString
     End Sub
 
-    Private Sub HlTrackBar2_ValueChanged() Handles HlTrackBar2.ValueChanged
+    Private Sub HlCheckBox7_CheckedChanged() Handles HlCheckBox7.CheckedChanged
+        HlProgressBar1.AutoReset = HlCheckBox7.Checked
+    End Sub
+
+    Private Sub HlCheckBox8_CheckedChanged() Handles HlCheckBox8.CheckedChanged
+        ShowSteamIcon = HlCheckBox8.Checked
+        Refresh()
+    End Sub
+
+    Private Sub HlTrackBar2_ValueChanged(LastValue As Integer, NewValue As Integer) Handles HlTrackBar2.ValueChanged
         HlLabel7.Text = HlTrackBar2.Value.ToString
         With HlProgressBar2
             .Maximum = HlTrackBar2.Maximum
@@ -53,13 +65,9 @@ Public Class Form1
         End With
     End Sub
 
-    Private Sub HlCheckBox7_CheckedChanged() Handles HlCheckBox7.CheckedChanged
-        HlProgressBar1.AutoReset = HlCheckBox7.Checked
-    End Sub
-
-    Private Sub HlCheckBox8_CheckedChanged() Handles HlCheckBox8.CheckedChanged
-        ShowSteamIcon = HlCheckBox8.Checked
-        Refresh()
+    Private Sub HlButton5_Click(sender As Object, e As EventArgs) Handles HlButton5.Click, HlButton4.Click
+        反转(HlButton5.Enabled)
+        反转(HlButton4.Enabled)
     End Sub
 
 End Class

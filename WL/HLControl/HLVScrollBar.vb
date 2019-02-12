@@ -32,6 +32,10 @@
             If 滚动一次 >= 最大 Then 滚动一次 = 最大 - 1
             If 滚动一次 <= 最小 Then 滚动一次 = 最小 + 1
             Invalidate()
+            If 上一个值 <> 值 Then
+                RaiseEvent ValueChanged(上一个值, 值)
+                上一个值 = 值
+            End If
         End Sub
 
         <DefaultValue(100)>
@@ -40,10 +44,8 @@
                 Return 最大
             End Get
             Set(v As Integer)
-                If v <> 最大 Then
-                    最大 = v
-                    FixValue()
-                End If
+                最大 = v
+                FixValue()
             End Set
         End Property
 
@@ -53,10 +55,8 @@
                 Return 最小
             End Get
             Set(v As Integer)
-                If v <> 最小 Then
-                    最小 = v
-                    FixValue()
-                End If
+                最小 = v
+                FixValue()
             End Set
         End Property
 
@@ -66,10 +66,8 @@
                 Return 值
             End Get
             Set(v As Integer)
-                If v <> 值 AndAlso v <= 最大 AndAlso v >= 最小 Then
-                    值 = v
-                    FixValue()
-                End If
+                值 = v
+                FixValue()
             End Set
         End Property
 
@@ -151,10 +149,6 @@
                 绘制文本(g, "▼", f, sw, Height - w1 + sh, 获取文本状态(Enabled))
                 .FillRectangle(滚动绿笔刷, New Rectangle(0, w1, w1, h))
                 If Enabled Then
-                    If 上一个值 <> Value Then
-                        RaiseEvent ValueChanged(上一个值, Value)
-                        上一个值 = Value
-                    End If
                     Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
                     h = v * (h - h2 - 4 * DPI) + w1 + 1 * DPI
                     绘制基础矩形(g, New Rectangle(0, h, w1, h2))

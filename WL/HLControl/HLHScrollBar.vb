@@ -4,6 +4,7 @@
         Inherits Control
 
         Private 按住上 As Boolean, 按住 As Boolean, 按住下 As Boolean, 值 As Integer, 滚动一次 As Integer, 最大 As Integer, 最小 As Integer
+        Private 上一个值 As Single
 
         Public Sub New()
             DoubleBuffered = True
@@ -14,6 +15,7 @@
             滚动一次 = 1
             最大 = 100
             最小 = 0
+            上一个值 = -1
         End Sub
 
         Private Sub FixValue()
@@ -64,10 +66,9 @@
                 Return 值
             End Get
             Set(v As Integer)
-                If v <> 值 AndAlso v <= 最大 AndAlso v >= 最小 Then
+                If v <> 值 Then
                     值 = v
                     FixValue()
-                    RaiseEvent ValueChanged()
                 End If
             End Set
         End Property
@@ -142,6 +143,10 @@
                 .FillRectangle(滚动绿笔刷, New Rectangle(w1, 0, h, w1))
                 If Enabled Then
                     Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
+                    If 上一个值 <> v Then
+                        上一个值 = v
+                        RaiseEvent ValueChanged()
+                    End If
                     h = v * (h - h2 - 4 * DPI) + w1 + 1 * DPI
                     绘制基础矩形(g, New Rectangle(h, 0, h2, w1))
                 End If

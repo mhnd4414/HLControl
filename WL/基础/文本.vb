@@ -872,5 +872,36 @@ End Function)
             Return js
         End Function
 
+        ''' <summary>
+        ''' 比较两个文本，一个字一个字的比，如果A比B小，就返回-1，等于返回0，大于返回1
+        ''' </summary>
+        Public Function 比较文本(A As String, B As String) As Integer
+            If 为空(A, B) Then
+                If 为空全部(A, B) Then Return 0
+                If 为空(A) Then Return -1
+                If 为空(B) Then Return 1
+            End If
+            Dim g1 As Integer, g2 As Integer, l As Integer = Math.Min(A.Length, B.Length) - 1
+            If A.Length = B.Length Then
+                If A = B Then Return 0
+            Else
+                If A.Length < B.Length AndAlso 左(A, B.Length) = B Then
+                    Return -1
+                ElseIf A.Length > B.Length AndAlso 左(B, A.Length) = A Then
+                    Return 1
+                End If
+            End If
+            For i As Integer = 0 To l
+                g1 = AscW(A(i))
+                g2 = AscW(B(i))
+                If g1 > g2 Then
+                    Return 1
+                ElseIf g1 < g2 Then
+                    Return -1
+                End If
+            Next
+            Return 0
+        End Function
+
     End Module
 End Namespace

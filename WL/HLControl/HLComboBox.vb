@@ -49,7 +49,6 @@
                 .Height = c
                 .Visible = True
                 Height += .Height
-                输出(.Height, .FullHeight)
                 If 非空(HighLightLabel) Then
                     HighLightLabel.HighLight = True
                 End If
@@ -63,9 +62,6 @@
                 If .Visible = False Then Exit Sub
                 .Visible = False
                 Height -= .Height
-                If 非空(HighLightLabel) Then
-                    HighLightLabel.HighLight = False
-                End If
             End With
             Invalidate()
         End Sub
@@ -126,9 +122,6 @@
             End If
             If Not Enabled Then
                 列表.Visible = False
-            End If
-            If 非空(HighLightLabel) Then
-                HighLightLabel.HighLight = 列表.Visible
             End If
             Dim g As Graphics = e.Graphics, c As Rectangle = ClientRectangle
             With g

@@ -58,7 +58,7 @@
 
         Private Sub _MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
             If 为空(tabs) Then Exit Sub
-            Dim x As Integer = Int(e.X / TabHeaderWidth)
+            Dim x As Integer = Fix(e.X / (TabHeaderWidth * DPI))
             If x < tabs.TabCount Then
                 tabs.SelectedIndex = x
             End If
@@ -73,7 +73,6 @@
                     绘制基础矩形(g, r)
                     If 非空(.SelectedTab) Then .SelectedTab.BackColor = 基础绿
                 End With
-                计时()
             End If
         End Sub
 
@@ -105,23 +104,23 @@
             Dim g As Graphics = e.Graphics, x As Integer = 0, s As Integer = tabs.SelectedIndex
             Dim tb As TabPage
             With g
-                Dim r As Rectangle
+                Dim r As Rectangle, th As Single = TabHeaderWidth * DPI
                 For i As Integer = 0 To RealTabControl.TabPages.Count - 1
                     tb = RealTabControl.TabPages.Item(i)
                     tb.BackColor = 基础绿
-                    r = New Rectangle(x, IIf(i = s, 0, 边缘 * 1.5), TabHeaderWidth, Height)
+                    r = New Rectangle(x, IIf(i = s, 0, 边缘 * 1.5), th, Height)
                     .FillRectangle(基础绿笔刷, r)
                     .DrawLine(边缘白笔, 左上角(r), 左下角(r))
                     .DrawLine(边缘白笔, 左上角(r), 右上角(r))
                     .DrawLine(暗色笔, 右上角(r), 右下角(r))
                     绘制文本(g, tb.Text, Font, x + 边缘, Height * 0.2, 获取文本状态(Enabled, i = s))
-                    x += TabHeaderWidth + 线宽
+                    x += th + 线宽
                     If x > Width Then Exit For
                 Next
                 r = ClientRectangle
-                .DrawLine(暗色笔, 点((s + 1) * TabHeaderWidth + 1, Height), 右下角(r))
+                .DrawLine(暗色笔, 点((s + 1) * th + 1, Height), 右下角(r))
                 If s > 0 Then
-                    .DrawLine(暗色笔, 左下角(r), 点(s * TabHeaderWidth + 1, Height))
+                    .DrawLine(暗色笔, 左下角(r), 点(s * th + 1, Height))
                 End If
             End With
         End Sub

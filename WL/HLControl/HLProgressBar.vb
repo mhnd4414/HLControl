@@ -4,13 +4,14 @@
     Public Class HLProgressBar
         Inherits Control
 
-        Private 值 As Integer, 最大 As Integer, 最小 As Integer
+        Private 值 As Integer, 最大 As Integer, 最小 As Integer, 上一个值 As Single
 
         Public Sub New()
             DoubleBuffered = True
             最大 = 100
             最小 = 0
             值 = 0
+            上一个值 = -1
         End Sub
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
@@ -29,7 +30,7 @@
             ElseIf 值 > 最大 Then
                 值 = 最大
             End If
-            If 值 = 最大 Then
+            If 值 >= 最大 Then
                 If AutoReset Then 值 = 0
             End If
             Invalidate()
@@ -67,10 +68,9 @@
                 Return 值
             End Get
             Set(v As Integer)
-                If v <> 值 AndAlso v <= 最大 AndAlso v >= 最小 Then
+                If v <> 值 Then
                     值 = v
                     FixValue()
-                    RaiseEvent ValueChanged()
                 End If
             End Set
         End Property
@@ -81,10 +81,14 @@
         Public Event ValueChanged()
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            修正Dock(Me, False, False)
             MyBase.OnPaint(e)
             Dim h As Integer = 30 * DPI, w As Integer = 12 * DPI, x As Integer = 6 * DPI
             设最小值(Height, h)
             设最小值(Width, h)
+            If (Width - x) Mod w <> 0 Then
+                Width = w * Int(Width / w) + x
+            End If
             Dim g As Graphics = e.Graphics
             With g
                 绘制基础矩形(g, ClientRectangle, True, False, 内容绿)
@@ -93,6 +97,10 @@
                 w = 8 * DPI
                 Dim all As Integer = Int((Width) / (w + 4 * DPI) + 0.5)
                 Dim v As Single = (Value - Minimum) / (Maximum - Minimum)
+                If v <> 上一个值 Then
+                    上一个值 = v
+                    RaiseEvent ValueChanged()
+                End If
                 Dim n As Integer = Int(v * all - 0.5)
                 x = 4 * DPI
                 If n > 0 Then

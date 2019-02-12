@@ -5,7 +5,7 @@
     ''' </summary>
     Public Module 类型
 
-        Private Function oneof(t As Type, ParamArray b() As Type) As Boolean
+        Private Function Oneof(t As Type, ParamArray b() As Type) As Boolean
             For Each i As Type In b
                 If t = i Then Return True
             Next
@@ -18,7 +18,7 @@
         ''' </summary>
         Public Function 是整数类型(t As Type) As Boolean
             If IsNothing(t) Then Return False
-            Return oneof(t,
+            Return Oneof(t,
                          GetType(Integer),
                          GetType(Long),
                          GetType(Byte),
@@ -35,7 +35,7 @@
         ''' </summary>
         Public Function 是小数(t As Type) As Boolean
             If IsNothing(t) Then Return False
-            Return oneof(t,
+            Return Oneof(t,
                          GetType(Single),
                          GetType(Double))
         End Function
@@ -53,7 +53,7 @@
         ''' </summary>
         Public Function 是字符串(t As Type) As Boolean
             If IsNothing(t) Then Return False
-            Return oneof(t,
+            Return Oneof(t,
                          GetType(String),
                          GetType(Char))
         End Function
@@ -64,7 +64,7 @@
         Public Function 是集合(t As Type) As Boolean
             If IsNothing(t) Then Return False
             For Each i As Type In t.GetInterfaces()
-                If oneof(i,
+                If Oneof(i,
                          GetType(ICollection),
                          GetType(IEnumerable),
                          GetType(IList),
@@ -299,6 +299,20 @@
         Public Function 反转(ByRef A As Boolean) As Boolean
             A = Not A
             Return A
+        End Function
+
+        ''' <summary>
+        ''' 如果对象等于A，那么把对象换成B
+        ''' </summary>
+        Public Function 反转(ByRef 对象 As Object, A As Object, B As Object) As Object
+            If 非空(对象) Then
+                If 对象 = A Then
+                    对象 = B
+                ElseIf 对象 = B Then
+                    对象 = A
+                End If
+            End If
+            Return 对象
         End Function
 
         ''' <summary>

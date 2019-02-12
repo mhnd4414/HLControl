@@ -10,6 +10,7 @@
         Public Sub New()
             DoubleBuffered = True
             _SetDefault()
+            Padding = New Padding(3 * DPI)
             Font = New Font("Microsoft Yahei", 12)
             ShowSteamIcon = True
         End Sub
@@ -101,7 +102,6 @@
                 关闭按钮区域 = r
                 绘制基础矩形(g, r)
                 y = 12 * DPI
-                输出(Font.Name)
                 绘制文本(g, Text, New Font(Font.Name, 10 * DPI), 31 * DPI, y, 获取文本状态(Enabled))
                 If ShowIcon Then
                     Dim c As Icon
@@ -113,13 +113,14 @@
                     .DrawIcon(c, y, y + 2 * DPI)
                 End If
                 y = 7 * DPI
-                .DrawLine(白色笔, 左上角(r, y), 右下角(r, y))
-                .DrawLine(白色笔, 左下角(r, y), 右上角(r, y))
+                Dim pe As Pen = 按钮灰笔
+                .DrawLine(pe, 左上角(r, y), 右下角(r, y))
+                .DrawLine(pe, 左下角(r, y), 右上角(r, y))
                 r.X -= w + p
                 最小化按钮区域 = r
                 绘制基础矩形(g, r)
                 y = r.Y + w * 0.5
-                .DrawLine(白色笔, 点(r.X + w * 0.3, y), 点(r.X + w * 0.7, y))
+                .DrawLine(pe, 点(r.X + w * 0.3, y), 点(r.X + w * 0.7, y))
             End With
         End Sub
 

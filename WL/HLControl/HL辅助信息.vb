@@ -5,6 +5,8 @@
         Public ReadOnly DPI As Single = 系统信息.DPI
 
         Public ReadOnly 线宽 As Single = DPI * 3
+        Public ReadOnly 细线宽 As Single = DPI * 2
+        Public ReadOnly 虚线宽 As Single = DPI * 1
 
         Public ReadOnly 基础绿 As Color = Color.FromArgb(76, 88, 68)
         Public ReadOnly 基础绿笔刷 As New SolidBrush(基础绿)
@@ -27,8 +29,8 @@
         Public ReadOnly 边缘白笔 As New Pen(边缘白, 线宽)
         Public ReadOnly 边缘白笔刷 As New SolidBrush(边缘白)
 
-        Public ReadOnly 黑边框 As New Pen(Color.Black, DPI * 1)
-        Public ReadOnly 黑虚线边框 As New Pen(Color.Black, DPI * 1) With {.DashStyle = Drawing2D.DashStyle.Dot}
+        Public ReadOnly 黑边框 As New Pen(Color.Black, 虚线宽)
+        Public ReadOnly 黑虚线边框 As New Pen(Color.Black, 虚线宽) With {.DashStyle = Drawing2D.DashStyle.Dot}
 
         Public ReadOnly 内容黄 As Color = Color.FromArgb(196, 181, 80)
         Public ReadOnly 内容黄笔刷 As New SolidBrush(内容黄)
@@ -47,11 +49,14 @@
         Public ReadOnly 禁用底色笔刷 As New SolidBrush(禁用底色)
 
         Public ReadOnly 边缘灰 As Color = Color.FromArgb(162, 156, 154)
-        Public ReadOnly 边缘灰笔 As New Pen(边缘灰, DPI * 2)
+        Public ReadOnly 边缘灰笔 As New Pen(边缘灰, 细线宽)
         Public ReadOnly 边缘灰笔刷 As New SolidBrush(边缘灰)
 
         Public ReadOnly 细线灰 As Color = Color.FromArgb(127, 140, 127)
-        Public ReadOnly 细线灰笔 As New Pen(细线灰, DPI * 1.5)
+        Public ReadOnly 细线灰笔 As New Pen(细线灰, 细线宽)
+
+        Public ReadOnly 按钮灰 As Color = Color.FromArgb(193, 191, 189)
+        Public ReadOnly 按钮灰笔 As New Pen(按钮灰, 细线宽)
 
         Public Function 点(x As Integer, y As Integer) As Point
             Return New Point(x, y)
@@ -181,7 +186,12 @@
         End Sub
 
         Public Function 是HL控件(c As Control) As Boolean
-            Return 非空(c) AndAlso c.GetType.Namespace = "WL.HLControl"
+            If 为空(c) Then Return False
+            Dim s As String = c.GetType.ToString
+            If s.StartsWith("WL.HLControl") AndAlso 包含(s.ToLower, "panel") = False Then
+                Return True
+            End If
+            Return False
         End Function
 
     End Module

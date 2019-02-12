@@ -23,6 +23,7 @@
             最高栏 = 0
             选中 = -1
             拖动 = False
+            ShowCount = True
             选中列 = -1
             AddHandler 滚动条.ValueChanged, Sub()
                                              最高栏 = 滚动条.Value
@@ -146,6 +147,9 @@
             End Set
         End Property
 
+        <DefaultValue(True)>
+        Public Property ShowCount As Boolean
+
         Public Event SelectedIndexChanged()
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
@@ -157,18 +161,22 @@
             If 选中 >= 物品.Count Then 选中 = -1
             Dim g As Graphics = e.Graphics, c As Rectangle = ClientRectangle
             Dim x As Integer = 0, y As Integer = 0, r As Rectangle, b As Boolean
-            Dim shown As Integer = Int((Height - 边缘) / 行高 - 0.5), p As Integer = 2 * DPI
+            Dim shown As Integer = Int((Height - 边缘 * 2) / 行高 - 0.5), p As Integer = 2 * DPI
             滚动条.Width = 边缘
             滚动条.Maximum = 设最小值(物品.Count - shown, 3)
             With g
-                绘制基础矩形(g, c)
+                绘制基础矩形(g, c,,, 内容绿)
                 For Each i As HLListViewColumn In 列
                     b = y = 列.Count - 1
-                    r = New Rectangle(x, 0, IIf(b, Width - x, i.Width), 边缘 - p)
+                    r = New Rectangle(x, 0, IIf(b, Width - x, i.Width * DPI), 边缘 - p)
                     绘制基础矩形(g, r, 选中列 = y)
-                    绘制文本(g, i.Name, Font, x + p, p, 获取文本状态(Enabled))
+                    Dim st As String = i.Name.Trim
+                    If y = 0 AndAlso ShowCount Then
+                        st += " (" + 物品.Count.ToString + ")"
+                    End If
+                    绘制文本(g, st, Font, x + p, p, 获取文本状态(Enabled))
                     y += 1
-                    x += i.Width
+                    x += i.Width * DPI
                     If x >= 滚动条.Left Then Exit For
                 Next
                 y = 边缘
@@ -180,7 +188,7 @@
                         .FillRectangle(块黄笔刷, New Rectangle(0, y, Width, 行高))
                     End If
                     For Each i2 As HLListViewColumn In 列
-                        If Not firstC Then Call .FillRectangle(IIf(选中 = i, 块黄笔刷, 基础绿笔刷), New Rectangle(x - 2 * p, y, Width, 行高))
+                        If Not firstC Then Call .FillRectangle(IIf(选中 = i, 块黄笔刷, 内容绿笔刷), New Rectangle(x - 2 * p, y, Width, 行高))
                         Dim st As String = ""
                         If firstC Then
                             st = t.Title
@@ -191,7 +199,7 @@
                         If Not firstC Then it += 1
                         If it >= t.Items.Count Then Exit For
                         firstC = False
-                        x += i2.Width
+                        x += i2.Width * DPI
                     Next
                     y += 行高
                 Next
@@ -232,8 +240,7 @@
                 Return w
             End Get
             Set(v As UInteger)
-                设最小值(v, 20 * DPI)
-                w = v * DPI
+                w = 设最小值(v, 20)
             End Set
         End Property
 
@@ -304,12 +311,7 @@
                 End If
                 L += 1
             End If
-            Dim g1 As Integer = 0, g2 As Integer = 0
-            If 非空(s1) Then g1 = AscW(s1)
-            If 非空(s2) Then g2 = AscW(s2)
-            Dim g As Integer = 0
-            If g1 > g2 Then g = 1
-            If g1 < g2 Then g = -1
+            Dim g As Integer = 比较文本(s1, s2)
             If op Then g = -g
             Return g
         End Function

@@ -73,14 +73,6 @@ Namespace HLControl
             End If
         End Sub
 
-        <Browsable(False)>
-        Public ReadOnly Property TabPages As TabControl.TabPageCollection
-            Get
-                If 为空(tabs) Then Return Nothing
-                Return tabs.TabPages
-            End Get
-        End Property
-
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
             If 为空(FindForm) Then Exit Sub

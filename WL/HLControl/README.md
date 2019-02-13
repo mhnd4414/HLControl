@@ -105,5 +105,64 @@ Unlike the original comboxbox, its Items is a list(of string), you can only set 
 和原版的不一样，这个 Items 是 list(of string) ，只能填入和输出字符串。属性 SmallChange 改变的是鼠标滚动一次的行数。HighLightLabel 属性指的是这个控件激活的时候会高亮的 Label 。事实上，当你点击控件的时候，弹出来的是一个 ListBox 。   
 ![](https://s2.ax1x.com/2019/02/13/k0tSnU.png)  
 
+## HScrollBar VScrollBar
+Maximum, Minimum, Value ,Smallchange, just use it like the original one. But there're two new subs(void function) in it. PerformMouseWheel can put a MouseEventArgs into it to make it scroll. ChangeValueWithoutRaiseEvent can change its value without raise the event ValueChanged.  
+Maximum, Minimum, Value ,Smallchange ，就像原版的滚动条控件一样使用就好了，但是有两个新函数在里面。PerformMouseWheel 可以传入 MouseEventArgs 来使它滚动，ChangeValueWithoutRaiseEvent 可以修改值但不会触发 ValueChanged 事件。  
+
+![](https://s2.ax1x.com/2019/02/13/k0amuV.png)  
+
+## ProgressBar
+Just use it as the original one.And a new property AutoReset, which means it will reset value to Minimum when it reaches Maximum.    
+就像原版一样使用就好了，但是有一个新属性 AutoReset ，意思是到达最大值之后就返回最小值。  
+![](https://s2.ax1x.com/2019/02/13/k0aQN4.png)  
+
+## TrackBar
+Just use it as the original one. But it also has HighLightLabel and ChangeValueWithoutRaiseEvent.  
+和原版的差不多，但是这个也有 HighLightLabel 属性和 ChangeValueWithoutRaiseEvent 函数。  
+![](https://s2.ax1x.com/2019/02/13/k0a5Cj.png)  
+
+## RadioButton
+Checked and CheckedChanged.  
+和原版的差不多。  
+![](https://s2.ax1x.com/2019/02/13/k0dNzn.png)
+
+## TextBox
+Only one scrollbar in it, and always word wrap. And the selected color is still the Windows blue, the menu is also the original menu. Support HighLightLabel.  
+只有一条滚动条，而且强制自动换行，并且选中的颜色和默认右键菜单依然是原版菜单。还有 HighLightLabel 属性。   
+![](https://s2.ax1x.com/2019/02/13/k0dxw8.png)
+
+## Panel
+Just a half life styled panel.  
+只是一个半条命风格化的 Panel。  
+![](https://s2.ax1x.com/2019/02/13/k0won0.png)  
+
+## ListView  
+Well, it can't support groups.But support Columns and Items. And you can't add them in Designer, you need to do it in code like this.  
+这个就不支持组了，只支持列 Columns 和行 Items ，而且也不能在设计器里直接添加，得写在代码里添加。  
+```cs
+private void Form1_Load(object sender, EventArgs e)
+{
+    hlListView1.Columns.Add("first");
+    hlListView1.Columns.Add(new WL.HLControl.HLListViewColumn("second"));
+    hlListView1.Columns.Add(new WL.HLControl.HLListViewColumn("thirt",200)); //200 is width of the column
+    hlListView1.Items.Add(new WL.HLControl.HLListViewItem("title1", "aa", "bb","33"));
+    hlListView1.Items.Add("only title");
+}
+```
+Result will look like this.  
+结果大概就是图中这样。  
+![](https://s2.ax1x.com/2019/02/13/k0BZiF.png)  
+You can also use these functions to add Columns and Items. You must add at least one column, or nothing will show up.    
+你也可以用下面的函数添加行和列，而且必须最少有一行，否则什么都不显示。  
+```cs
+public void AddColumn(string name);
+public void AddColumn(string name, uint width);
+public void AddItem(string title, params string[] str);
+```
+
+## TabsHeader
+yes, it is only a header, you need another real TabControl to work. It's seted in property RealTabControl. And you need to use TabHeaderWidth to control every tab's width.    
+是的，这真的只是一个头部，你还得需要一个真的 TabControl 才能工作。这个在属性 RealTabControl 里设置。还需要 TabHeaderWidth 来控制每个标签的宽度。  
+![](https://s2.ax1x.com/2019/02/13/k0BBeP.png)  
 
 

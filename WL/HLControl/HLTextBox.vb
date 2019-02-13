@@ -85,6 +85,7 @@
                 .Width = Width - h - x2
                 .Height = Height - h - x1
                 .ScrollBars = ScrollBars.None
+                .WordWrap = True
             End With
         End Sub
 
@@ -143,16 +144,6 @@
             End Get
             Set(v As Boolean)
                 文本框.AcceptsTab = v
-            End Set
-        End Property
-
-        <DefaultValue(True)>
-        Public Property WordWrap As Boolean
-            Get
-                Return 文本框.WordWrap
-            End Get
-            Set(v As Boolean)
-                文本框.WordWrap = v
             End Set
         End Property
 

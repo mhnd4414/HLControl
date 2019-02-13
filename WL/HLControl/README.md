@@ -25,7 +25,7 @@ Controls:
 14. TrackBar
 15. VScrollBar
 
-Though their names and properties were written in English, a lot of things in code are still in Chinese. So if you want to edit it, it might still be a difficult thing. Please don't ask me to write them in English all, I do love writing code in Chinese for now.
+Though their names and properties were written in English, a lot of things in code are still in Chinese. So if you want to edit it, it might still be a difficult thing. Please don't ask me to write them in English all, I do love writing code in Chinese for now.   
 尽管他们的名字、属性都是英文的，但是代码里面很多地方还是中文写的。所以编辑起来可能会很麻烦，但请不要让我用全英文写代码，我现在还是挺享受写中文的。  
 
 The controls' code files are [here](https://github.com/gordonwalkedby/Walkedbys_Library/tree/master/WL/HLControl).  
@@ -153,7 +153,7 @@ Result will look like this.
 结果大概就是图中这样。  
 ![](https://s2.ax1x.com/2019/02/13/k0BZiF.png)  
 You can also use these functions to add Columns and Items. You must add at least one column, or nothing will show up.    
-你也可以用下面的函数添加行和列，而且必须最少有一行，否则什么都不显示。  
+你也可以用下面的函数添加行和列，而且必须最少有一列，否则什么都不显示。  
 ```cs
 public void AddColumn(string name);
 public void AddColumn(string name, uint width);

@@ -4,7 +4,6 @@ Public Class Form2
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Timer1.Enabled = False
-        Dim n As Double = 当日时间戳()
         Static l As Integer = 0, l2 As Integer = 0
         Dim lb As HLLabel = TabPage1.Controls(l)
         lb.HighLight = True
@@ -19,7 +18,6 @@ Public Class Form2
         l2 += 1
         If l >= TabPage1.Controls.Count Then l = 0
         If l2 >= TabPage2.Controls.Count Then l2 = 0
-        HlLabel197.Text = "Used time: " & FormatNumber((当日时间戳() - n) * 1000, 5) & "ms"
         Timer1.Enabled = True
     End Sub
 

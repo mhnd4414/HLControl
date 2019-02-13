@@ -258,7 +258,6 @@ Partial Class Form2
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.HlTrackBar6 = New WL.HLControl.HLTrackBar()
         Me.HlLabel196 = New WL.HLControl.HLLabel()
-        Me.HlLabel197 = New WL.HLControl.HLLabel()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -2413,20 +2412,10 @@ Partial Class Form2
         Me.HlLabel196.TabIndex = 3
         Me.HlLabel196.Text = "FPS:10"
         '
-        'HlLabel197
-        '
-        Me.HlLabel197.HighLight = True
-        Me.HlLabel197.Location = New System.Drawing.Point(32, 651)
-        Me.HlLabel197.Name = "HlLabel197"
-        Me.HlLabel197.Size = New System.Drawing.Size(56, 23)
-        Me.HlLabel197.TabIndex = 4
-        Me.HlLabel197.Text = "FPS:10"
-        '
         'Form2
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1166, 680)
-        Me.Controls.Add(Me.HlLabel197)
         Me.Controls.Add(Me.HlLabel196)
         Me.Controls.Add(Me.HlTrackBar6)
         Me.Controls.Add(Me.TabControl1)
@@ -2676,5 +2665,4 @@ Partial Class Form2
     Friend WithEvents HlListView4 As HLListView
     Friend WithEvents HlListView3 As HLListView
     Friend WithEvents HlListView2 As HLListView
-    Friend WithEvents HlLabel197 As HLLabel
 End Class

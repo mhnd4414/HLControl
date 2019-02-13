@@ -89,21 +89,13 @@
 
         Private Sub _MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
             If e.Button <> MouseButtons.None Then
-                If 按住 = False AndAlso e.Y <= Height * 0.6 AndAlso e.X - 可触 < 边缘 * 2.5 Then
-                    按住 = True
-                End If
-                If 按住 Then
-                    Dim x As Integer = e.X
-                    设最小值(x, 0)
-                    设最大值(x, Width - 边缘)
-                    Value = (x / Width) * (Maximum - Minimum)
-                End If
+                _MouseDown(sender, e)
             End If
         End Sub
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
             Dim x As Integer = e.X
-            If x > 0 AndAlso x <= Width - 边缘 Then
+            If x > 0 AndAlso x <= Width Then
                 Value = (x / Width) * (Maximum - Minimum)
             End If
         End Sub

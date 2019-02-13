@@ -1,4 +1,4 @@
-# Half Life Controls
+# Half Life Style Controls
 
 Well, you can use this just follow [GPL-3.0](https://github.com/gordonwalkedby/Walkedbys_Library/blob/master/LICENSE). But if you use it for commercial purposes, contact me first.  
 非商业用途请遵守 [GPL-3.0](https://github.com/gordonwalkedby/Walkedbys_Library/blob/master/LICENSE)，商业用途请先联系我。  

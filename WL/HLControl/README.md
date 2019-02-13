@@ -77,3 +77,33 @@ Now, you can start your work.
 现在你可以真正开始了。  
 
 ![](https://s2.ax1x.com/2019/02/12/kw4yLD.png)
+
+# Controls' details 各个控件的一些细节说明：  
+
+## Label  
+Four different states of it:Enabled, not Enabled, Highlight, Lowlight. and its size is fixed by the text's size.and when one label highlighted, the others near it will be not highlighted.    
+它有四种状态：启用、禁用、高亮、黯淡。并且大小是根据文字固定的。并且如果一个变得高亮了，那么它旁边的就会取消高亮。    
+![](https://s2.ax1x.com/2019/02/13/k0tyvV.png)
+
+## Button  
+Its height is fixed by the font size, just use it like a normal button.  
+按钮的高度是根据字体大小固定的，其他的和一个普通按钮一样。  
+![](https://s2.ax1x.com/2019/02/13/k0Y5X8.png)
+
+## CheckBox  
+Its size is fixed by the text, the property Checked is its value.  
+大小是根据字体和文本长度固定的，属性 Checked 就是他的值。  
+![](https://s2.ax1x.com/2019/02/13/k0YXpq.png)
+
+## ListBox
+Unlike the original listbox, its Items is a list(of string), you can only set and get string from it.Property SmallChange means how many lines moves when the mouse scroll once. ShowScrollBar means if it shows the scrollbar, if not ,you can still use the mouse scroll.     
+和原版的不一样，这个 Items 是 list(of string) ，只能填入和输出字符串。属性 SmallChange 改变的是鼠标滚动一次的行数。ShowScrollBar 属性表示显示还是隐藏滚动条，如果隐藏也还可以用鼠标滚轮。    
+![](https://s2.ax1x.com/2019/02/13/k0tj5d.png)
+
+## ComboBox  
+Unlike the original comboxbox, its Items is a list(of string), you can only set and get string from it.Property SmallChange means how many lines moves when the mouse scroll once. HighLightLabel means the label which will be highlighted when the menu is opened.in fact, when you click it, a ListBox popup for you to select.    
+和原版的不一样，这个 Items 是 list(of string) ，只能填入和输出字符串。属性 SmallChange 改变的是鼠标滚动一次的行数。HighLightLabel 属性指的是这个控件激活的时候会高亮的 Label 。事实上，当你点击控件的时候，弹出来的是一个 ListBox 。   
+![](https://s2.ax1x.com/2019/02/13/k0tSnU.png)  
+
+
+

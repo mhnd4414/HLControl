@@ -62,8 +62,8 @@ Public Class Form1
         End With
     End Sub
 
-    Private Sub HlButton4_Click(sender As Object, e As EventArgs)
-        HlvScrollBar1.ChangeValueWithoutRaiseEvent(15)
+    Private Sub HlButton4_Click(sender As Object, e As EventArgs) Handles HlButton4.Click
+        Form2.Show()
     End Sub
 
 End Class

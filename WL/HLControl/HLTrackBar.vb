@@ -96,7 +96,7 @@
                     Dim x As Integer = e.X
                     设最小值(x, 0)
                     设最大值(x, Width - 边缘)
-                    Value = (x / (Width - 边缘)) * (Maximum - Minimum)
+                    Value = (x / Width) * (Maximum - Minimum)
                 End If
             End If
         End Sub
@@ -104,7 +104,7 @@
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
             Dim x As Integer = e.X
             If x > 0 AndAlso x <= Width - 边缘 Then
-                Value = (x / (Width - 边缘)) * (Maximum - Minimum)
+                Value = (x / Width) * (Maximum - Minimum)
             End If
         End Sub
 

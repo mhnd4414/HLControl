@@ -70,6 +70,7 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.HlLabel8 = New WL.HLControl.HLLabel()
         Me.HlCheckBox8 = New WL.HLControl.HLCheckBox()
+        Me.HlButton4 = New WL.HLControl.HLButton()
         Me.Tabs.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.HlPanel1.SuspendLayout()
@@ -554,10 +555,19 @@ Partial Class Form1
         Me.HlCheckBox8.TabIndex = 17
         Me.HlCheckBox8.Text = "Show Steam Icon"
         '
+        'HlButton4
+        '
+        Me.HlButton4.Location = New System.Drawing.Point(629, 493)
+        Me.HlButton4.Name = "HlButton4"
+        Me.HlButton4.Size = New System.Drawing.Size(264, 31)
+        Me.HlButton4.TabIndex = 18
+        Me.HlButton4.Text = "Performance Test"
+        '
         'Form1
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(950, 535)
+        Me.Controls.Add(Me.HlButton4)
         Me.Controls.Add(Me.HlCheckBox8)
         Me.Controls.Add(Me.HlLabel8)
         Me.Controls.Add(Me.HlButton2)
@@ -622,4 +632,5 @@ Partial Class Form1
     Friend WithEvents HlLabel9 As HLLabel
     Friend WithEvents HlLab2 As HLLabel
     Friend WithEvents HlPanel2 As HLPanel
+    Friend WithEvents HlButton4 As HLButton
 End Class

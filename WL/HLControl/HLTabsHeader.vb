@@ -62,7 +62,7 @@ Namespace HLControl
         End Sub
 
         Private Sub FixTabs()
-            If 开始 AndAlso 非空(tabs) AndAlso tabs.Visible AndAlso FindForm.WindowState <> FormWindowState.Minimized Then
+            If 开始 AndAlso 非空(tabs) AndAlso 非空(FindForm) AndAlso tabs.Visible AndAlso FindForm.WindowState <> FormWindowState.Minimized Then
                 With tabs
                     Dim g As Graphics = .CreateGraphics()
                     Dim r As Rectangle = .ClientRectangle

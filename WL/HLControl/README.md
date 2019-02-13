@@ -164,5 +164,8 @@ public void AddItem(string title, params string[] str);
 yes, it is only a header, you need another real TabControl to work. It's seted in property RealTabControl. And you need to use TabHeaderWidth to control every tab's width.    
 是的，这真的只是一个头部，你还得需要一个真的 TabControl 才能工作。这个在属性 RealTabControl 里设置。还需要 TabHeaderWidth 来控制每个标签的宽度。  
 ![](https://s2.ax1x.com/2019/02/13/k0BBeP.png)  
+When the program starts , the real tabcontrol will move and resize to fit the header like this.  
+程序开始后，真正的 tabcontrol 就会移动并且重新调整宽度来搭配 TabsHeader 。
 
+![](https://s2.ax1x.com/2019/02/13/k06MEq.png)
 

@@ -44,8 +44,9 @@
             If ShowScrollBar = False OrElse e.X < 滚动条.Left Then
                 Dim h As Integer = e.Y - 边缘
                 h = Int(h / 行高) + 最高栏
+                Dim old As Integer = 选中
                 选中 = IIf(h < 物品.Count, h, -1)
-                RaiseEvent SelectedIndexChanged()
+                RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(old, 选中))
                 Invalidate()
             End If
         End Sub
@@ -65,10 +66,10 @@
                     v = -1
                 End If
                 If 选中 <> v Then
+                    RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(选中, v))
                     选中 = v
                     滚动条.Value = v
                     Invalidate()
-                    RaiseEvent SelectedIndexChanged()
                 End If
             End Set
         End Property
@@ -99,7 +100,7 @@
             End Set
         End Property
 
-        Public Event SelectedIndexChanged()
+        Public Event SelectedIndexChanged(sender As HLListBox, e As HLValueEventArgs)
 
         <DefaultValue(True)>
         Public Property ShowScrollBar As Boolean

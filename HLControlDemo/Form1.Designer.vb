@@ -217,7 +217,7 @@ Partial Class Form1
         '
         'HlCheckBox6
         '
-        Me.HlCheckBox6.Location = New System.Drawing.Point(151, 215)
+        Me.HlCheckBox6.Location = New System.Drawing.Point(151, 211)
         Me.HlCheckBox6.Name = "HlCheckBox6"
         Me.HlCheckBox6.Size = New System.Drawing.Size(132, 23)
         Me.HlCheckBox6.TabIndex = 20
@@ -226,7 +226,7 @@ Partial Class Form1
         'HlCheckBox5
         '
         Me.HlCheckBox5.Checked = True
-        Me.HlCheckBox5.Location = New System.Drawing.Point(151, 186)
+        Me.HlCheckBox5.Location = New System.Drawing.Point(151, 184)
         Me.HlCheckBox5.Name = "HlCheckBox5"
         Me.HlCheckBox5.Size = New System.Drawing.Size(132, 23)
         Me.HlCheckBox5.TabIndex = 19
@@ -243,7 +243,7 @@ Partial Class Form1
         'HlCheckBox3
         '
         Me.HlCheckBox3.Checked = True
-        Me.HlCheckBox3.Location = New System.Drawing.Point(151, 128)
+        Me.HlCheckBox3.Location = New System.Drawing.Point(151, 130)
         Me.HlCheckBox3.Name = "HlCheckBox3"
         Me.HlCheckBox3.Size = New System.Drawing.Size(132, 23)
         Me.HlCheckBox3.TabIndex = 17
@@ -251,7 +251,7 @@ Partial Class Form1
         '
         'HlCheckBox2
         '
-        Me.HlCheckBox2.Location = New System.Drawing.Point(151, 101)
+        Me.HlCheckBox2.Location = New System.Drawing.Point(151, 103)
         Me.HlCheckBox2.Name = "HlCheckBox2"
         Me.HlCheckBox2.Size = New System.Drawing.Size(132, 23)
         Me.HlCheckBox2.TabIndex = 16
@@ -352,7 +352,7 @@ Partial Class Form1
         '
         'HlLabel3
         '
-        Me.HlLabel3.Location = New System.Drawing.Point(6, 79)
+        Me.HlLabel3.Location = New System.Drawing.Point(14, 79)
         Me.HlLabel3.Name = "HlLabel3"
         Me.HlLabel3.Size = New System.Drawing.Size(95, 23)
         Me.HlLabel3.TabIndex = 4
@@ -360,7 +360,7 @@ Partial Class Form1
         '
         'HlLabel2
         '
-        Me.HlLabel2.Location = New System.Drawing.Point(16, 40)
+        Me.HlLabel2.Location = New System.Drawing.Point(20, 40)
         Me.HlLabel2.Name = "HlLabel2"
         Me.HlLabel2.Size = New System.Drawing.Size(89, 23)
         Me.HlLabel2.TabIndex = 2
@@ -384,7 +384,7 @@ Partial Class Form1
         '
         'HlLabel1
         '
-        Me.HlLabel1.Location = New System.Drawing.Point(6, 6)
+        Me.HlLabel1.Location = New System.Drawing.Point(0, 6)
         Me.HlLabel1.Name = "HlLabel1"
         Me.HlLabel1.Size = New System.Drawing.Size(109, 23)
         Me.HlLabel1.TabIndex = 0
@@ -525,7 +525,7 @@ Partial Class Form1
         '
         'HlButton2
         '
-        Me.HlButton2.Location = New System.Drawing.Point(20, 486)
+        Me.HlButton2.Location = New System.Drawing.Point(20, 493)
         Me.HlButton2.Name = "HlButton2"
         Me.HlButton2.Size = New System.Drawing.Size(137, 31)
         Me.HlButton2.TabIndex = 10
@@ -538,7 +538,7 @@ Partial Class Form1
         '
         'HlLabel8
         '
-        Me.HlLabel8.Location = New System.Drawing.Point(163, 486)
+        Me.HlLabel8.Location = New System.Drawing.Point(163, 493)
         Me.HlLabel8.LowLight = True
         Me.HlLabel8.Name = "HlLabel8"
         Me.HlLabel8.Size = New System.Drawing.Size(78, 23)
@@ -548,7 +548,7 @@ Partial Class Form1
         'HlCheckBox8
         '
         Me.HlCheckBox8.Checked = True
-        Me.HlCheckBox8.Location = New System.Drawing.Point(353, 486)
+        Me.HlCheckBox8.Location = New System.Drawing.Point(353, 493)
         Me.HlCheckBox8.Name = "HlCheckBox8"
         Me.HlCheckBox8.Size = New System.Drawing.Size(165, 23)
         Me.HlCheckBox8.TabIndex = 17
@@ -573,7 +573,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Tabs)
         Me.Controls.Add(Me.HlTabsHeader1)
         Me.Name = "Form1"
-        Me.Text = "Gordon Walkedby's Half Life Control Demo"
+        Me.Text = "Gordon Walkedby's Half Life Style Control Demo"
         Me.Tabs.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.HlPanel1.ResumeLayout(False)

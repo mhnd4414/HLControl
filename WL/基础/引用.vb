@@ -5,18 +5,12 @@
     ''' </summary>
     Public Module 引用
 
-        Public Const WM_SYSCOMMAND = &H112
-        Public Const EM_SCROLL = &HB5
-        Public Const EM_LINESCROLL = &HB6
-        Public Const EM_SCROLLCARET = &HB7
-        Public Const EM_GETLINECOUNT = &HBA
-
         <DllImport("user32.dll")>
-        Public Function ReleaseCapture() As Boolean
+        Private Function ReleaseCapture() As Boolean
         End Function
 
         <DllImport("user32.dll")>
-        Public Function SendMessage(HWnd As IntPtr, Msg As Integer, WParam As Integer, IParam As Integer) As Integer
+        Private Function SendMessage(HWnd As IntPtr, Msg As Integer, WParam As Integer, IParam As Integer) As Integer
         End Function
 
         ''' <summary>
@@ -44,11 +38,28 @@
                 n = 数量
             End If
             Try
-                SendMessage(控件.Handle, EM_LINESCROLL, n, m)
+                SendMessage(控件.Handle, &HB6, n, m)
             Catch ex As Exception
                 出错(ex)
             End Try
         End Sub
+
+        <DllImport("wininet.dll")>
+        Private Function InternetGetCookieExA(lpszUrl As String, lpszCookieName As String, lpszCookieData As StringBuilder, ByRef lpdwSize As Integer, dwFlags As Integer, lpReserved As IntPtr) As Boolean
+        End Function
+
+        ''' <summary>
+        ''' 从IE浏览器里获得指定网站的Cookie，网站应该是http://或者https://开头的完整链接
+        ''' </summary>
+        Public Function 获取IEcookie(网站 As String) As String
+            Dim s As Integer = 512
+            Dim m As New StringBuilder(s)
+            Dim b As Boolean = InternetGetCookieExA(网站, Nothing, m, s, 8192, IntPtr.Zero)
+            If b Then
+                Return m.ToString
+            End If
+            Return ""
+        End Function
 
     End Module
 

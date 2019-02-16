@@ -196,4 +196,18 @@
 
     End Module
 
+    Public Class HLValueEventArgs
+        Inherits EventArgs
+
+        Public Sub New(last As Object, [new] As Object)
+            LastValue = last
+            NewValue = [new]
+        End Sub
+
+        Public Property LastValue As Object
+
+        Public Property NewValue As Object
+
+    End Class
+
 End Namespace

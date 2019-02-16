@@ -36,6 +36,7 @@
         End Sub
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+            Dim old As Integer = 选中
             选中列 = -1
             选中 = -1
             Dim ok As Boolean = False
@@ -66,7 +67,7 @@
                     End If
                     物品.Sort(New HLListViewItemSort(选中列, 反转(d.Item(选中列))))
                 End If
-                RaiseEvent SelectedIndexChanged()
+                RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(old, 选中))
                 Invalidate()
             End If
         End Sub
@@ -165,10 +166,10 @@
                     v = -1
                 End If
                 If 选中 <> v Then
+                    RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(选中, v))
                     选中 = v
                     滚动条.Value = v
                     Invalidate()
-                    RaiseEvent SelectedIndexChanged()
                 End If
             End Set
         End Property
@@ -176,7 +177,7 @@
         <DefaultValue(True)>
         Public Property ShowCount As Boolean
 
-        Public Event SelectedIndexChanged()
+        Public Event SelectedIndexChanged(sender As HLListView, e As HLValueEventArgs)
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)

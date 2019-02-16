@@ -19,8 +19,8 @@
                 AddHandler .Click, Sub()
                                        HideListBox()
                                    End Sub
-                AddHandler .SelectedIndexChanged, Sub()
-                                                      RaiseEvent SelectedIndexChanged()
+                AddHandler .SelectedIndexChanged, Sub(sender As HLListBox, e As HLValueEventArgs)
+                                                      RaiseEvent SelectedIndexChanged(Me, e)
                                                   End Sub
             End With
             原高度 = Height
@@ -117,7 +117,7 @@
             End Set
         End Property
 
-        Public Event SelectedIndexChanged()
+        Public Event SelectedIndexChanged(sender As HLComboBox, e As HLValueEventArgs)
 
         Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.FontChanged, Me.EnabledChanged
             Invalidate()

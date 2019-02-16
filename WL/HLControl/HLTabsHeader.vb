@@ -1,6 +1,5 @@
 ﻿Imports Microsoft.VisualBasic.ApplicationServices
 
-
 Namespace HLControl
 
     Public Class HLTabsHeader

@@ -33,7 +33,7 @@
             If 滚动一次 <= 最小 Then 滚动一次 = 最小 + 1
             Invalidate()
             If 上一个值 <> Value Then
-                RaiseEvent ValueChanged(上一个值, Value)
+                RaiseEvent ValueChanged(Me, New HLValueEventArgs(上一个值, Value))
                 上一个值 = Value
             End If
         End Sub
@@ -93,7 +93,7 @@
             End If
         End Sub
 
-        Public Event ValueChanged(LastValue As Integer, NewValue As Integer)
+        Public Event ValueChanged(sender As HLHScrollBar, e As HLValueEventArgs)
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
             Dim y As Integer = e.X, h As Integer = Height

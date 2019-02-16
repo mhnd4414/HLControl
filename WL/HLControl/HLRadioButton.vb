@@ -34,14 +34,14 @@
                             End If
                         Next
                     End If
+                    RaiseEvent CheckedChanged(Me, New HLValueEventArgs(值, v))
                     值 = v
-                    RaiseEvent CheckedChanged()
                     Invalidate()
                 End If
             End Set
         End Property
 
-        Public Event CheckedChanged()
+        Public Event CheckedChanged(sender As HLRadioButton, e As HLValueEventArgs)
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             修正Dock(Me, True, False)

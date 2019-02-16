@@ -26,14 +26,14 @@
             End Get
             Set(v As Boolean)
                 If v <> 值 Then
+                    RaiseEvent CheckedChanged(Me, New HLValueEventArgs(值, v))
                     值 = v
-                    RaiseEvent CheckedChanged()
                     Invalidate()
                 End If
             End Set
         End Property
 
-        Public Event CheckedChanged()
+        Public Event CheckedChanged(sender As HLCheckBox, e As HLValueEventArgs)
 
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             修正Dock(Me, True, False)

@@ -35,7 +35,7 @@
             End If
             Invalidate()
             If 上一个值 <> 值 Then
-                RaiseEvent ValueChanged(上一个值, 值)
+                RaiseEvent ValueChanged(Me, New HLValueEventArgs(上一个值, 值))
                 上一个值 = 值
             End If
         End Sub
@@ -83,7 +83,7 @@
             End If
         End Sub
 
-        Public Event ValueChanged(LastValue As Integer, NewValue As Integer)
+        Public Event ValueChanged(sender As HLTrackBar, e As HLValueEventArgs)
 
         Public Property HighLightLabel As HLLabel
 

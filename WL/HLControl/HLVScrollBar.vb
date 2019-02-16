@@ -31,7 +31,7 @@
             End If
             Invalidate()
             If 上一个值 <> 值 Then
-                RaiseEvent ValueChanged(上一个值, 值)
+                RaiseEvent ValueChanged(Me, New HLValueEventArgs(上一个值, 值))
                 上一个值 = 值
             End If
         End Sub
@@ -91,7 +91,7 @@
             End Set
         End Property
 
-        Public Event ValueChanged(LastValue As Integer, NewValue As Integer)
+        Public Event ValueChanged(sender As HLVScrollBar, e As HLValueEventArgs)
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
             Dim y As Integer = e.Y, h As Integer = Width

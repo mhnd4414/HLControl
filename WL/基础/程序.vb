@@ -29,8 +29,7 @@
             ''' <returns></returns>
             Public Shared ReadOnly Property PID As UInteger
                 Get
-                    Static m As Integer = 进程.Id
-                    Return m
+                    Return 进程.Id
                 End Get
             End Property
 
@@ -51,8 +50,7 @@
             ''' <returns></returns>
             Public Shared ReadOnly Property 文件名() As String
                 Get
-                    Static m As String = 进程.ProcessName
-                    Return m
+                    Return 进程.ProcessName
                 End Get
             End Property
 

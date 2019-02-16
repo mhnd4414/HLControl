@@ -26,8 +26,9 @@
             End Get
             Set(v As Boolean)
                 If v <> 值 Then
-                    RaiseEvent CheckedChanged(Me, New HLValueEventArgs(值, v))
                     值 = v
+                    Dim old As Boolean = 值
+                    RaiseEvent CheckedChanged(Me, New HLValueEventArgs(值, v))
                     Invalidate()
                 End If
             End Set

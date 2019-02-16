@@ -14,6 +14,11 @@ Public Class Form1
             HlComboBox1.Items.Add(i.ToString + "cm")
             HlListBox1.Items.Add(随机.西文(5))
             HlListView1.Items.Add(New HLListViewItem(i.ToString + "  " + 随机.西文(随机.整数(0, 6)), 随机.当中一个("de_dust", "cs_" + 随机.西文(随机.整数(2, 16)), "cs_office"), 随机.整数(1, 32) & "/32", 随机.整数(29, 232).ToString))
+            Dim g As New HLGroup(i.ToString + "  " + 随机.西文(5))
+            For i2 As Integer = 1 To 15
+                g.Items.Add(New HLGroupItem(i2.ToString, 随机.当中一个(SystemIcons.Application, SystemIcons.Error, SystemIcons.Information, Nothing)))
+            Next
+            HlGroupList1.Groups.Add(g)
         Next
         HlListBox1.SelectedIndex = 0
         HlComboBox1.SelectedIndex = 0
@@ -53,7 +58,7 @@ Public Class Form1
         Refresh()
     End Sub
 
-    Private Sub HlTrackBar2_ValueChanged(LastValue As Integer, NewValue As Integer) Handles HlTrackBar2.ValueChanged
+    Private Sub HlTrackBar2_ValueChanged(sender As HLTrackBar, e As HLValueEventArgs) Handles HlTrackBar2.ValueChanged
         HlLabel7.Text = HlTrackBar2.Value.ToString
         With HlProgressBar2
             .Maximum = HlTrackBar2.Maximum

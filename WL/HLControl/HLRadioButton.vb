@@ -34,8 +34,9 @@
                             End If
                         Next
                     End If
-                    RaiseEvent CheckedChanged(Me, New HLValueEventArgs(值, v))
+                    Dim old As Integer = 值
                     值 = v
+                    RaiseEvent CheckedChanged(Me, New HLValueEventArgs(old, 值))
                     Invalidate()
                 End If
             End Set

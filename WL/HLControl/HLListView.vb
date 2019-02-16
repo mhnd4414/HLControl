@@ -166,9 +166,10 @@
                     v = -1
                 End If
                 If 选中 <> v Then
-                    RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(选中, v))
+                    Dim old As Integer = 选中
                     选中 = v
                     滚动条.Value = v
+                    RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(old, 选中))
                     Invalidate()
                 End If
             End Set

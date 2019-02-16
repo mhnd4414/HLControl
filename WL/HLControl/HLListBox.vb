@@ -46,8 +46,10 @@
                 h = Int(h / 行高) + 最高栏
                 Dim old As Integer = 选中
                 选中 = IIf(h < 物品.Count, h, -1)
-                RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(old, 选中))
-                Invalidate()
+                If old <> 选中 Then
+                    RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(old, 选中))
+                    Invalidate()
+                End If
             End If
         End Sub
 
@@ -66,9 +68,10 @@
                     v = -1
                 End If
                 If 选中 <> v Then
-                    RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(选中, v))
+                    Dim old As Integer = 选中
                     选中 = v
                     滚动条.Value = v
+                    RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(old, 选中))
                     Invalidate()
                 End If
             End Set
@@ -141,7 +144,7 @@
                 For i As Integer = 最高栏 To 最高栏 + shown
                     If 物品.Count <= i Then Exit For
                     If 选中 = i Then
-                        .FillRectangle(块黄笔刷, New Rectangle(0, y, Width, 行高))
+                        .FillRectangle(块黄笔刷, New Rectangle(0, y, Width - 边缘, 行高))
                     End If
                     绘制文本(g, 物品(i), Font, 边缘, y, 获取文本状态(Enabled))
                     y += 行高

@@ -199,14 +199,18 @@
     Public Class HLValueEventArgs
         Inherits EventArgs
 
-        Public Sub New(last As Object, [new] As Object)
-            LastValue = last
+        Public Sub New(old As Object, [new] As Object)
+            OldValue = old
             NewValue = [new]
         End Sub
 
-        Public Property LastValue As Object
+        Public Property OldValue As Object
 
         Public Property NewValue As Object
+
+        Public Overrides Function ToString() As String
+            Return "{old:" + OldValue.ToString + ", new:" + NewValue.ToString + "}"
+        End Function
 
     End Class
 

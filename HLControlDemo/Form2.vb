@@ -21,19 +21,31 @@ Public Class Form2
         Timer1.Enabled = True
     End Sub
 
-    Private Sub HlTrackBar6_ValueChanged(LastValue As Integer, NewValue As Integer) Handles HlTrackBar6.ValueChanged
-        HlTrackBar6.HighLightLabel.Text = "FPS:" & NewValue
-        Timer1.Interval = 1000 / NewValue
+    Private Sub HlTrackBar6_ValueChanged(sender As HLTrackBar, e As HLValueEventArgs) Handles HlTrackBar6.ValueChanged
+        HlTrackBar6.HighLightLabel.Text = "FPS:" & e.NewValue
+        Timer1.Interval = 1000 / e.NewValue
     End Sub
 
     Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         For Each i As Object In TabPage3.Controls
-            If i.GetType = GetType(HLListView) Then
-                i.Columns.add("ffwwwwwww")
+            Dim t As Type = i.GetType
+            If t = GetType(HLGroupList) Then
+                For n As Integer = 1 To 50
+                    Dim l As HLGroupList = i
+                    Dim g As New HLGroup(随机.繁体汉字)
+                    For p As Integer = 0 To 10
+                        g.Items.Add(New HLGroupItem(p.ToString + "__" + 随机.西文, 随机.当中一个(SystemIcons.Application, SystemIcons.Error, SystemIcons.Information, Nothing)))
+                    Next
+                    l.Groups.Add(g)
+                Next
+            Else
+                If t = GetType(HLListView) Then
+                    i.Columns.add("ffwwwwwww")
+                End If
+                For n As Integer = 1 To 500
+                    i.items.add(随机.西文(8))
+                Next
             End If
-            For n As Integer = 1 To 500
-                i.items.add(随机.西文(8))
-            Next
         Next
     End Sub
 

@@ -56,6 +56,7 @@ Partial Class Form1
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.HlListView1 = New WL.HLControl.HLListView()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.HlGroupList1 = New WL.HLControl.HLGroupList()
         Me.HlPanel2 = New WL.HLControl.HLPanel()
         Me.HlLabel10 = New WL.HLControl.HLLabel()
         Me.HlLabel11 = New WL.HLControl.HLLabel()
@@ -416,6 +417,7 @@ Partial Class Form1
         'TabPage3
         '
         Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(68, Byte), Integer))
+        Me.TabPage3.Controls.Add(Me.HlGroupList1)
         Me.TabPage3.Controls.Add(Me.HlPanel2)
         Me.TabPage3.Controls.Add(Me.HlProgressBar2)
         Me.TabPage3.Controls.Add(Me.HlLabel7)
@@ -428,6 +430,16 @@ Partial Class Form1
         Me.TabPage3.Size = New System.Drawing.Size(918, 361)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
+        '
+        'HlGroupList1
+        '
+        Me.HlGroupList1.Location = New System.Drawing.Point(283, 163)
+        Me.HlGroupList1.Name = "HlGroupList1"
+        Me.HlGroupList1.SelectedIndex = -1
+        Me.HlGroupList1.SelectedItem = Nothing
+        Me.HlGroupList1.Size = New System.Drawing.Size(256, 168)
+        Me.HlGroupList1.TabIndex = 12
+        Me.HlGroupList1.Text = "HlGroupList1"
         '
         'HlPanel2
         '
@@ -632,4 +644,5 @@ Partial Class Form1
     Friend WithEvents HlLab2 As HLLabel
     Friend WithEvents HlPanel2 As HLPanel
     Friend WithEvents HlButton4 As HLButton
+    Friend WithEvents HlGroupList1 As HLGroupList
 End Class

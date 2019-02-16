@@ -4,6 +4,8 @@
     Public Class HLForm
         Inherits Form
 
+        Public Shared ReadOnly SteamIcon As Icon = My.Resources.SteamLogo
+
         Private 关闭按钮区域 As Rectangle, 最小化按钮区域 As Rectangle
         Private LastX As Integer = -1, LastY As Integer = -1
 
@@ -107,7 +109,7 @@
                 If ShowIcon Then
                     Dim c As Icon
                     If ShowSteamIcon Then
-                        c = My.Resources.SteamLogo
+                        c = SteamIcon
                     Else
                         c = Icon
                     End If

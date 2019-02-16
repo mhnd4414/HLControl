@@ -22,8 +22,8 @@
                 .Left = 0
                 .Width = 滚动条大小
                 .Height = Height
-                AddHandler .ValueChanged, Sub(last As Integer, n As Integer)
-                                              滚动(文本框, True, n - last)
+                AddHandler .ValueChanged, Sub(sender As HLVScrollBar, e As HLValueEventArgs)
+                                              滚动(文本框, True, e.NewValue - e.OldValue)
                                           End Sub
             End With
             With 文本框

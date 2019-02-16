@@ -169,3 +169,16 @@ When the program starts , the real tabcontrol will move and resize to fit the he
 
 ![](https://s2.ax1x.com/2019/02/13/k06MEq.png)
 
+## HLGroupList
+Just like a listview but only supports groups. To add items, you have to write these codes. You must add at least one group, or nothing will show up.   
+就像是一个 LiewView ，但是只支持组。要在里面添加东西，你必须写这些代码。最少必须添加至少一个组才能显示东西。  
+![](https://s2.ax1x.com/2019/02/16/ksQmrD.png)
+
+If you want to edit it , you'd better use these functions.  
+如果要修改里面的内容，最好用这些函数。
+
+```vb
+HlGroupList1.GetGroup("aaa").Items.Add(New HLGroupItem("what?"))
+HlGroupList1.GetGroup("aaa").GetItem("2").Ico = Nothing
+```
+

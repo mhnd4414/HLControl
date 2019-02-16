@@ -245,19 +245,19 @@ Partial Class Form2
         Me.HlhScrollBar1 = New WL.HLControl.HLHScrollBar()
         Me.HlProgressBar1 = New WL.HLControl.HLProgressBar()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.HlListView5 = New WL.HLControl.HLListView()
-        Me.HlListView4 = New WL.HLControl.HLListView()
         Me.HlListView3 = New WL.HLControl.HLListView()
         Me.HlListView2 = New WL.HLControl.HLListView()
         Me.HlListView1 = New WL.HLControl.HLListView()
-        Me.HlListBox5 = New WL.HLControl.HLListBox()
-        Me.HlListBox4 = New WL.HLControl.HLListBox()
         Me.HlListBox3 = New WL.HLControl.HLListBox()
         Me.HlListBox2 = New WL.HLControl.HLListBox()
         Me.HlListBox1 = New WL.HLControl.HLListBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.HlTrackBar6 = New WL.HLControl.HLTrackBar()
         Me.HlLabel196 = New WL.HLControl.HLLabel()
+        Me.HlGroupList1 = New WL.HLControl.HLGroupList()
+        Me.HlGroupList2 = New WL.HLControl.HLGroupList()
+        Me.HlGroupList3 = New WL.HLControl.HLGroupList()
+        Me.HlGroupList4 = New WL.HLControl.HLGroupList()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -2266,13 +2266,13 @@ Partial Class Form2
         'TabPage3
         '
         Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(76, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(68, Byte), Integer))
-        Me.TabPage3.Controls.Add(Me.HlListView5)
-        Me.TabPage3.Controls.Add(Me.HlListView4)
+        Me.TabPage3.Controls.Add(Me.HlGroupList4)
+        Me.TabPage3.Controls.Add(Me.HlGroupList3)
+        Me.TabPage3.Controls.Add(Me.HlGroupList2)
+        Me.TabPage3.Controls.Add(Me.HlGroupList1)
         Me.TabPage3.Controls.Add(Me.HlListView3)
         Me.TabPage3.Controls.Add(Me.HlListView2)
         Me.TabPage3.Controls.Add(Me.HlListView1)
-        Me.TabPage3.Controls.Add(Me.HlListBox5)
-        Me.TabPage3.Controls.Add(Me.HlListBox4)
         Me.TabPage3.Controls.Add(Me.HlListBox3)
         Me.TabPage3.Controls.Add(Me.HlListBox2)
         Me.TabPage3.Controls.Add(Me.HlListBox1)
@@ -2282,26 +2282,6 @@ Partial Class Form2
         Me.TabPage3.Size = New System.Drawing.Size(1095, 508)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "List"
-        '
-        'HlListView5
-        '
-        Me.HlListView5.Location = New System.Drawing.Point(887, 232)
-        Me.HlListView5.Name = "HlListView5"
-        Me.HlListView5.SelectedIndex = -1
-        Me.HlListView5.SelectedItem = Nothing
-        Me.HlListView5.Size = New System.Drawing.Size(186, 247)
-        Me.HlListView5.TabIndex = 9
-        Me.HlListView5.Text = "HlListView5"
-        '
-        'HlListView4
-        '
-        Me.HlListView4.Location = New System.Drawing.Point(674, 232)
-        Me.HlListView4.Name = "HlListView4"
-        Me.HlListView4.SelectedIndex = -1
-        Me.HlListView4.SelectedItem = Nothing
-        Me.HlListView4.Size = New System.Drawing.Size(212, 247)
-        Me.HlListView4.TabIndex = 8
-        Me.HlListView4.Text = "HlListView4"
         '
         'HlListView3
         '
@@ -2332,28 +2312,6 @@ Partial Class Form2
         Me.HlListView1.Size = New System.Drawing.Size(212, 247)
         Me.HlListView1.TabIndex = 5
         Me.HlListView1.Text = "HlListView1"
-        '
-        'HlListBox5
-        '
-        Me.HlListBox5.Location = New System.Drawing.Point(876, 6)
-        Me.HlListBox5.Name = "HlListBox5"
-        Me.HlListBox5.SelectedIndex = -1
-        Me.HlListBox5.SelectedItem = ""
-        Me.HlListBox5.ShowScrollBar = False
-        Me.HlListBox5.Size = New System.Drawing.Size(213, 220)
-        Me.HlListBox5.TabIndex = 4
-        Me.HlListBox5.Text = "HlListBox5"
-        '
-        'HlListBox4
-        '
-        Me.HlListBox4.Location = New System.Drawing.Point(674, 6)
-        Me.HlListBox4.Name = "HlListBox4"
-        Me.HlListBox4.SelectedIndex = -1
-        Me.HlListBox4.SelectedItem = ""
-        Me.HlListBox4.ShowScrollBar = False
-        Me.HlListBox4.Size = New System.Drawing.Size(185, 220)
-        Me.HlListBox4.TabIndex = 3
-        Me.HlListBox4.Text = "HlListBox4"
         '
         'HlListBox3
         '
@@ -2411,6 +2369,46 @@ Partial Class Form2
         Me.HlLabel196.Size = New System.Drawing.Size(56, 23)
         Me.HlLabel196.TabIndex = 3
         Me.HlLabel196.Text = "FPS:10"
+        '
+        'HlGroupList1
+        '
+        Me.HlGroupList1.Location = New System.Drawing.Point(671, 11)
+        Me.HlGroupList1.Name = "HlGroupList1"
+        Me.HlGroupList1.SelectedIndex = -1
+        Me.HlGroupList1.SelectedItem = Nothing
+        Me.HlGroupList1.Size = New System.Drawing.Size(181, 221)
+        Me.HlGroupList1.TabIndex = 8
+        Me.HlGroupList1.Text = "HlGroupList1"
+        '
+        'HlGroupList2
+        '
+        Me.HlGroupList2.Location = New System.Drawing.Point(887, 11)
+        Me.HlGroupList2.Name = "HlGroupList2"
+        Me.HlGroupList2.SelectedIndex = -1
+        Me.HlGroupList2.SelectedItem = Nothing
+        Me.HlGroupList2.Size = New System.Drawing.Size(181, 221)
+        Me.HlGroupList2.TabIndex = 9
+        Me.HlGroupList2.Text = "HlGroupList2"
+        '
+        'HlGroupList3
+        '
+        Me.HlGroupList3.Location = New System.Drawing.Point(671, 247)
+        Me.HlGroupList3.Name = "HlGroupList3"
+        Me.HlGroupList3.SelectedIndex = -1
+        Me.HlGroupList3.SelectedItem = Nothing
+        Me.HlGroupList3.Size = New System.Drawing.Size(181, 221)
+        Me.HlGroupList3.TabIndex = 10
+        Me.HlGroupList3.Text = "HlGroupList3"
+        '
+        'HlGroupList4
+        '
+        Me.HlGroupList4.Location = New System.Drawing.Point(872, 247)
+        Me.HlGroupList4.Name = "HlGroupList4"
+        Me.HlGroupList4.SelectedIndex = -1
+        Me.HlGroupList4.SelectedItem = Nothing
+        Me.HlGroupList4.Size = New System.Drawing.Size(181, 221)
+        Me.HlGroupList4.TabIndex = 11
+        Me.HlGroupList4.Text = "HlGroupList4"
         '
         'Form2
         '
@@ -2657,12 +2655,12 @@ Partial Class Form2
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents HlListBox1 As HLListBox
     Friend WithEvents HlListView1 As HLListView
-    Friend WithEvents HlListBox5 As HLListBox
-    Friend WithEvents HlListBox4 As HLListBox
     Friend WithEvents HlListBox3 As HLListBox
     Friend WithEvents HlListBox2 As HLListBox
-    Friend WithEvents HlListView5 As HLListView
-    Friend WithEvents HlListView4 As HLListView
     Friend WithEvents HlListView3 As HLListView
     Friend WithEvents HlListView2 As HLListView
+    Friend WithEvents HlGroupList4 As HLGroupList
+    Friend WithEvents HlGroupList3 As HLGroupList
+    Friend WithEvents HlGroupList2 As HLGroupList
+    Friend WithEvents HlGroupList1 As HLGroupList
 End Class

@@ -529,6 +529,7 @@ Partial Class Form1
         '
         Me.HlTrackBar1.HighLightLabel = Me.HlLabel6
         Me.HlTrackBar1.Location = New System.Drawing.Point(149, 23)
+        Me.HlTrackBar1.Minimum = -50
         Me.HlTrackBar1.Name = "HlTrackBar1"
         Me.HlTrackBar1.Size = New System.Drawing.Size(733, 30)
         Me.HlTrackBar1.TabIndex = 0

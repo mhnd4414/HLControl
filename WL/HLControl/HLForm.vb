@@ -55,7 +55,11 @@
 
         Private Sub _MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
             If 关闭按钮区域.Contains(e.Location) Then
-                Close()
+                If Me.IsMdiChild Then
+                    Hide()
+                Else
+                    Close()
+                End If
             ElseIf 最小化按钮区域.Contains(e.Location) Then
                 WindowState = FormWindowState.Minimized
             End If

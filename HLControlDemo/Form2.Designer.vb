@@ -245,6 +245,10 @@ Partial Class Form2
         Me.HlhScrollBar1 = New WL.HLControl.HLHScrollBar()
         Me.HlProgressBar1 = New WL.HLControl.HLProgressBar()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.HlGroupList4 = New WL.HLControl.HLGroupList()
+        Me.HlGroupList3 = New WL.HLControl.HLGroupList()
+        Me.HlGroupList2 = New WL.HLControl.HLGroupList()
+        Me.HlGroupList1 = New WL.HLControl.HLGroupList()
         Me.HlListView3 = New WL.HLControl.HLListView()
         Me.HlListView2 = New WL.HLControl.HLListView()
         Me.HlListView1 = New WL.HLControl.HLListView()
@@ -254,10 +258,6 @@ Partial Class Form2
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.HlTrackBar6 = New WL.HLControl.HLTrackBar()
         Me.HlLabel196 = New WL.HLControl.HLLabel()
-        Me.HlGroupList1 = New WL.HLControl.HLGroupList()
-        Me.HlGroupList2 = New WL.HLControl.HLGroupList()
-        Me.HlGroupList3 = New WL.HLControl.HLGroupList()
-        Me.HlGroupList4 = New WL.HLControl.HLGroupList()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -2283,6 +2283,50 @@ Partial Class Form2
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "List"
         '
+        'HlGroupList4
+        '
+        Me.HlGroupList4.Location = New System.Drawing.Point(872, 247)
+        Me.HlGroupList4.Name = "HlGroupList4"
+        Me.HlGroupList4.SelectedIndex = -1
+        Me.HlGroupList4.SelectedItem = Nothing
+        Me.HlGroupList4.ShowScrollBar = False
+        Me.HlGroupList4.Size = New System.Drawing.Size(181, 221)
+        Me.HlGroupList4.TabIndex = 11
+        Me.HlGroupList4.Text = "HlGroupList4"
+        '
+        'HlGroupList3
+        '
+        Me.HlGroupList3.Location = New System.Drawing.Point(671, 247)
+        Me.HlGroupList3.Name = "HlGroupList3"
+        Me.HlGroupList3.SelectedIndex = -1
+        Me.HlGroupList3.SelectedItem = Nothing
+        Me.HlGroupList3.ShowScrollBar = False
+        Me.HlGroupList3.Size = New System.Drawing.Size(181, 221)
+        Me.HlGroupList3.TabIndex = 10
+        Me.HlGroupList3.Text = "HlGroupList3"
+        '
+        'HlGroupList2
+        '
+        Me.HlGroupList2.Location = New System.Drawing.Point(887, 11)
+        Me.HlGroupList2.Name = "HlGroupList2"
+        Me.HlGroupList2.SelectedIndex = -1
+        Me.HlGroupList2.SelectedItem = Nothing
+        Me.HlGroupList2.ShowScrollBar = False
+        Me.HlGroupList2.Size = New System.Drawing.Size(181, 221)
+        Me.HlGroupList2.TabIndex = 9
+        Me.HlGroupList2.Text = "HlGroupList2"
+        '
+        'HlGroupList1
+        '
+        Me.HlGroupList1.Location = New System.Drawing.Point(671, 11)
+        Me.HlGroupList1.Name = "HlGroupList1"
+        Me.HlGroupList1.SelectedIndex = -1
+        Me.HlGroupList1.SelectedItem = Nothing
+        Me.HlGroupList1.ShowScrollBar = False
+        Me.HlGroupList1.Size = New System.Drawing.Size(181, 221)
+        Me.HlGroupList1.TabIndex = 8
+        Me.HlGroupList1.Text = "HlGroupList1"
+        '
         'HlListView3
         '
         Me.HlListView3.Location = New System.Drawing.Point(444, 232)
@@ -2356,10 +2400,10 @@ Partial Class Form2
         Me.HlTrackBar6.Location = New System.Drawing.Point(148, 629)
         Me.HlTrackBar6.Minimum = 1
         Me.HlTrackBar6.Name = "HlTrackBar6"
-        Me.HlTrackBar6.Size = New System.Drawing.Size(999, 30)
+        Me.HlTrackBar6.Size = New System.Drawing.Size(978, 30)
         Me.HlTrackBar6.TabIndex = 2
         Me.HlTrackBar6.Text = "HlTrackBar6"
-        Me.HlTrackBar6.Value = 10
+        Me.HlTrackBar6.Value = 30
         '
         'HlLabel196
         '
@@ -2368,47 +2412,7 @@ Partial Class Form2
         Me.HlLabel196.Name = "HlLabel196"
         Me.HlLabel196.Size = New System.Drawing.Size(56, 23)
         Me.HlLabel196.TabIndex = 3
-        Me.HlLabel196.Text = "FPS:10"
-        '
-        'HlGroupList1
-        '
-        Me.HlGroupList1.Location = New System.Drawing.Point(671, 11)
-        Me.HlGroupList1.Name = "HlGroupList1"
-        Me.HlGroupList1.SelectedIndex = -1
-        Me.HlGroupList1.SelectedItem = Nothing
-        Me.HlGroupList1.Size = New System.Drawing.Size(181, 221)
-        Me.HlGroupList1.TabIndex = 8
-        Me.HlGroupList1.Text = "HlGroupList1"
-        '
-        'HlGroupList2
-        '
-        Me.HlGroupList2.Location = New System.Drawing.Point(887, 11)
-        Me.HlGroupList2.Name = "HlGroupList2"
-        Me.HlGroupList2.SelectedIndex = -1
-        Me.HlGroupList2.SelectedItem = Nothing
-        Me.HlGroupList2.Size = New System.Drawing.Size(181, 221)
-        Me.HlGroupList2.TabIndex = 9
-        Me.HlGroupList2.Text = "HlGroupList2"
-        '
-        'HlGroupList3
-        '
-        Me.HlGroupList3.Location = New System.Drawing.Point(671, 247)
-        Me.HlGroupList3.Name = "HlGroupList3"
-        Me.HlGroupList3.SelectedIndex = -1
-        Me.HlGroupList3.SelectedItem = Nothing
-        Me.HlGroupList3.Size = New System.Drawing.Size(181, 221)
-        Me.HlGroupList3.TabIndex = 10
-        Me.HlGroupList3.Text = "HlGroupList3"
-        '
-        'HlGroupList4
-        '
-        Me.HlGroupList4.Location = New System.Drawing.Point(872, 247)
-        Me.HlGroupList4.Name = "HlGroupList4"
-        Me.HlGroupList4.SelectedIndex = -1
-        Me.HlGroupList4.SelectedItem = Nothing
-        Me.HlGroupList4.Size = New System.Drawing.Size(181, 221)
-        Me.HlGroupList4.TabIndex = 11
-        Me.HlGroupList4.Text = "HlGroupList4"
+        Me.HlLabel196.Text = "FPS:30"
         '
         'Form2
         '

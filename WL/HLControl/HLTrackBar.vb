@@ -95,8 +95,8 @@
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
             Dim x As Integer = e.X
-            If x > 0 AndAlso x <= Width Then
-                Value = (x / Width) * (Maximum - Minimum)
+            If x >= 0 AndAlso x <= Width Then
+                Value = (x / Width) * (Maximum - Minimum) + Minimum
             End If
         End Sub
 

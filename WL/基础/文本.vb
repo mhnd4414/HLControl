@@ -13,7 +13,11 @@
                 文本 = ""
             Else
                 If 文本.Length > 0 Then
-                    If 文本.IsNormalized = False Then 文本 = 文本.Normalize
+                    Try
+                        If 文本.IsNormalized = False Then 文本 = 文本.Normalize
+                    Catch ex As Exception
+                        出错(ex)
+                    End Try
                     If 包含(文本, vbCr, vbLf) Then 文本 = 替换(文本, vbCrLf, vbLf, vbCr, vbLf, vbLf, vbCrLf)
                     If 包含(文本, vbTab) Then 文本 = 替换(文本, vbTab, Space(4))
                     Dim i As Integer

@@ -60,6 +60,8 @@
                 Referer = ""
                 write = New List(Of Byte)
                 超时 = 8
+                重试次数 = 0
+                重试间隔时间 = 3
                 err = ""
             End Sub
 
@@ -187,42 +189,56 @@
             End Sub
 
             ''' <summary>
+            ''' 如果请求失败，重试的次数，默认不重试
+            ''' </summary>
+            Public Property 重试次数 As UInteger
+
+            ''' <summary>
+            ''' 重试请求的时候的时间间隔，单位为秒，默认是3秒
+            ''' </summary>
+            Public Property 重试间隔时间 As UInteger
+
+            ''' <summary>
             ''' 发送请求，获取回应并读取为字节数组，如果出错会返回nothing
             ''' </summary>
             Public Function 获取回应为字节数组() As Byte()
                 Dim b() As Byte = Nothing, e As String = ""
-                Try
-                    Dim h As HttpWebRequest = WebRequest.Create(链接)
-                    With h
-                        .Timeout = 超时 * 1000
-                        .ReadWriteTimeout = .Timeout
-                        .ContinueTimeout = .Timeout
-                        .Method = 方法
-                        If Accept.Length > 0 Then .Accept = Accept
-                        If Content_Type.Length > 0 Then .ContentType = Content_Type
-                        For Each i As String In headers.AllKeys
-                            .Headers.Remove(i)
-                            .Headers.Add(i, headers.Get(i))
-                        Next
-                        If Referer.Length > 0 Then .Referer = Referer
-                        If UA.Length > 0 Then .UserAgent = UA
-                        If write.Count > 0 Then
-                            Dim w() As Byte = write.ToArray
-                            .GetRequestStream.Write(w, 0, w.Length)
-                            .ContentLength = w.Length
-                        Else
-                            .ContentLength = 0
-                        End If
-                        Dim s As Stream = .GetResponse.GetResponseStream()
-                        b = 读至末尾(s)
-                        s.Close()
-                    End With
-                Catch ex As Exception
-                    出错(ex)
-                    err = ex.Message
-                    Return Nothing
-                End Try
-                Return b
+                Dim a As Integer = 重试次数
+                For retry As Integer = 0 To a
+                    Try
+                        Dim h As HttpWebRequest = WebRequest.Create(链接)
+                        With h
+                            .Timeout = 超时 * 1000
+                            .ReadWriteTimeout = .Timeout
+                            .ContinueTimeout = .Timeout
+                            .Method = 方法
+                            If Accept.Length > 0 Then .Accept = Accept
+                            If Content_Type.Length > 0 Then .ContentType = Content_Type
+                            For Each i As String In headers.AllKeys
+                                .Headers.Remove(i)
+                                .Headers.Add(i, headers.Get(i))
+                            Next
+                            If Referer.Length > 0 Then .Referer = Referer
+                            If UA.Length > 0 Then .UserAgent = UA
+                            If write.Count > 0 Then
+                                Dim w() As Byte = write.ToArray
+                                .GetRequestStream.Write(w, 0, w.Length)
+                                .ContentLength = w.Length
+                            Else
+                                .ContentLength = 0
+                            End If
+                            Dim s As Stream = .GetResponse.GetResponseStream()
+                            b = 读至末尾(s)
+                            s.Close()
+                            Return b
+                        End With
+                        Thread.Sleep(重试间隔时间 * 1000)
+                    Catch ex As Exception
+                        出错(ex, IIf(retry > 0, "第" & retry & "次重试。", "首次失败。"))
+                        err = ex.Message
+                    End Try
+                Next
+                Return Nothing
             End Function
 
             ''' <summary>

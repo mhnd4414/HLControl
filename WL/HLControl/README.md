@@ -134,7 +134,7 @@ Only one scrollbar in it, and always word wrap. And the selected color is still 
 ## Panel
 Just a half life styled panel. AutoScroll is my own autoscroll, and only supports vertical scroll. You can use ResetScroll() and PerformScroll(value As Integer) to scroll it in code.  
 只是一个半条命风格化的 Panel。AutoScroll 是我自己的做的版本，只支持垂直滚动，你可以在代码里使用 ResetScroll() 和 PerformScroll(value As Integer) 来滚动它。   
-![](https://s2.ax1x.com/2019/02/13/k0won0.png)  
+![](https://s2.ax1x.com/2019/02/19/kcomSU.png)  
 
 ## ListView  
 Well, it can't support groups.But support Columns and Items. And you can't add them in Designer, you need to do it in code like this.  

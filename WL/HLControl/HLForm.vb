@@ -12,7 +12,6 @@
         Public Sub New()
             DoubleBuffered = True
             _SetDefault()
-            Padding = New Padding(3 * DPI)
             Font = New Font("Microsoft Yahei", 12)
             ShowSteamIcon = True
         End Sub
@@ -25,6 +24,8 @@
 
         Private Sub _SetDefault()
             BackColor = 基础绿
+            Dim w As Integer = 10 * DPI
+            Padding = New Padding(w, w * 5, w, w)
             MinimumSize = New Size(200, 80)
             AutoScaleMode = AutoScaleMode.None
             FormBorderStyle = FormBorderStyle.None

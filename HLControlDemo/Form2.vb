@@ -11,13 +11,14 @@ Public Class Form2
         For Each o In TabPage2.Controls
             o.value = 随机.整数(100, 0)
         Next
-        For Each o In TabPage3.Controls
-            o.SelectedIndex = 随机.整数(490, 0)
+        For Each o In HlPanel1.Controls
+            If o.GetType <> GetType(HLVScrollBar) Then o.SelectedIndex = 随机.整数(490, 0)
         Next
         l += 1
         l2 += 1
         If l >= TabPage1.Controls.Count Then l = 0
         If l2 >= TabPage2.Controls.Count Then l2 = 0
+        HlPanel1.PerformScroll(随机.整数(30, -30))
         Timer1.Enabled = True
     End Sub
 
@@ -27,26 +28,29 @@ Public Class Form2
     End Sub
 
     Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        For Each i As Object In TabPage3.Controls
+        For Each i As Object In HlPanel1.Controls
             Dim t As Type = i.GetType
-            If t = GetType(HLGroupList) Then
-                For n As Integer = 1 To 50
-                    Dim l As HLGroupList = i
-                    Dim g As New HLGroup(随机.繁体汉字)
-                    For p As Integer = 0 To 10
-                        g.Items.Add(New HLGroupItem(p.ToString + "__" + 随机.西文, 随机.当中一个(SystemIcons.Application, SystemIcons.Error, SystemIcons.Information, Nothing)))
+            If t <> GetType(HLVScrollBar) Then
+                If t = GetType(HLGroupList) Then
+                    For n As Integer = 1 To 50
+                        Dim l As HLGroupList = i
+                        Dim g As New HLGroup(随机.繁体汉字)
+                        For p As Integer = 0 To 10
+                            g.Items.Add(New HLGroupItem(p.ToString + "__" + 随机.西文, 随机.当中一个(SystemIcons.Application, SystemIcons.Error, SystemIcons.Information, Nothing)))
+                        Next
+                        l.Groups.Add(g)
                     Next
-                    l.Groups.Add(g)
-                Next
-            Else
-                If t = GetType(HLListView) Then
-                    i.Columns.add("ffwwwwwww")
+                Else
+                    If t = GetType(HLListView) Then
+                        i.Columns.add("ffwwwwwww")
+                    End If
+                    For n As Integer = 1 To 500
+                        i.items.add(随机.西文(8))
+                    Next
                 End If
-                For n As Integer = 1 To 500
-                    i.items.add(随机.西文(8))
-                Next
             End If
         Next
+
     End Sub
 
 End Class

@@ -145,6 +145,25 @@ Namespace 基础
             End Function
 
             ''' <summary>
+            ''' 把Bitmap类读取成GIF图片
+            ''' </summary>
+            Public Shared Function 读取Bitmap(图片 As Bitmap) As GIF图片
+                If 为空(图片) Then Return Nothing
+                Return New GIF图片(图片)
+            End Function
+
+            ''' <summary>
+            ''' 针对图片进行批量处理
+            ''' </summary>
+            Public Sub 批量处理(内容 As Func(Of Bitmap, Bitmap))
+                Dim g As New List(Of Bitmap)
+                For Each i As Bitmap In 帧
+                    g.Add(内容(i))
+                Next
+                帧 = g
+            End Sub
+
+            ''' <summary>
             ''' 生成空白的GIF
             ''' </summary>
             Public Shared Function 生成空GIF(宽 As Integer, 高 As Integer) As GIF图片
@@ -154,7 +173,7 @@ Namespace 基础
 
             Private Function BitmapToFrame(b As Bitmap) As BitmapFrame
                 Dim m As New MemoryStream
-                b.Save(m, b.RawFormat)
+                b.Save(m, ImageFormat.Png)
                 Return BitmapFrame.Create(m)
             End Function
 

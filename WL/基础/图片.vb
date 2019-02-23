@@ -96,7 +96,7 @@ Namespace 基础
         End Function
 
         ''' <summary>
-        ''' GIF动态图片处理类
+        ''' GIF动态图片处理类，一个大缺点，保存出来的GIF是无压缩的，文件比较大
         ''' </summary>
         Public Class GIF图片
 
@@ -107,10 +107,9 @@ Namespace 基础
                     Dim c As Integer = b.GetFrameCount(fd) - 1
                     For i As Integer = 0 To c
                         b.SelectActiveFrame(fd, i)
-                        Dim m As String = 临时文件名(本程序.路径, ".png")
+                        Dim m As New MemoryStream
                         b.Save(m, ImageFormat.Png)
-                        Dim p As Bitmap = 读取图片为文件(m)
-                        删除文件(m)
+                        Dim p As Bitmap = Bitmap.FromStream(m)
                         If 非空(p) Then 帧.Add(p)
                     Next
                 Catch ex As Exception

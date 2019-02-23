@@ -223,5 +223,19 @@
             Return 分割(路径标准化(路径), "\")
         End Function
 
+        ''' <summary>
+        ''' 生成临时文件名，会判断文件是否已经存在，如果填写格式后缀应该带点
+        ''' </summary>
+        Public Function 临时文件名(路径 As String, Optional 后缀 As String = "") As String
+            Dim m As String = ""
+            路径 = 路径标准化(路径)
+            Do While True
+                m = 路径 + 随机.西文(5) + 后缀
+                If 文件存在(m) = False Then Exit Do
+            Loop
+            Return m
+        End Function
+
     End Module
+
 End Namespace

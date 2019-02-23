@@ -228,7 +228,7 @@
                                 .ContentLength = 0
                             End If
                             Dim s As Stream = .GetResponse.GetResponseStream()
-                            b = 读至末尾(s)
+                            b = 读取完整流(s)
                             s.Close()
                             Return b
                         End With

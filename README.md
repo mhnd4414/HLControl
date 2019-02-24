@@ -1,6 +1,6 @@
 我自己写VB用的类库  
 编写、编译：Visual Studio 2017  
-如果你要使用的话，非商业请遵守 [GPL-3.0](https://github.com/gordonwalkedby/Walkedbys_Library/blob/master/LICENSE)，商业的话请先联系我。  
+如果你要使用或干啥的话，非商业请遵守 [GPL-3.0](https://github.com/gordonwalkedby/Walkedbys_Library/blob/master/LICENSE)，商业的话请先联系我。  
 如果你在寻找半条命（老Steam）风格控件库，请[点我](https://github.com/gordonwalkedby/Walkedbys_Library/blob/master/WL/HLControl/README.md)。
 
 ----

@@ -39,6 +39,9 @@
         ''' </summary>
         Public NotInheritable Class 随机
 
+            Protected Sub New()
+            End Sub
+
             ''' <summary>
             ''' 随机获得一个0到0.9999之间的小数
             ''' </summary>

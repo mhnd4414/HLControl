@@ -36,6 +36,7 @@
                                              MyBase.OnTextChanged(Nothing)
                                          End Sub
                 AddHandler .KeyDown, Sub(sender As Object, e As KeyEventArgs)
+                                         MyBase.OnKeyDown(e)
                                          If e.Control Then
                                              Select Case e.KeyCode
                                                  Case Keys.A
@@ -44,16 +45,89 @@
                                          End If
                                          FixScrollPos()
                                      End Sub
-                AddHandler .MouseDown, Sub()
+                AddHandler .MouseDown, Sub(sender As Object, e As MouseEventArgs)
+                                           MyBase.OnMouseDown(e)
                                            If 非空(HighLightLabel) Then HighLightLabel.HighLight = True
                                            FixScrollPos()
                                        End Sub
                 AddHandler .MouseWheel, Sub(sender As Object, e As MouseEventArgs)
+                                            MyBase.OnMouseWheel(e)
                                             If 竖条.Visible Then
                                                 竖条.PerformMouseWheel(sender, e)
                                             End If
                                         End Sub
-
+                AddHandler .DragDrop, Sub(sender As Object, e As EventArgs)
+                                          MyBase.OnDragDrop(e)
+                                      End Sub
+                AddHandler .DragEnter, Sub(sender As Object, e As EventArgs)
+                                           MyBase.OnDragEnter(e)
+                                       End Sub
+                AddHandler .DragOver, Sub(sender As Object, e As EventArgs)
+                                          MyBase.OnDragOver(e)
+                                      End Sub
+                AddHandler .DragLeave, Sub(sender As Object, e As EventArgs)
+                                           MyBase.OnDragLeave(e)
+                                       End Sub
+                AddHandler .GiveFeedback, Sub(sender As Object, e As EventArgs)
+                                              MyBase.OnGiveFeedback(e)
+                                          End Sub
+                AddHandler .HandleCreated, Sub(sender As Object, e As EventArgs)
+                                               MyBase.OnHandleCreated(e)
+                                           End Sub
+                AddHandler .HandleDestroyed, Sub(sender As Object, e As EventArgs)
+                                                 MyBase.OnHandleDestroyed(e)
+                                             End Sub
+                AddHandler .DoubleClick, Sub(sender As Object, e As EventArgs)
+                                             MyBase.OnDoubleClick(e)
+                                         End Sub
+                AddHandler .Enter, Sub(sender As Object, e As EventArgs)
+                                       MyBase.OnEnter(e)
+                                   End Sub
+                AddHandler .GotFocus, Sub(sender As Object, e As EventArgs)
+                                          MyBase.OnGotFocus(e)
+                                      End Sub
+                AddHandler .KeyPress, Sub(sender As Object, e As EventArgs)
+                                          MyBase.OnKeyPress(e)
+                                      End Sub
+                AddHandler .KeyUp, Sub(sender As Object, e As EventArgs)
+                                       MyBase.OnKeyUp(e)
+                                   End Sub
+                AddHandler .Leave, Sub(sender As Object, e As EventArgs)
+                                       MyBase.OnLeave(e)
+                                   End Sub
+                AddHandler .LostFocus, Sub(sender As Object, e As EventArgs)
+                                           MyBase.OnLostFocus(e)
+                                       End Sub
+                AddHandler .MouseClick, Sub(sender As Object, e As EventArgs)
+                                            MyBase.OnMouseClick(e)
+                                        End Sub
+                AddHandler .MouseDoubleClick, Sub(sender As Object, e As EventArgs)
+                                                  MyBase.OnMouseDoubleClick(e)
+                                              End Sub
+                AddHandler .MouseCaptureChanged, Sub(sender As Object, e As EventArgs)
+                                                     MyBase.OnMouseCaptureChanged(e)
+                                                 End Sub
+                AddHandler .MouseEnter, Sub(sender As Object, e As EventArgs)
+                                            MyBase.OnMouseEnter(e)
+                                        End Sub
+                AddHandler .MouseLeave, Sub(sender As Object, e As EventArgs)
+                                            MyBase.OnMouseLeave(e)
+                                        End Sub
+                AddHandler .MouseHover, Sub(sender As Object, e As EventArgs)
+                                            MyBase.OnMouseHover(e)
+                                        End Sub
+                AddHandler .MouseMove, Sub(sender As Object, e As EventArgs)
+                                           MyBase.OnMouseMove(e)
+                                       End Sub
+                AddHandler .MouseUp, Sub(sender As Object, e As EventArgs)
+                                         MyBase.OnMouseUp(e)
+                                     End Sub
+                AddHandler .Move, Sub(sender As Object, e As EventArgs)
+                                      MyBase.OnMove(e)
+                                  End Sub
+                AddHandler .PreviewKeyDown, Sub(sender As Object, e As EventArgs)
+                                                MyBase.OnPreviewKeyDown(e)
+                                            End Sub
             End With
         End Sub
 

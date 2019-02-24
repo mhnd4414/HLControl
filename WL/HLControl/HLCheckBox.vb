@@ -2,17 +2,13 @@
 
     <DefaultEvent("CheckedChanged")>
     Public Class HLCheckBox
-        Inherits Control
+        Inherits HLControlBase
 
         Private 值 As Boolean, 行高 As Integer
 
         Public Sub New()
             DoubleBuffered = True
             值 = False
-        End Sub
-
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.FontChanged, Me.EnabledChanged
-            Invalidate()
         End Sub
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown

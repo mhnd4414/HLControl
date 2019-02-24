@@ -1,7 +1,7 @@
 ﻿Namespace HLControl
     <DefaultEvent("TextChanged")>
     Public Class HLTextBox
-        Inherits Control
+        Inherits HLControlBase
 
         Private 文本框 As TextBox, 滚动条 As Boolean, 竖条 As HLVScrollBar
         Private 边缘 As Single, 滚动条大小 As Integer
@@ -52,7 +52,7 @@
                                        End Sub
                 AddHandler .MouseWheel, Sub(sender As Object, e As MouseEventArgs)
                                             MyBase.OnMouseWheel(e)
-                                            If 竖条.Visible Then
+                                            If Multiline Then
                                                 竖条.PerformMouseWheel(sender, e)
                                             End If
                                         End Sub
@@ -161,10 +161,6 @@
                 .ScrollBars = ScrollBars.None
                 .WordWrap = True
             End With
-        End Sub
-
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.FontChanged, Me.EnabledChanged, MyBase.TextChanged
-            Invalidate()
         End Sub
 
         Public Property HighLightLabel As HLLabel

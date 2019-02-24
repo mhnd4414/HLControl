@@ -3,7 +3,7 @@
 Namespace HLControl
 
     Public Class HLTabsHeader
-        Inherits Control
+        Inherits HLControlBase
 
         Private 开始 As Boolean, 边缘 As Integer, 标签宽 As UShort, tabs As TabControl, 计时器 As 计时器
 
@@ -16,10 +16,6 @@ Namespace HLControl
             计时器 = New 计时器(10, AddressOf FixTabs)
             计时器.启用 = False
             计时器.工作次数 = 4
-        End Sub
-
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
-            Invalidate()
         End Sub
 
         Public Property TabHeaderWidth As UShort
@@ -45,7 +41,9 @@ Namespace HLControl
                     tabs = v
                     If Not IsNothing(v) Then
                         With tabs
-                            AddHandler .SelectedIndexChanged, AddressOf _NeedRePaint
+                            AddHandler .SelectedIndexChanged, Sub()
+                                                                  Invalidate()
+                                                              End Sub
                         End With
                     End If
                 End If

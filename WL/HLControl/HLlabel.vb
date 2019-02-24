@@ -1,7 +1,7 @@
 ﻿Namespace HLControl
 
     Public Class HLLabel
-        Inherits Control
+        Inherits HLControlBase
 
         Private 高亮 As Boolean, 黯淡 As Boolean, 文本 As String
 

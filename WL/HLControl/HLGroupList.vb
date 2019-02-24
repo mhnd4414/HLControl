@@ -2,7 +2,7 @@
 
     <DefaultEvent("SelectedIndexChanged")>
     Public Class HLGroupList
-        Inherits Control
+        Inherits HLControlBase
 
         Private 滚动条 As HLVScrollBar, 物品 As List(Of HLGroup), 最高栏 As Integer, 行高 As Integer, 选中 As Integer
         Private 边缘 As Single, 展示图标 As Boolean
@@ -27,10 +27,6 @@
             行高 = Font.GetHeight + 3 * DPI
             边缘 = 5 * DPI
             展示图标 = True
-        End Sub
-
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.FontChanged, Me.EnabledChanged
-            Invalidate()
         End Sub
 
         Public Sub PerformMouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel

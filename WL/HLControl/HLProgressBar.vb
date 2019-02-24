@@ -1,7 +1,7 @@
 ﻿Namespace HLControl
 
     Public Class HLProgressBar
-        Inherits Control
+        Inherits HLControlBase
 
         Private 值 As Integer, 最大 As Integer, 最小 As Integer
 
@@ -10,10 +10,6 @@
             最大 = 100
             最小 = 0
             值 = 0
-        End Sub
-
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
-            Invalidate()
         End Sub
 
         Private Sub FixValue()

@@ -2,7 +2,7 @@
 
     <DefaultEvent("ValueChanged")>
     Public Class HLTrackBar
-        Inherits Control
+        Inherits HLControlBase
 
         Private 值 As Integer, 最大 As Integer, 最小 As Integer, 可触 As Integer, 按住 As Boolean
         Private 边缘 As Single, 上一个值 As Integer
@@ -16,10 +16,6 @@
             按住 = False
             边缘 = 6 * DPI
             上一个值 = 0
-        End Sub
-
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
-            Invalidate()
         End Sub
 
         Private Sub FixValue()

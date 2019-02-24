@@ -2,7 +2,7 @@
 
     <DefaultEvent("SelectedIndexChanged")>
     Public Class HLListView
-        Inherits Control
+        Inherits HLControlBase
 
         Private 列 As List(Of HLListViewColumn), 物品 As List(Of HLListViewItem), 最高栏 As Integer, 行高 As Integer, 选中 As Integer
         Private 滚动条 As HLVScrollBar, 边缘 As Integer, 选中列 As Integer, 拖动 As Boolean
@@ -29,10 +29,6 @@
                                              最高栏 = 滚动条.Value
                                              Invalidate()
                                          End Sub
-        End Sub
-
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.FontChanged, Me.EnabledChanged
-            Invalidate()
         End Sub
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown

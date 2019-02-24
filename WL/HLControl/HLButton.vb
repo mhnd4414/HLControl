@@ -1,7 +1,7 @@
 ﻿Namespace HLControl
 
     Public Class HLButton
-        Inherits Control
+        Inherits HLControlBase
 
         Private 激活 As Boolean, 按住 As Boolean
 
@@ -13,10 +13,6 @@
 
         Private Sub _TextChanged() Handles Me.TextChanged
             If 包含(Text, vbCr, vbLf) Then Text = 替换(Text, vbCrLf, " ", vbLf, " ", vbCr, " ")
-        End Sub
-
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.TextChanged, Me.FontChanged, Me.EnabledChanged
-            Invalidate()
         End Sub
 
         Private Sub _KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown

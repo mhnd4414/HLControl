@@ -33,10 +33,6 @@
             MaximizeBox = False
         End Sub
 
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.FontChanged, Me.EnabledChanged
-            Invalidate()
-        End Sub
-
         <DefaultValue(True)>
         Public Property ShowSteamIcon As Boolean
 

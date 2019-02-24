@@ -2,7 +2,7 @@
 
     <DefaultEvent("SelectedIndexChanged")>
     Public Class HLListBox
-        Inherits Control
+        Inherits HLControlBase
 
         Private 滚动条 As HLVScrollBar, 物品 As List(Of String), 最高栏 As Integer, 行高 As Integer, 选中 As Integer
         Private 边缘 As Single
@@ -26,10 +26,6 @@
                                              Invalidate()
                                          End Sub
             行高 = Font.GetHeight + 3 * DPI
-        End Sub
-
-        Private Sub _NeedRePaint() Handles Me.SizeChanged, Me.Resize, Me.AutoSizeChanged, Me.FontChanged, Me.EnabledChanged
-            Invalidate()
         End Sub
 
         <DesignerSerializationVisibility(DesignerSerializationVisibility.Content)> <Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>

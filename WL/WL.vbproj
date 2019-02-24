@@ -95,6 +95,9 @@
     <Compile Include="HLControl\HLComboBox.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="HLControl\HLControlBase.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="HLControl\HLForm.vb">
       <SubType>Form</SubType>
     </Compile>

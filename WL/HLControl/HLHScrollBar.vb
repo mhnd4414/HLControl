@@ -1,7 +1,7 @@
 ﻿Namespace HLControl
     <DefaultEvent("ValueChanged")>
     Public Class HLHScrollBar
-        Inherits Control
+        Inherits HLControlBase
 
         Private 按住上 As Boolean, 按住 As Boolean, 按住下 As Boolean, 值 As Integer, 滚动一次 As Integer, 最大 As Integer, 最小 As Integer
         Private 上一个值 As Integer

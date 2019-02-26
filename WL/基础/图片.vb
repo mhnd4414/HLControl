@@ -79,20 +79,18 @@ Namespace 基础
         ''' <summary>
         ''' 把图片文件进行读取，并且不占用实际的本地文件 
         ''' </summary>
-        Public Function 读取图片为文件(文件 As String) As Bitmap
-            Dim p As Bitmap = Nothing
+        Public Function 读图片为文件(文件 As String) As Bitmap
+            Dim g As Byte() = 读文件为字节数组(文件)
+            If 为空(g) Then Return Nothing
             Try
-                p = Bitmap.FromFile(文件)
+                Dim m As New MemoryStream
+                m.Write(g, 0, g.Length)
+                Dim b As Bitmap = Bitmap.FromStream(m)
+                Return b
             Catch ex As Exception
                 出错(ex)
-                Return Nothing
             End Try
-            Dim m As New MemoryStream
-            p.Save(m, p.RawFormat)
-            Dim b As Bitmap = 字节数组转图片(读取完整流(m))
-            p.Dispose()
-            m.Dispose()
-            Return b
+            Return Nothing
         End Function
 
         ''' <summary>

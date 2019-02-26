@@ -57,7 +57,7 @@
             ''' <summary>
             ''' 重启本程序
             ''' </summary>
-            Public Sub 重启()
+            Public Shared Sub 重启()
                 Directory.SetCurrentDirectory(路径())
                 打开程序("C:\Windows\System32\cmd.exe", "/c taskkill /f /pid " & PID() & " & start " & 引号 & 引号 & " " & 引(文件名() & ".exe"), ProcessWindowStyle.Hidden)
             End Sub
@@ -65,7 +65,7 @@
             ''' <summary>
             ''' 退出本程序
             ''' </summary>
-            Public Sub 退出()
+            Public Shared Sub 退出()
                 进程.Kill()
             End Sub
 

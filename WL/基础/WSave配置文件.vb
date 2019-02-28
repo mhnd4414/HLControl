@@ -102,6 +102,55 @@
                 End Set
             End Property
 
+            ''' <summary>
+            ''' 从配置文件里读取或写入数字
+            ''' </summary>
+            Public Property 数字(名字 As String) As Double
+                Get
+                    Return Val(字符串(名字))
+                End Get
+                Set(值 As Double)
+                    If 值 <> 0 Then
+                        字符串(名字) = 值.ToString
+                    Else
+                        字符串(名字) = ""
+                    End If
+                End Set
+            End Property
+
+            ''' <summary>
+            ''' 从配置文件里读取或写入真假
+            ''' </summary>
+            Public Property 真假(名字 As String) As Boolean
+                Get
+                    Return 字符串(名字).Length = 1
+                End Get
+                Set(值 As Boolean)
+                    字符串(名字) = IIf(值, "T", "")
+                End Set
+            End Property
+
+            ''' <summary>
+            ''' 从配置文件里读取或写入日期
+            ''' </summary>
+            Public Property 日期(名字 As String) As Date
+                Get
+                    Dim s As String = 字符串(名字)
+                    Try
+                        Dim m As List(Of String) = 分割(s, "_")
+                        If m.Count = 6 Then
+                            Return New Date(Val(m(0)), Val(m(1)), Val(m(2)), Val(m(3)), Val(m(4)), Val(m(5)))
+                        End If
+                    Catch ex As Exception
+                        出错(ex, s)
+                    End Try
+                    Return #2000-01-01 00:00:00#
+                End Get
+                Set(值 As Date)
+                    字符串(名字) = 时间格式化(值, "Y_M_D_h_m_s")
+                End Set
+            End Property
+
         End Class
 
     End Module

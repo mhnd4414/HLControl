@@ -14,5 +14,3 @@ If you're looking for Half Life Style Controls, please [go here](https://github.
 Download: 
 
 - [GitHub Release](https://github.com/gordonwalkedby/Walkedbys_Library/releases)
-- [NuGet](https://www.nuget.org/packages/WL/)
-

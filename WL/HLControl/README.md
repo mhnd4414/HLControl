@@ -37,7 +37,7 @@ You can get the DLL file first, I named it as `WL.dll`.
 你可以从以下途径获得最新的DLL，DLL文件叫 `WL.dll`。
 
 - [GitHub Release](https://github.com/gordonwalkedby/Walkedbys_Library/releases)
-- [NuGet](https://www.nuget.org/packages/WL/)
+- Nuget is no longer supported.
 
 ## Usage 用法：
 

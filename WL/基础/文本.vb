@@ -204,6 +204,18 @@
         End Function
 
         ''' <summary>
+        ''' 去掉文本中，重复存在的字符
+        ''' </summary>
+        Public Function 去重(文本 As String) As String
+            If 为空(文本) Then Return ""
+            Dim s As String = ""
+            For Each i As Char In 文本
+                If s.Contains(i) = False Then s += i
+            Next
+            Return s
+        End Function
+
+        ''' <summary>
         ''' 没有 BOM 标识的 UTF-8 编码
         ''' </summary>
         ''' <returns></returns>
@@ -300,60 +312,40 @@
         ''' 筛选文本中的字符，如果不是规定的字符，那就去除
         ''' </summary>
         Public Function 筛选字符(文本 As String, 字符 As String) As String
-            If 文本.Length < 1 Then Return ""
-            Dim s As String = ""
-            For Each i As Char In 文本
-                If 字符.Contains(i) Then s += i
+            If 为空(文本, 字符) Then Return ""
+            Dim t As String = ""
+            For Each m As Match In Regex.Matches(文本, "[" + Regex.Escape(字符) + "]*")
+                t += m.ToString
             Next
-            Return s
+            Return t
         End Function
 
         ''' <summary>
         ''' 提取文字中的数字
         ''' </summary>
         Public Function 仅数字(文本 As String) As String
-            If 文本.Length < 1 Then Return ""
-            Dim t As String = ""
-            For Each m As Match In Regex.Matches(文本, "[0-9]*")
-                t += m.ToString
-            Next
-            Return t
+            Return 筛选字符(文本, 阿拉伯数字)
         End Function
 
         ''' <summary>
         ''' 提取文字中的字母，大小写不限
         ''' </summary>
         Public Function 仅字母(文本 As String) As String
-            If 文本.Length < 1 Then Return ""
-            Dim t As String = ""
-            For Each m As Match In Regex.Matches(文本, "([A-Z]|[a-z])")
-                t += m.ToString
-            Next
-            Return t
+            Return 筛选字符(文本, 大写英文字母 + 小写英文字母)
         End Function
 
         ''' <summary>
         ''' 提取文字中的大写字母
         ''' </summary>
         Public Function 仅大写字母(文本 As String) As String
-            If 文本.Length < 1 Then Return ""
-            Dim t As String = ""
-            For Each m As Match In Regex.Matches(文本, "[A-Z]")
-                t += m.ToString
-            Next
-            Return t
+            Return 筛选字符(文本, 大写英文字母)
         End Function
 
         ''' <summary>
         ''' 提取文字中的小写字母
         ''' </summary>
         Public Function 仅小写字母(文本 As String) As String
-            If 文本.Length < 1 Then Return ""
-            Dim t As String = ""
-            For Each m As Match In Regex.Matches(文本, "[a-z]")
-                t += m.ToString
-            Next
-            Return t
+            Return 筛选字符(文本, 小写英文字母)
         End Function
 
         ''' <summary>
@@ -907,5 +899,135 @@ End Function)
             Return 0
         End Function
 
+        ''' <summary>
+        ''' 戈登走過去的加密法
+        ''' </summary>
+        Public NotInheritable Class 走過去加密
+
+            Private key As String, tb As String, salt As Integer
+            Private fl As String
+
+            ''' <summary>
+            ''' 新建一个加解密，并使用指定的密钥，如果密钥不正确则会自动生成一个，密钥应该是5-30个简体汉字
+            ''' </summary>
+            Public Sub New(密钥 As String)
+                Me.密钥 = 密钥
+            End Sub
+
+            ''' <summary>
+            ''' 新建一个加解密，并自动生成一个密钥
+            ''' </summary>
+            Public Sub New()
+                密钥 = ""
+            End Sub
+
+            ''' <summary>
+            ''' 获取或设置密钥
+            ''' </summary>
+            Public Property 密钥 As String
+                Get
+                    Return key
+                End Get
+                Set(v As String)
+                    fl = 简体字2k
+                    v = 去重(左(筛选字符(v, fl), 30))
+                    Do While v.Length < 5
+                        v += 随机.当中字符(fl, 1)
+                    Loop
+                    key = 左(v, 30)
+                    salt = 0
+                    tb = ""
+                    生成字表()
+                End Set
+            End Property
+
+            Private Sub 生成字表()
+                Dim s As String = "", i As Char, c As Integer = 1, g As Integer, a As String
+                Dim f As String = fl + 左(fl, 300), k As String = 密钥
+                For Each i In k
+                    If 简体字2k.Contains(i) Then
+                        c = 7
+                    ElseIf 繁体字2k.Contains(i) Then
+                        c = 19
+                    Else
+                        c = 13
+                    End If
+                    a = f.Substring(fl.IndexOf(i), c)
+                    g = AscW(i)
+                    If 是偶数(g) Then s = StrReverse(s)
+                    s += a
+                    salt += g / 2
+                Next
+                salt = salt Mod 6 + 4
+                s = 去重(s)
+                Dim mx As Integer = 255
+                If s.Length < mx Then
+                    For g = fl.Length - c To 1 Step -1
+                        i = fl.Chars(g)
+                        If s.Contains(i) = False Then s += i
+                        If s.Length > mx Then Exit For
+                    Next
+                End If
+                tb = 左(s, mx)
+            End Sub
+
+            ''' <summary>
+            ''' 把字节数组进行加密
+            ''' </summary>
+            Public Function 加密(字节数组 As Byte()) As String
+                Dim m As String = ""
+                If 非空(字节数组) Then
+                    Dim g As Integer = 0, c As Integer = salt, st As String = ""
+                    For Each i As Byte In 字节数组
+                        If g > c Then
+                            st = 随机.当中字符(tb, salt)
+                            m += st
+                            g = 0
+                            c += 1
+                        End If
+                        m += tb.Chars(i)
+                        g += 1
+                    Next
+                End If
+                Return m
+            End Function
+
+            ''' <summary>
+            ''' 对UTF8字符串进行加密
+            ''' </summary>
+            Public Function 加密(文本 As String) As String
+                Return 加密(文本转字节数组(文本))
+            End Function
+
+            ''' <summary>
+            ''' 对密文进行解密，输出为字节数组 
+            ''' </summary>
+            Public Function 解密为字节数组(密文 As String) As Byte()
+                If 为空(密文) Then Return Nothing
+                Dim m As New List(Of Byte), g As Integer = 0, c As Integer = salt
+                密文 = 筛选字符(密文, tb)
+                For i As Integer = 0 To 密文.Length - 1
+                    If g > c Then
+                        i += salt - 1
+                        c += 1
+                        g = 0
+                    Else
+                        m.Add(tb.IndexOf(密文.Chars(i)))
+                        g += 1
+                    End If
+                Next
+                Return m.ToArray
+            End Function
+
+            ''' <summary>
+            ''' 解密密文到UTF8字符串
+            ''' </summary>
+            Public Function 解密为字符串(密文 As String) As String
+                Return 字节数组转文本(解密为字节数组(密文))
+            End Function
+
+        End Class
+
     End Module
+
 End Namespace

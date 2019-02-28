@@ -6,21 +6,6 @@
     Public Module HTTP
 
         ''' <summary>
-        ''' HTTP请求用的常用Accept选项
-        ''' </summary>
-        Public NotInheritable Class 常用Accept
-
-            Public Const html As String = "text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8"
-            Public Const json As String = "application/json, text/plain, */*"
-            Public Const image As String = "image/*"
-            Public Const anything As String = "*/*"
-
-            Protected Sub New()
-            End Sub
-
-        End Class
-
-        ''' <summary>
         ''' HTTP请求用的常用的浏览器UA
         ''' </summary>
         Public NotInheritable Class 常用UserAgent
@@ -53,7 +38,7 @@
                 Me.链接 = 链接
                 Me.方法 = 方法
                 UA = 常用UserAgent.iPhone
-                Accept = 常用Accept.html
+                Accept = "text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8"
                 Content_Type = "application/x-www-form-urlencoded; charset=UTF-8"
                 Cookie = ""
                 Origin = ""

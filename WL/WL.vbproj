@@ -142,7 +142,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="基础\WBC.vb" />
+    <Compile Include="基础\WSave配置文件.vb" />
     <Compile Include="基础\图片.vb" />
     <Compile Include="基础\字符串常量.vb" />
     <Compile Include="基础\引用.vb" />

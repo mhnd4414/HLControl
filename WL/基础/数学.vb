@@ -105,14 +105,14 @@
             ''' 返回指定个简体汉字组成的字符串
             ''' </summary>
             Public Shared Function 简体汉字(Optional 个数 As UInteger = 1) As String
-                Return 当中字符(字符串常量.常用简体字, 个数)
+                Return 当中字符(字符串常量.简体字2k, 个数)
             End Function
 
             ''' <summary>
             ''' 返回指定个简体汉字组成的字符串
             ''' </summary>
             Public Shared Function 繁体汉字(Optional 个数 As UInteger = 1) As String
-                Return 当中字符(字符串常量.常用繁体字, 个数)
+                Return 当中字符(字符串常量.繁体字2k, 个数)
             End Function
 
             ''' <summary>

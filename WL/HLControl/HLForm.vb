@@ -136,6 +136,16 @@
             End With
         End Sub
 
+        Private Sub _Move(sender As Object, e As EventArgs) Handles Me.Move
+            If Top < 0 Then Top = 0
+            Dim g As Integer = 150
+            If Right < g Then Left = -Width + g
+            g = 系统信息.屏幕分辨率.Width - g
+            If Left > g Then Left = g
+            g = 系统信息.屏幕分辨率.Height - 50
+            If Top > g Then Top = g
+        End Sub
+
     End Class
 
 End Namespace

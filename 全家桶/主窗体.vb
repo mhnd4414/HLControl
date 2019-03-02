@@ -24,12 +24,14 @@
     Private Sub ListTools_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ListTools.MouseDoubleClick
         Dim i As HLGroupItem = ListTools.SelectedItem
         If 为空(i) OrElse 工具列表.ContainsKey(i) = False Then Exit Sub
-        ShowUp(工具列表.Item(i))
+        ShowUp(Me, 工具列表.Item(i))
     End Sub
 
-    Private Sub ShowUp(m As HLForm)
+    Private Sub ShowUp(a As HLForm, m As HLForm)
         With m
             .Show()
+            .Left = a.Left
+            .Top = a.Top
             .WindowState = FormWindowState.Normal
             .BringToFront()
         End With
@@ -38,7 +40,11 @@
     Private Sub 主窗体_FormClosing(sender As HLForm, e As FormClosingEventArgs) Handles Me.FormClosing
         e.Cancel = True
         If Text <> sender.Text AndAlso Me.Visible = False Then
-            ShowUp(Me)
+            ShowUp(sender, Me)
+            With Me
+                .Left = sender.Right - .Width
+                .Top = sender.Top
+            End With
         End If
         sender.Hide()
     End Sub

@@ -95,6 +95,9 @@
                 AddHandler .Leave, Sub(sender As Object, e As EventArgs)
                                        MyBase.OnLeave(e)
                                    End Sub
+                AddHandler .Click, Sub(sender As Object, e As EventArgs)
+                                       MyBase.OnClick(e)
+                                   End Sub
                 AddHandler .LostFocus, Sub(sender As Object, e As EventArgs)
                                            MyBase.OnLostFocus(e)
                                        End Sub

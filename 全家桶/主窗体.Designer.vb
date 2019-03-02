@@ -32,7 +32,7 @@ Partial Class 主窗体
         Me.ListTools.Name = "ListTools"
         Me.ListTools.SelectedIndex = -1
         Me.ListTools.SelectedItem = Nothing
-        Me.ListTools.Size = New System.Drawing.Size(278, 383)
+        Me.ListTools.Size = New System.Drawing.Size(278, 372)
         Me.ListTools.TabIndex = 0
         Me.ListTools.Text = "HlGroupList1"
         '

@@ -45,6 +45,10 @@
             Invalidate()
         End Sub
 
+        Public Sub PerformClick()
+            MyBase.OnClick(Nothing)
+        End Sub
+
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             修正Dock(Me, True, False)
             Height = 10 * DPI + Font.GetHeight

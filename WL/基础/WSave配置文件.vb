@@ -36,8 +36,9 @@
             Public Sub 从文件读取()
                 Di.Clear()
                 If 文件大小Byte(本地文件) > 5 Then
+                    Dim m As StreamReader = Nothing
                     Try
-                        Dim m As New StreamReader(File.OpenRead(本地文件))
+                        m = New StreamReader(File.OpenRead(本地文件))
                         m.ReadLine()
                         Dim s1 As String, s2 As String
                         Do While True
@@ -53,6 +54,7 @@
                         Loop
                         m.Dispose()
                     Catch ex As Exception
+                        If 非空(m) Then m.Dispose()
                         出错(ex)
                     End Try
                 End If
@@ -63,8 +65,9 @@
             ''' </summary>
             Public Sub 保存到本地()
                 If 删除文件(本地文件) Then
+                    Dim m As StreamWriter = Nothing
                     Try
-                        Dim m As New StreamWriter(File.OpenWrite(本地文件))
+                        m = New StreamWriter(File.OpenWrite(本地文件))
                         m.WriteLine("戈登走過去的配置文件，请勿乱修改。 " + 本程序.文件名 + ".exe")
                         For Each i As String In Di.Keys
                             Dim s1 As String = Di.Item(i)
@@ -75,6 +78,7 @@
                         Next
                         m.Dispose()
                     Catch ex As Exception
+                        If 非空(m) Then m.Dispose()
                         出错(ex)
                     End Try
                 End If
@@ -83,11 +87,12 @@
             ''' <summary>
             ''' 从配置文件里读取或写入字符串
             ''' </summary>
-            Public Property 字符串(名字 As String) As String
+            Public Property 字符串(名字 As String, Optional 默认 As String = "") As String
                 Get
+                    文本标准化(默认)
                     名字 = 名字.ToLower.Trim
                     If 名字.Length > 0 AndAlso Di.ContainsKey(名字) Then Return Di.Item(名字)
-                    Return ""
+                    Return 默认
                 End Get
                 Set(值 As String)
                     If 名字.Length < 1 Then Exit Property
@@ -104,9 +109,11 @@
             ''' <summary>
             ''' 从配置文件里读取或写入数字
             ''' </summary>
-            Public Property 数字(名字 As String) As Double
+            Public Property 数字(名字 As String, Optional 默认 As Double = 0) As Double
                 Get
-                    Return Val(字符串(名字))
+                    Dim s As String = 字符串(名字)
+                    If s.Length > 0 Then Return Val(s)
+                    Return 默认
                 End Get
                 Set(值 As Double)
                     If 值 <> 0 Then
@@ -120,37 +127,74 @@
             ''' <summary>
             ''' 从配置文件里读取或写入真假
             ''' </summary>
-            Public Property 真假(名字 As String) As Boolean
+            Public Property 真假(名字 As String, Optional 默认 As Boolean = False) As Boolean
                 Get
-                    Return 字符串(名字).Length = 1
+                    Dim s As String = 字符串(名字)
+                    If s.Length > 1 Then Return True
+                    Return 默认
                 End Get
                 Set(值 As Boolean)
-                    字符串(名字) = IIf(值, "T", "")
+                    字符串(名字) = IIf(值, "True", "")
                 End Set
             End Property
 
             ''' <summary>
             ''' 从配置文件里读取或写入日期
             ''' </summary>
-            Public Property 日期(名字 As String) As Date
+            Public Property 日期(名字 As String, Optional 默认 As Date = #2000-01-01 00:00:00#) As Date
                 Get
-                    Dim s As String = 字符串(名字)
-                    Try
-                        Dim m As List(Of String) = 分割(s, "_")
-                        If m.Count = 6 Then
-                            Return New Date(Val(m(0)), Val(m(1)), Val(m(2)), Val(m(3)), Val(m(4)), Val(m(5)))
-                        End If
-                    Catch ex As Exception
-                        出错(ex, s)
-                    End Try
-                    Return #2000-01-01 00:00:00#
+                    Dim s As String = 仅数字(字符串(名字))
+                    If s.Length > 1 Then Return 时间戳转出(Val(s))
+                    Return 默认
                 End Get
                 Set(值 As Date)
-                    字符串(名字) = 时间格式化(值, "Y_M_D_h_m_s")
+                    字符串(名字) = 转时间戳(值)
                 End Set
             End Property
 
+            ''' <summary>
+            ''' 把值与控件绑定，绑定的时候读取值，窗口关闭的时候保存值
+            ''' </summary>
+            Public Sub 绑定控件(控件 As Control, 值 As 控件值类型, Optional 默认 As Object = Nothing)
+                If 为空(控件, 控件.FindForm) Then Exit Sub
+                Dim s As String = 控件.FindForm.Name + 控件.GetType.ToString + 控件.Name
+                Try
+                    Dim g As Object = Nothing
+                    Select Case 值
+                        Case 控件值类型.Text
+                            g = 字符串(s, 默认)
+                        Case 控件值类型.Checked
+                            g = 真假(s, 默认)
+                        Case Else
+                            g = 数字(s, 默认)
+                    End Select
+                    CallByName(控件, 值.ToString, CallType.Set, g)
+                    AddHandler 控件.FindForm.FormClosing, Sub()
+                                                            字符串(s) = CallByName(控件, 值.ToString, CallType.Get).ToString
+                                                        End Sub
+                Catch ex As Exception
+                    出错(ex, 控件, 值.ToString)
+                End Try
+            End Sub
+
         End Class
+
+        ''' <summary>
+        ''' Wsave控件绑定的时候用的控件值类型，注意Value视作为数字类型
+        ''' </summary>
+        Public Enum 控件值类型
+            Text
+            Checked
+            Value
+            Maximum
+            Minimum
+            Left
+            Top
+            Width
+            Height
+            SelectedIndex
+            Interval
+        End Enum
 
     End Module
 

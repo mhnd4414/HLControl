@@ -3,7 +3,7 @@
     Private LastUpload As Byte()
 
     Private Sub B站图床_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        CheckAutoCopy.Checked = 配置.真假("bilibili_autocopy")
+        配置.绑定控件(CheckAutoCopy, 控件值类型.Checked)
     End Sub
 
     Private Sub ButUploadClipboard_Click(sender As Object, e As EventArgs) Handles ButUploadClipboard.Click

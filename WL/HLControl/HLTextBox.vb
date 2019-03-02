@@ -28,7 +28,6 @@
             End With
             With 文本框
                 .BackColor = 内容绿
-                .HideSelection = False
                 .TextAlign = HorizontalAlignment.Left
                 .ImeMode = ImeMode
                 .BorderStyle = BorderStyle.None

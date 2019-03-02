@@ -6,7 +6,10 @@
         Text = 标题
         Icon = 图标
         工具列表 = New Dictionary(Of HLGroupItem, HLForm)
-        添加工具("B站", "图床", B站图床)
+        Dim a As String = "bilibili"
+        添加工具(a, "图床", B站图床)
+        a = "生活"
+        添加工具(a, "中小学生学习水平估测", 中小学学习水平估测)
     End Sub
 
     Private Sub 添加工具(组 As String, 名字 As String, 窗体 As HLForm)

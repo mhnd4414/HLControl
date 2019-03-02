@@ -46,7 +46,7 @@
         ''' 检查文本内是否包含要寻找的内容的每一项
         ''' </summary>
         Public Function 包含全部(文本 As String, ParamArray 内容() As String) As Boolean
-            If 文本.Length < 1 Then Return False
+            If 为空(文本) Then Return False
             For Each i As String In 内容
                 If i.Length > 0 AndAlso 文本.Contains(i) = False Then Return False
             Next
@@ -62,7 +62,7 @@
                 If 是偶数(c) Then c -= 1
                 For i As Integer = 0 To c Step 2
                     If 内容(i).Length > 0 AndAlso 文本.Contains(内容(i)) Then 文本 = 文本.Replace(内容(i), 内容(i + 1))
-                    If 文本.Length < 1 Then Exit For
+                    If 为空(文本) Then Exit For
                 Next
             End If
             Return 文本
@@ -72,7 +72,7 @@
         ''' 返回文本左边指定长度的字符串
         ''' </summary>
         Public Function 左(文本 As String, 长度 As UInteger) As String
-            If 文本.Length < 1 OrElse 长度 < 1 Then Return ""
+            If 为空(文本) OrElse 长度 < 1 Then Return ""
             Return Left(文本, 长度)
         End Function
 
@@ -80,7 +80,7 @@
         ''' 返回文本右边指定长度的字符串
         ''' </summary>
         Public Function 右(文本 As String, 长度 As UInteger) As String
-            If 文本.Length < 1 OrElse 长度 < 1 Then Return ""
+            If 为空(文本) OrElse 长度 < 1 Then Return ""
             Return Right(文本, 长度)
         End Function
 
@@ -88,7 +88,7 @@
         ''' 返回文本去掉右边指定长度的字符串
         ''' </summary>
         Public Function 去右(文本 As String, 长度 As UInteger) As String
-            If 文本.Length < 1 OrElse 长度 >= 文本.Length Then Return ""
+            If 为空(文本) OrElse 长度 >= 文本.Length Then Return ""
             Return 左(文本, 文本.Length - 长度)
         End Function
 
@@ -96,7 +96,7 @@
         ''' 返回文本去掉左边指定长度的字符串
         ''' </summary>
         Public Function 去左(文本 As String, 长度 As UInteger) As String
-            If 文本.Length < 1 OrElse 长度 >= 文本.Length Then Return ""
+            If 为空(文本) OrElse 长度 >= 文本.Length Then Return ""
             Return 右(文本, 文本.Length - 长度)
         End Function
 
@@ -104,7 +104,7 @@
         ''' 检查文本是否以相关内容开头
         ''' </summary>
         Public Function 头(文本 As String, ParamArray 内容() As String) As Boolean
-            If 文本.Length < 1 Then Return False
+            If 为空(文本) Then Return False
             For Each i As String In 内容
                 If i.Length > 0 AndAlso 文本.StartsWith(i) Then Return True
             Next
@@ -115,7 +115,7 @@
         ''' 检查文本是否以相关内容结尾
         ''' </summary>
         Public Function 尾(文本 As String, ParamArray 内容() As String) As Boolean
-            If 文本.Length < 1 Then Return False
+            If 为空(文本) Then Return False
             For Each i As String In 内容
                 If i.Length > 0 AndAlso 文本.EndsWith(i) Then Return True
             Next
@@ -126,7 +126,7 @@
         ''' 从前向后寻找，提取需要寻找的全部字符串之后的文本，如果不存在要寻找的就返回空字符串
         ''' </summary>
         Public Function 提取之后(文本 As String, ParamArray 寻找() As String) As String
-            If 文本.Length < 1 OrElse 寻找.Length < 1 Then Return ""
+            If 为空(文本) OrElse 为空(寻找) Then Return ""
             Dim g As Integer
             For Each i As String In 寻找
                 If i.Length > 0 Then
@@ -144,7 +144,7 @@
         ''' 从后向前寻找，提取需要寻找的全部字符串之前的文本，如果不存在要寻找的就返回空字符串
         ''' </summary>
         Public Function 提取之前(文本 As String, ParamArray 寻找() As String) As String
-            If 文本.Length < 1 OrElse 寻找.Length < 1 Then Return ""
+            If 为空(文本) OrElse 为空(寻找) Then Return ""
             Dim g As Integer
             For Each i As String In 寻找
                 If i.Length > 0 Then
@@ -162,7 +162,7 @@
         ''' 从前向后寻找，第一次找到要寻找的字符串之后提取之前的部分
         ''' </summary>
         Public Function 提取最之前(文本 As String, 寻找 As String) As String
-            If 文本.Length < 1 OrElse 寻找.Length < 1 Then Return ""
+            If 为空(文本) OrElse 为空(寻找) Then Return ""
             Dim g As Integer = InStr(文本, 寻找)
             If g < 1 Then Return ""
             Return Left(文本, g - 1)
@@ -172,7 +172,7 @@
         ''' 从后向前寻找，第一次找到要寻找的字符串之后提取之后的部分
         ''' </summary>
         Public Function 提取最之后(文本 As String, 寻找 As String) As String
-            If 文本.Length < 1 OrElse 寻找.Length < 1 Then Return ""
+            If 为空(文本) OrElse 为空(寻找) Then Return ""
             Dim g As Integer = InStrRev(文本, 寻找)
             If g < 1 Then Return ""
             Return 文本.Substring(g + 寻找.Length - 1)
@@ -182,7 +182,7 @@
         ''' 提取文本当中指定开头和结尾之间的文字，开头是第一次出现的那个开头，结尾是开头之后出现的第一次结尾
         ''' </summary>
         Public Function 提取之间(文本 As String, 开头 As String, 结尾 As String) As String
-            If 文本.Length < 1 OrElse 开头.Length < 1 OrElse 结尾.Length < 1 Then Return ""
+            If 为空(文本) OrElse 为空(开头) OrElse 为空(结尾) Then Return ""
             Return 提取最之前(提取之后(文本, 开头), 结尾)
         End Function
 
@@ -387,7 +387,7 @@
         ''' 对字符串进行URLencode
         ''' </summary>
         Public Function URL编码(文本 As String) As String
-            If 文本.Length < 1 Then Return ""
+            If 为空(文本) Then Return ""
             Return HttpUtility.UrlEncode(文本)
         End Function
 
@@ -395,7 +395,7 @@
         ''' 对字符串进行URLdncode
         ''' </summary>
         Public Function URL解码(URL文本 As String) As String
-            If URL文本.Length < 1 Then Return ""
+            If 为空(URL文本) Then Return ""
             Return HttpUtility.UrlDecode(URL文本)
         End Function
 
@@ -435,7 +435,7 @@
         ''' 把文本重复几次后返回
         ''' </summary>
         Public Function 重复(文本 As String, 次数 As UInteger) As String
-            If 次数 < 1 OrElse 文本.Length < 1 Then Return ""
+            If 次数 < 1 OrElse 为空(文本) Then Return ""
             Dim m As String = ""
             For i As Integer = 1 To 次数
                 m += 文本
@@ -448,7 +448,7 @@
         ''' </summary>
         ''' <returns></returns>
         Public Function 补左(文本 As String, 长度 As UInteger, Optional 补充 As String = " ") As String
-            If 补充.Length < 1 OrElse 长度 < 1 Then Return 文本
+            If 为空(补充) OrElse 长度 < 1 Then Return 文本
             Do Until 文本.Length >= 长度
                 文本 = 补充 + 文本
             Loop
@@ -460,7 +460,7 @@
         ''' </summary>
         ''' <returns></returns>
         Public Function 补右(文本 As String, 长度 As UInteger, Optional 补充 As String = " ") As String
-            If 补充.Length < 1 OrElse 长度 < 1 Then Return 文本
+            If 为空(补充) OrElse 长度 < 1 Then Return 文本
             Do Until 文本.Length >= 长度
                 文本 = 文本 + 补充
             Loop
@@ -534,9 +534,9 @@
             ''' 判断这个正则表达式是否正确，如果长度为0算false
             ''' </summary>
             Public Shared Function 是正确表达式(表达式 As String) As Boolean
-                If 表达式.Length < 1 Then Return False
+                If 为空(表达式) Then Return False
                 Try
-                    Dim b As Boolean = Regex.IsMatch("a", 表达式, rule)
+                    Dim b As Boolean = Regex.IsMatch("a", 表达式, Rule)
                     Return True
                 Catch ex As Exception
                 End Try
@@ -552,9 +552,9 @@
                     If 是偶数(c) Then c -= 1
                     For i As Integer = 0 To c Step 2
                         If 包含(文本, 表达式(i)) Then
-                            文本 = Regex.Replace(文本标准化(文本), FixRN(表达式(i)), FixRN(表达式(i + 1)), rule)
+                            文本 = Regex.Replace(文本标准化(文本), FixRN(表达式(i)), FixRN(表达式(i + 1)), Rule)
                         End If
-                        If 文本.Length < 1 Then Exit For
+                        If 为空(文本) Then Exit For
                     Next
                 End If
                 Return 文本
@@ -565,7 +565,7 @@
             ''' </summary>
             Public Shared Function 去除(文本 As String, ParamArray 表达式() As String) As String
                 For Each i As String In 表达式
-                    If 文本.Length > 0 AndAlso 是正确表达式(i) Then 文本 = Regex.Replace(文本标准化(文本), FixRN(i), "", rule)
+                    If 文本.Length > 0 AndAlso 是正确表达式(i) Then 文本 = Regex.Replace(文本标准化(文本), FixRN(i), "", Rule)
                 Next
                 Return 文本
             End Function
@@ -574,9 +574,9 @@
             ''' 文本当中是否可以匹配到表达式当中的一个
             ''' </summary>
             Public Shared Function 包含(文本 As String, ParamArray 表达式() As String) As Boolean
-                If 文本.Length < 1 Then Return False
+                If 为空(文本) Then Return False
                 For Each i As String In 表达式
-                    If 是正确表达式(i) AndAlso Regex.IsMatch(文本标准化(文本), FixRN(i), rule) Then Return True
+                    If 是正确表达式(i) AndAlso Regex.IsMatch(文本标准化(文本), FixRN(i), Rule) Then Return True
                 Next
                 Return False
             End Function
@@ -586,8 +586,8 @@
             ''' </summary>
             Public Shared Function 检索第一个(文本 As String, 表达式 As String) As String
                 Dim g As String
-                If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return ""
-                g = Regex.Match(文本标准化(文本), FixRN(表达式), rule).ToString
+                If 为空(文本) OrElse 是正确表达式(表达式) = False Then Return ""
+                g = Regex.Match(文本标准化(文本), FixRN(表达式), Rule).ToString
                 Return g
             End Function
 
@@ -596,8 +596,8 @@
             ''' </summary>
             Public Shared Function 检索(文本 As String, 表达式 As String) As List(Of Match)
                 Dim g As New List(Of Match)
-                If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return g
-                For Each i As Match In Regex.Matches(文本标准化(文本), FixRN(表达式), rule)
+                If 为空(文本) OrElse 是正确表达式(表达式) = False Then Return g
+                For Each i As Match In Regex.Matches(文本标准化(文本), FixRN(表达式), Rule)
                     g.Add(i)
                 Next
                 Return g
@@ -641,7 +641,7 @@
             ''' 把匹配到的表达式进行处理后，替换回文本当中
             ''' </summary>
             Public Shared Function 高级替换(文本 As String, 表达式 As String, 处理 As Func(Of String, String)) As String
-                If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return 文本
+                If 为空(文本) OrElse 是正确表达式(表达式) = False Then Return 文本
                 Dim s As String
                 For Each m As Match In 检索(文本, 表达式)
                     s = m.ToString
@@ -654,7 +654,7 @@
             ''' 把文本分块，然后匹配的进行一个处理，非匹配的进行另外一个处理
             ''' </summary>
             Public Shared Function 高级分块(文本 As String, 表达式 As String, Optional 匹配处理 As Func(Of String, String) = Nothing, Optional 非匹配处理 As Func(Of String, String) = Nothing) As String
-                If 文本.Length < 1 OrElse 是正确表达式(表达式) = False Then Return 文本
+                If 为空(文本) OrElse 是正确表达式(表达式) = False Then Return 文本
                 Dim o As String = "", ok As Boolean = False
                 For Each m As String In 分块(文本, 表达式)
                     ok = 包含(m, 表达式)
@@ -693,7 +693,7 @@ Function(m As String)
     If m.EndsWith(vbCrLf) = False Then m += vbCrLf
     Dim code As Boolean = False, ol As Boolean = False, ul As Boolean = False, qt As Boolean = False, pa As Boolean = False
     For Each l As String In 分行(m)
-        If l.Trim.Length < 1 Then
+        If 为空(l.Trim) Then
             If pa Then
                 pa = False
                 o += "</p>"

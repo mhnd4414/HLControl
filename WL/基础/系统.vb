@@ -96,7 +96,7 @@
             ''' <summary>
             ''' 获取或设置剪贴板的图片
             ''' </summary>
-            Public Shared Property 图片 As Image
+            Public Shared Property 图片 As Bitmap
                 Get
                     Dim g As Image = Nothing
                     Try
@@ -107,7 +107,7 @@
                         Return Nothing
                     End Try
                 End Get
-                Set(内容 As Image)
+                Set(内容 As Bitmap)
                     If 为空(内容) Then
                         清空()
                     Else

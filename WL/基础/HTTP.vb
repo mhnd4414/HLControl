@@ -207,8 +207,8 @@
                             If UA.Length > 0 Then .UserAgent = UA
                             If write.Count > 0 Then
                                 Dim w() As Byte = write.ToArray
-                                .GetRequestStream.Write(w, 0, w.Length)
                                 .ContentLength = w.Length
+                                .GetRequestStream.Write(w, 0, w.Length)
                             Else
                                 .ContentLength = 0
                             End If

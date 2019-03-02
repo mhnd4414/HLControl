@@ -47,7 +47,6 @@
                             If 非空全部(s1, s2) Then
                                 If Not Di.ContainsKey(s1) Then
                                     Di.Add(s1, s2)
-                                    输出(s1, s2)
                                 End If
                             End If
                             If m.EndOfStream Then Exit Do

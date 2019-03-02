@@ -35,7 +35,7 @@ Namespace 基础
         End Function
 
         ''' <summary>
-        ''' 获取Bitmap的帧数
+        ''' 获取Bitmap的帧数，普通图片帧数为1
         ''' </summary>
         Public Function 获取帧数(图片 As Bitmap) As UInteger
             If 为空(图片) Then Return 0
@@ -61,25 +61,20 @@ Namespace 基础
         End Function
 
         ''' <summary>
-        ''' 把图片变成字节数组
+        ''' 把图片变成字节数组，只分辨GIF和PNG
         ''' </summary>
-        Public Function 图片转字节数组(图片 As Bitmap, Optional 格式 As ImageFormat = Nothing) As Byte()
+        Public Function 图片转字节数组(图片 As Bitmap) As Byte()
             If 为空(图片) Then Return Nothing
             Dim m As New MemoryStream
-            Dim f As ImageFormat
-            If 非空(格式) Then
-                f = 格式
-            Else
-                f = 图片.RawFormat
-            End If
-            图片.Save(m, f)
+            图片.Save(m, 获取自动图片格式(图片))
+            m.Position = 0
             Return 读取完整流(m)
         End Function
 
         ''' <summary>
         ''' 把图片文件进行读取，并且不占用实际的本地文件 
         ''' </summary>
-        Public Function 读图片为文件(文件 As String) As Bitmap
+        Public Function 读图片文件(文件 As String) As Bitmap
             Dim g As Byte() = 读文件为字节数组(文件)
             If 为空(g) Then Return Nothing
             Try
@@ -91,6 +86,28 @@ Namespace 基础
                 出错(ex)
             End Try
             Return Nothing
+        End Function
+
+        ''' <summary>
+        ''' 根据图片自动获得图片格式
+        ''' </summary>
+        Public Function 获取自动图片格式(图片 As Bitmap) As ImageFormat
+            If 获取帧数(图片) > 1 Then Return ImageFormat.Gif
+            If 图片.PixelFormat.ToString.ToLower.Contains("argb") Then
+                Return ImageFormat.Png
+            End If
+            Return ImageFormat.Jpeg
+        End Function
+
+        ''' <summary>
+        ''' 根据图片自动获得图片格式的后缀，不带点
+        ''' </summary>
+        Public Function 获取自动图片格式后缀(图片 As Bitmap) As String
+            If 获取帧数(图片) > 1 Then Return "gif"
+            If 图片.PixelFormat.ToString.ToLower.Contains("argb") Then
+                Return "png"
+            End If
+            Return "jpg"
         End Function
 
         ''' <summary>
@@ -186,6 +203,7 @@ Namespace 基础
                 Next
                 Dim s As New MemoryStream
                 g.Save(s)
+                s.Position = 0
                 Return 读取完整流(s)
             End Function
 

@@ -114,7 +114,14 @@
                     Else
                         c = Icon
                     End If
-                    Dim ih As Integer = 设最大值(ft.GetHeight, 34)
+                    Dim ih As Integer = 16
+                    If ft.GetHeight > 120 Then
+                        ih = 128
+                    ElseIf ft.GetHeight > 60 Then
+                        ih = 64
+                    ElseIf ft.GetHeight > 30 Then
+                        ih = 32
+                    End If
                     .DrawIcon(c, New Rectangle(y, y + 2 * DPI, ih, ih))
                 End If
                 y = 7 * DPI

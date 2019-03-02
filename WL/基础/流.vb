@@ -6,13 +6,12 @@
     Public Module 流
 
         ''' <summary>
-        ''' 设置流的位置到0，然后读取该stream一直到末尾，输出字节数组，这并不会关闭流
+        ''' 读取该stream一直到末尾，输出字节数组，这并不会关闭流
         ''' </summary>
         Public Function 读取完整流(流 As Stream) As Byte()
             If IsNothing(流) Then Return Nothing
             Try
                 Dim b As New List(Of Byte), m As Integer = 1
-                流.Position = 0
                 Do While True
                     m = 流.ReadByte()
                     If m < Byte.MinValue OrElse m > Byte.MaxValue Then Exit Do

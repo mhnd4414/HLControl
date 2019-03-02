@@ -37,7 +37,7 @@
                         Case < 90
                             w = "中上"
                     End Select
-                    s = Format(v, "#0.000000") + " （" + w + "）"
+                    s += Format(v, "#0.000000")
                     Do While s.EndsWith("0")
                         If s.EndsWith(".0") Then
                             s = 去右(s, 2)
@@ -45,6 +45,7 @@
                         End If
                         s = 去右(s, 1)
                     Loop
+                    s += " （" + w + "）"
                 End If
             End If
         End If

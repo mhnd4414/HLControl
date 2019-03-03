@@ -14,6 +14,12 @@
         a = "系统"
         添加工具(a, 文件图标提取)
         ListTools.SortAll()
+        With 消息图标
+            .Visible = True
+            .Icon = Icon
+            .Text = Text
+            .ContextMenuStrip = NotifMenu
+        End With
     End Sub
 
     Private Sub 添加工具(组 As String, 窗体 As HLForm)
@@ -58,6 +64,14 @@
             End With
         End If
         sender.Hide()
+    End Sub
+
+    Private Sub 打开主页ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开主页ToolStripMenuItem.Click
+        ShowUp(Me, Me)
+    End Sub
+
+    Private Sub 退出ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 退出ToolStripMenuItem.Click
+        My.MyApplication.正常退出()
     End Sub
 
 End Class

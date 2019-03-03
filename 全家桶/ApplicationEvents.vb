@@ -2,9 +2,9 @@
 
 Namespace My
 
-    Partial Friend Class MyApplication
+    Friend Class MyApplication
 
-        Private 缓存文件夹保护文件 As Stream
+        Private Shared 缓存文件夹保护文件 As Stream
 
         Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
             Dim s As String = 本程序.路径.ToLower
@@ -30,17 +30,10 @@ Namespace My
                                           End If
                                       Next
                                       If a < 1 Then
-                                          MyApplication_Shutdown(Nothing, Nothing)
-                                          本程序.退出()
+                                          正常退出()
                                       End If
                                   End Sub)
             t.启用 = True
-        End Sub
-
-        Private Sub MyApplication_Shutdown(sender As Object, e As EventArgs) Handles Me.Shutdown
-            缓存文件夹保护文件.Close()
-            配置.保存到本地()
-            删除文件(缓存文件夹)
         End Sub
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) Handles Me.UnhandledException
@@ -48,8 +41,17 @@ Namespace My
             报错退出(s)
         End Sub
 
-        Private Sub 报错退出(s As String)
+        Public Sub 报错退出(s As String)
             MessageBox.Show(s, "出错了！" + 标题)
+            本程序.退出()
+        End Sub
+
+        Public Shared Sub 正常退出()
+            消息图标.Visible = False
+            消息图标.Dispose()
+            缓存文件夹保护文件.Close()
+            配置.保存到本地()
+            删除文件(缓存文件夹)
             本程序.退出()
         End Sub
 

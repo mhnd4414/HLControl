@@ -87,6 +87,7 @@ Partial Class 每月提醒我
         Me.TxtJob.HighLightLabel = Me.LabJob
         Me.TxtJob.Lines = New String(-1) {}
         Me.TxtJob.Location = New System.Drawing.Point(106, 490)
+        Me.TxtJob.MaxLength = 50
         Me.TxtJob.Modified = False
         Me.TxtJob.Name = "TxtJob"
         Me.TxtJob.SelectedText = ""

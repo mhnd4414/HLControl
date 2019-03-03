@@ -9,7 +9,9 @@
     Private Sub 文件图标提取_DragDrop(sender As Object, e As DragEventArgs) Handles Me.DragDrop
         Dim s As String = ""
         Ic = Nothing
-        For Each i As String In e.Data.GetData(DataFormats.FileDrop)
+        Dim o As Object = e.Data.GetData(DataFormats.FileDrop)
+        If 为空(o) Then Exit Sub
+        For Each i As String In o
             If 文件存在(i) Then
                 s = i
                 Exit For

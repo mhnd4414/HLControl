@@ -22,18 +22,6 @@ Namespace My
             删除文件(缓存文件夹)
             Directory.CreateDirectory(缓存文件夹)
             缓存文件夹保护文件 = File.OpenWrite(缓存文件夹 + "8ccccc.txt")
-            Dim t As New 计时器(100, Sub()
-                                      Dim a As Integer = 0
-                                      For Each i As Form In My.Application.OpenForms
-                                          If i.Visible Then
-                                              a += 1
-                                          End If
-                                      Next
-                                      If a < 1 Then
-                                          正常退出()
-                                      End If
-                                  End Sub)
-            t.启用 = True
         End Sub
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) Handles Me.UnhandledException

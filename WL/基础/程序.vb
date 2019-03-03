@@ -1,4 +1,5 @@
-﻿Namespace 基础
+﻿
+Namespace 基础
 
     ''' <summary>
     ''' 与本程序还有其他程序的相关操作的模块
@@ -332,7 +333,7 @@
         ''' </summary>
         Public NotInheritable Class 系统文件对话框
 
-            Private Shared Sub SetFolder(x As FileDialog)
+            Private Shared Sub SetFolder(x As Windows.Forms.FileDialog)
                 With x
                     .AddExtension = True
                     .CheckPathExists = True
@@ -347,7 +348,7 @@
             ''' 打开窗口并选择一个文件，过滤写法是 Text files (*.txt)|*.txt|All files (*.*)|*.*
             ''' </summary>
             Public Shared Function 打开文件(Optional 过滤 As String = "") As String
-                Dim t As New OpenFileDialog
+                Dim t As New Windows.Forms.OpenFileDialog
                 With t
                     SetFolder(t)
                     .CheckFileExists = True
@@ -362,7 +363,7 @@
             ''' 打开窗口并选择多个文件，过滤写法是 Text files (*.txt)|*.txt|All files (*.*)|*.*
             ''' </summary>
             Public Shared Function 打开多个文件(Optional 过滤 As String = "") As String()
-                Dim t As New OpenFileDialog
+                Dim t As New Windows.Forms.OpenFileDialog
                 With t
                     SetFolder(t)
                     .CheckFileExists = True
@@ -388,7 +389,7 @@
             ''' 打开窗口并保存单个文件，过滤写法是 Text files (*.txt)|*.txt|All files (*.*)|*.*
             ''' </summary>
             Public Shared Function 保存文件(Optional 过滤 As String = "") As String
-                Dim t As New SaveFileDialog
+                Dim t As New Windows.Forms.SaveFileDialog
                 With t
                     SetFolder(t)
                     .CheckFileExists = False

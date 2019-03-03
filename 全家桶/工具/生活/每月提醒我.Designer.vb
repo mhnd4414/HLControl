@@ -32,7 +32,6 @@ Partial Class 每月提醒我
         Me.ButRemove = New WL.HLControl.HLButton()
         Me.LabOften = New WL.HLControl.HLLabel()
         Me.ListOften = New WL.HLControl.HLComboBox()
-        Me.ButImportCSV = New WL.HLControl.HLButton()
         Me.SuspendLayout()
         '
         'ListT
@@ -126,20 +125,10 @@ Partial Class 每月提醒我
         Me.ListOften.TabIndex = 8
         Me.ListOften.Text = "HlComboBox1"
         '
-        'ButImportCSV
-        '
-        Me.ButImportCSV.Enabled = False
-        Me.ButImportCSV.Location = New System.Drawing.Point(360, 490)
-        Me.ButImportCSV.Name = "ButImportCSV"
-        Me.ButImportCSV.Size = New System.Drawing.Size(186, 31)
-        Me.ButImportCSV.TabIndex = 9
-        Me.ButImportCSV.Text = "导入CSV"
-        '
         '每月提醒我
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(559, 540)
-        Me.Controls.Add(Me.ButImportCSV)
         Me.Controls.Add(Me.ListOften)
         Me.Controls.Add(Me.LabOften)
         Me.Controls.Add(Me.ButRemove)
@@ -167,5 +156,4 @@ Partial Class 每月提醒我
     Friend WithEvents ButRemove As HLButton
     Friend WithEvents LabOften As HLLabel
     Friend WithEvents ListOften As HLComboBox
-    Friend WithEvents ButImportCSV As HLButton
 End Class

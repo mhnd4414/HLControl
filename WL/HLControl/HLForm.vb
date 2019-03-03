@@ -105,7 +105,7 @@
                 关闭按钮区域 = r
                 绘制基础矩形(g, r)
                 y = 9 * DPI
-                Dim ft As New Font(Font.Name, 设最大值(10 * DPI, 15))
+                Dim ft As New Font(Font.Name, 设最大值(10 * DPI, 13))
                 绘制文本(g, Text, ft, 31 * DPI, y, 获取文本状态(Enabled))
                 If ShowIcon Then
                     Dim c As Icon

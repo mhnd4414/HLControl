@@ -37,7 +37,7 @@ Partial Class 主窗体
         Me.ListTools.Name = "ListTools"
         Me.ListTools.SelectedIndex = -1
         Me.ListTools.SelectedItem = Nothing
-        Me.ListTools.Size = New System.Drawing.Size(278, 372)
+        Me.ListTools.Size = New System.Drawing.Size(281, 372)
         Me.ListTools.TabIndex = 0
         Me.ListTools.Text = "HlGroupList1"
         '
@@ -51,19 +51,19 @@ Partial Class 主窗体
         '打开主页ToolStripMenuItem
         '
         Me.打开主页ToolStripMenuItem.Name = "打开主页ToolStripMenuItem"
-        Me.打开主页ToolStripMenuItem.Size = New System.Drawing.Size(180, 26)
+        Me.打开主页ToolStripMenuItem.Size = New System.Drawing.Size(144, 26)
         Me.打开主页ToolStripMenuItem.Text = "打开主页"
         '
         '退出ToolStripMenuItem
         '
         Me.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem"
-        Me.退出ToolStripMenuItem.Size = New System.Drawing.Size(180, 26)
+        Me.退出ToolStripMenuItem.Size = New System.Drawing.Size(144, 26)
         Me.退出ToolStripMenuItem.Text = "退出"
         '
         '主窗体
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(298, 476)
+        Me.ClientSize = New System.Drawing.Size(301, 500)
         Me.Controls.Add(Me.ListTools)
         Me.KeyPreview = True
         Me.Name = "主窗体"

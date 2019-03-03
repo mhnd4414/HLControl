@@ -30,6 +30,7 @@ Partial Class B站图床
         Me.CheckAutoCopy = New WL.HLControl.HLCheckBox()
         Me.ButRetry = New WL.HLControl.HLButton()
         Me.ButResize = New WL.HLControl.HLButton()
+        Me.LabNote = New WL.HLControl.HLLabel()
         CType(Me.PicView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -99,11 +100,21 @@ Partial Class B站图床
         Me.ButResize.TabIndex = 6
         Me.ButResize.Text = "重试上传（放大图片到短边200px以上）"
         '
+        'LabNote
+        '
+        Me.LabNote.Location = New System.Drawing.Point(10, 308)
+        Me.LabNote.LowLight = True
+        Me.LabNote.Name = "LabNote"
+        Me.LabNote.Size = New System.Drawing.Size(458, 23)
+        Me.LabNote.TabIndex = 7
+        Me.LabNote.Text = "（支持小于8MB的jpg png，可从外面拖入，目前不支持GIF）"
+        '
         'B站图床
         '
         Me.AllowDrop = True
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(620, 336)
+        Me.ClientSize = New System.Drawing.Size(620, 361)
+        Me.Controls.Add(Me.LabNote)
         Me.Controls.Add(Me.ButResize)
         Me.Controls.Add(Me.ButRetry)
         Me.Controls.Add(Me.CheckAutoCopy)
@@ -115,7 +126,7 @@ Partial Class B站图床
         Me.KeyPreview = True
         Me.Name = "B站图床"
         Me.ShowSteamIcon = False
-        Me.Text = "B站图床（支持小于8MB的jpg png，可从外面拖入，目前不支持GIF）"
+        Me.Text = "B站图床"
         CType(Me.PicView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -128,4 +139,5 @@ Partial Class B站图床
     Friend WithEvents CheckAutoCopy As HLCheckBox
     Friend WithEvents ButRetry As HLButton
     Friend WithEvents ButResize As HLButton
+    Friend WithEvents LabNote As HLLabel
 End Class

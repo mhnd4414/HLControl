@@ -16,7 +16,7 @@
 
         Next
         tr = New 计时器(5000, Sub()
-                               If 当日时间戳() < 5 Then
+                               If 当日时间戳() < 4 Then
                                    提醒我()
                                End If
                            End Sub)
@@ -31,24 +31,29 @@
             Dim d As Date = Now
             If a.StartsWith("每年") Then
                 d = New Date(Year(Today), Val(提取之间(a, "年", "月")), Val(提取之间(a, "月", "日")))
-                If d >= Now Then
+                If d >= Today Then
                     Dim ds As Integer = DateDiff(DateInterval.Day, Today, d)
                     If ds < day Then
                         job = i.Items(0)
                         day = ds
+                    ElseIf ds = day Then
+                        job += " " + i.Items(0)
                     End If
                 End If
             ElseIf a.StartsWith("每月") Then
                 d = New Date(Year(Today), Month(Today), Val(提取之间(a, "月", "日")))
-                If d >= Now Then
+                If d >= Today Then
                     Dim ds As Integer = DateDiff(DateInterval.Day, Today, d)
                     If ds < day Then
                         job = i.Items(0)
                         day = ds
+                    ElseIf ds = day Then
+                        job += i.Items(0) + " "
                     End If
                 End If
             End If
         Next
+        job = job.Trim
         If day < 28 Then
             If day < 1 Then
                 a = "今天就是："
@@ -105,7 +110,7 @@
         End If
     End Sub
 
-    Private Sub ButImportCSV_Click(sender As Object, e As EventArgs) Handles ButImportCSV.Click
+    Private Sub ButImportCSV_Click(sender As Object, e As EventArgs)
 
     End Sub
 

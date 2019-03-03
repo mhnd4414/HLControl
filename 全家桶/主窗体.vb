@@ -11,6 +11,7 @@
         a = "生活"
         添加工具(a, "中小学生学习水平估测", 中小学学习水平估测)
         添加工具(a, "日历", 日历)
+        ListTools.SortAll()
     End Sub
 
     Private Sub 添加工具(组 As String, 名字 As String, 窗体 As HLForm)

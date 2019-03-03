@@ -206,6 +206,13 @@
             Return c
         End Function
 
+        Public Sub SortAll(Optional desc As Boolean = False)
+            Groups.Sort(New HLGroupComparer(desc))
+            For Each i As HLGroup In Groups
+                i.Sort(desc)
+            Next
+        End Sub
+
         Protected Overrides Sub OnPaint(e As PaintEventArgs)
             MyBase.OnPaint(e)
             行高 = Font.GetHeight + 3 * DPI
@@ -284,6 +291,44 @@
 
         Public Overrides Function ToString() As String
             Return Title
+        End Function
+
+        Public Sub Sort(Optional desc As Boolean = False)
+            Items.Sort(New HLGroupItemComparer(desc))
+        End Sub
+
+    End Class
+
+    Friend Class HLGroupComparer
+        Implements IComparer(Of HLGroup)
+
+        Private desc As Boolean
+
+        Public Sub New(desc As Boolean)
+            Me.desc = desc
+        End Sub
+
+        Public Function Compare(x As HLGroup, y As HLGroup) As Integer Implements IComparer(Of HLGroup).Compare
+            Dim g As Integer = 比较文本(x.Title, x.Title)
+            If desc Then g = -g
+            Return g
+        End Function
+
+    End Class
+
+    Friend Class HLGroupItemComparer
+        Implements IComparer(Of HLGroupItem)
+
+        Private desc As Boolean
+
+        Public Sub New(desc As Boolean)
+            Me.desc = desc
+        End Sub
+
+        Public Function Compare(x As HLGroupItem, y As HLGroupItem) As Integer Implements IComparer(Of HLGroupItem).Compare
+            Dim g As Integer = 比较文本(x.Title, x.Title)
+            If desc Then g = -g
+            Return g
         End Function
 
     End Class

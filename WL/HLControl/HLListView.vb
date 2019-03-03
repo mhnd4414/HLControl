@@ -286,6 +286,14 @@
             Return s.Name
         End Operator
 
+        Public Shared Operator =(a As HLListViewColumn, b As HLListViewColumn) As Boolean
+            Return a.Name = b.Name
+        End Operator
+
+        Public Shared Operator <>(a As HLListViewColumn, b As HLListViewColumn) As Boolean
+            Return a.Name <> b.Name
+        End Operator
+
     End Class
 
     Public Class HLListViewItem
@@ -312,6 +320,22 @@
 
         Public Overrides Function ToString() As String
             Return Title
+        End Function
+
+        Public Overrides Function Equals(obj As Object) As Boolean
+            If obj.GetType = [GetType]() Then
+                Dim o As HLListViewItem = obj
+                If o.Title = Title AndAlso o.Items.Count = Items.Count Then
+                    Dim ok As Boolean = True
+                    For Each i As String In Items
+                        If Not o.Items.Contains(i) Then
+                            ok = False
+                        End If
+                    Next
+                    If ok Then Return True
+                End If
+            End If
+            Return False
         End Function
 
     End Class

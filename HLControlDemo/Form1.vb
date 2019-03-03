@@ -16,9 +16,10 @@ Public Class Form1
             HlListView1.Items.Add(New HLListViewItem(i.ToString + "  " + 随机.西文(随机.整数(0, 6)), 随机.当中一个("de_dust", "cs_" + 随机.西文(随机.整数(2, 16)), "cs_office"), 随机.整数(1, 32) & "/32", 随机.整数(29, 232).ToString))
             Dim g As New HLGroup(i.ToString + "  " + 随机.西文(5))
             For i2 As Integer = 1 To 15
-                g.Items.Add(New HLGroupItem(i2.ToString, 随机.当中一个(SystemIcons.Application, SystemIcons.Error, SystemIcons.Information, Nothing)))
+                g.Items.Add(New HLGroupItem(随机.小数().ToString, 随机.当中一个(SystemIcons.Application, SystemIcons.Error, SystemIcons.Information, Nothing)))
             Next
             HlGroupList1.Groups.Add(g)
+            HlGroupList1.SortAllItems()
         Next
         HlListBox1.SelectedIndex = 0
         HlComboBox1.SelectedIndex = 0

@@ -53,8 +53,6 @@
                 .Top = Height
                 .Left = 0
                 c = .FullHeight
-                Dim h As Integer = Parent.Height - Bottom - 50 * DPI
-                设最大值(c, h)
                 设最大值(c, 350 * DPI)
                 .Height = c
                 .Visible = True

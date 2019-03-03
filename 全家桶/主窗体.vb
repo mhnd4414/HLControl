@@ -10,6 +10,9 @@
             .Icon = Icon
             .Text = Text
             .ContextMenuStrip = NotifMenu
+            AddHandler .DoubleClick, Sub()
+                                         打开主页ToolStripMenuItem_Click(Nothing, Nothing)
+                                     End Sub
         End With
         工具列表 = New Dictionary(Of HLGroupItem, HLForm)
         Dim a As String = "bilibili"
@@ -41,6 +44,7 @@
                 .ShowInTaskbar = False
                 .Show()
                 .Hide()
+                .ShowInTaskbar = True
             End If
         End With
     End Sub
@@ -63,7 +67,11 @@
 
     Private Sub 主窗体_FormClosing(sender As HLForm, e As FormClosingEventArgs) Handles Me.FormClosing
         e.Cancel = True
-        If Text <> sender.Text AndAlso Me.Visible = False Then
+        Dim m As Integer = 0
+        For Each i As Form In My.Application.OpenForms
+            If i.Visible Then m += 1
+        Next
+        If Text <> sender.Text AndAlso Me.Visible = False AndAlso m < 2 Then
             ShowUp(sender, Me)
             With Me
                 .Left = sender.Right - .Width

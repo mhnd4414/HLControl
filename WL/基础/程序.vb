@@ -82,6 +82,22 @@
                 Return 非空(进程) AndAlso 进程.ProcessName <> "devenv"
             End Function
 
+            ''' <summary>
+            ''' 获得本程序的主文件图标
+            ''' </summary>
+            Public Shared ReadOnly Property 图标 As Icon
+                Get
+                    Static m As Icon = Nothing
+                    Try
+                        If 为空(m) Then m = Icon.ExtractAssociatedIcon(本程序.路径 + 本程序.文件名 + ".exe")
+                    Catch ex As Exception
+                        m = SystemIcons.Application
+                        出错(ex)
+                    End Try
+                    Return m
+                End Get
+            End Property
+
         End Class
 
         ''' <summary>
@@ -308,6 +324,79 @@
                     ts = 0
                 End Set
             End Property
+
+        End Class
+
+        ''' <summary>
+        ''' 使用系统的文件对话框选取文件文件夹
+        ''' </summary>
+        Public NotInheritable Class 系统文件对话框
+
+            Private Shared Sub SetFolder(x As FileDialog)
+                With x
+                    .AddExtension = True
+                    .CheckPathExists = True
+                    .SupportMultiDottedExtensions = True
+                    .DereferenceLinks = True
+                    .SupportMultiDottedExtensions = True
+                    .ValidateNames = True
+                End With
+            End Sub
+
+            ''' <summary>
+            ''' 打开窗口并选择一个文件，过滤写法是 Text files (*.txt)|*.txt|All files (*.*)|*.*
+            ''' </summary>
+            Public Shared Function 打开文件(Optional 过滤 As String = "") As String
+                Dim t As New OpenFileDialog
+                With t
+                    SetFolder(t)
+                    .CheckFileExists = True
+                    .Multiselect = False
+                    If 非空(过滤) Then .Filter = 过滤
+                    .ShowDialog()
+                    Return .FileName
+                End With
+            End Function
+
+            ''' <summary>
+            ''' 打开窗口并选择多个文件，过滤写法是 Text files (*.txt)|*.txt|All files (*.*)|*.*
+            ''' </summary>
+            Public Shared Function 打开多个文件(Optional 过滤 As String = "") As String()
+                Dim t As New OpenFileDialog
+                With t
+                    SetFolder(t)
+                    .CheckFileExists = True
+                    .Multiselect = True
+                    If 非空(过滤) Then .Filter = 过滤
+                    .ShowDialog()
+                    Return .FileNames
+                End With
+            End Function
+
+            ''' <summary>
+            ''' 打开窗口并选择单个文件夹
+            ''' </summary>
+            Public Shared Function 打开文件夹() As String
+                Dim t As New FolderBrowserDialog
+                With t
+                    .ShowDialog()
+                    Return 路径标准化(.SelectedPath)
+                End With
+            End Function
+
+            ''' <summary>
+            ''' 打开窗口并保存单个文件，过滤写法是 Text files (*.txt)|*.txt|All files (*.*)|*.*
+            ''' </summary>
+            Public Shared Function 保存文件(Optional 过滤 As String = "") As String
+                Dim t As New SaveFileDialog
+                With t
+                    SetFolder(t)
+                    .CheckFileExists = False
+                    If 非空(过滤) Then .Filter = 过滤
+                    .ShowDialog()
+                    Return .FileName
+                End With
+            End Function
 
         End Class
 

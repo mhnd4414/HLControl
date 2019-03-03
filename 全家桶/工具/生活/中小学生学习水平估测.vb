@@ -1,4 +1,4 @@
-﻿Public Class 中小学学习水平估测
+﻿Public Class 中小学生学习水平估测
 
     Private Sub 中小学学习水平估测_Load(sender As Object, e As EventArgs) Handles Me.Load
         配置.绑定控件(TxtAll, 控件值类型.Text, "1000")

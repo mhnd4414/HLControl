@@ -9,9 +9,15 @@
         Dim a As String = "bilibili"
         添加工具(a, "图床", B站图床)
         a = "生活"
-        添加工具(a, "中小学生学习水平估测", 中小学学习水平估测)
-        添加工具(a, "每月提醒我", 每月提醒我)
+        添加工具(a, 中小学生学习水平估测)
+        添加工具(a, 每月提醒我)
+        a = "系统"
+        添加工具(a, 文件图标提取)
         ListTools.SortAll()
+    End Sub
+
+    Private Sub 添加工具(组 As String, 窗体 As HLForm)
+        添加工具(组, 窗体.Name, 窗体)
     End Sub
 
     Private Sub 添加工具(组 As String, 名字 As String, 窗体 As HLForm)

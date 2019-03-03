@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class 中小学学习水平估测
+Partial Class 中小学生学习水平估测
     Inherits WL.HLControl.HLForm
 
     'Form 重写 Dispose，以清理组件列表。
@@ -22,7 +22,7 @@ Partial Class 中小学学习水平估测
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(中小学学习水平估测))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(中小学生学习水平估测))
         Me.LabNote = New WL.HLControl.HLLabel()
         Me.LabYourPos = New WL.HLControl.HLLabel()
         Me.LabAll = New WL.HLControl.HLLabel()

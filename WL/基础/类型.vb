@@ -130,10 +130,15 @@
         Public Function 为空(对象 As Object) As Boolean
             If IsNothing(对象) Then Return True
             Dim t As Type = 对象.GetType
-            If 是数字(t) Then Return 对象 = 0
-            If 有Count(t) Then Return 对象.Count = 0
-            If 有Length(t) Then Return 对象.Length = 0
-            If t = GetType(Color) Then Return 对象 = Color.Empty
+            Try
+                If 是同一继承类(t, GetType(Stream)) Then Return False
+                If 是数字(t) Then Return 对象 = 0
+                If 有Count(t) Then Return 对象.Count = 0
+                If 有Length(t) Then Return 对象.Length = 0
+                If t = GetType(Color) Then Return 对象 = Color.Empty
+            Catch ex As Exception
+                出错(ex, t)
+            End Try
             Return False
         End Function
 

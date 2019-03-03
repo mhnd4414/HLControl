@@ -134,16 +134,22 @@
     <Compile Include="工具\bilibili\B站图床.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="工具\生活\中小学学习水平估测.Designer.vb">
-      <DependentUpon>中小学学习水平估测.vb</DependentUpon>
+    <Compile Include="工具\生活\中小学生学习水平估测.Designer.vb">
+      <DependentUpon>中小学生学习水平估测.vb</DependentUpon>
     </Compile>
-    <Compile Include="工具\生活\中小学学习水平估测.vb">
+    <Compile Include="工具\生活\中小学生学习水平估测.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="工具\生活\每月提醒我.Designer.vb">
       <DependentUpon>每月提醒我.vb</DependentUpon>
     </Compile>
     <Compile Include="工具\生活\每月提醒我.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="工具\系统\文件图标提取.Designer.vb">
+      <DependentUpon>文件图标提取.vb</DependentUpon>
+    </Compile>
+    <Compile Include="工具\系统\文件图标提取.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -160,11 +166,14 @@
     <EmbeddedResource Include="工具\bilibili\B站图床.resx">
       <DependentUpon>B站图床.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="工具\生活\中小学学习水平估测.resx">
-      <DependentUpon>中小学学习水平估测.vb</DependentUpon>
+    <EmbeddedResource Include="工具\生活\中小学生学习水平估测.resx">
+      <DependentUpon>中小学生学习水平估测.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="工具\生活\每月提醒我.resx">
       <DependentUpon>每月提醒我.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="工具\系统\文件图标提取.resx">
+      <DependentUpon>文件图标提取.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

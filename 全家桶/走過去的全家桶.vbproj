@@ -140,10 +140,10 @@
     <Compile Include="工具\生活\中小学学习水平估测.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="工具\生活\日历.Designer.vb">
-      <DependentUpon>日历.vb</DependentUpon>
+    <Compile Include="工具\生活\每月提醒我.Designer.vb">
+      <DependentUpon>每月提醒我.vb</DependentUpon>
     </Compile>
-    <Compile Include="工具\生活\日历.vb">
+    <Compile Include="工具\生活\每月提醒我.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -163,8 +163,8 @@
     <EmbeddedResource Include="工具\生活\中小学学习水平估测.resx">
       <DependentUpon>中小学学习水平估测.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="工具\生活\日历.resx">
-      <DependentUpon>日历.vb</DependentUpon>
+    <EmbeddedResource Include="工具\生活\每月提醒我.resx">
+      <DependentUpon>每月提醒我.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

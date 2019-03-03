@@ -1,6 +1,7 @@
-﻿Public Class 日历
+﻿Public Class 每月提醒我
 
     Private Sub 日历_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dates.MinDate = New Date(Year(Now), 1, 1)
         ListT.AddColumn("日期", 200)
         ListT.AddColumn("事件")
         Dates.Value = Now
@@ -54,6 +55,10 @@
         If e.KeyCode = Keys.Enter AndAlso ButAdd.Enabled = True Then
             ButAdd.PerformClick()
         End If
+    End Sub
+
+    Private Sub ButImportCSV_Click(sender As Object, e As EventArgs) Handles ButImportCSV.Click
+
     End Sub
 
 End Class

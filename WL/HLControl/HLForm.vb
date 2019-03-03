@@ -137,6 +137,7 @@
         End Sub
 
         Private Sub _Move(sender As Object, e As EventArgs) Handles Me.Move
+            If Visible = False OrElse WindowState = FormWindowState.Minimized Then Exit Sub
             If Top < 0 Then Top = 0
             Dim g As Integer = 150
             If Right < g Then Left = -Width + g

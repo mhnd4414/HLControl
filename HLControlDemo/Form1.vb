@@ -19,7 +19,7 @@ Public Class Form1
                 g.Items.Add(New HLGroupItem(随机.小数().ToString, 随机.当中一个(SystemIcons.Application, SystemIcons.Error, SystemIcons.Information, Nothing)))
             Next
             HlGroupList1.Groups.Add(g)
-            HlGroupList1.SortAllItems()
+            HlGroupList1.SortAll()
         Next
         HlListBox1.SelectedIndex = 0
         HlComboBox1.SelectedIndex = 0

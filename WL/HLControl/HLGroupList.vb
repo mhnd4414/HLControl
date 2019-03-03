@@ -293,6 +293,13 @@
             Return Title
         End Function
 
+        Public Overrides Function Equals(obj As Object) As Boolean
+            If obj.GetType = Me.GetType Then
+                Return Title = obj.title
+            End If
+            Return False
+        End Function
+
         Public Sub Sort(Optional desc As Boolean = False)
             Items.Sort(New HLGroupItemComparer(desc))
         End Sub
@@ -360,6 +367,13 @@
 
         Public Overrides Function ToString() As String
             Return Title
+        End Function
+
+        Public Overrides Function Equals(obj As Object) As Boolean
+            If obj.GetType = Me.GetType Then
+                Return Title = obj.title
+            End If
+            Return False
         End Function
 
     End Class

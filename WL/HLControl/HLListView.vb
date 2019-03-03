@@ -32,6 +32,7 @@
         End Sub
 
         Private Sub _MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+            If 为空(物品.Count, 列.Count) Then Exit Sub
             Dim old As Integer = 选中
             选中列 = -1
             选中 = -1
@@ -204,7 +205,7 @@
                     If x >= 滚动条.Left Then Exit For
                 Next
                 y = 边缘
-                For i As Integer = 最高栏 To 最高栏 + shown
+                For i As Integer = 最高栏 To 最高栏 + shown + 1
                     If 物品.Count <= i Then Exit For
                     Dim firstC As Boolean = True, t As HLListViewItem = 物品(i), it As Integer = 0
                     x = 0
@@ -293,6 +294,13 @@
         Public Shared Operator <>(a As HLListViewColumn, b As HLListViewColumn) As Boolean
             Return a.Name <> b.Name
         End Operator
+
+        Public Overrides Function Equals(obj As Object) As Boolean
+            If obj.GetType = Me.GetType Then
+                Return Name = obj.Name
+            End If
+            Return False
+        End Function
 
     End Class
 

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class 日历
+Partial Class 每月提醒我
     Inherits WL.HLControl.HLForm
 
     'Form 重写 Dispose，以清理组件列表。
@@ -22,7 +22,7 @@ Partial Class 日历
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(日历))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(每月提醒我))
         Me.ListT = New WL.HLControl.HLListView()
         Me.ButAdd = New WL.HLControl.HLButton()
         Me.LabDate = New WL.HLControl.HLLabel()
@@ -32,6 +32,7 @@ Partial Class 日历
         Me.ButRemove = New WL.HLControl.HLButton()
         Me.LabOften = New WL.HLControl.HLLabel()
         Me.ListOften = New WL.HLControl.HLComboBox()
+        Me.ButImportCSV = New WL.HLControl.HLButton()
         Me.SuspendLayout()
         '
         'ListT
@@ -42,7 +43,7 @@ Partial Class 日历
         Me.ListT.SelectedIndex = -1
         Me.ListT.SelectedItem = Nothing
         Me.ListT.ShowCount = False
-        Me.ListT.Size = New System.Drawing.Size(539, 366)
+        Me.ListT.Size = New System.Drawing.Size(539, 353)
         Me.ListT.TabIndex = 0
         Me.ListT.Text = "HlListView1"
         '
@@ -68,7 +69,7 @@ Partial Class 日历
         Me.Dates.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.Dates.Location = New System.Drawing.Point(106, 455)
         Me.Dates.MaxDate = New Date(2030, 12, 31, 0, 0, 0, 0)
-        Me.Dates.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
+        Me.Dates.MinDate = New Date(2019, 1, 1, 0, 0, 0, 0)
         Me.Dates.Name = "Dates"
         Me.Dates.Size = New System.Drawing.Size(249, 29)
         Me.Dates.TabIndex = 3
@@ -97,7 +98,7 @@ Partial Class 日历
         'ButRemove
         '
         Me.ButRemove.Enabled = False
-        Me.ButRemove.Location = New System.Drawing.Point(361, 459)
+        Me.ButRemove.Location = New System.Drawing.Point(360, 456)
         Me.ButRemove.Name = "ButRemove"
         Me.ButRemove.Size = New System.Drawing.Size(186, 31)
         Me.ButRemove.TabIndex = 6
@@ -113,9 +114,9 @@ Partial Class 日历
         '
         'ListOften
         '
-        Me.ListOften.HighLightLabel = Nothing
-        Me.ListOften.Items.Add("0每年的X月X日提醒")
-        Me.ListOften.Items.Add("1每月的X日提醒")
+        Me.ListOften.HighLightLabel = Me.LabOften
+        Me.ListOften.Items.Add("每年的X月X日提醒")
+        Me.ListOften.Items.Add("每月的X日提醒")
         Me.ListOften.Location = New System.Drawing.Point(106, 422)
         Me.ListOften.Name = "ListOften"
         Me.ListOften.SelectedIndex = -1
@@ -124,10 +125,20 @@ Partial Class 日历
         Me.ListOften.TabIndex = 8
         Me.ListOften.Text = "HlComboBox1"
         '
-        '日历
+        'ButImportCSV
+        '
+        Me.ButImportCSV.Enabled = False
+        Me.ButImportCSV.Location = New System.Drawing.Point(360, 490)
+        Me.ButImportCSV.Name = "ButImportCSV"
+        Me.ButImportCSV.Size = New System.Drawing.Size(186, 31)
+        Me.ButImportCSV.TabIndex = 9
+        Me.ButImportCSV.Text = "导入CSV"
+        '
+        '每月提醒我
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(559, 540)
+        Me.Controls.Add(Me.ButImportCSV)
         Me.Controls.Add(Me.ListOften)
         Me.Controls.Add(Me.LabOften)
         Me.Controls.Add(Me.ButRemove)
@@ -139,9 +150,9 @@ Partial Class 日历
         Me.Controls.Add(Me.ListT)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
-        Me.Name = "日历"
+        Me.Name = "每月提醒我"
         Me.ShowSteamIcon = False
-        Me.Text = "日历"
+        Me.Text = "每月提醒我"
         Me.ResumeLayout(False)
 
     End Sub
@@ -155,4 +166,5 @@ Partial Class 日历
     Friend WithEvents ButRemove As HLButton
     Friend WithEvents LabOften As HLLabel
     Friend WithEvents ListOften As HLComboBox
+    Friend WithEvents ButImportCSV As HLButton
 End Class

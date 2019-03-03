@@ -23,6 +23,7 @@
     End Sub
 
     Private Sub TxtJob_TextChanged() Handles TxtJob.TextChanged, Dates.ValueChanged, ListOften.SelectedIndexChanged
+        设最小值(ListOften.SelectedIndex, 0)
         Dim ok As Boolean = TxtJob.Text.Trim.Length > 0
         ButAdd.Enabled = ok
     End Sub

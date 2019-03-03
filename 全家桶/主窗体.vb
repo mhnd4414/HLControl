@@ -36,7 +36,9 @@
             ListTools.Groups.Add(g)
         End If
         Dim t As New HLGroupItem(名字, 窗体.Icon)
+        窗体.KeyPreview = True
         AddHandler 窗体.FormClosing, AddressOf 主窗体_FormClosing
+        AddHandler 窗体.KeyDown, AddressOf 主窗体_KeyDown
         g.Items.Add(t)
         工具列表.Add(t, 窗体)
         With 窗体
@@ -87,6 +89,12 @@
 
     Private Sub 退出ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 退出ToolStripMenuItem.Click
         My.MyApplication.正常退出()
+    End Sub
+
+    Private Sub 主窗体_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        If e.Control AndAlso e.KeyCode = Keys.W Then
+            sender.Close()
+        End If
     End Sub
 
 End Class

@@ -222,7 +222,7 @@
             Dim iw As Integer = Font.GetHeight
             Dim ft As New Font(Font.Name, Font.Size * 0.8)
             With g
-                绘制基础矩形(g, c)
+                绘制基础矩形(g, c, True, False, 内容绿)
                 If f < 1 Then f = 1
                 滚动条.Maximum = f
                 y = 边缘

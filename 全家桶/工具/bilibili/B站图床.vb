@@ -42,6 +42,24 @@
         End If
     End Sub
 
+    Private Sub ButResize_Click(sender As Object, e As EventArgs) Handles ButResize.Click
+        If 非空(LastUpload) Then
+            Dim m As Bitmap = 字节数组转图片(LastUpload)
+            Dim x As Integer = m.Width
+            Dim y As Integer = m.Height
+            If x < 200 Then
+                y *= 200 / x
+                x = 200
+            End If
+            If y < 200 Then
+                x *= 200 / y
+                y = 200
+            End If
+            m = New Bitmap(m, New Size(x, y))
+            Upload(图片转字节数组(m))
+        End If
+    End Sub
+
     Private Sub TxtOut_Click(sender As Object, e As EventArgs) Handles TxtOut.Click
         TxtOut.SelectAll()
     End Sub

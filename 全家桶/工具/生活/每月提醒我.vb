@@ -13,6 +13,7 @@
             Dim a As String = 提取最之前(i, " ")
             Dim b As String = 提取之后(i, " ")
             If 非空全部(a, b) Then ListT.AddItem(a, b)
+
         Next
         tr = New 计时器(5000, Sub()
                                If 当日时间戳() < 5 Then

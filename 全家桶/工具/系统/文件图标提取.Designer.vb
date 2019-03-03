@@ -22,24 +22,26 @@ Partial Class 文件图标提取
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(文件图标提取))
         Me.LabNote = New WL.HLControl.HLLabel()
         Me.LabFile = New WL.HLControl.HLLabel()
         Me.PnIco = New System.Windows.Forms.Panel()
         Me.ButSaveIco = New WL.HLControl.HLButton()
         Me.ButSavePNG = New WL.HLControl.HLButton()
+        Me.LabSize = New WL.HLControl.HLLabel()
         Me.SuspendLayout()
         '
         'LabNote
         '
         Me.LabNote.Location = New System.Drawing.Point(13, 43)
         Me.LabNote.Name = "LabNote"
-        Me.LabNote.Size = New System.Drawing.Size(285, 44)
+        Me.LabNote.Size = New System.Drawing.Size(427, 65)
         Me.LabNote.TabIndex = 0
-        Me.LabNote.Text = "请从外面拖入任意一个文件到本窗口，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "然后我会解析文件使用的图标。"
+        Me.LabNote.Text = "请从外面拖入任意一个文件到本窗口，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "然后我会解析文件使用的图标。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "用的是 .NET 自带功能，比较报废，只能读取32x32的图标"
         '
         'LabFile
         '
-        Me.LabFile.Location = New System.Drawing.Point(13, 93)
+        Me.LabFile.Location = New System.Drawing.Point(13, 114)
         Me.LabFile.Name = "LabFile"
         Me.LabFile.Size = New System.Drawing.Size(137, 23)
         Me.LabFile.TabIndex = 1
@@ -68,16 +70,27 @@ Partial Class 文件图标提取
         Me.ButSavePNG.TabIndex = 4
         Me.ButSavePNG.Text = "保存 .png"
         '
+        'LabSize
+        '
+        Me.LabSize.Location = New System.Drawing.Point(211, 236)
+        Me.LabSize.LowLight = True
+        Me.LabSize.Name = "LabSize"
+        Me.LabSize.Size = New System.Drawing.Size(33, 23)
+        Me.LabSize.TabIndex = 5
+        Me.LabSize.Text = "0x0"
+        '
         '文件图标提取
         '
         Me.AllowDrop = True
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(503, 346)
+        Me.Controls.Add(Me.LabSize)
         Me.Controls.Add(Me.ButSavePNG)
         Me.Controls.Add(Me.ButSaveIco)
         Me.Controls.Add(Me.PnIco)
         Me.Controls.Add(Me.LabFile)
         Me.Controls.Add(Me.LabNote)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "文件图标提取"
         Me.ShowSteamIcon = False
@@ -91,4 +104,5 @@ Partial Class 文件图标提取
     Friend WithEvents PnIco As Panel
     Friend WithEvents ButSaveIco As HLButton
     Friend WithEvents ButSavePNG As HLButton
+    Friend WithEvents LabSize As HLLabel
 End Class

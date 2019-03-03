@@ -29,6 +29,7 @@
             m = Icon.ExtractAssociatedIcon(s)
             If 非空(m) Then
                 Ic = m
+                LabSize.Text = Ic.Width & "x" & Ic.Height
                 PnIco.Refresh()
             End If
         Catch ex As Exception

@@ -246,7 +246,8 @@
                     If ShowIcon AndAlso Not hl Then
                         Dim gi As HLGroupItem = o
                         If gi.HasIco Then
-                            .DrawIcon(gi.Ico, New Rectangle(边缘, y, iw, iw))
+
+                            .DrawIcon(gi.Ico, New Rectangle(边缘, y + iw * 0.1, iw * 0.8, iw * 0.8))
                         End If
                     ElseIf hl Then
                         .DrawLine(黑边框, 点(边缘, y + 行高), 点(IIf(滚动条.Visible, 滚动条.Left, Width) - 边缘, y + 行高))

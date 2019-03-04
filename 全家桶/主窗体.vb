@@ -11,7 +11,7 @@
             .Text = Text
             .ContextMenuStrip = NotifMenu
             AddHandler .DoubleClick, Sub()
-                                         打开主页ToolStripMenuItem_Click(Nothing, Nothing)
+                                         打开主页ToolStripMenuItem.PerformClick()
                                      End Sub
         End With
         工具列表 = New Dictionary(Of HLGroupItem, HLForm)
@@ -24,7 +24,7 @@
         添加工具(a, 文件图标提取)
         ListTools.SortAll()
         RightClose = False
-        随机一句话()
+        RandomSaying()
     End Sub
 
     Private Sub 添加工具(组 As String, 窗体 As HLForm, Optional 预加载 As Boolean = False)
@@ -85,6 +85,7 @@
             If RightClose Then
                 退出ToolStripMenuItem.PerformClick()
             End If
+            RandomSaying()
         End If
         sender.Hide()
     End Sub
@@ -100,6 +101,8 @@
     Private Sub 主窗体_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.Control AndAlso e.KeyCode = Keys.W Then
             sender.Close()
+        ElseIf e.KeyCode = Keys.Enter Then
+            ListTools_MouseDoubleClick(sender, Nothing)
         End If
     End Sub
 
@@ -111,11 +114,22 @@
         RightClose = False
     End Sub
 
-    Private Sub 随机一句话()
-        LabFun.Text = 随机.当中一个("reviewed LOVE - Recommended
-本质上就是款单纯的跳台游戏，就是类似 I WANNA 那样的游戏。用来打发时间还不错，但要一直玩，怕会崩溃。
-Reviewer received this product for free
-Read the full review").ToString
+    Private Sub RandomSaying()
+        LabFun.Text = 随机.当中一个("你知道吗？鼠标右击主页的关闭按钮可以直接退出程序而不是停在后台。",
+"每一个不是清洁工的人都说清洁工很伟大。",
+"花钱才是硬道理。",
+"一个比一个干净，反过来看，一个比一个肮脏。",
+"You forget a thousand things every day, make sure this is one of them.",
+"曾经有一个朋友让我电脑登录他的steam账号帮他做点事情，我很高兴，因为他信任我，被信任真好。",
+"人啊，不要有点成功就开始来点名言警句教人家做人，结果到头来反而被自己说的大道理压死。——敖厂长", "傻子不是骗子，骗子不是傻子。",
+"要想BUG少，女装不能少。",
+"高DPI很可能会出各种各样的BUG，烦死了。", "我很不敢相信，有的人碰过智能手机，没有碰过电脑的鼠标键盘。",
+"我也想做合法的事情，如果合法手段有用的话。",
+"你猜猜这里一共可以出现几句话？",
+"做傻瓜式软件救不了中国人。",
+"别和差的比，越差越有理。",
+"教不会学生自己去学的老师是废物。",
+"请和我提理智并且有价值的问题。").ToString
     End Sub
 
 End Class

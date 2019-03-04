@@ -1,6 +1,6 @@
 ﻿Public Class 主窗体
 
-    Private 工具列表 As Dictionary(Of HLGroupItem, HLForm)
+    Private 工具列表 As Dictionary(Of HLGroupItem, HLForm), RightClose As Boolean
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Text = 标题
@@ -23,6 +23,8 @@
         a = "系统"
         添加工具(a, 文件图标提取)
         ListTools.SortAll()
+        RightClose = False
+        随机一句话()
     End Sub
 
     Private Sub 添加工具(组 As String, 窗体 As HLForm, Optional 预加载 As Boolean = False)
@@ -79,6 +81,10 @@
                 .Left = sender.Right - .Width
                 .Top = sender.Top
             End With
+        ElseIf Text = sender.Text Then
+            If RightClose Then
+                退出ToolStripMenuItem.PerformClick()
+            End If
         End If
         sender.Hide()
     End Sub
@@ -95,6 +101,21 @@
         If e.Control AndAlso e.KeyCode = Keys.W Then
             sender.Close()
         End If
+    End Sub
+
+    Private Sub 主窗体_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+        If e.Button = MouseButtons.Right Then RightClose = True
+    End Sub
+
+    Private Sub 主窗体_MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+        RightClose = False
+    End Sub
+
+    Private Sub 随机一句话()
+        LabFun.Text = 随机.当中一个("reviewed LOVE - Recommended
+本质上就是款单纯的跳台游戏，就是类似 I WANNA 那样的游戏。用来打发时间还不错，但要一直玩，怕会崩溃。
+Reviewer received this product for free
+Read the full review").ToString
     End Sub
 
 End Class

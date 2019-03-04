@@ -27,6 +27,7 @@ Partial Class 主窗体
         Me.NotifMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.打开主页ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.退出ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LabFun = New System.Windows.Forms.Label()
         Me.NotifMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -37,7 +38,7 @@ Partial Class 主窗体
         Me.ListTools.Name = "ListTools"
         Me.ListTools.SelectedIndex = -1
         Me.ListTools.SelectedItem = Nothing
-        Me.ListTools.Size = New System.Drawing.Size(281, 372)
+        Me.ListTools.Size = New System.Drawing.Size(296, 347)
         Me.ListTools.TabIndex = 0
         Me.ListTools.Text = "HlGroupList1"
         '
@@ -60,10 +61,24 @@ Partial Class 主窗体
         Me.退出ToolStripMenuItem.Size = New System.Drawing.Size(144, 26)
         Me.退出ToolStripMenuItem.Text = "退出"
         '
+        'LabFun
+        '
+        Me.LabFun.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabFun.Font = New System.Drawing.Font("微软雅黑", 10.0!)
+        Me.LabFun.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
+        Me.LabFun.Location = New System.Drawing.Point(10, 397)
+        Me.LabFun.Margin = New System.Windows.Forms.Padding(3)
+        Me.LabFun.Name = "LabFun"
+        Me.LabFun.Padding = New System.Windows.Forms.Padding(3)
+        Me.LabFun.Size = New System.Drawing.Size(296, 93)
+        Me.LabFun.TabIndex = 1
+        Me.LabFun.Text = "我记得我要说什么来着"
+        '
         '主窗体
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(301, 500)
+        Me.ClientSize = New System.Drawing.Size(316, 500)
+        Me.Controls.Add(Me.LabFun)
         Me.Controls.Add(Me.ListTools)
         Me.KeyPreview = True
         Me.Name = "主窗体"
@@ -78,4 +93,5 @@ Partial Class 主窗体
     Friend WithEvents NotifMenu As ContextMenuStrip
     Friend WithEvents 打开主页ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 退出ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LabFun As Label
 End Class

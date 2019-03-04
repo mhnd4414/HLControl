@@ -35,9 +35,9 @@ Partial Class 文件图标提取
         '
         Me.LabNote.Location = New System.Drawing.Point(13, 43)
         Me.LabNote.Name = "LabNote"
-        Me.LabNote.Size = New System.Drawing.Size(427, 65)
+        Me.LabNote.Size = New System.Drawing.Size(429, 65)
         Me.LabNote.TabIndex = 0
-        Me.LabNote.Text = "请从外面拖入任意一个文件到本窗口，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "然后我会解析文件使用的图标。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "用的是 .NET 自带功能，比较报废，只能读取32x32的图标"
+        Me.LabNote.Text = "请从外面拖入任意一个文件到本窗口，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "然后我会解析文件使用的图标。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "用的是 .NET 自带功能，比较残废，只能读取较小的图标。"
         '
         'LabFile
         '
@@ -77,7 +77,7 @@ Partial Class 文件图标提取
         Me.LabSize.Name = "LabSize"
         Me.LabSize.Size = New System.Drawing.Size(33, 23)
         Me.LabSize.TabIndex = 5
-        Me.LabSize.Text = "0x0"
+        Me.LabSize.Text = "（空图标）"
         '
         '文件图标提取
         '

@@ -22,6 +22,8 @@
         添加工具(a, 每月提醒我, True)
         a = "系统"
         添加工具(a, 文件图标提取)
+        a = "走過去的"
+        添加工具(a, 简单加密器)
         ListTools.SortAll()
         RightClose = False
         RandomSaying()
@@ -101,8 +103,6 @@
     Private Sub 主窗体_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.Control AndAlso e.KeyCode = Keys.W Then
             sender.Close()
-        ElseIf e.KeyCode = Keys.Enter Then
-            ListTools_MouseDoubleClick(sender, Nothing)
         End If
     End Sub
 

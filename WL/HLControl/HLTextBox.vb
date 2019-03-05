@@ -149,7 +149,8 @@
                 .Visible = Multiline AndAlso 滚动条
                 If .Visible Then
                     x2 = 滚动条大小
-                    .Maximum = 文本框.Lines.Length - 1
+                    .Maximum = 获得文本框行数(文本框)
+                    .Enabled = .Maximum > 1
                 End If
             End With
             With 文本框

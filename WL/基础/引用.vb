@@ -27,7 +27,7 @@
         End Sub
 
         ''' <summary>
-        ''' 对控件发送滚动信号
+        ''' 对控件发送滚动信号，使用 EM_LINESCROLL 
         ''' </summary>
         Public Sub 滚动(控件 As Control, 垂直 As Boolean, 数量 As Integer)
             If 为空(控件) Then Exit Sub
@@ -37,12 +37,29 @@
             Else
                 n = 数量
             End If
+            Const EM_LINESCROLL As Integer = &HB6
             Try
-                SendMessage(控件.Handle, &HB6, n, m)
+                SendMessage(控件.Handle, EM_LINESCROLL, n, m)
             Catch ex As Exception
                 出错(ex)
             End Try
         End Sub
+
+        ''' <summary>
+        ''' 获得文本框的行数，使用 EM_LINEINDEX 
+        ''' </summary>
+        Public Function 获得文本框行数(控件 As Control) As Integer
+            If 为空(控件) OrElse 控件.Text.Length < 1 Then Return 0
+            Const EM_GETLINECOUNT As Integer = &HBA
+            Dim g As Integer = 0
+            Try
+                g = SendMessage(控件.Handle, EM_GETLINECOUNT, 0, 0)
+                Return g
+            Catch ex As Exception
+                出错(ex)
+            End Try
+            Return 0
+        End Function
 
         <DllImport("wininet.dll")>
         Private Function InternetGetCookieExA(lpszUrl As String, lpszCookieName As String, lpszCookieData As StringBuilder, ByRef lpdwSize As Integer, dwFlags As Integer, lpReserved As IntPtr) As Boolean

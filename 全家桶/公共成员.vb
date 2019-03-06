@@ -8,7 +8,7 @@
     Public ReadOnly 消息图标 As New NotifyIcon
 
     Public Sub 弹出消息(t As String, m As String, Optional i As ToolTipIcon = ToolTipIcon.Info)
-        消息图标.ShowBalloonTip(999, t, m, i)
+        If 非空(消息图标) Then 消息图标.ShowBalloonTip(999, t, m, i)
     End Sub
 
 End Module

@@ -22,6 +22,7 @@ Partial Class 简单加密器
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(简单加密器))
         Me.LabKey = New WL.HLControl.HLLabel()
         Me.TxtKey = New WL.HLControl.HLTextBox()
         Me.TxtIn = New WL.HLControl.HLTextBox()
@@ -130,6 +131,7 @@ Partial Class 简单加密器
         Me.Controls.Add(Me.TxtIn)
         Me.Controls.Add(Me.TxtKey)
         Me.Controls.Add(Me.LabKey)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "简单加密器"
         Me.ShowSteamIcon = False

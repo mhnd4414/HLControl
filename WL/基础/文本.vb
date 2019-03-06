@@ -692,7 +692,7 @@ Function(m As String)
     Dim o As String = "", i As Integer, s As String
     If m.EndsWith(vbCrLf) = False Then m += vbCrLf
     Dim code As Boolean = False, ol As Boolean = False, ul As Boolean = False, qt As Boolean = False, pa As Boolean = False
-    For Each l As String In 分行(m)
+    For Each l As String In 分行(m + vbCrLf)
         If 为空(l.Trim) Then
             If pa Then
                 pa = False
@@ -742,7 +742,7 @@ Function(m As String)
                 If i <= 6 Then
                     l = 正则.去除(l, "^\#+ ", " \#+$").Trim
                     s = "h" + i.ToString + ">"
-                    l = "<" + s + md粗体斜体(l) + "</" + s
+                    l = "<" + s + MD粗体斜体(l) + "</" + s
                 End If
             ElseIf 正则.包含(l.Trim, "^-{3,}$") Then
                 If pa Then
@@ -773,7 +773,7 @@ Function(m As String)
                     ol = True
                     o += "<ol>"
                 End If
-                l = "<li>" + md粗体斜体(提取之后(l.Trim, " ")) + "</li>"
+                l = "<li>" + MD粗体斜体(提取之后(l.Trim, " ")) + "</li>"
             ElseIf 正则.包含(l.Trim, "^- ") Then
                 If pa Then
                     pa = False
@@ -783,21 +783,20 @@ Function(m As String)
                     ul = True
                     o += "<ul>"
                 End If
-                l = "<li>" + md粗体斜体(提取之后(l.Trim, " ")) + "</li>"
+                l = "<li>" + MD粗体斜体(提取之后(l.Trim, " ")) + "</li>"
             Else
                 If Not pa Then
                     o += "<p>"
                     pa = True
                 End If
                 If l.EndsWith("  ") Then l = l.Trim + "<br>"
-                l = md粗体斜体(l)
+                l = MD粗体斜体(l)
             End If
             o += l
         End If
     Next
     o = 正则.替换(o, "(<br>)*<hr>(<br>)*", "<hr>", "<br></code></pre>", "</code></pre>", "><br></", "></", "<br></", "</")
     If 提取最之后(o, "<p>").Contains("</p>") = False Then o += "</p>"
-
     Return o
 End Function)
                 md = 正则.高级替换(md, "<code.*?>(.*?)</code>", Function(m As String)

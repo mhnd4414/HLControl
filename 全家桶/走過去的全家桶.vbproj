@@ -140,6 +140,12 @@
     <Compile Include="工具\戈登登\简单加密器.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="工具\生活\Win7还剩几天.Designer.vb">
+      <DependentUpon>Win7还剩几天.vb</DependentUpon>
+    </Compile>
+    <Compile Include="工具\生活\Win7还剩几天.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="工具\生活\中小学生学习水平估测.Designer.vb">
       <DependentUpon>中小学生学习水平估测.vb</DependentUpon>
     </Compile>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="工具\戈登登\简单加密器.resx">
       <DependentUpon>简单加密器.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="工具\生活\Win7还剩几天.resx">
+      <DependentUpon>Win7还剩几天.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="工具\生活\中小学生学习水平估测.resx">
       <DependentUpon>中小学生学习水平估测.vb</DependentUpon>

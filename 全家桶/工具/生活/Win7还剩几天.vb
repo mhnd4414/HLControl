@@ -13,7 +13,7 @@
         If Visible Then
             LabTime.Text = "距离 Windows 7 
 被微软彻底放弃支持还剩：" + DateDiff(DateInterval.Day, Now, #2020-01-14#).ToString + "天，
-Windows 7 已经发布了：" + DateDiff(DateInterval.Day, #2009-07-22#, Now).ToString + "天。"
+Windows 7 已经发售了：" + DateDiff(DateInterval.Day, #2009-07-22#, Now).ToString + "天。"
         End If
     End Sub
 

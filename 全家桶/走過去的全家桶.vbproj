@@ -220,8 +220,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="资源\图标\B站.ico" />
-    <Content Include="资源\图标\主图标.ico" />
+    <None Include="资源\图标\B站.ico" />
+    <None Include="资源\图标\ICO.ico" />
+    <None Include="资源\图标\win7.ico" />
+    <None Include="资源\图标\主图标.ico" />
+    <None Include="资源\图标\历.ico" />
+    <None Include="资源\图标\文.ico" />
+    <None Include="资源\图标\贼.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

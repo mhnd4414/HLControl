@@ -1,7 +1,7 @@
 ﻿Public Class 主窗体
 
     Private 工具列表 As New Dictionary(Of HLGroupItem, HLForm), RightClose As Boolean
-    Private 最后工具列表 As New List(Of ToolStripMenuItem)
+    Private 最后工具列表 As New List(Of ToolStripMenuItem), 最后工具 As New List(Of String)
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Text = 标题
@@ -28,14 +28,16 @@
         添加工具(a, 简单加密器, My.Resources.图标库.贼)
         ListTools.SortAll()
         For i As Integer = 0 To 4
-            Dim g As New ToolStripMenuItem(配置.字符串("最后工具" & i))
+            Dim g As New ToolStripMenuItem()
             最后工具列表.Add(g)
             NotifMenu.Items.Insert(0, g)
-            g.Tag = i
             AddHandler g.Click, Sub()
                                     打开工具(g.Text)
                                 End Sub
-            g.Visible = g.Text.Length > 0
+            g.Visible = False
+        Next
+        For Each i As String In 分行(配置.字符串("最后工具"), True)
+            最后工具.Add(i)
         Next
         最后工具列表.Reverse()
         RightClose = False
@@ -135,20 +137,27 @@
 
     Private Sub 刷新最后工具列表(Optional m As String = "")
         If m.Length > 0 Then
-            最后工具列表.First.Text = m
+            最后工具.Insert(0, m)
         End If
         Dim g As New List(Of String)
-        For Each t As ToolStripItem In 最后工具列表
-            Dim s As String = t.Text
-            If g.Contains(s) = True Then
-                t.Text = ""
+        For Each i As String In 最后工具
+            If Not g.Contains(i) Then g.Add(i)
+        Next
+        For i As Integer = 0 To 最后工具列表.Count - 1
+            If i >= g.Count Then
+                最后工具列表(i).Text = ""
             Else
-                g.Add(s)
+                最后工具列表(i).Text = g(i)
             End If
         Next
         For Each t As ToolStripItem In 最后工具列表
             t.Visible = t.Text.Length > 0
         Next
+        If 最后工具.Count > 10 Then
+            For i As Integer = 9 To 最后工具.Count - 1
+                最后工具.RemoveAt(i)
+            Next
+        End If
     End Sub
 
     Private Sub 打开主页ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开主页ToolStripMenuItem.Click
@@ -156,9 +165,11 @@
     End Sub
 
     Private Sub 退出ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 退出ToolStripMenuItem.Click
-        For i As Integer = 0 To 最后工具列表.Count - 1
-            配置.字符串("最后工具" & i) = 最后工具列表(i).Text
+        Dim s As String = ""
+        For i As Integer = 0 To 最后工具.Count - 1
+            s += 最后工具(i) + vbCrLf
         Next
+        配置.字符串("最后工具") = s
         My.MyApplication.正常退出()
     End Sub
 

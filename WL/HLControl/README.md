@@ -81,8 +81,8 @@ Now, you can start your work.
 # Controls' details 各个控件的一些细节说明：  
 
 ## Label  
-Four different states of it:Enabled, not Enabled, Highlight, Lowlight. and its size is fixed by the text's size.and when one label highlighted, the others near it will be not highlighted.    
-它有四种状态：启用、禁用、高亮、黯淡。并且大小是根据文字固定的。并且如果一个变得高亮了，那么它旁边的就会取消高亮。    
+Four different states of it:Enabled, not Enabled, Highlight, Lowlight.and when one label highlighted, the others near it will be not highlighted.    
+它有四种状态：启用、禁用、高亮、黯淡。并且如果一个变得高亮了，那么它旁边的就会取消高亮。    
 ![](https://s2.ax1x.com/2019/02/13/k0tyvV.png)
 
 ## Button  

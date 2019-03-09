@@ -1,7 +1,7 @@
 ﻿Public Class 主窗体
 
-    Private 工具列表 As New Dictionary(Of HLGroupItem, HLForm), RightClose As Boolean
-    Private 最后工具列表 As New List(Of ToolStripMenuItem), 最后工具 As New List(Of String)
+    Private RightClose As Boolean
+    Private ReadOnly 最后工具按钮列表 As New List(Of ToolStripMenuItem), 最后工具列表 As New List(Of String)
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Text = 标题
@@ -15,6 +15,7 @@
                                          打开主页ToolStripMenuItem.PerformClick()
                                      End Sub
         End With
+        AddHandler Me.KeyDown, AddressOf CtrlW关闭
         Dim a As String = "bilibili"
         添加工具(a, B站图床, My.Resources.图标库.B站)
         a = "生活"
@@ -29,7 +30,7 @@
         ListTools.SortAll()
         For i As Integer = 0 To 4
             Dim g As New ToolStripMenuItem()
-            最后工具列表.Add(g)
+            最后工具按钮列表.Add(g)
             NotifMenu.Items.Insert(0, g)
             AddHandler g.Click, Sub()
                                     打开工具(g.Text)
@@ -37,9 +38,9 @@
             g.Visible = False
         Next
         For Each i As String In 分行(配置.字符串("最后工具"), True)
-            最后工具.Add(i)
+            最后工具列表.Add(i)
         Next
-        最后工具列表.Reverse()
+        最后工具按钮列表.Reverse()
         RightClose = False
         随机说话()
     End Sub
@@ -55,33 +56,37 @@
             g = New HLGroup(组)
             ListTools.Groups.Add(g)
         End If
-        For Each i As HLGroupItem In 工具列表.Keys
-            If i.Title.ToLower = 名字.ToLower Then
-                出错("工具重复", 名字)
-                Exit Sub
-            End If
-        Next
+        If 非空(获取工具(名字)) Then
+            出错("工具重名", 名字)
+            Exit Sub
+        End If
         Dim t As New HLGroupItem(名字, 图标)
         g.Items.Add(t)
-        工具列表.Add(t, 窗体)
-        With 窗体
-            .Icon = 图标
-            .ShowSteamIcon = False
-            If 预加载 Then
-                .ShowInTaskbar = False
-                .Show()
-                .Hide()
-                .ShowInTaskbar = True
-            End If
-            AddHandler .FormClosing, AddressOf 主窗体_FormClosing
-            AddHandler .KeyDown, AddressOf 主窗体_KeyDown
+        Dim a As New 工具(组, 名字, 窗体, 图标, 预加载)
+        With a
+            AddHandler .打开后, Sub()
+                                 最后工具列表.Remove(.名字)
+                                 最后工具列表.Insert(0, .名字)
+                             End Sub
         End With
+        工具列表.Add(a)
     End Sub
 
     Private Sub ListTools_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ListTools.MouseDoubleClick
         Dim i As HLGroupItem = ListTools.SelectedItem
-        If 为空(i) OrElse 工具列表.ContainsKey(i) = False Then Exit Sub
+        If 为空(i) Then Exit Sub
         打开工具(i.Title)
+    End Sub
+
+    Private Sub NotifMenu_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles NotifMenu.Opening
+        Dim m As Integer = 0
+        For i As Integer = 0 To 最后工具按钮列表.Count - 1
+            Dim t As ToolStripItem = 最后工具按钮列表.Item(i)
+            Dim s As String = ""
+            If i < 最后工具列表.Count Then s = 最后工具列表.Item(i)
+            t.Text = s
+            t.Visible = s.Length > 0
+        Next
     End Sub
 
     Private Sub 弹出窗口(a As HLForm, m As HLForm)
@@ -95,68 +100,24 @@
     End Sub
 
     Private Sub 打开工具(m As String)
-        If m.Length < 1 Then Exit Sub
-        m = m.ToLower
-        For Each i As HLGroupItem In 工具列表.Keys
-            Dim f As HLForm = 工具列表.Item(i)
-            If i.Title.ToLower.Contains(m) OrElse f.Text.ToLower.Contains(m) Then
-                弹出窗口(Me, f)
-                For t As Integer = 最后工具列表.Count - 1 To 1 Step -1
-                    最后工具列表.Item(t).Text = 最后工具列表.Item(t - 1).Text
-                Next
-                刷新最后工具列表(i.Title)
-                Exit Sub
-            End If
-        Next
+        Dim t As 工具 = 获取工具(m)
+        If 为空(t) Then Exit Sub
+        t.启动()
     End Sub
 
     Private Sub 主窗体_FormClosing(sender As HLForm, e As FormClosingEventArgs) Handles Me.FormClosing
-        If 准备退出 Then
-            Exit Sub
-        End If
-        e.Cancel = True
-        Dim m As Integer = 0
-        For Each i As Form In My.Application.OpenForms
-            If i.Visible Then m += 1
-        Next
-        If Text <> sender.Text AndAlso Me.Visible = False AndAlso m < 2 Then
-            弹出窗口(sender, Me)
-            With Me
-                .Left = sender.Right - .Width
-                .Top = sender.Top
-            End With
-        ElseIf Text = sender.Text Then
-
-            If RightClose Then
-                退出ToolStripMenuItem.PerformClick()
-            End If
-            随机说话()
-        End If
-        sender.Hide()
-    End Sub
-
-    Private Sub 刷新最后工具列表(Optional m As String = "")
-        If m.Length > 0 Then
-            最后工具.Insert(0, m)
-        End If
-        Dim g As New List(Of String)
-        For Each i As String In 最后工具
-            If Not g.Contains(i) Then g.Add(i)
-        Next
+        Dim s As String = ""
         For i As Integer = 0 To 最后工具列表.Count - 1
-            If i >= g.Count Then
-                最后工具列表(i).Text = ""
-            Else
-                最后工具列表(i).Text = g(i)
-            End If
+            s += 最后工具列表(i) + vbCrLf
         Next
-        For Each t As ToolStripItem In 最后工具列表
-            t.Visible = t.Text.Length > 0
-        Next
-        If 最后工具.Count > 10 Then
-            For i As Integer = 9 To 最后工具.Count - 1
-                最后工具.RemoveAt(i)
-            Next
+        配置.字符串("最后工具") = s
+        e.Cancel = True
+        If RightClose Then
+            RightClose = False
+            退出ToolStripMenuItem.PerformClick()
+        Else
+            Hide()
+            随机说话()
         End If
     End Sub
 
@@ -165,16 +126,7 @@
     End Sub
 
     Private Sub 退出ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 退出ToolStripMenuItem.Click
-        Dim s As String = ""
-        For i As Integer = 0 To 最后工具.Count - 1
-            s += 最后工具(i) + vbCrLf
-        Next
-        配置.字符串("最后工具") = s
-        My.MyApplication.正常退出()
-    End Sub
-
-    Private Sub 主窗体_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        CtrlW关闭(sender, e)
+        正常退出()
     End Sub
 
     Private Sub 主窗体_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown

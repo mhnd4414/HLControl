@@ -4,8 +4,6 @@ Namespace My
 
     Friend Class MyApplication
 
-        Private Shared 缓存文件夹保护文件 As Stream
-
         Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
             Dim s As String = 本程序.路径.ToLower
             If 包含全部(s, "c:\users\", "local\temp") Then
@@ -29,26 +27,8 @@ Namespace My
             报错退出(s)
         End Sub
 
-        Public Sub 报错退出(s As String)
+        Private Sub 报错退出(s As String)
             MessageBox.Show(s, "出错了！" + 标题)
-            本程序.退出()
-        End Sub
-
-        Public Shared Sub 正常退出()
-            准备退出 = True
-            消息图标.Visible = False
-            消息图标.Dispose()
-            缓存文件夹保护文件.Close()
-            删除文件(缓存文件夹)
-            Dim m As New List(Of Form)
-            For Each i As Form In My.Application.OpenForms
-                m.Add(i)
-            Next
-            For Each i As Form In m
-                i.Close()
-                i.Dispose()
-            Next
-            配置.保存到本地()
             本程序.退出()
         End Sub
 

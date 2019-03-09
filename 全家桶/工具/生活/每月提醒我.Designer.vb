@@ -22,7 +22,6 @@ Partial Class 每月提醒我
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(每月提醒我))
         Me.ListT = New WL.HLControl.HLListView()
         Me.ButAdd = New WL.HLControl.HLButton()
         Me.LabDate = New WL.HLControl.HLLabel()
@@ -138,7 +137,6 @@ Partial Class 每月提醒我
         Me.Controls.Add(Me.LabDate)
         Me.Controls.Add(Me.ButAdd)
         Me.Controls.Add(Me.ListT)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "每月提醒我"
         Me.ShowSteamIcon = False

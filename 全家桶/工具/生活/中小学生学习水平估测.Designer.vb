@@ -22,7 +22,6 @@ Partial Class 中小学生学习水平估测
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(中小学生学习水平估测))
         Me.LabNote = New WL.HLControl.HLLabel()
         Me.LabYourPos = New WL.HLControl.HLLabel()
         Me.LabAll = New WL.HLControl.HLLabel()
@@ -171,7 +170,7 @@ Partial Class 中小学生学习水平估测
         Me.ButBad.TabIndex = 13
         Me.ButBad.Text = "绝对学渣"
         '
-        '中小学学习水平估测
+        '中小学生学习水平估测
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(511, 414)
@@ -189,9 +188,8 @@ Partial Class 中小学生学习水平估测
         Me.Controls.Add(Me.LabAll)
         Me.Controls.Add(Me.LabYourPos)
         Me.Controls.Add(Me.LabNote)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
-        Me.Name = "中小学学习水平估测"
+        Me.Name = "中小学生学习水平估测"
         Me.ShowSteamIcon = False
         Me.Text = "中小学生学习水平估测"
         Me.ResumeLayout(False)

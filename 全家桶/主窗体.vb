@@ -16,43 +16,44 @@
         End With
         工具列表 = New Dictionary(Of HLGroupItem, HLForm)
         Dim a As String = "bilibili"
-        添加工具(a, "图床", B站图床)
+        添加工具(a, "图床", B站图床, My.Resources.图标库.B站)
         a = "生活"
-        添加工具(a, 中小学生学习水平估测)
-        添加工具(a, 每月提醒我, True)
+        添加工具(a, 中小学生学习水平估测, My.Resources.图标库.文)
+        添加工具(a, 每月提醒我, My.Resources.图标库.历, True)
         a = "系统"
-        添加工具(a, 文件图标提取)
-        添加工具(a, Win7还剩几天)
+        添加工具(a, 文件图标提取, My.Resources.图标库.ICO)
+        添加工具(a, Win7还剩几天, My.Resources.图标库.win7)
         a = "走過去的"
-        添加工具(a, 简单加密器)
+        添加工具(a, 简单加密器, My.Resources.图标库.贼)
         ListTools.SortAll()
         RightClose = False
         RandomSaying()
     End Sub
 
-    Private Sub 添加工具(组 As String, 窗体 As HLForm, Optional 预加载 As Boolean = False)
-        添加工具(组, 窗体.Name, 窗体, 预加载)
+    Private Sub 添加工具(组 As String, 窗体 As HLForm, 图标 As Icon, Optional 预加载 As Boolean = False)
+        添加工具(组, 窗体.Name, 窗体, 图标, 预加载)
     End Sub
 
-    Private Sub 添加工具(组 As String, 名字 As String, 窗体 As HLForm, Optional 预加载 As Boolean = False)
+    Private Sub 添加工具(组 As String, 名字 As String, 窗体 As HLForm, 图标 As Icon, Optional 预加载 As Boolean = False)
+        If 为空(图标, 窗体) Then Exit Sub
         Dim g As HLGroup = ListTools.GetGroup(组)
         If 为空(g) Then
             g = New HLGroup(组)
             ListTools.Groups.Add(g)
         End If
-        Dim t As New HLGroupItem(名字, 窗体.Icon)
-        窗体.KeyPreview = True
-        AddHandler 窗体.FormClosing, AddressOf 主窗体_FormClosing
-        AddHandler 窗体.KeyDown, AddressOf 主窗体_KeyDown
+        Dim t As New HLGroupItem(名字, 图标)
         g.Items.Add(t)
         工具列表.Add(t, 窗体)
         With 窗体
+            .Icon = 图标
             If 预加载 Then
                 .ShowInTaskbar = False
                 .Show()
                 .Hide()
                 .ShowInTaskbar = True
             End If
+            AddHandler .FormClosing, AddressOf 主窗体_FormClosing
+            AddHandler .KeyDown, AddressOf 主窗体_KeyDown
         End With
     End Sub
 

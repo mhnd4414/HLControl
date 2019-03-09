@@ -22,7 +22,6 @@ Partial Class B站图床
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(B站图床))
         Me.PicView = New System.Windows.Forms.PictureBox()
         Me.ButUploadClipboard = New WL.HLControl.HLButton()
         Me.TxtOut = New WL.HLControl.HLTextBox()
@@ -122,7 +121,6 @@ Partial Class B站图床
         Me.Controls.Add(Me.TxtOut)
         Me.Controls.Add(Me.ButUploadClipboard)
         Me.Controls.Add(Me.PicView)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "B站图床"
         Me.ShowSteamIcon = False

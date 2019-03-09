@@ -23,7 +23,6 @@ Partial Class Win7还剩几天
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Win7还剩几天))
         Me.ButRead = New WL.HLControl.HLButton()
         Me.LabTime = New WL.HLControl.HLLabel()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
@@ -56,7 +55,6 @@ Partial Class Win7还剩几天
         Me.ClientSize = New System.Drawing.Size(684, 282)
         Me.Controls.Add(Me.LabTime)
         Me.Controls.Add(Me.ButRead)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "Win7还剩几天"
         Me.ShowSteamIcon = False

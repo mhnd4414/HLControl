@@ -22,7 +22,6 @@ Partial Class 文件图标提取
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(文件图标提取))
         Me.LabNote = New WL.HLControl.HLLabel()
         Me.LabFile = New WL.HLControl.HLLabel()
         Me.PnIco = New System.Windows.Forms.Panel()
@@ -75,7 +74,7 @@ Partial Class 文件图标提取
         Me.LabSize.Location = New System.Drawing.Point(211, 236)
         Me.LabSize.LowLight = True
         Me.LabSize.Name = "LabSize"
-        Me.LabSize.Size = New System.Drawing.Size(33, 23)
+        Me.LabSize.Size = New System.Drawing.Size(87, 23)
         Me.LabSize.TabIndex = 5
         Me.LabSize.Text = "（空图标）"
         '
@@ -90,7 +89,6 @@ Partial Class 文件图标提取
         Me.Controls.Add(Me.PnIco)
         Me.Controls.Add(Me.LabFile)
         Me.Controls.Add(Me.LabNote)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "文件图标提取"
         Me.ShowSteamIcon = False

@@ -154,7 +154,7 @@
             ''' </summary>
             Public Shared ReadOnly Property CPU型号 As String
                 Get
-                    Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "ProcessorNameString", "Unknown").ToString.Trim
+                    Static s As String = 获取注册表("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "ProcessorNameString", "Unknown").Trim
                     Return s
                 End Get
             End Property
@@ -164,7 +164,7 @@
             ''' </summary>
             Public Shared ReadOnly Property CPU频率 As UInteger
                 Get
-                    Static s As UInteger = Val(Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "~MHz", 0).ToString)
+                    Static s As UInteger = Val(获取注册表("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "~MHz", "0"))
                     Return s
                 End Get
             End Property
@@ -184,7 +184,7 @@
             ''' </summary>
             Public Shared ReadOnly Property CPU类型 As String
                 Get
-                    Static s As String = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "Identifier", "Unknown").ToString.Trim
+                    Static s As String = 获取注册表("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "Identifier", "Unknown").Trim
                     Return s
                 End Get
             End Property
@@ -206,7 +206,7 @@
                 Get
                     Static d As Single = 0
                     If d = 0 Then
-                        Dim n As Integer = Registry.GetValue("HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics", "AppliedDPI", 100)
+                        Dim n As Integer = Val(获取注册表("HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics", "AppliedDPI", "100"))
                         If n < 100 Then n = 100
                         For i As Integer = 50 To 2000 Step 25
                             If Math.Abs(i - n) < 12.5 Then
@@ -304,7 +304,7 @@
                 Get
                     Static m As String = ""
                     If m.Length < 1 Then
-                        m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardProduct", "Unknown").ToString.Trim
+                        m = 获取注册表("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardProduct", "Unknown").Trim
                     End If
                     Return m
                 End Get
@@ -317,7 +317,7 @@
                 Get
                     Static m As String = ""
                     If m.Length < 1 Then
-                        m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardManufacturer", "Unknown").ToString.Trim
+                        m = 获取注册表("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BaseBoardManufacturer", "Unknown").Trim
                     End If
                     Return m
                 End Get
@@ -330,7 +330,7 @@
                 Get
                     Static m As String = ""
                     If m.Length < 1 Then
-                        m = Registry.GetValue("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BIOSVendor", "Unknown").ToString.Trim
+                        m = 获取注册表("HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BIOSVendor", "Unknown").Trim
                     End If
                     Return m
                 End Get
@@ -376,6 +376,40 @@
                         Return s
                     End If
                     Return ""
+                End Get
+            End Property
+
+            ''' <summary>
+            ''' 应用程序的主题是否是暗色模式，只针对windows10，一般为false
+            ''' </summary>
+            ''' <returns></returns>
+            Public Shared ReadOnly Property 暗色应用模式 As Boolean
+                Get
+                    Return Val(获取注册表("HKEY_CURRENT_USER\Software\Microsoft9\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", "1")) = 0
+                End Get
+            End Property
+
+            ''' <summary>
+            ''' 系统的主题是否是暗色模式，只针对windows10，一般为false
+            ''' </summary>
+            ''' <returns></returns>
+            Public Shared ReadOnly Property 暗色系统模式 As Boolean
+                Get
+                    Return Val(获取注册表("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "1")) = 0
+                End Get
+            End Property
+
+            ''' <summary>
+            ''' 从注册表里读取值
+            ''' </summary>
+            Public Shared ReadOnly Property 获取注册表(键 As String, 值名 As String, Optional 默认 As String = "") As String
+                Get
+                    Try
+                        Return Registry.GetValue(键, 值名, 默认).ToString
+                    Catch ex As Exception
+                        出错(ex)
+                        Return 默认
+                    End Try
                 End Get
             End Property
 

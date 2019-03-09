@@ -117,29 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAABMLAAATCwAAAAAAAAAA
-        AAAEBAb/BAQG/wQEBv8EBAb/RUVG/wQEBv8rKyz/RUVG/wQEBv8EBAb/BAQG/wQEBv8EBAb/BAQG/wQE
-        Bv9tbW7/jo6O/wQEBv8EBAb/BAQG/1paW/+dnZ3/BAQG/21tbv+dnZ3/Wlpb/wQEBv8EBAb/BAQG/ysr
-        LP/S0tL/6enp/52dnf9tbW7/BAQG/wQEBv8rKyz/bW1u/7i4uf8EBAb/BAQG/52dnf+rq6v/Kyss/ysr
-        LP/d3d7/nZ2d/9LS0v8rKyz/3d3e/wQEBv8EBAb/xcXF/52dnf+dnZ3/fn5//wQEBv8EBAb/jo6O/93d
-        3v/S0tL/jo6O/wQEBv+4uLn/BAQG/7i4uf9+fn//uLi5/7i4uf8rKyz/Kyss/93d3v8EBAb/BAQG/wQE
-        Bv+rq6v/9PT0/wQEBv8EBAb/jo6O/46Ojv9+fn//xcXF/ysrLP+Ojo7/BAQG/wQEBv/d3d7/Kyss/wQE
-        Bv8EBAb/xcXF/+np6f+Ojo7/BAQG/wQEBv+dnZ3/bW1u/9LS0v8EBAb//////wQEBv8EBAb/uLi5/21t
-        bv8EBAb/Kyss//T09P9FRUb/6enp/wQEBv8EBAb/nZ2d/21tbv/S0tL/BAQG//////9aWlv/q6ur/9LS
-        0v+4uLn/xcXF/52dnf/FxcX/BAQG/93d3v+Ojo7/BAQG/52dnf9tbW7/0tLS/wQEBv//////BAQG/wQE
-        Bv+dnZ3/bW1u/ysrLP+dnZ3/nZ2d/wQEBv+dnZ3/0tLS/wQEBv+dnZ3/bW1u/9LS0v8EBAb//////wQE
-        Bv8EBAb/nZ2d/35+f/8EBAb/uLi5/35+f/8EBAb/Wlpb/+np6f9FRUb/nZ2d/21tbv/S0tL/BAQG////
-        //8EBAb/BAQG/6urq/+Ojo7/BAQG/9LS0v9tbW7/BAQG/wQEBv8EBAb/BAQG/52dnf9tbW7/9PT0/ysr
-        LP//////BAQG/21tbv9tbW7/bW1u/21tbv/d3d7/nZ2d/21tbv9tbW7/bW1u/21tbv+dnZ3/Kyss/ysr
-        LP8EBAb//////0VFRv9tbW7/bW1u/21tbv9tbW7//////21tbv9tbW7/fn5//8XFxf+Ojo7/0tLS/52d
-        nf+dnZ3/nZ2d//////9tbW7/BAQG/wQEBv8EBAb/BAQG//////8EBAb/BAQG/7i4uf+dnZ3/BAQG/ysr
-        LP8EBAb/BAQG/wQEBv9tbW7/BAQG/wQEBv8EBAb/BAQG/wQEBv//////Kyss/46Ojv+4uLn/Kyss/wQE
-        Bv8EBAb/BAQG/wQEBv8EBAb/BAQG/wQEBv8EBAb/BAQG/wQEBv8EBAb/xcXF/1paW/8rKyz/BAQG/wQE
-        Bv8EBAb/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAA==
-</value>
-  </data>
 </root>

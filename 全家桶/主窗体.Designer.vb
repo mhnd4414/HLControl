@@ -25,10 +25,10 @@ Partial Class 主窗体
         Me.components = New System.ComponentModel.Container()
         Me.ListTools = New WL.HLControl.HLGroupList()
         Me.NotifMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.打开主页ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.退出ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LabFun = New System.Windows.Forms.Label()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.NotifMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -45,23 +45,29 @@ Partial Class 主窗体
         '
         'NotifMenu
         '
+        Me.NotifMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.NotifMenu.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NotifMenu.ImageScalingSize = New System.Drawing.Size(1, 1)
         Me.NotifMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator1, Me.打开主页ToolStripMenuItem, Me.退出ToolStripMenuItem})
         Me.NotifMenu.Name = "NotifMenu"
         Me.NotifMenu.ShowImageMargin = False
-        Me.NotifMenu.Size = New System.Drawing.Size(120, 62)
+        Me.NotifMenu.Size = New System.Drawing.Size(156, 84)
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(116, 6)
         '
         '打开主页ToolStripMenuItem
         '
         Me.打开主页ToolStripMenuItem.Name = "打开主页ToolStripMenuItem"
-        Me.打开主页ToolStripMenuItem.Size = New System.Drawing.Size(144, 26)
+        Me.打开主页ToolStripMenuItem.Size = New System.Drawing.Size(119, 26)
         Me.打开主页ToolStripMenuItem.Text = "打开主页"
         '
         '退出ToolStripMenuItem
         '
         Me.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem"
-        Me.退出ToolStripMenuItem.Size = New System.Drawing.Size(144, 26)
+        Me.退出ToolStripMenuItem.Size = New System.Drawing.Size(119, 26)
         Me.退出ToolStripMenuItem.Text = "退出"
         '
         'LabFun
@@ -76,11 +82,6 @@ Partial Class 主窗体
         Me.LabFun.Size = New System.Drawing.Size(296, 93)
         Me.LabFun.TabIndex = 1
         Me.LabFun.Text = "我记得我要说什么来着"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(141, 6)
         '
         '主窗体
         '

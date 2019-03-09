@@ -7,7 +7,6 @@ Namespace My
         Private Shared 缓存文件夹保护文件 As Stream
 
         Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
-            输出("============尝试启动", Now)
             Dim s As String = 本程序.路径.ToLower
             If 包含全部(s, "c:\users\", "local\temp") Then
                 报错退出("请勿在压缩包内直接打开本软件！")
@@ -50,7 +49,6 @@ Namespace My
                 i.Dispose()
             Next
             配置.保存到本地()
-            输出("============程序退出", Now)
             本程序.退出()
         End Sub
 

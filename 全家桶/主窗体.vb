@@ -66,7 +66,6 @@
             .Icon = 图标
             .ShowSteamIcon = False
             If 预加载 Then
-                输出("预加载", 名字)
                 .ShowInTaskbar = False
                 .Show()
                 .Hide()

@@ -1027,6 +1027,59 @@ End Function)
 
         End Class
 
+        ''' <summary>
+        ''' 对数据进行逐行登记用的
+        ''' </summary>
+        Public Class 数据登记表
+
+            Private all As String
+
+            ''' <summary>
+            ''' 连接用的连接符
+            ''' </summary>
+            Public ReadOnly Property 连接符 As String
+
+            ''' <summary>
+            ''' 如果加入的内容是空的，那么是否还要加入
+            ''' </summary>
+            Public ReadOnly Property 忽略空内容 As Boolean
+
+            ''' <summary>
+            ''' 新建数据登记表，定义连接文本，默认为: 来连接
+            ''' </summary>
+            Public Sub New(Optional 连接符 As String = ": ", Optional 忽略空内容 As Boolean = True)
+                all = ""
+                Me.连接符 = 连接符
+                Me.忽略空内容 = 忽略空内容
+            End Sub
+
+            ''' <summary>
+            ''' 增加一行内容
+            ''' </summary>
+            Public Sub 增加(内容 As String)
+                If 内容.Length < 1 AndAlso 忽略空内容 Then Exit Sub
+                If all.Length > 0 Then all += vbCrLf
+                all += 内容
+            End Sub
+
+            ''' <summary>
+            ''' 增加一行内容，标题 + 连接符 + 内容
+            ''' </summary>
+            Public Sub 增加(标题 As String, 内容 As String)
+                If 忽略空内容 AndAlso (内容.Length < 1 OrElse 标题.Length < 1) Then Exit Sub
+                If all.Length > 0 Then all += vbCrLf
+                all += 标题 + 连接符 + 内容
+            End Sub
+
+            ''' <summary>
+            ''' 输出采集的数据
+            ''' </summary>
+            Public Overrides Function ToString() As String
+                Return all
+            End Function
+
+        End Class
+
     End Module
 
 End Namespace

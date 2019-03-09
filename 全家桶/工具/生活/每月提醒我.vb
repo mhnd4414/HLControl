@@ -25,7 +25,7 @@
     End Sub
 
     Private Sub 提醒我()
-        Dim job As String = "", day As Integer = 9999, a As String = ""
+        Dim job As String = "", day As Integer = 9999, a As String = "", dt As Date = Today
         For Each i As HLListViewItem In ListT.Items
             a = i.Title
             Dim d As Date = Now
@@ -36,6 +36,7 @@
                     If ds < day Then
                         job = i.Items(0)
                         day = ds
+                        dt = d
                     ElseIf ds = day Then
                         job += " " + i.Items(0)
                     End If
@@ -47,6 +48,7 @@
                     If ds < day Then
                         job = i.Items(0)
                         day = ds
+                        dt = d
                     ElseIf ds = day Then
                         job += i.Items(0) + " "
                     End If
@@ -62,7 +64,7 @@
             Else
                 a = day & "天后就是："
             End If
-            弹出消息(a + job, "切莫忘记！")
+            弹出消息(a + job, "就在：" + 时间格式化(dt, "M月D日") + "，切莫忘记！")
         End If
     End Sub
 

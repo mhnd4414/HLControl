@@ -184,13 +184,44 @@
             Public Property 重试间隔时间 As UInteger
 
             ''' <summary>
+            ''' 对HTTP请求内容进行预览，默认不输出请求流的内容
+            ''' </summary>
+            Public ReadOnly Property 预览内容(Optional 输出请求流的内容 As Boolean = False) As String
+                Get
+                    Dim s As New 数据登记表()
+                    With s
+                        .增加("Url", 链接)
+                        .增加("Method", 方法)
+                        .增加("Timeout", 超时.ToString)
+                        If 重试次数 > 0 Then
+                            .增加("重试次数", 重试次数.ToString)
+                            .增加("重试间隔时间", 重试间隔时间.ToString)
+                        End If
+                        .增加("Accept", Accept)
+                        .增加("Content-Type", Content_Type)
+                        Dim bs As Byte() = write.ToArray
+                        .增加("Content-Length", bs.Length)
+                        .增加("User-Agent", UA)
+                        .增加("Referer", Referer)
+                        For Each i As String In headers.AllKeys
+                            .增加(i, headers.Get(i))
+                        Next
+                        If 输出请求流的内容 Then
+                            .增加(字节数组转文本(bs))
+                        End If
+                    End With
+                    Return s.ToString
+                End Get
+            End Property
+
+            ''' <summary>
             ''' 发送请求，获取回应并读取为字节数组，如果出错会返回nothing
             ''' </summary>
             Public Function 获取回应为字节数组() As Byte()
-                Dim b() As Byte = Nothing, e As String = ""
                 Dim a As Integer = 重试次数
                 For retry As Integer = 0 To a
                     Try
+                        Dim b() As Byte = Nothing
                         Dim h As HttpWebRequest = WebRequest.Create(链接)
                         With h
                             .Timeout = 超时 * 1000

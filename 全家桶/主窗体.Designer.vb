@@ -28,6 +28,7 @@ Partial Class 主窗体
         Me.打开主页ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.退出ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LabFun = New System.Windows.Forms.Label()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.NotifMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -45,9 +46,11 @@ Partial Class 主窗体
         'NotifMenu
         '
         Me.NotifMenu.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NotifMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.打开主页ToolStripMenuItem, Me.退出ToolStripMenuItem})
+        Me.NotifMenu.ImageScalingSize = New System.Drawing.Size(1, 1)
+        Me.NotifMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator1, Me.打开主页ToolStripMenuItem, Me.退出ToolStripMenuItem})
         Me.NotifMenu.Name = "NotifMenu"
-        Me.NotifMenu.Size = New System.Drawing.Size(145, 56)
+        Me.NotifMenu.ShowImageMargin = False
+        Me.NotifMenu.Size = New System.Drawing.Size(120, 62)
         '
         '打开主页ToolStripMenuItem
         '
@@ -74,6 +77,11 @@ Partial Class 主窗体
         Me.LabFun.TabIndex = 1
         Me.LabFun.Text = "我记得我要说什么来着"
         '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(141, 6)
+        '
         '主窗体
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -94,4 +102,5 @@ Partial Class 主窗体
     Friend WithEvents 打开主页ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 退出ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LabFun As Label
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
 End Class

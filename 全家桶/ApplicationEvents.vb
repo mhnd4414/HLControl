@@ -7,6 +7,7 @@ Namespace My
         Private Shared 缓存文件夹保护文件 As Stream
 
         Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
+            输出("============尝试启动", Now)
             Dim s As String = 本程序.路径.ToLower
             If 包含全部(s, "c:\users\", "local\temp") Then
                 报错退出("请勿在压缩包内直接打开本软件！")
@@ -21,7 +22,7 @@ Namespace My
             End If
             删除文件(缓存文件夹)
             Directory.CreateDirectory(缓存文件夹)
-            缓存文件夹保护文件 = File.OpenWrite(缓存文件夹 + "8ccccc.txt")
+            缓存文件夹保护文件 = File.OpenWrite(缓存文件夹 + "86.txt")
         End Sub
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) Handles Me.UnhandledException
@@ -35,11 +36,21 @@ Namespace My
         End Sub
 
         Public Shared Sub 正常退出()
+            准备退出 = True
             消息图标.Visible = False
             消息图标.Dispose()
             缓存文件夹保护文件.Close()
-            配置.保存到本地()
             删除文件(缓存文件夹)
+            Dim m As New List(Of Form)
+            For Each i As Form In My.Application.OpenForms
+                m.Add(i)
+            Next
+            For Each i As Form In m
+                i.Close()
+                i.Dispose()
+            Next
+            配置.保存到本地()
+            输出("============程序退出", Now)
             本程序.退出()
         End Sub
 

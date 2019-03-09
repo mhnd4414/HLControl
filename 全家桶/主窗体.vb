@@ -1,6 +1,7 @@
 ﻿Public Class 主窗体
 
-    Private 工具列表 As Dictionary(Of HLGroupItem, HLForm), RightClose As Boolean
+    Private 工具列表 As New Dictionary(Of HLGroupItem, HLForm), RightClose As Boolean
+    Private 最后工具列表 As New List(Of ToolStripMenuItem)
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Text = 标题
@@ -14,21 +15,31 @@
                                          打开主页ToolStripMenuItem.PerformClick()
                                      End Sub
         End With
-        工具列表 = New Dictionary(Of HLGroupItem, HLForm)
         Dim a As String = "bilibili"
-        添加工具(a, "图床", B站图床, My.Resources.图标库.B站)
+        添加工具(a, B站图床, My.Resources.图标库.B站)
         a = "生活"
         添加工具(a, 中小学生学习水平估测, My.Resources.图标库.文)
-        添加工具(a, 每月提醒我, My.Resources.图标库.历, True)
-        添加工具(a, 保护视力的20分钟提醒器, My.Resources.图标库._20)
+        添加工具(a, 每月提醒我, My.Resources.图标库.历, 配置.非空("日历列表"))
+        添加工具(a, 保护视力的20分钟提醒器, My.Resources.图标库._20, 配置.非空(配置.生成控件读取(保护视力的20分钟提醒器.CheckOn)))
         a = "系统"
         添加工具(a, 文件图标提取, My.Resources.图标库.ICO)
         添加工具(a, Win7还剩几天, My.Resources.图标库.win7)
         a = "走過去的"
         添加工具(a, 简单加密器, My.Resources.图标库.贼)
         ListTools.SortAll()
+        For i As Integer = 0 To 4
+            Dim g As New ToolStripMenuItem(配置.字符串("最后工具" & i))
+            最后工具列表.Add(g)
+            NotifMenu.Items.Insert(0, g)
+            g.Tag = i
+            AddHandler g.Click, Sub()
+                                    打开工具(g.Text)
+                                End Sub
+            g.Visible = g.Text.Length > 0
+        Next
+        最后工具列表.Reverse()
         RightClose = False
-        RandomSaying()
+        随机说话()
     End Sub
 
     Private Sub 添加工具(组 As String, 窗体 As HLForm, 图标 As Icon, Optional 预加载 As Boolean = False)
@@ -42,6 +53,12 @@
             g = New HLGroup(组)
             ListTools.Groups.Add(g)
         End If
+        For Each i As HLGroupItem In 工具列表.Keys
+            If i.Title.ToLower = 名字.ToLower Then
+                出错("工具重复", 名字)
+                Exit Sub
+            End If
+        Next
         Dim t As New HLGroupItem(名字, 图标)
         g.Items.Add(t)
         工具列表.Add(t, 窗体)
@@ -49,6 +66,7 @@
             .Icon = 图标
             .ShowSteamIcon = False
             If 预加载 Then
+                输出("预加载", 名字)
                 .ShowInTaskbar = False
                 .Show()
                 .Hide()
@@ -62,10 +80,10 @@
     Private Sub ListTools_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ListTools.MouseDoubleClick
         Dim i As HLGroupItem = ListTools.SelectedItem
         If 为空(i) OrElse 工具列表.ContainsKey(i) = False Then Exit Sub
-        ShowUp(Me, 工具列表.Item(i))
+        打开工具(i.Title)
     End Sub
 
-    Private Sub ShowUp(a As HLForm, m As HLForm)
+    Private Sub 弹出窗口(a As HLForm, m As HLForm)
         With m
             .Show()
             .Left = a.Left
@@ -75,39 +93,78 @@
         End With
     End Sub
 
+    Private Sub 打开工具(m As String)
+        If m.Length < 1 Then Exit Sub
+        m = m.ToLower
+        For Each i As HLGroupItem In 工具列表.Keys
+            Dim f As HLForm = 工具列表.Item(i)
+            If i.Title.ToLower.Contains(m) OrElse f.Text.ToLower.Contains(m) Then
+                弹出窗口(Me, f)
+                For t As Integer = 最后工具列表.Count - 1 To 1 Step -1
+                    最后工具列表.Item(t).Text = 最后工具列表.Item(t - 1).Text
+                Next
+                刷新最后工具列表(i.Title)
+                Exit Sub
+            End If
+        Next
+    End Sub
+
     Private Sub 主窗体_FormClosing(sender As HLForm, e As FormClosingEventArgs) Handles Me.FormClosing
+        If 准备退出 Then
+            Exit Sub
+        End If
         e.Cancel = True
         Dim m As Integer = 0
         For Each i As Form In My.Application.OpenForms
             If i.Visible Then m += 1
         Next
         If Text <> sender.Text AndAlso Me.Visible = False AndAlso m < 2 Then
-            ShowUp(sender, Me)
+            弹出窗口(sender, Me)
             With Me
                 .Left = sender.Right - .Width
                 .Top = sender.Top
             End With
         ElseIf Text = sender.Text Then
+
             If RightClose Then
                 退出ToolStripMenuItem.PerformClick()
             End If
-            RandomSaying()
+            随机说话()
         End If
         sender.Hide()
     End Sub
 
+    Private Sub 刷新最后工具列表(Optional m As String = "")
+        If m.Length > 0 Then
+            最后工具列表.First.Text = m
+        End If
+        Dim g As New List(Of String)
+        For Each t As ToolStripItem In 最后工具列表
+            Dim s As String = t.Text
+            If g.Contains(s) = True Then
+                t.Text = ""
+            Else
+                g.Add(s)
+            End If
+        Next
+        For Each t As ToolStripItem In 最后工具列表
+            t.Visible = t.Text.Length > 0
+        Next
+    End Sub
+
     Private Sub 打开主页ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开主页ToolStripMenuItem.Click
-        ShowUp(Me, Me)
+        弹出窗口(Me, Me)
     End Sub
 
     Private Sub 退出ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 退出ToolStripMenuItem.Click
+        For i As Integer = 0 To 最后工具列表.Count - 1
+            配置.字符串("最后工具" & i) = 最后工具列表(i).Text
+        Next
         My.MyApplication.正常退出()
     End Sub
 
     Private Sub 主窗体_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        If e.Control AndAlso e.KeyCode = Keys.W Then
-            sender.Close()
-        End If
+        CtrlW关闭(sender, e)
     End Sub
 
     Private Sub 主窗体_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
@@ -118,7 +175,7 @@
         RightClose = False
     End Sub
 
-    Private Sub RandomSaying()
+    Private Sub 随机说话()
         LabFun.Text = 随机.当中一个("你知道吗？鼠标右击主页的关闭按钮可以直接退出程序而不是停在后台。",
 "每一个不是清洁工的人都说清洁工很伟大。",
 "花钱才是硬道理。",
@@ -133,7 +190,8 @@
 "做傻瓜式软件救不了中国人。",
 "别和差的比，越差越有理。",
 "教不会学生自己去学的老师是废物。",
-"请和我提理智并且有价值的问题。").ToString
+"请和我提理智并且有价值的问题。",
+"你知道吗？眼保健操只有中国人做，而且，只有大陆。其他国家地区的人根本不做这个。").ToString
     End Sub
 
 End Class

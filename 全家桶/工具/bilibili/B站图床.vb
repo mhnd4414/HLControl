@@ -87,7 +87,7 @@
         End If
         LastUpload = m
         Dim h As New 发送HTTP("https://api.vc.bilibili.com/api/v1/image/upload", "POST")
-        h.UA = 常用UserAgent.Chrome64
+        h.UA = ""
         Dim r As New 生成multipartformdata
         r.写入字节数组("file_up", 随机.小写英文字母 + "." + fm, "image/jpeg", m)
         r.写入参数("biz", "draw")

@@ -22,8 +22,13 @@ Partial Class 保护视力的20分钟提醒器
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.LabNote = New WL.HLControl.HLLabel()
         Me.ButRead = New WL.HLControl.HLButton()
+        Me.CheckOn = New WL.HLControl.HLCheckBox()
+        Me.LabNext = New WL.HLControl.HLLabel()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ButTest = New WL.HLControl.HLButton()
         Me.SuspendLayout()
         '
         'LabNote
@@ -43,10 +48,41 @@ Partial Class 保护视力的20分钟提醒器
         Me.ButRead.TabIndex = 1
         Me.ButRead.Text = "阅读相关文章"
         '
+        'CheckOn
+        '
+        Me.CheckOn.Location = New System.Drawing.Point(23, 161)
+        Me.CheckOn.Name = "CheckOn"
+        Me.CheckOn.Size = New System.Drawing.Size(179, 23)
+        Me.CheckOn.TabIndex = 2
+        Me.CheckOn.Text = "每20分钟提醒我一次（勾选后本软件开启时会自动运行这个）"
+        '
+        'LabNext
+        '
+        Me.LabNext.Location = New System.Drawing.Point(23, 190)
+        Me.LabNext.Name = "LabNext"
+        Me.LabNext.Size = New System.Drawing.Size(137, 23)
+        Me.LabNext.TabIndex = 3
+        Me.LabNext.Text = "（目前尚未启动）"
+        '
+        'Timer1
+        '
+        Me.Timer1.Interval = 1000
+        '
+        'ButTest
+        '
+        Me.ButTest.Location = New System.Drawing.Point(156, 124)
+        Me.ButTest.Name = "ButTest"
+        Me.ButTest.Size = New System.Drawing.Size(127, 31)
+        Me.ButTest.TabIndex = 4
+        Me.ButTest.Text = "提醒示例"
+        '
         '保护视力的20分钟提醒器
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(633, 358)
+        Me.ClientSize = New System.Drawing.Size(622, 254)
+        Me.Controls.Add(Me.ButTest)
+        Me.Controls.Add(Me.LabNext)
+        Me.Controls.Add(Me.CheckOn)
         Me.Controls.Add(Me.ButRead)
         Me.Controls.Add(Me.LabNote)
         Me.Name = "保护视力的20分钟提醒器"
@@ -57,4 +93,8 @@ Partial Class 保护视力的20分钟提醒器
 
     Friend WithEvents LabNote As HLLabel
     Friend WithEvents ButRead As HLButton
+    Friend WithEvents CheckOn As HLCheckBox
+    Friend WithEvents LabNext As HLLabel
+    Friend WithEvents Timer1 As Timer
+    Friend WithEvents ButTest As HLButton
 End Class

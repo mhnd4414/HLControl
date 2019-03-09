@@ -54,7 +54,7 @@
                         Loop
                         m.Dispose()
                     Catch ex As Exception
-                        If 非空(m) Then m.Dispose()
+                        If 类型.非空(m) Then m.Dispose()
                         出错(ex)
                     End Try
                 End If
@@ -78,7 +78,7 @@
                         Next
                         m.Dispose()
                     Catch ex As Exception
-                        If 非空(m) Then m.Dispose()
+                        If 类型.非空(m) Then m.Dispose()
                         出错(ex)
                     End Try
                 End If
@@ -107,6 +107,15 @@
             End Property
 
             ''' <summary>
+            ''' 从配置文件里检查是否有这个名字的值
+            ''' </summary>
+            Public ReadOnly Property 非空(名字 As String) As Boolean
+                Get
+                    Return 字符串(名字).Length > 0
+                End Get
+            End Property
+
+            ''' <summary>
             ''' 从配置文件里读取或写入数字
             ''' </summary>
             Public Property 数字(名字 As String, Optional 默认 As Double = 0) As Double
@@ -130,7 +139,7 @@
             Public Property 真假(名字 As String, Optional 默认 As Boolean = False) As Boolean
                 Get
                     Dim s As String = 字符串(名字)
-                    If s.Length > 1 Then Return True
+                    If s.Length = 4 Then Return True
                     Return 默认
                 End Get
                 Set(值 As Boolean)
@@ -153,29 +162,47 @@
             End Property
 
             ''' <summary>
-            ''' 把值与控件绑定，绑定的时候读取值，窗口关闭的时候保存值
+            ''' 把值与控件绑定，一个控件只能有一个值，绑定的时候读取值，窗口关闭的时候保存值
             ''' </summary>
             Public Sub 绑定控件(控件 As Control, 值 As 控件值类型, Optional 默认 As Object = Nothing)
-                If 为空(控件, 控件.FindForm) Then Exit Sub
-                Dim s As String = 控件.FindForm.Name + 控件.GetType.ToString + 控件.Name
+                Dim s As String = 生成控件读取(控件)
+                If s.Length < 1 Then Exit Sub
                 Try
-                    Dim g As Object = Nothing
+                    Dim g As Object = Nothing, tp As Integer = 0
                     Select Case 值
                         Case 控件值类型.Text
                             g = 字符串(s, 默认)
                         Case 控件值类型.Checked
                             g = 真假(s, 默认)
+                            tp = 1
                         Case Else
                             g = 数字(s, 默认)
+                            tp = 2
                     End Select
                     CallByName(控件, 值.ToString, CallType.Set, g)
                     AddHandler 控件.FindForm.FormClosing, Sub()
-                                                            字符串(s) = CallByName(控件, 值.ToString, CallType.Get).ToString
+                                                            Dim c As String = CallByName(控件, 值.ToString, CallType.Get).ToString
+                                                            Select Case tp
+                                                                Case 0
+                                                                    字符串(s) = c
+                                                                Case 1
+                                                                    真假(s) = c.Length = 4
+                                                                Case 2
+                                                                    数字(s) = Val(c)
+                                                            End Select
                                                         End Sub
                 Catch ex As Exception
                     出错(ex, 控件, 值.ToString)
                 End Try
             End Sub
+
+            ''' <summary>
+            ''' 绑定控件的时候的内部ID
+            ''' </summary>
+            Public Function 生成控件读取(控件 As Control) As String
+                If 为空(控件, 控件.FindForm) Then Return ""
+                Return 控件.FindForm.Name + 控件.GetType.ToString + 控件.Name
+            End Function
 
         End Class
 

@@ -20,6 +20,7 @@
         a = "生活"
         添加工具(a, 中小学生学习水平估测, My.Resources.图标库.文)
         添加工具(a, 每月提醒我, My.Resources.图标库.历, True)
+        添加工具(a, 保护视力的20分钟提醒器, My.Resources.图标库._20)
         a = "系统"
         添加工具(a, 文件图标提取, My.Resources.图标库.ICO)
         添加工具(a, Win7还剩几天, My.Resources.图标库.win7)
@@ -46,6 +47,7 @@
         工具列表.Add(t, 窗体)
         With 窗体
             .Icon = 图标
+            .ShowSteamIcon = False
             If 预加载 Then
                 .ShowInTaskbar = False
                 .Show()

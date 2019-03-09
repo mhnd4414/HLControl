@@ -61,7 +61,6 @@
             Dim g As Graphics = e.Graphics
             With g
                 If 文本.Length < 1 Then
-                    .Clear(Color.Red)
                     Height = 10
                     Width = Height
                     Exit Sub

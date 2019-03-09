@@ -140,10 +140,16 @@
     <Compile Include="工具\戈登登\简单加密器.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="工具\生活\Win7还剩几天.Designer.vb">
+    <Compile Include="工具\生活\保护视力的20分钟提醒器.Designer.vb">
+      <DependentUpon>保护视力的20分钟提醒器.vb</DependentUpon>
+    </Compile>
+    <Compile Include="工具\生活\保护视力的20分钟提醒器.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="工具\系统\Win7还剩几天.Designer.vb">
       <DependentUpon>Win7还剩几天.vb</DependentUpon>
     </Compile>
-    <Compile Include="工具\生活\Win7还剩几天.vb">
+    <Compile Include="工具\系统\Win7还剩几天.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="工具\生活\中小学生学习水平估测.Designer.vb">
@@ -180,6 +186,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="工具\生活\保护视力的20分钟提醒器.resx">
+      <DependentUpon>保护视力的20分钟提醒器.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="资源\图标库.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>ResXFileCodeGenerator</Generator>
@@ -192,7 +201,7 @@
     <EmbeddedResource Include="工具\戈登登\简单加密器.resx">
       <DependentUpon>简单加密器.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="工具\生活\Win7还剩几天.resx">
+    <EmbeddedResource Include="工具\系统\Win7还剩几天.resx">
       <DependentUpon>Win7还剩几天.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="工具\生活\中小学生学习水平估测.resx">
@@ -239,6 +248,8 @@
     <None Include="资源\图标\文.ico" />
     <None Include="资源\图标\贼.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="资源\图标\20.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

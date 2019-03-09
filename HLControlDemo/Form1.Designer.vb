@@ -154,9 +154,11 @@ Partial Class Form1
         '
         'HlLabel5
         '
+        Me.HlLabel5.AutoSize = True
+        Me.HlLabel5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
         Me.HlLabel5.Location = New System.Drawing.Point(372, 6)
         Me.HlLabel5.Name = "HlLabel5"
-        Me.HlLabel5.Size = New System.Drawing.Size(104, 23)
+        Me.HlLabel5.Size = New System.Drawing.Size(106, 21)
         Me.HlLabel5.TabIndex = 11
         Me.HlLabel5.Text = "Your Height:"
         '
@@ -309,10 +311,12 @@ Partial Class Form1
         '
         'HlLabel4
         '
+        Me.HlLabel4.AutoSize = True
+        Me.HlLabel4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(160, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(149, Byte), Integer))
         Me.HlLabel4.Location = New System.Drawing.Point(10, 6)
         Me.HlLabel4.LowLight = True
         Me.HlLabel4.Name = "HlLabel4"
-        Me.HlLabel4.Size = New System.Drawing.Size(464, 44)
+        Me.HlLabel4.Size = New System.Drawing.Size(455, 42)
         Me.HlLabel4.TabIndex = 9
         Me.HlLabel4.Text = "This is a panel" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "And I have to say that ,these scroll bars are sort of useless."
         '
@@ -353,17 +357,21 @@ Partial Class Form1
         '
         'HlLabel3
         '
+        Me.HlLabel3.AutoSize = True
+        Me.HlLabel3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
         Me.HlLabel3.Location = New System.Drawing.Point(14, 79)
         Me.HlLabel3.Name = "HlLabel3"
-        Me.HlLabel3.Size = New System.Drawing.Size(95, 23)
+        Me.HlLabel3.Size = New System.Drawing.Size(98, 21)
         Me.HlLabel3.TabIndex = 4
         Me.HlLabel3.Text = "Player Idea:"
         '
         'HlLabel2
         '
-        Me.HlLabel2.Location = New System.Drawing.Point(20, 40)
+        Me.HlLabel2.AutoSize = True
+        Me.HlLabel2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
+        Me.HlLabel2.Location = New System.Drawing.Point(12, 40)
         Me.HlLabel2.Name = "HlLabel2"
-        Me.HlLabel2.Size = New System.Drawing.Size(89, 23)
+        Me.HlLabel2.Size = New System.Drawing.Size(91, 21)
         Me.HlLabel2.TabIndex = 2
         Me.HlLabel2.Text = "Player Sex:"
         '
@@ -385,9 +393,11 @@ Partial Class Form1
         '
         'HlLabel1
         '
-        Me.HlLabel1.Location = New System.Drawing.Point(0, 6)
+        Me.HlLabel1.AutoSize = True
+        Me.HlLabel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
+        Me.HlLabel1.Location = New System.Drawing.Point(3, 6)
         Me.HlLabel1.Name = "HlLabel1"
-        Me.HlLabel1.Size = New System.Drawing.Size(109, 23)
+        Me.HlLabel1.Size = New System.Drawing.Size(111, 21)
         Me.HlLabel1.TabIndex = 0
         Me.HlLabel1.Text = "Player Name:"
         '
@@ -437,6 +447,7 @@ Partial Class Form1
         Me.HlGroupList1.Name = "HlGroupList1"
         Me.HlGroupList1.SelectedIndex = -1
         Me.HlGroupList1.SelectedItem = Nothing
+        Me.HlGroupList1.ShowScrollBar = False
         Me.HlGroupList1.Size = New System.Drawing.Size(256, 168)
         Me.HlGroupList1.TabIndex = 12
         Me.HlGroupList1.Text = "HlGroupList1"
@@ -456,36 +467,40 @@ Partial Class Form1
         '
         'HlLabel10
         '
+        Me.HlLabel10.AutoSize = True
         Me.HlLabel10.Location = New System.Drawing.Point(23, 34)
         Me.HlLabel10.Name = "HlLabel10"
-        Me.HlLabel10.Size = New System.Drawing.Size(111, 23)
+        Me.HlLabel10.Size = New System.Drawing.Size(113, 21)
         Me.HlLabel10.TabIndex = 9
         Me.HlLabel10.Text = "Valve Normal"
         '
         'HlLabel11
         '
+        Me.HlLabel11.AutoSize = True
         Me.HlLabel11.Enabled = False
         Me.HlLabel11.Location = New System.Drawing.Point(26, 121)
         Me.HlLabel11.Name = "HlLabel11"
-        Me.HlLabel11.Size = New System.Drawing.Size(121, 23)
+        Me.HlLabel11.Size = New System.Drawing.Size(121, 21)
         Me.HlLabel11.TabIndex = 10
         Me.HlLabel11.Text = "Valve Disabled"
         '
         'HlLab2
         '
+        Me.HlLab2.AutoSize = True
         Me.HlLab2.Location = New System.Drawing.Point(23, 63)
         Me.HlLab2.LowLight = True
         Me.HlLab2.Name = "HlLab2"
-        Me.HlLab2.Size = New System.Drawing.Size(124, 23)
+        Me.HlLab2.Size = New System.Drawing.Size(125, 21)
         Me.HlLab2.TabIndex = 7
         Me.HlLab2.Text = "Valve LowLight"
         '
         'HlLabel9
         '
+        Me.HlLabel9.AutoSize = True
         Me.HlLabel9.HighLight = True
         Me.HlLabel9.Location = New System.Drawing.Point(23, 92)
         Me.HlLabel9.Name = "HlLabel9"
-        Me.HlLabel9.Size = New System.Drawing.Size(130, 23)
+        Me.HlLabel9.Size = New System.Drawing.Size(130, 21)
         Me.HlLabel9.TabIndex = 8
         Me.HlLabel9.Text = "Valve HighLight"
         '
@@ -499,9 +514,10 @@ Partial Class Form1
         '
         'HlLabel7
         '
+        Me.HlLabel7.AutoSize = True
         Me.HlLabel7.Location = New System.Drawing.Point(36, 71)
         Me.HlLabel7.Name = "HlLabel7"
-        Me.HlLabel7.Size = New System.Drawing.Size(73, 23)
+        Me.HlLabel7.Size = New System.Drawing.Size(75, 21)
         Me.HlLabel7.TabIndex = 3
         Me.HlLabel7.Text = "HlLabel7"
         '
@@ -518,10 +534,11 @@ Partial Class Form1
         '
         'HlLabel6
         '
+        Me.HlLabel6.AutoSize = True
         Me.HlLabel6.HighLight = True
         Me.HlLabel6.Location = New System.Drawing.Point(36, 23)
         Me.HlLabel6.Name = "HlLabel6"
-        Me.HlLabel6.Size = New System.Drawing.Size(73, 23)
+        Me.HlLabel6.Size = New System.Drawing.Size(75, 21)
         Me.HlLabel6.TabIndex = 1
         Me.HlLabel6.Text = "HlLabel6"
         '
@@ -551,10 +568,12 @@ Partial Class Form1
         '
         'HlLabel8
         '
+        Me.HlLabel8.AutoSize = True
+        Me.HlLabel8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(160, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(149, Byte), Integer))
         Me.HlLabel8.Location = New System.Drawing.Point(163, 493)
         Me.HlLabel8.LowLight = True
         Me.HlLabel8.Name = "HlLabel8"
-        Me.HlLabel8.Size = New System.Drawing.Size(78, 23)
+        Me.HlLabel8.Size = New System.Drawing.Size(87, 21)
         Me.HlLabel8.TabIndex = 12
         Me.HlLabel8.Text = "Your DPI: "
         '
@@ -589,11 +608,16 @@ Partial Class Form1
         Me.Text = "Gordon Walkedby's Half Life Style Control Demo"
         Me.Tabs.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
         Me.HlPanel1.ResumeLayout(False)
+        Me.HlPanel1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
+        Me.TabPage3.PerformLayout()
         Me.HlPanel2.ResumeLayout(False)
+        Me.HlPanel2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 

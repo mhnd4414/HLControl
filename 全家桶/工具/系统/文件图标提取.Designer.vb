@@ -32,17 +32,21 @@ Partial Class 文件图标提取
         '
         'LabNote
         '
+        Me.LabNote.AutoSize = True
+        Me.LabNote.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
         Me.LabNote.Location = New System.Drawing.Point(13, 43)
         Me.LabNote.Name = "LabNote"
-        Me.LabNote.Size = New System.Drawing.Size(429, 65)
+        Me.LabNote.Size = New System.Drawing.Size(423, 63)
         Me.LabNote.TabIndex = 0
         Me.LabNote.Text = "请从外面拖入任意一个文件到本窗口，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "然后我会解析文件使用的图标。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "用的是 .NET 自带功能，比较残废，只能读取较小的图标。"
         '
         'LabFile
         '
+        Me.LabFile.AutoSize = True
+        Me.LabFile.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
         Me.LabFile.Location = New System.Drawing.Point(13, 114)
         Me.LabFile.Name = "LabFile"
-        Me.LabFile.Size = New System.Drawing.Size(137, 23)
+        Me.LabFile.Size = New System.Drawing.Size(138, 21)
         Me.LabFile.TabIndex = 1
         Me.LabFile.Text = "（尚未选择文件）"
         '
@@ -71,10 +75,12 @@ Partial Class 文件图标提取
         '
         'LabSize
         '
+        Me.LabSize.AutoSize = True
+        Me.LabSize.ForeColor = System.Drawing.Color.FromArgb(CType(CType(160, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(149, Byte), Integer))
         Me.LabSize.Location = New System.Drawing.Point(211, 236)
         Me.LabSize.LowLight = True
         Me.LabSize.Name = "LabSize"
-        Me.LabSize.Size = New System.Drawing.Size(87, 23)
+        Me.LabSize.Size = New System.Drawing.Size(90, 21)
         Me.LabSize.TabIndex = 5
         Me.LabSize.Text = "（空图标）"
         '
@@ -82,7 +88,7 @@ Partial Class 文件图标提取
         '
         Me.AllowDrop = True
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(503, 346)
+        Me.ClientSize = New System.Drawing.Size(458, 346)
         Me.Controls.Add(Me.LabSize)
         Me.Controls.Add(Me.ButSavePNG)
         Me.Controls.Add(Me.ButSaveIco)
@@ -94,6 +100,7 @@ Partial Class 文件图标提取
         Me.ShowSteamIcon = False
         Me.Text = "文件图标提取"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 

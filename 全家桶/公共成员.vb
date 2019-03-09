@@ -17,6 +17,9 @@
         For Each i As Form In My.Application.OpenForms
             i.Close()
         Next
+        For Each i As 工具 In 工具列表
+            i.清除()
+        Next
         消息图标.Visible = False
         消息图标.Dispose()
         缓存文件夹保护文件.Close()
@@ -93,8 +96,8 @@
             With 窗体
                 .Show()
                 If 主窗体.Visible Then
-                    .Left = 主窗体.Left
-                    .Top = 主窗体.Top
+                    .Left = 主窗体.Left + 主窗体.Width / 2 - .Width / 2
+                    .Top = 主窗体.Top + 主窗体.Height / 2 - .Height / 2
                 Else
                     .Left = (系统信息.屏幕分辨率.Width - .Width) / 2
                     .Top = (系统信息.屏幕分辨率.Height - .Height) / 2

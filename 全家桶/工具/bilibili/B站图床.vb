@@ -22,7 +22,7 @@
     End Sub
 
     Private Sub B站图床_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        释放bp()
+        清理()
         配置.真假("bilibili_autocopy") = CheckAutoCopy.Checked
     End Sub
 
@@ -65,7 +65,8 @@
         TxtOut.SelectAll()
     End Sub
 
-    Private Sub 释放bp()
+    Private Sub 清理()
+        PicView.Image = Nothing
         If 非空(bp) Then bp.Dispose()
         bp = Nothing
     End Sub
@@ -76,8 +77,7 @@
     End Sub
 
     Private Sub Upload(m As Byte())
-        释放bp()
-        PicView.Image = Nothing
+        清理()
         LastUpload = Nothing
         LabInfo.Text = ""
         TxtOut.Text = ""
@@ -95,12 +95,15 @@
             Exit Sub
         End If
         Dim gif As String = 缓存文件夹 + "bg.gif"
-        If 获取帧数(bp) > 1 Then
+        Dim s As String = "图片长宽：" & bp.Width & "x" & bp.Height & vbCrLf & "文件大小：" & 文件大小文字(m.Length)
+        Dim fp As Integer = 获取帧数(bp)
+        If fp > 1 Then
             写字节数组到文件(gif, m)
             bp = Image.FromFile(gif)
+            s += vbCrLf + "帧数：" + fp.ToString
         End If
         PicView.Image = bp
-        LabInfo.Text = "图片长宽：" & bp.Width & "x" & bp.Height & vbCrLf & "文件大小：" & 文件大小文字(m.Length)
+        LabInfo.Text = s
         LastUpload = m
         Dim h As New 发送HTTP("https://api.vc.bilibili.com/api/v1/image/upload", "POST")
         h.Accept = ""
@@ -108,7 +111,7 @@
         r.写入字节数组("file_up", 随机.小写英文字母 + ".png", "image/jpeg", m)
         r.写入参数("category", "daily")
         h.写入multipartformdata(r)
-        Dim s As String = h.获取回应为字符串(,, True)
+        s = h.获取回应为字符串(,, True)
         If s.StartsWith("{code:0,message:success,data:{image_url:") Then
             s = 提取之间(s, "image_url:", ",image_width:").Replace("http:", "https:")
             If CheckAutoCopy.Checked Then 剪贴板.文本 = s

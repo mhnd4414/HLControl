@@ -39,7 +39,7 @@ Partial Class B站图床
         Me.PicView.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicView.Location = New System.Drawing.Point(10, 50)
         Me.PicView.Name = "PicView"
-        Me.PicView.Size = New System.Drawing.Size(527, 150)
+        Me.PicView.Size = New System.Drawing.Size(533, 150)
         Me.PicView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PicView.TabIndex = 0
         Me.PicView.TabStop = False
@@ -65,7 +65,7 @@ Partial Class B站图床
         Me.TxtOut.SelectedText = ""
         Me.TxtOut.SelectionLength = 0
         Me.TxtOut.SelectionStart = 0
-        Me.TxtOut.Size = New System.Drawing.Size(527, 28)
+        Me.TxtOut.Size = New System.Drawing.Size(533, 28)
         Me.TxtOut.TabIndex = 2
         '
         'ButCopyLink
@@ -96,11 +96,10 @@ Partial Class B站图床
         '
         Me.LabNote.AutoSize = True
         Me.LabNote.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
-        Me.LabNote.Location = New System.Drawing.Point(218, 271)
+        Me.LabNote.Location = New System.Drawing.Point(215, 268)
         Me.LabNote.Name = "LabNote"
-        Me.LabNote.Size = New System.Drawing.Size(246, 21)
+        Me.LabNote.Size = New System.Drawing.Size(0, 21)
         Me.LabNote.TabIndex = 7
-        Me.LabNote.Text = "（支持小于8MB的 jpg png gif）"
         '
         'ButUploadLocal
         '
@@ -114,7 +113,7 @@ Partial Class B站图床
         '
         Me.LabInfo.AutoSize = True
         Me.LabInfo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
-        Me.LabInfo.Location = New System.Drawing.Point(218, 302)
+        Me.LabInfo.Location = New System.Drawing.Point(215, 271)
         Me.LabInfo.Name = "LabInfo"
         Me.LabInfo.Size = New System.Drawing.Size(138, 21)
         Me.LabInfo.TabIndex = 9
@@ -124,7 +123,7 @@ Partial Class B站图床
         '
         Me.AllowDrop = True
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(547, 361)
+        Me.ClientSize = New System.Drawing.Size(553, 363)
         Me.Controls.Add(Me.LabInfo)
         Me.Controls.Add(Me.ButUploadLocal)
         Me.Controls.Add(Me.LabNote)
@@ -137,7 +136,7 @@ Partial Class B站图床
         Me.KeyPreview = True
         Me.Name = "B站图床"
         Me.ShowSteamIcon = False
-        Me.Text = "B站图床"
+        Me.Text = "B站图床（支持小于8MB的 jpg png gif）"
         CType(Me.PicView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

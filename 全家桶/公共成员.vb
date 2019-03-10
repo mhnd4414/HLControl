@@ -20,12 +20,12 @@
         For Each i As 工具 In 工具列表
             i.清除()
         Next
+        配置.保存到本地()
         消息图标.Visible = False
         消息图标.Dispose()
         缓存文件夹保护文件.Close()
         缓存文件夹保护文件.Dispose()
         删除文件(缓存文件夹)
-        配置.保存到本地()
         本程序.退出()
     End Sub
 

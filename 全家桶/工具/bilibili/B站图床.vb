@@ -1,6 +1,6 @@
 ﻿Public Class B站图床
 
-    Private LastUpload As Byte()
+    Private LastUpload As Byte(), bp As Bitmap
 
     Private Sub B站图床_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         配置.绑定控件(CheckAutoCopy, 控件值类型.Checked)
@@ -22,6 +22,7 @@
     End Sub
 
     Private Sub B站图床_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        释放bp()
         配置.真假("bilibili_autocopy") = CheckAutoCopy.Checked
     End Sub
 
@@ -42,7 +43,7 @@
         End If
     End Sub
 
-    Private Sub ButResize_Click(sender As Object, e As EventArgs) Handles ButResize.Click
+    Private Sub ButResize_Click(sender As Object, e As EventArgs)
         If 非空(LastUpload) Then
             Dim m As Bitmap = 字节数组转图片(LastUpload)
             Dim x As Integer = m.Width
@@ -64,9 +65,21 @@
         TxtOut.SelectAll()
     End Sub
 
+    Private Sub 释放bp()
+        If 非空(bp) Then bp.Dispose()
+        bp = Nothing
+    End Sub
+
+    Private Sub ButUploadLocal_Click(sender As Object, e As EventArgs) Handles ButUploadLocal.Click
+        Dim m As String = 系统文件对话框.打开文件("Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*")
+        If m.Length > 3 Then Upload(读文件为字节数组(m))
+    End Sub
+
     Private Sub Upload(m As Byte())
+        释放bp()
         PicView.Image = Nothing
         LastUpload = Nothing
+        LabInfo.Text = ""
         TxtOut.Text = ""
         If 为空(m) Then
             TxtOut.Text = "图片为空？"
@@ -76,21 +89,23 @@
             TxtOut.Text = "图片文件过大！"
             Exit Sub
         End If
-        Dim bp As Bitmap = 字节数组转图片(m)
+        bp = 字节数组转图片(m)
         If 为空(bp) Then
             TxtOut.Text = "图片有误"
             Exit Sub
         End If
-        Dim fm As String = 获取自动图片格式后缀(bp)
-        If fm <> "gif" Then
-            PicView.Image = bp
+        Dim gif As String = 缓存文件夹 + "bg.gif"
+        If 获取帧数(bp) > 1 Then
+            写字节数组到文件(gif, m)
+            bp = Image.FromFile(gif)
         End If
+        PicView.Image = bp
+        LabInfo.Text = "图片长宽：" & bp.Width & "x" & bp.Height & vbCrLf & "文件大小：" & 文件大小文字(m.Length)
         LastUpload = m
         Dim h As New 发送HTTP("https://api.vc.bilibili.com/api/v1/image/upload", "POST")
-        h.UA = ""
+        h.Accept = ""
         Dim r As New 生成multipartformdata
-        r.写入字节数组("file_up", 随机.小写英文字母 + "." + fm, "image/jpeg", m)
-        r.写入参数("biz", "draw")
+        r.写入字节数组("file_up", 随机.小写英文字母 + ".png", "image/jpeg", m)
         r.写入参数("category", "daily")
         h.写入multipartformdata(r)
         Dim s As String = h.获取回应为字符串(,, True)

@@ -38,7 +38,7 @@
                 Me.链接 = 链接
                 Me.方法 = 方法
                 UA = 常用UserAgent.iPhone
-                Accept = "text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8"
+                Accept = ""
                 Content_Type = "application/x-www-form-urlencoded; charset=UTF-8"
                 Cookie = ""
                 Origin = ""
@@ -57,7 +57,7 @@
 
             ''' <summary>
             ''' Accept 请求头用来告知客户端可以处理的内容类型
-            ''' 默认为 text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8
+            ''' 默认为空
             ''' </summary>
             Public Property Accept As String
 
@@ -327,7 +327,7 @@
                 If 自定义分隔符.Length > 0 Then
                     分隔符 = 自定义分隔符
                 Else
-                    分隔符 = "---------------" + 随机.当中字符(小写英文字母, 10)
+                    分隔符 = "--------WebKitFormBoundary" + 随机.当中字符(小写英文字母, 10)
                 End If
                 If 为空(自定义编码) Then
                     ec = 无BOM的UTF8编码()

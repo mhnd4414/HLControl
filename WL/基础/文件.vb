@@ -42,7 +42,7 @@
         ''' <summary>
         ''' 如果是文件夹就返回上层路径，如果是文件就返回路径
         ''' </summary>
-        Public Function 路径(文件 As String) As String
+        Public Function 文件路径(文件 As String) As String
             If 文件.Length > 2 Then
                 If 文件.EndsWith("\") Then 文件 = 去右(文件, 1)
                 Return 路径标准化(Regex.Match(文件, "(\S|\s)+\\").ToString)
@@ -56,7 +56,7 @@
         Public Function 文件名(文件 As String, Optional 包含后缀 As Boolean = True) As String
             If 文件.Length > 2 Then
                 If 文件.EndsWith("\") Then 文件 = 去右(文件, 1)
-                文件 = 去除(文件, 路径(文件)).Trim
+                文件 = 去除(文件, 文件路径(文件)).Trim
                 If 包含后缀 = False AndAlso 文件.Length > 0 Then
                     文件 = Regex.Match(文件, ".*?\.").ToString
                     If 文件.EndsWith(".") Then 文件 = 去右(文件, 1)
@@ -72,8 +72,8 @@
         Public Function 文件后缀(文件 As String) As String
             If 文件.Length > 2 Then
                 If 文件.EndsWith("\") Then 文件 = 去右(文件, 1)
-                文件 = 去除(文件, 路径(文件)).Trim
-                If 文件.Length > 2 Then Return Regex.Match(去除(文件, 路径(文件)).Trim, "\.[\S]+").ToString.ToLower
+                文件 = 去除(文件, 文件路径(文件)).Trim
+                If 文件.Length > 2 Then Return Regex.Match(去除(文件, 文件路径(文件)).Trim, "\.[\S]+").ToString.ToLower
             End If
             Return ""
         End Function
@@ -114,6 +114,29 @@
         ''' </summary>
         Public Function 文件大小MB(文件 As String) As Single
             Return 文件大小Byte(文件) / 1024 / 1024
+        End Function
+
+        ''' <summary>
+        ''' 读取文件大小，并自动选择合适的单位返回一个字符串，只保留整数
+        ''' </summary>
+        Public Function 文件大小文字(文件 As String) As String
+            Return 文件大小文字(文件大小Byte(文件))
+        End Function
+
+        ''' <summary>
+        ''' 根据long值，单位应该为B，自动选择合适的单位返回一个字符串，只保留整数
+        ''' </summary>
+        Public Function 文件大小文字(大小 As Long) As String
+            Select Case 大小
+                Case < 1024
+                    Return 大小 & "B"
+                Case < 1024 * 1024
+                    Return Int(大小 / 1024) & "KB"
+                Case < 1024 * 1024 * 1024
+                    Return Int(大小 / 1024 / 1024) & "MB"
+                Case Else
+                    Return Int(大小 / 1024 / 1024 / 1024) & "GB"
+            End Select
         End Function
 
         ''' <summary>
@@ -160,23 +183,6 @@
         End Function
 
         ''' <summary>
-        ''' 把文件复制到目的地，返回是否复制成功
-        ''' </summary>
-        Public Function 复制文件(文件 As String, 目的文件 As String) As Boolean
-            If 文件存在(文件) AndAlso 创建文件夹(路径(目的文件)) Then
-                If 文件存在(目的文件) = False OrElse 删除文件(目的文件) Then
-                    Try
-                        File.Copy(文件, 目的文件, True)
-                        Return 文件大小Byte(目的文件) = 文件大小Byte(文件)
-                    Catch ex As Exception
-                        出错(ex)
-                    End Try
-                End If
-            End If
-            Return False
-        End Function
-
-        ''' <summary>
         ''' 尝试创建文件夹，返回文件夹是否已经成功存在
         ''' </summary>
         Public Function 创建文件夹(路径 As String) As Boolean
@@ -194,7 +200,7 @@
         ''' 删除文件，然后重新写入对应的字节数组，返回是否写入成功
         ''' </summary>
         Public Function 写字节数组到文件(文件 As String, 字节数组() As Byte) As Boolean
-            If 删除文件(文件) AndAlso 创建文件夹(路径(文件)) Then
+            If 删除文件(文件) AndAlso 创建文件夹(文件路径(文件)) Then
                 Dim ok As Boolean = False
                 Try
                     Dim s As Stream = File.OpenWrite(文件)
@@ -224,16 +230,27 @@
         End Function
 
         ''' <summary>
-        ''' 生成临时文件名，会判断文件是否已经存在，如果填写格式后缀应该带点
+        ''' 复制文件到新文件夹并重命名，并返回是否复制成功
         ''' </summary>
-        Public Function 临时文件名(路径 As String, Optional 后缀 As String = "") As String
-            Dim m As String = ""
-            路径 = 路径标准化(路径)
-            Do While True
-                m = 路径 + 随机.西文(5) + 后缀
-                If 文件存在(m) = False Then Exit Do
-            Loop
-            Return m
+        Public Function 文件复制重命名(文件 As String, 新文件 As String) As Boolean
+            Dim 路径 As String = 文件路径(新文件)
+            If 文件存在(文件) = False OrElse 文件夹存在(路径) = False Then Return False
+            If 删除文件(新文件) Then
+                Try
+                    File.Copy(文件, 新文件, True)
+                    Return 文件大小Byte(新文件) = 文件大小Byte(文件)
+                Catch ex As Exception
+                    出错(ex)
+                End Try
+            End If
+            Return False
+        End Function
+
+        ''' <summary>
+        ''' 复制文件到新文件夹，并返回是否复制成功
+        ''' </summary>
+        Public Function 文件复制(文件 As String, 路径 As String) As Boolean
+            Return 文件复制重命名(文件, 路径 + 文件名(文件))
         End Function
 
     End Module

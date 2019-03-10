@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Win7还剩几天
     Inherits WL.HLControl.HLForm
 
     'Form 重写 Dispose，以清理组件列表。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Win7还剩几天
     '注意: 以下过程是 Windows 窗体设计器所必需的
     '可以使用 Windows 窗体设计器修改它。  
     '不要使用代码编辑器修改它。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ButRead = New WL.HLControl.HLButton()
@@ -38,10 +38,12 @@ Partial Class Win7还剩几天
         '
         'LabTime
         '
+        Me.LabTime.AutoSize = True
         Me.LabTime.Font = New System.Drawing.Font("微软雅黑", 25.0!)
+        Me.LabTime.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
         Me.LabTime.Location = New System.Drawing.Point(37, 90)
         Me.LabTime.Name = "LabTime"
-        Me.LabTime.Size = New System.Drawing.Size(423, 92)
+        Me.LabTime.Size = New System.Drawing.Size(428, 90)
         Me.LabTime.TabIndex = 1
         Me.LabTime.Text = "距离 Windows 7 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "被微软彻底放弃支持还剩：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
@@ -52,7 +54,7 @@ Partial Class Win7还剩几天
         'Win7还剩几天
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(684, 282)
+        Me.ClientSize = New System.Drawing.Size(770, 369)
         Me.Controls.Add(Me.LabTime)
         Me.Controls.Add(Me.ButRead)
         Me.KeyPreview = True
@@ -60,6 +62,7 @@ Partial Class Win7还剩几天
         Me.ShowSteamIcon = False
         Me.Text = "对 Windows 7 的支持即将终止"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 

@@ -64,6 +64,7 @@
                     .ShowInTaskbar = True
                 End If
                 .ShowSteamIcon = False
+                .KeyPreview = True
                 AddHandler .FormClosing, Sub(sender As HLForm, e As FormClosingEventArgs)
                                              If 开始清除 Then
                                                  Exit Sub

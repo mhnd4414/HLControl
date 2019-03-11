@@ -10,7 +10,7 @@
         ''' </summary>
         Public Class WSave
 
-            Private En As 走過去加密
+            Private En As 走過去加密, key As String = "戈登走過去只是个平凡的人"
             Private Di As Dictionary(Of String, String)
 
             ''' <summary>
@@ -22,13 +22,21 @@
             ''' 新建一个WSave配置文件类
             ''' </summary>
             Public Sub New(Optional 本地文件 As String = "")
-                En = New 走過去加密("戈登走過去只是个平凡的人")
+                En = New 走過去加密(key)
                 Di = New Dictionary(Of String, String)
                 If 本地文件.Length > 4 Then
                     Me.本地文件 = 本地文件
                     从文件读取()
                 End If
             End Sub
+
+            ''' <summary>
+            ''' 测试该外部密钥是否和内部密钥一样
+            ''' </summary>
+            Public Function 密钥冲突(测试 As String) As Boolean
+                Dim m As New 走過去加密(测试)
+                Return m.密钥.Contains(En.密钥) OrElse En.密钥.StartsWith(m.密钥) OrElse En.密钥.EndsWith(m.密钥)
+            End Function
 
             ''' <summary>
             ''' 清空，并从本地读取文件

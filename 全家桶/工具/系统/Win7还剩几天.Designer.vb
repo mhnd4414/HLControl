@@ -54,7 +54,7 @@ Partial Class Win7还剩几天
         'Win7还剩几天
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(770, 369)
+        Me.ClientSize = New System.Drawing.Size(640, 304)
         Me.Controls.Add(Me.LabTime)
         Me.Controls.Add(Me.ButRead)
         Me.KeyPreview = True

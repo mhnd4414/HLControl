@@ -17,4 +17,8 @@
         TxtOut.Text = M.解密为字符串(TxtIn.Text)
     End Sub
 
+    Private Sub TxtKey_TextChanged(sender As Object, e As EventArgs) Handles TxtKey.TextChanged
+        If 配置.密钥冲突(TxtKey.Text) Then TxtKey.Text = ""
+    End Sub
+
 End Class

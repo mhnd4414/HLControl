@@ -34,9 +34,11 @@ Partial Class 简单加密器
         '
         'LabKey
         '
+        Me.LabKey.AutoSize = True
+        Me.LabKey.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
         Me.LabKey.Location = New System.Drawing.Point(13, 48)
         Me.LabKey.Name = "LabKey"
-        Me.LabKey.Size = New System.Drawing.Size(87, 23)
+        Me.LabKey.Size = New System.Drawing.Size(90, 21)
         Me.LabKey.TabIndex = 0
         Me.LabKey.Text = "你的密钥："
         '
@@ -72,17 +74,21 @@ Partial Class 简单加密器
         '
         'LabIN
         '
+        Me.LabIN.AutoSize = True
+        Me.LabIN.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
         Me.LabIN.Location = New System.Drawing.Point(44, 82)
         Me.LabIN.Name = "LabIN"
-        Me.LabIN.Size = New System.Drawing.Size(54, 23)
+        Me.LabIN.Size = New System.Drawing.Size(58, 21)
         Me.LabIN.TabIndex = 3
         Me.LabIN.Text = "输入："
         '
         'LabOut
         '
+        Me.LabOut.AutoSize = True
+        Me.LabOut.ForeColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(211, Byte), Integer))
         Me.LabOut.Location = New System.Drawing.Point(44, 237)
         Me.LabOut.Name = "LabOut"
-        Me.LabOut.Size = New System.Drawing.Size(54, 23)
+        Me.LabOut.Size = New System.Drawing.Size(58, 21)
         Me.LabOut.TabIndex = 4
         Me.LabOut.Text = "输出："
         '
@@ -135,6 +141,7 @@ Partial Class 简单加密器
         Me.ShowSteamIcon = False
         Me.Text = "走過去的简单加密器"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 

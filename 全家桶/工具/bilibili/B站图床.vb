@@ -107,6 +107,7 @@
         LastUpload = m
         Dim h As New 发送HTTP("https://api.vc.bilibili.com/api/v1/image/upload", "POST")
         h.Accept = ""
+        h.超时 = 5
         Dim r As New 生成multipartformdata
         r.写入字节数组("file_up", 随机.小写英文字母 + ".png", "image/jpeg", m)
         r.写入参数("category", "daily")
@@ -122,6 +123,12 @@
             End If
         End If
         TxtOut.Text += s
+    End Sub
+
+    Private Sub B站图床_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        If e.Control AndAlso e.KeyCode = Keys.V Then
+            ButUploadClipboard.PerformClick()
+        End If
     End Sub
 
 End Class

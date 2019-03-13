@@ -27,6 +27,7 @@
         添加工具(a, Win7还剩几天, My.Resources.图标库.win7)
         a = "走過去的"
         添加工具(a, 简单加密器, My.Resources.图标库.贼)
+        添加工具(a, 博客系统, My.Resources.图标库.博客)
         ListTools.SortAll()
         For i As Integer = 0 To 4
             Dim g As New ToolStripMenuItem()

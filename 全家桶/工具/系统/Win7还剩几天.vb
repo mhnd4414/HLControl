@@ -17,4 +17,8 @@ Windows 7 已经发售了：" + DateDiff(DateInterval.Day, #2009-07-22#, Now).To
         End If
     End Sub
 
+    Private Sub ButLTT_Click(sender As Object, e As EventArgs) Handles ButLTT.Click
+        打开程序("https://www.bilibili.com/video/av46121490")
+    End Sub
+
 End Class

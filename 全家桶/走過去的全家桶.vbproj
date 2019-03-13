@@ -135,6 +135,12 @@
     <Compile Include="工具\bilibili\B站图床.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="工具\戈登登\博客系统.Designer.vb">
+      <DependentUpon>博客系统.vb</DependentUpon>
+    </Compile>
+    <Compile Include="工具\戈登登\博客系统.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="工具\戈登登\简单加密器.Designer.vb">
       <DependentUpon>简单加密器.vb</DependentUpon>
     </Compile>
@@ -186,6 +192,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="工具\戈登登\博客系统.resx">
+      <DependentUpon>博客系统.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="工具\生活\保护视力的20分钟提醒器.resx">
       <DependentUpon>保护视力的20分钟提醒器.vb</DependentUpon>
@@ -251,6 +260,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="资源\图标\20.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="资源\图标\博客.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

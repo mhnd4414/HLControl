@@ -26,15 +26,16 @@ Partial Class Win7还剩几天
         Me.ButRead = New WL.HLControl.HLButton()
         Me.LabTime = New WL.HLControl.HLLabel()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ButLTT = New WL.HLControl.HLButton()
         Me.SuspendLayout()
         '
         'ButRead
         '
         Me.ButRead.Location = New System.Drawing.Point(37, 53)
         Me.ButRead.Name = "ButRead"
-        Me.ButRead.Size = New System.Drawing.Size(290, 31)
+        Me.ButRead.Size = New System.Drawing.Size(215, 31)
         Me.ButRead.TabIndex = 0
-        Me.ButRead.Text = "点我阅读微软官方说明"
+        Me.ButRead.Text = "阅读微软官方说明"
         '
         'LabTime
         '
@@ -51,10 +52,19 @@ Partial Class Win7还剩几天
         '
         Me.Timer1.Interval = 5000
         '
+        'ButLTT
+        '
+        Me.ButLTT.Location = New System.Drawing.Point(258, 53)
+        Me.ButLTT.Name = "ButLTT"
+        Me.ButLTT.Size = New System.Drawing.Size(215, 31)
+        Me.ButLTT.TabIndex = 2
+        Me.ButLTT.Text = "观看LTT的介绍视频"
+        '
         'Win7还剩几天
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(640, 304)
+        Me.Controls.Add(Me.ButLTT)
         Me.Controls.Add(Me.LabTime)
         Me.Controls.Add(Me.ButRead)
         Me.KeyPreview = True
@@ -69,4 +79,5 @@ Partial Class Win7还剩几天
     Friend WithEvents ButRead As HLButton
     Friend WithEvents LabTime As HLLabel
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents ButLTT As HLButton
 End Class

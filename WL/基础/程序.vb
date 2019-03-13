@@ -162,6 +162,8 @@ Namespace 基础
                                 n += 0.1
                                 If 超时 > 0 AndAlso n > 超时 Then p.Kill()
                             Loop
+                        Else
+                            p.Dispose()
                         End If
                     Catch ex As Exception
                         出错(ex)

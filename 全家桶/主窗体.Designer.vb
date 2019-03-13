@@ -51,23 +51,23 @@ Partial Class 主窗体
         Me.NotifMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator1, Me.打开主页ToolStripMenuItem, Me.退出ToolStripMenuItem})
         Me.NotifMenu.Name = "NotifMenu"
         Me.NotifMenu.ShowImageMargin = False
-        Me.NotifMenu.Size = New System.Drawing.Size(156, 84)
+        Me.NotifMenu.Size = New System.Drawing.Size(120, 62)
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(152, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(116, 6)
         '
         '打开主页ToolStripMenuItem
         '
         Me.打开主页ToolStripMenuItem.Name = "打开主页ToolStripMenuItem"
-        Me.打开主页ToolStripMenuItem.Size = New System.Drawing.Size(155, 26)
+        Me.打开主页ToolStripMenuItem.Size = New System.Drawing.Size(119, 26)
         Me.打开主页ToolStripMenuItem.Text = "打开主页"
         '
         '退出ToolStripMenuItem
         '
         Me.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem"
-        Me.退出ToolStripMenuItem.Size = New System.Drawing.Size(155, 26)
+        Me.退出ToolStripMenuItem.Size = New System.Drawing.Size(119, 26)
         Me.退出ToolStripMenuItem.Text = "退出"
         '
         'LabFun

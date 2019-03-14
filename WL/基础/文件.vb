@@ -234,7 +234,7 @@
         ''' </summary>
         Public Function 文件复制重命名(文件 As String, 新文件 As String) As Boolean
             Dim 路径 As String = 文件路径(新文件)
-            If 文件存在(文件) = False OrElse 文件夹存在(路径) = False Then Return False
+            If 文件存在(文件) = False OrElse 创建文件夹(路径) = False Then Return False
             If 删除文件(新文件) Then
                 Try
                     File.Copy(文件, 新文件, True)

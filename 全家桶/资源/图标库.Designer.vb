@@ -97,6 +97,16 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
+        Friend Shared ReadOnly Property IE() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("IE", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
         Friend Shared ReadOnly Property win7() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("win7", resourceCulture)
@@ -110,16 +120,6 @@ Namespace My.Resources
         Friend Shared ReadOnly Property 主图标() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("主图标", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Friend Shared ReadOnly Property 博客() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("博客", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property

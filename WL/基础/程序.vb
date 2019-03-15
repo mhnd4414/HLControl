@@ -138,7 +138,7 @@ Namespace 基础
                 出错("打开程序，文件名不对", 文件)
                 Exit Sub
             End If
-            If 头(文件.ToLower, "https://", "http://") Then
+            If 文件夹存在(文件) OrElse 头(文件.ToLower, "https://", "http://") Then
                 Try
                     Process.Start(文件)
                 Catch ex As Exception

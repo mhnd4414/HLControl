@@ -10,6 +10,7 @@
             DoubleBuffered = True
             列表 = New HLListBox
             Controls.Add(列表)
+            NoAllowNoSelectedItem = True
             With 列表
                 .Visible = False
                 .Top = 0
@@ -27,6 +28,9 @@
         End Sub
 
         Public Property HighLightLabel As HLLabel
+
+        <DefaultValue(True)>
+        Public Property NoAllowNoSelectedItem As Boolean
 
         <DefaultValue(1)>
         Public Property SmallChange As Integer
@@ -60,6 +64,7 @@
                 If 非空(HighLightLabel) Then
                     HighLightLabel.HighLight = True
                 End If
+                .BringToFront()
                 BringToFront()
             End With
             Invalidate()

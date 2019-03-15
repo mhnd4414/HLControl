@@ -22,12 +22,12 @@
         添加工具(a, 中小学生学习水平估测, My.Resources.图标库.文)
         添加工具(a, 每月提醒我, My.Resources.图标库.历, 配置.非空("日历列表"))
         添加工具(a, 保护视力的20分钟提醒器, My.Resources.图标库._20, 配置.非空(配置.生成控件读取(保护视力的20分钟提醒器.CheckOn)))
-        添加工具(a, 跑我的网页脚本, My.Resources.图标库.IE)
         a = "系统"
         添加工具(a, 文件图标提取, My.Resources.图标库.ICO)
         添加工具(a, Win7还剩几天, My.Resources.图标库.win7)
         a = "走過去的"
         添加工具(a, 简单加密器, My.Resources.图标库.贼)
+        添加工具(a, 博客系统, My.Resources.图标库.博客)
         ListTools.SortAll()
         For i As Integer = 0 To 4
             Dim g As New ToolStripMenuItem()

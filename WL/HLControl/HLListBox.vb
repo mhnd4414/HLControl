@@ -14,6 +14,7 @@
             滚动条 = New HLVScrollBar
             最高栏 = 0
             选中 = -1
+            NoAllowNoSelectedItem = True
             With 滚动条
                 .Width = 25 * DPI
                 .Height = Height
@@ -42,6 +43,7 @@
                 h = Int(h / 行高) + 最高栏
                 Dim old As Integer = 选中
                 选中 = IIf(h < 物品.Count, h, -1)
+                HandleDontAllow()
                 If old <> 选中 Then
                     RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(old, 选中))
                     Invalidate()
@@ -66,7 +68,8 @@
                 If 选中 <> v Then
                     Dim old As Integer = 选中
                     选中 = v
-                    滚动条.Value = v
+                    HandleDontAllow()
+                    滚动条.Value = 选中
                     RaiseEvent SelectedIndexChanged(Me, New HLValueEventArgs(old, 选中))
                     Invalidate()
                 End If
@@ -114,6 +117,9 @@
             End Set
         End Property
 
+        <DefaultValue(True)>
+        Public Property NoAllowNoSelectedItem As Boolean
+
         Public Function FullHeight() As Integer
             行高 = Font.GetHeight + 3 * DPI
             Return 行高 * 物品.Count + 边缘
@@ -146,6 +152,12 @@
                     y += 行高
                 Next
             End With
+        End Sub
+
+        Private Sub HandleDontAllow()
+            If NoAllowNoSelectedItem AndAlso 选中 < 0 AndAlso Items.Count > 0 Then
+                选中 = 0
+            End If
         End Sub
 
     End Class

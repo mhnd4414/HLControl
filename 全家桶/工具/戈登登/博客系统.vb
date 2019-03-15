@@ -55,7 +55,14 @@ pause")
         Dim md As String = posts + Year(Now).ToString + "\" + TxtCreate.Text + ".md"
         If 文件存在(md) Then
             MsgBox("抱歉，文件已经存在！" + vbCrLf + md, MsgBoxStyle.Critical)
+            Exit Sub
         End If
+        TxtCreate.Text = ""
+        写文本到文件(md, "---
+title: 标题
+date: " + 时间格式化(Today, "Y-M-D") + "
+---
+这里是文章内容。")
     End Sub
 
 End Class

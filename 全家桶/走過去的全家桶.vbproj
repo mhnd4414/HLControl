@@ -177,6 +177,11 @@
     <Compile Include="工具\系统\文件图标提取.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="资源\博客系统资源.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>博客系统资源.resx</DependentUpon>
+    </Compile>
     <Compile Include="资源\图标库.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,6 +203,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="工具\生活\保护视力的20分钟提醒器.resx">
       <DependentUpon>保护视力的20分钟提醒器.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="资源\博客系统资源.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>博客系统资源.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="资源\图标库.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>

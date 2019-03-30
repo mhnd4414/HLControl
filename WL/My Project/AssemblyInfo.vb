@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("走過去的 .NET 自用类库")>
+<Assembly: AssemblyTitle("走過去的 .NET 自用类库（已弃用）")>
 <Assembly: AssemblyDescription("Walkedby's .NET Library")>
 <Assembly: AssemblyCompany("Gordon Walkedby")>
 <Assembly: AssemblyProduct("Walkedby's .NET Library")>

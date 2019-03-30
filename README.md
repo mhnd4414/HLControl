@@ -11,3 +11,4 @@ If you use it not for commercial purposes, follow [GPL-3.0](https://github.com/g
 If you're looking for Half Life Style Controls, please [go here](https://github.com/gordonwalkedby/Walkedbys_Library/blob/master/WL/HLControl/README.md).  
 
 -----
+# [download the last version here](https://github.com/gordonwalkedby/HLControl/releases)
